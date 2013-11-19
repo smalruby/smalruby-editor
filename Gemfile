@@ -43,3 +43,12 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+group :development, :test do
+  gem 'rubocop'
+  gem 'rspec-rails'
+end
+
+group :test do
+  gem 'shoulda-matchers'
+end
