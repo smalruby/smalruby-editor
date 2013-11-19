@@ -4,11 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.1'
 
 # Use mysql as the database for Active Record
-if RUBY_PLATFORM == "i386-mingw32"
-  gem 'mysql2', "0.3.11"
-else
-  gem 'mysql2'
-end
+gem 'mysql2'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
