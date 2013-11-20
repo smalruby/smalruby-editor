@@ -53,4 +53,5 @@ group :test do
   gem 'shoulda-matchers'
 end
 
-gem 'ace-rails-ap'
+gem 'ace-rails-ap', github: 'dedico/ace-rails-ap'
+

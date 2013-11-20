@@ -1,7 +1,12 @@
+GIT
+  remote: git://github.com/dedico/ace-rails-ap.git
+  revision: 7c42a42161d126b5271bfde813129219e997a879
+  specs:
+    ace-rails-ap (2.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
-    ace-rails-ap (2.0.0)
     actionmailer (4.0.1)
       actionpack (= 4.0.1)
       mail (~> 2.5.4)
@@ -134,7 +139,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  ace-rails-ap
+  ace-rails-ap!
   coffee-rails (~> 4.0.0)
   jbuilder (~> 1.2)
   jquery-rails
