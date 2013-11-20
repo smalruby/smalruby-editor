@@ -1,0 +1,14 @@
+language: ruby
+
+rvm:
+  - 2.0.0
+
+before_script:
+  - cp config/database.yml.travis config/database.yml
+  - mysql -e 'create database myapp_test;'
+
+script:
+  - export SECRET_KEY_BASE='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rake
