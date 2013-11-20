@@ -51,7 +51,10 @@ end
 
 group :test do
   gem 'shoulda-matchers'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'poltergeist'
+  gem 'turnip'
 end
 
 gem 'ace-rails-ap', github: 'dedico/ace-rails-ap'
-

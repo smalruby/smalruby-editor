@@ -3,10 +3,17 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'capybara/dsl'
+require 'capybara/rspec'
+require 'capybara/poltergeist'
+require 'turnip'
+require 'turnip/capybara'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+
+Dir.glob("spec/steps/**/*steps.rb") { |f| load f, true }
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -39,4 +46,22 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+
+  case (ENV['TARGET_WEB_BROWZER'] || ENV['TWB']).try(:downcase)
+  when 'firefox'
+    Capybara.javascript_driver = :selenium
+  when 'ie'
+    Capybara.register_driver :selenium_ie do |app|
+      Capybara::Selenium::Driver.new(app, browser: :ie, introduce_flakiness_by_ignoring_security_domains: true)
+    end
+    Capybara.javascript_driver = :selenium_ie
+  when 'chrome'
+    Capybara.register_driver :selenium_chrome do |app|
+      Capybara::Selenium::Driver.new(app, browser: :chrome)
+    end
+    Capybara.javascript_driver = :selenium_chrome
+  else
+    Capybara.javascript_driver = :poltergeist
+  end
 end
