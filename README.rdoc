@@ -1,28 +1,37 @@
-== README
+== smalruby-editor
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+{<img src="https://travis-ci.org/smalruby/smalruby-editor.png?branch=master" alt="Build Status" />}[https://travis-ci.org/smalruby/smalruby-editor]
 
-Things you may want to cover:
+The smalruby-editor is an editor that can create a Ruby script by combining individual blocks similar to Scratch. It can also enter the program as better than Scratch.
 
-* Ruby version
+The smalruby-editor is a part of the Smalruby Project.
 
-* System dependencies
+The Smalruby(smɔ́ːrúːbi) Project will provide a Ruby learning environment for middle school students from the upper grades of elementary school. The goal of this project is to achieve software and community sites such as the {Scratch}[http://scratch.mit.edu/] in Ruby. The Scratch has experience as educational programming environment can be used in elementary school. This project consists of the following elements.
 
-* Configuration
+== Installation (for Developer)
 
-* Database creation
+requirements:
 
-* Database initialization
+* Windows or UNIX like OS (Mac OS X, Linux, etc...)
+* Ruby 2.0.0-p247 or higher.
+* MySQL
+* Git
 
-* How to run the test suite
+execute below commands.
 
-* Services (job queues, cache servers, search engines, etc.)
+  git clone https://github.com/smalruby/smalruby-editor.git
+  cd smalruby-editor
+  bundle
+  db:create:all
+  rake
+  rails server
 
-* Deployment instructions
+access <tt>localhost:3000</tt> with your web browser.
 
-* ...
+== Contributing
 
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+1. Fork it
+2. Create your feature branch (<tt>git checkout -b my-new-feature</tt>)
+3. Commit your changes (<tt>git commit -am 'Add some feature'</tt>)
+4. Push to the branch (<tt>git push origin my-new-feature</tt>)
+5. Create new Pull Request
