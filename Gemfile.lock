@@ -185,6 +185,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   mysql2
+  nokogiri
   poltergeist
   rails (= 4.0.1)
   rspec-rails
