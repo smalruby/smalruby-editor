@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-step 'トップページを表示する' do
+step 'トップページにアクセスする' do
   visit '/'
 end
 

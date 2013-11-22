@@ -1,14 +1,3 @@
-<style type="text/css" media="screen">
-  #editor {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    font-size: 16pt;
-  }
-</style>
-
 <div id="editor"># -*- coding: utf-8 -*-
 # 画面をクリックして隠れている車を1台探してみよう
 
@@ -67,14 +56,3 @@ car1.on(:click) do           # (車は) クリックしたとき
   end
 end
 </div>
-
-<script>
-  var editor = ace.edit("editor");
-  editor.setTheme("ace/theme/clouds");
-  editor.setShowInvisibles(true);
-
-  var session = editor.getSession();
-  session.setMode("ace/mode/ruby");
-  session.setTabSize(2);
-  session.setUseSoftTabs(true);
-</script>
