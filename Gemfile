@@ -45,6 +45,7 @@ end
 # gem 'debugger', group: [:development, :test]
 
 group :development, :test do
+  gem 'commands'
   gem 'rubocop'
   gem 'rspec-rails'
 end
