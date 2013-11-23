@@ -16,4 +16,5 @@
 //= require ace/ace
 //= require ace/theme-clouds.js
 //= require ace/mode-ruby.js
+//= require bootstrap.js
 //= require_tree .
