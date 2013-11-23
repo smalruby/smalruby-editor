@@ -1,4 +1,5 @@
 SmalrubyEditor::Application.routes.draw do
+  get "editor/save"
   root 'editor#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

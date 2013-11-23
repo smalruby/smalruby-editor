@@ -20,3 +20,10 @@ $ ->
     e.preventDefault()
     false
   )
+
+  $('#save-button').on('click', (e) ->
+    data =
+      filename: $('#filename').val()
+      source: session.getDocument().getValue()
+    location.href = '/editor/save?' + $.param(data);
+  )
