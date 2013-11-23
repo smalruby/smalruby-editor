@@ -59,3 +59,5 @@ group :test do
 end
 
 gem 'ace-rails-ap', github: 'dedico/ace-rails-ap'
+gem 'flatstrap-sass'
+gem 'font-awesome-rails'
