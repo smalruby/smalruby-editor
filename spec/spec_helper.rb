@@ -8,6 +8,7 @@ require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'turnip'
 require 'turnip/capybara'
+require 'simplecov' if ENV['COVERAGE'] || ENV['COVERALLS']
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

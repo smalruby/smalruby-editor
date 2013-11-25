@@ -63,6 +63,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'poltergeist'
   gem 'turnip'
+  gem 'coveralls', require: false
 end
 
 gem 'ace-rails-ap', github: 'dedico/ace-rails-ap'

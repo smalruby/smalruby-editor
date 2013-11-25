@@ -9,6 +9,7 @@ before_script:
 
 script:
   - export SECRET_KEY_BASE='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+  - export COVERALLS='1'
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare
   - bundle exec rake
