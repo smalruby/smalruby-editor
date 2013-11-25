@@ -63,3 +63,4 @@ end
 gem 'ace-rails-ap', github: 'dedico/ace-rails-ap'
 gem 'flatstrap-sass'
 gem 'font-awesome-rails'
+gem 'rails_12factor'
