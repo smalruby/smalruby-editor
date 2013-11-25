@@ -24,7 +24,8 @@ execute below commands.
   git clone https://github.com/smalruby/smalruby-editor.git
   cd smalruby-editor
   bundle
-  db:create:all
+  rake db:create
+  rake db:migrate
   rake
   rails server
 
