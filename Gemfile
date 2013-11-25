@@ -48,6 +48,7 @@ end
 
 group :production do
   gem 'rails_12factor'
+  gem 'unicorn', platforms: :ruby
 end
 
 group :development, :test do

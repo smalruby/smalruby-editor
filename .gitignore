@@ -19,3 +19,5 @@
 /public/assets/application-*
 /public/assets/application-*
 /public/assets/manifest-*.json
+
+/.env
