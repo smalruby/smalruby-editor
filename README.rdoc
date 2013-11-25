@@ -35,3 +35,7 @@ access <tt>localhost:3000</tt> with your web browser.
 3. Commit your changes (<tt>git commit -am 'Add some feature'</tt>)
 4. Push to the branch (<tt>git push origin my-new-feature</tt>)
 5. Create new Pull Request
+
+== License
+
+MIT (see link:LICENSE)
