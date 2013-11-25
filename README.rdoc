@@ -2,6 +2,7 @@
 
 {<img src="https://travis-ci.org/smalruby/smalruby-editor.png?branch=master" alt="Build Status" />}[https://travis-ci.org/smalruby/smalruby-editor]
 {<img src="https://coveralls.io/repos/smalruby/smalruby-editor/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/smalruby/smalruby-editor?branch=master]
+{<img src="https://codeclimate.com/github/smalruby/smalruby-editor.png" />}[https://codeclimate.com/github/smalruby/smalruby-editor]
 
 The smalruby-editor is an editor that can create a Ruby script by combining individual blocks similar to Scratch. It can also enter the program as better than Scratch.
 
