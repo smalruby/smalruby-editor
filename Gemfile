@@ -46,6 +46,10 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+group :production do
+  gem 'rails_12factor'
+end
+
 group :development, :test do
   gem 'commands'
   gem 'rubocop'
@@ -63,4 +67,3 @@ end
 gem 'ace-rails-ap', github: 'dedico/ace-rails-ap'
 gem 'flatstrap-sass'
 gem 'font-awesome-rails'
-gem 'rails_12factor'
