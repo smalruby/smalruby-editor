@@ -23,7 +23,7 @@ $ ->
   $('#save-button').click ->
     filename = $.trim($('#filename').val())
     if filename.length <= 0
-      $('filename').focus()
+      $('#filename').focus()
     else
       data =
         filename: filename

@@ -9,7 +9,7 @@ begin
     namespace :spec do
       desc "Run the code examples in spec/acceptance"
       RSpec::Core::RakeTask.new(:acceptance => 'db:test:prepare') do |t|
-        t.pattern = './spec/acceptance{,/*/**}*{_spec.rb,.feature}'
+        t.pattern = './spec/acceptance/{,/*/**}*{_spec.rb,.feature}'
       end
     end
   end

@@ -14,7 +14,7 @@ require 'simplecov' if ENV['COVERAGE'] || ENV['COVERALLS']
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
-Dir.glob("spec/steps/**/*steps.rb") { |f| load f, true }
+Dir.glob("spec/steps/**/*_steps.rb") { |f| load f, true }
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
