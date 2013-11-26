@@ -4,6 +4,14 @@ GIT
   specs:
     ace-rails-ap (2.0.0)
 
+GIT
+  remote: git://github.com/demiazz/jquery-fileupload-rails.git
+  revision: 9524ff75e42551ea84cf4aec6210640dddfc000d
+  specs:
+    jquery-fileupload-rails (0.4.1)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -80,6 +88,9 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
+    json_spec (1.1.1)
+      multi_json (~> 1.0)
+      rspec (~> 2.0)
     kgio (2.8.1)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -219,7 +230,9 @@ DEPENDENCIES
   flatstrap-sass
   font-awesome-rails
   jbuilder (~> 1.2)
+  jquery-fileupload-rails!
   jquery-rails
+  json_spec
   mysql2
   poltergeist
   rails (= 4.0.1)

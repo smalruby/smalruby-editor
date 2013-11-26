@@ -4,10 +4,12 @@
       <li class="active"><a id="ruby-tab" href="#">Ruby</a></li>
     </ul>
 
-    <form class="navbar-form pull-right">
+    <%= form_tag(editor_load_file_path, id: "file-form", class: "navbar-form pull-right", method: "post", multipart: true) do %>
       <input id="filename" type="text" class="span4" placeholder="プログラムの名前を入れてね（例：01.rb）">
       <button id="save-button" type="button" class="btn btn-primary">セーブ</button>
-    </form>
+      <a id="load-button" class="btn btn-primary">ロード</a>
+      <input type="file" name="load_file" style="display: none">
+    <% end %>
   </div>
 </div>
 

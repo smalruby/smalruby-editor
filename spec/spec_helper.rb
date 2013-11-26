@@ -65,4 +65,6 @@ RSpec.configure do |config|
   else
     Capybara.javascript_driver = :poltergeist
   end
+
+  config.include JsonSpec::Helpers
 end

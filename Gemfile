@@ -64,8 +64,10 @@ group :test do
   gem 'poltergeist'
   gem 'turnip'
   gem 'coveralls', require: false
+  gem 'json_spec'
 end
 
 gem 'ace-rails-ap', github: 'dedico/ace-rails-ap'
 gem 'flatstrap-sass'
 gem 'font-awesome-rails'
+gem 'jquery-fileupload-rails', github: 'demiazz/jquery-fileupload-rails'

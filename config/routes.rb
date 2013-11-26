@@ -1,6 +1,10 @@
+# -*- coding: utf-8 -*-
 SmalrubyEditor::Application.routes.draw do
-  get "editor/save"
   root 'editor#index'
+
+  # FIXME: POSTメソッドに変更する
+  get "editor/save_file"
+  post "editor/load_file"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

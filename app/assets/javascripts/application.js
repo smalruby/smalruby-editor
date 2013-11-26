@@ -17,4 +17,5 @@
 //= require ace/theme-clouds.js
 //= require ace/mode-ruby.js
 //= require bootstrap.js
+//= require jquery-fileupload/basic
 //= require_tree .
