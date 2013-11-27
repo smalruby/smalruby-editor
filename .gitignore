@@ -16,9 +16,9 @@
 /tmp
 
 /config/database.yml
-/public/assets/application-*
-/public/assets/application-*
-/public/assets/manifest-*.json
+
+/public/assets
 
 /.env
 /coverage
+/pkg

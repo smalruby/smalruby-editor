@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 
 ruby '2.0.0'
 
+# Specify your gem's dependencies in smalruby-editor.gemspec
+gemspec
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.1'
 
@@ -28,6 +31,14 @@ gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
+
+gem 'ace-rails-ap', github: 'dedico/ace-rails-ap'
+
+gem 'flatstrap-sass'
+
+gem 'font-awesome-rails'
+
+gem 'jquery-fileupload-rails', github: 'demiazz/jquery-fileupload-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -66,8 +77,3 @@ group :test do
   gem 'coveralls', require: false
   gem 'json_spec'
 end
-
-gem 'ace-rails-ap', github: 'dedico/ace-rails-ap'
-gem 'flatstrap-sass'
-gem 'font-awesome-rails'
-gem 'jquery-fileupload-rails', github: 'demiazz/jquery-fileupload-rails'
