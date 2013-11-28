@@ -14,7 +14,11 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/smalruby/smalruby-editor'
   spec.license       = 'MIT'
 
-  spec.files         = `git ls-files`.split($/) + Dir.glob('public/assets/**/*')
+  spec.files         = []
+  if File.exist?(File.expand_path('../.git', __FILE__))
+    spec.files       += `git ls-files`.split($/)
+  end
+  spec.files         += Dir.glob('public/assets/**/*')
   spec.default_executable = 'smalruby-editor'
   spec.executables   = ['smalruby-editor']
   spec.extra_rdoc_files = ["README.rdoc", "LICENSE"]
