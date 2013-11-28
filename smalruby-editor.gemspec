@@ -40,10 +40,11 @@ Gem::Specification.new do |spec|
      ['flatstrap-sass'],
      ['font-awesome-rails'],
      ['jquery-fileupload-rails'],
-     ['bundler', '~> 1.3'],
-     ['rake'],
     ]
   runtime_dependencies.each do |args|
     spec.add_runtime_dependency *args
   end
+
+  spec.add_development_dependency 'bundler', '~> 1.3'
+  spec.add_development_dependency 'rake'
 end
