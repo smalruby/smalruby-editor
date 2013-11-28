@@ -1,8 +1,11 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 
+require 'pathname'
+
 ENV['RAILS_ENV'] = 'standalone'
-ENV['SECRET_KEY_BASE'] = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+ENV['SECRET_KEY_BASE'] ||= 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+ENV['SMALRUBY_EDITOR_HOME'] ||= Pathname('~/.smalruby-editor').expand_path.to_s
 
 APP_PATH = File.expand_path('../../config/application',  __FILE__)
 require_relative '../config/boot'
@@ -11,45 +14,11 @@ lib = File.expand_path('../../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'smalruby_editor'
 
-home_dir = Pathname('~/.smalruby-editor').expand_path
-ENV['SMALRUBY_EDITOR_HOME'] = home_dir.to_s
-log_dir, db_dir, config_dir, tmp_dir = *%w(log db config tmp).map { |s|
-  home_dir.join(s)
-}.tap { |dir|
-  FileUtils.mkdir_p(dir)
-}
-
-database_yml_path = config_dir.join('database.yml')
-db_path = db_dir.join("#{ENV['RAILS_ENV']}.sqlite3").to_s
-if !File.exist?(database_yml_path)
-  File.open(database_yml_path, 'w') do |f|
-    f.write(<<-EOS)
-standalone:
-  adapter: sqlite3
-  database: #{db_path}
-  pool: 5
-  timeout: 5000
-    EOS
-  end
-end
-
-#Create required tmp directories if not found
-%w(cache pids sessions sockets).each do |dir_to_make|
-  FileUtils.mkdir_p(tmp_dir.join(dir_to_make))
-end
-
 Dir.chdir(File.expand_path('../../', APP_PATH))
 require 'rails/commands/server'
 
 module Rails
   class Server < ::Rack::Server
-    def initialize(tmp_dir)
-      super()
-      set_environment
-
-      @tmp_dir = tmp_dir
-    end
-
     def start
       url = "#{options[:SSLEnable] ? 'https' : 'http'}://#{options[:Host]}:#{options[:Port]}"
       puts "=> Booting #{ActiveSupport::Inflector.demodulize(server)}"
@@ -57,6 +26,16 @@ module Rails
       puts "=> Run `smalruby-editor -h` for more startup options"
       trap(:INT) { exit }
       puts "=> Ctrl-C to shutdown server" unless options[:daemonize]
+
+      unless options[:daemonize]
+        wrapped_app # touch the app so the logger is set up
+
+        console = ActiveSupport::Logger.new($stdout)
+        console.formatter = Rails.logger.formatter
+        console.level = Rails.logger.level
+
+        Rails.logger.extend(ActiveSupport::Logger.broadcast(console))
+      end
 
       super
     ensure
@@ -67,19 +46,19 @@ module Rails
 
     def default_options
       super.merge({
-        Port:         3000,
+        Port:         8087,
         DoNotReverseLookup:  true,
         environment:  (ENV['RAILS_ENV'] || ENV['RACK_ENV'] || "development").dup,
         daemonize:    false,
         debugger:     false,
-        pid:          @tmp_dir.join("pids/server.pid").to_s,
+        pid:          Pathname(Rails.configuration.paths['tmp'].first).join("pids/server.pid").to_s,
         config:       File.expand_path("config.ru")
       })
     end
   end
 end
 
-Rails::Server.new(tmp_dir).tap do |server|
+Rails::Server.new.tap do |server|
   require APP_PATH
   Dir.chdir(Rails.application.root)
   server.start
