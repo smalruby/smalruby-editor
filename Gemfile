@@ -2,14 +2,8 @@ source 'https://rubygems.org'
 
 ruby '2.0.0'
 
-# Specify your gem's dependencies in smalruby-editor.gemspec
-gemspec
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.1'
-
-# Use mysql as the database for Active Record
-gem 'mysql2'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -58,11 +52,15 @@ end
 # gem 'debugger', group: [:development, :test]
 
 group :production do
+  # Use mysql as the database for Active Record
+  gem 'mysql2'
+
   gem 'rails_12factor'
   gem 'unicorn', platforms: :ruby
 end
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'commands'
   gem 'rubocop'
   gem 'rspec-rails'

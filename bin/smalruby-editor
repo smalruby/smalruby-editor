@@ -6,6 +6,10 @@ ENV['RAILS_ENV'] = 'standalone'
 APP_PATH = File.expand_path('../../config/application',  __FILE__)
 require_relative '../config/boot'
 
+lib = File.expand_path('../../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'smalruby_editor'
+
 home_dir = Pathname('~/.smalruby-editor').expand_path
 ENV['SMALRUBY_EDITOR_HOME'] = home_dir.to_s
 log_dir, db_dir, config_dir, tmp_dir = *%w(log db config tmp).map { |s|
