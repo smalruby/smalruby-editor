@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 ENV['RAILS_ENV'] = 'standalone'
+ENV['SECRET_KEY_BASE'] = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
 APP_PATH = File.expand_path('../../config/application',  __FILE__)
 require_relative '../config/boot'
