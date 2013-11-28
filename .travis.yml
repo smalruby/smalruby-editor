@@ -13,3 +13,11 @@ script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare
   - bundle exec rake
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: HqZ7FylThjaB3XguCZJbccu7dB8CvWIWFlZpWLLfJwfUkjvoEC1F6VPFakFbwjLXLsvaKlYLakzL+bhaLnxu+HyeNmCrvpIRR2j8EuHmSkxdWrlxAZRV2ojHuDpZuVNaEzd7YtcBCoPiTvqnxWzhAfzZWbPrZfCdA1f+5t5/So0=
+  app: smalruby-editor
+  on:
+    repo: smalruby/smalruby-editor
