@@ -61,11 +61,11 @@ describe EditorController do
         it 'エラーを返す' do
           file = {
             name: load_file.original_filename,
-            type: load_file.content_type,
-            size: load_file.size,
             error: 'Rubyのプログラムではありません',
           }
-          expect(response.body).to be_json_eql(file.to_json)
+          file.each do |path, value|
+            expect(response.body).to include_json(value.to_json).at_path(path.to_s)
+          end
         end
       end
     end
