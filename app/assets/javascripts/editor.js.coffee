@@ -47,6 +47,9 @@ $ ->
       data.submit()
     done: (e, data) ->
       file = data.result
-      $('#filename').val(file.name)
-      session.getDocument().setValue(file.source)
+      if file.error
+        # エラーハンドリング
+      else
+        $('#filename').val(file.name)
+        session.getDocument().setValue(file.source)
   )

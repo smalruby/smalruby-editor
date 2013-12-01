@@ -34,6 +34,8 @@ gem 'font-awesome-rails'
 
 gem 'jquery-fileupload-rails', github: 'demiazz/jquery-fileupload-rails'
 
+gem 'shared-mime-info'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

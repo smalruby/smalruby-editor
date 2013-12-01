@@ -30,23 +30,44 @@ describe EditorController do
   end
 
   describe "プログラムを読み込む (POST 'load_file')" do
-    let(:load_file) { fixture_file_upload('files/01.rb') }
-
     before do
       post 'load_file', load_file: load_file
     end
 
-    it { expect(response).to be_success }
+    describe '正常系' do
+      let(:load_file) { fixture_file_upload('files/01.rb', 'text/plain') }
 
-    it 'アップロードされたプログラムの情報をJSON形式でダウンロードできる' do
-      load_file.rewind
-      file = {
-        name: load_file.original_filename,
-        type: load_file.content_type,
-        size: load_file.size,
-        source: NKF.nkf('-w', load_file.read),
-      }
-      expect(response.body).to be_json_eql(file.to_json)
+      it { expect(response).to be_success }
+
+      it 'アップロードされたプログラムの情報をJSON形式でダウンロードできる' do
+        load_file.rewind
+        file = {
+          name: load_file.original_filename,
+          type: load_file.content_type,
+          size: load_file.size,
+          source: load_file.read.force_encoding('utf-8'),
+        }
+        expect(response.body).to be_json_eql(file.to_json)
+      end
+    end
+
+    describe '異常系' do
+      context '画像をアップロードした場合' do
+        let(:load_file) { fixture_file_upload('files/favicon.ico',
+                                              'application/octet-stream') }
+
+        it { expect(response).to be_success }
+
+        it 'エラーを返す' do
+          file = {
+            name: load_file.original_filename,
+            type: load_file.content_type,
+            size: load_file.size,
+            error: 'Rubyのプログラムではありません',
+          }
+          expect(response.body).to be_json_eql(file.to_json)
+        end
+      end
     end
   end
 end

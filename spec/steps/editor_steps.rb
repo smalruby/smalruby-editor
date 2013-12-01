@@ -92,15 +92,24 @@ step ':text_editor に :filename を読み込む' do |text_editor, filename|
   JS
 end
 
-step ':name に :value が入力される' do |name, value|
-  expect(page.evaluate_script(<<-JS)).to eq(value)
-    $('#{name_info[name][:selector]}').val()
-  JS
-end
-
 step 'JavaScriptによるリクエストが終わるまで待つ' do
   start_time = Time.now
   page.evaluate_script('jQuery.isReady&&jQuery.active==0').class.should_not eql(String) until page.evaluate_script('jQuery.isReady&&jQuery.active==0') or (start_time + 5.seconds) < Time.now do
     sleep 1
   end
+end
+
+step ':text_editor のプログラムは :value である' do |text_editor, value|
+  expect(page.evaluate_script(<<-JS)).to eq(value)
+    ace.edit('#{name_info[text_editor][:id]}')
+      .getSession()
+      .getDocument()
+      .getValue()
+  JS
+end
+
+step ':name は :value である' do |name, value|
+  expect(page.evaluate_script(<<-JS)).to eq(value)
+    $('#{name_info[name][:selector]}').val()
+  JS
 end

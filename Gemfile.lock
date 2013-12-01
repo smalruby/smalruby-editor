@@ -178,6 +178,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0.0)
       websocket (~> 1.0.4)
+    shared-mime-info (0.2.5)
     shoulda-matchers (2.4.0)
       activesupport (>= 3.0.0)
     simplecov (0.8.2)
@@ -250,6 +251,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.0)
   sdoc
   selenium-webdriver
+  shared-mime-info
   shoulda-matchers
   sqlite3
   turbolinks

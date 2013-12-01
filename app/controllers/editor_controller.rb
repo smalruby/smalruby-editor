@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'nkf'
 
 class EditorController < ApplicationController
@@ -11,12 +12,18 @@ class EditorController < ApplicationController
 
   def load_file
     f = params['load_file']
+    mime_type = MIME.check(f.path)
+    content_type = mime_type.try(:content_type) || f.content_type
     res = {
       name: f.original_filename,
-      type: f.content_type,
+      type: content_type,
       size: f.size,
-      source: NKF.nkf('-w', f.read),
     }
+    if /\Atext\/plain/ =~ content_type
+      res[:source] = NKF.nkf('-w', f.read)
+    else
+      res[:error] = 'Rubyのプログラムではありません'
+    end
     render json: res, content_type: request.format
   end
 end
