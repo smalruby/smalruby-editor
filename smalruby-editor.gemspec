@@ -40,6 +40,7 @@ Gem::Specification.new do |spec|
      ['flatstrap-sass'],
      ['font-awesome-rails'],
      ['jquery-fileupload-rails'],
+     ['launchy'],
     ]
   runtime_dependencies.each do |args|
     spec.add_runtime_dependency *args

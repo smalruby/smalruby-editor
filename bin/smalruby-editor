@@ -37,6 +37,14 @@ module Rails
         Rails.logger.extend(ActiveSupport::Logger.broadcast(console))
       end
 
+      uri = "http://localhost:#{options[:Port]}"
+      launchy = Launchy.open(uri) do |exception|
+        puts "Attempted to open #{uri} and failed because #{exception}"
+      end
+      if launchy.respond_to?(:join)
+        launchy.join
+      end
+
       super
     ensure
       # The '-h' option calls exit before @options is set.
@@ -51,7 +59,7 @@ module Rails
         environment:  (ENV['RAILS_ENV'] || ENV['RACK_ENV'] || "development").dup,
         daemonize:    false,
         debugger:     false,
-        pid:          Pathname(Rails.configuration.paths['tmp'].first).join("pids/server.pid").to_s,
+        pid:          Pathname(ENV['SMALRUBY_EDITOR_HOME']).join("tmp/pids/server.pid").to_s,
         config:       File.expand_path("config.ru")
       })
     end
