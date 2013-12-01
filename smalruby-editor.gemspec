@@ -17,6 +17,7 @@ Gem::Specification.new do |spec|
   spec.files         = []
   if File.exist?(File.expand_path('../.git', __FILE__))
     spec.files       += `git ls-files`.split($/)
+    spec.files       -= ['Gemfile', 'Gemfile.lock']
   end
   spec.files         += Dir.glob('public/assets/**/*')
   spec.default_executable = 'smalruby-editor'

@@ -1,4 +1,14 @@
 # Set up gems listed in the Gemfile.
-ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
+if ENV['RAILS_ENV'] == 'standalone'
+  path = Pathname('../../smalruby-editor.gemspec').expand_path(__FILE__)
+  spec = Dir.chdir(path.dirname.to_s) {
+    eval(path.read, TOPLEVEL_BINDING, path.to_s)
+  }
+  spec.runtime_dependencies.each do |spec_dep|
+    require spec_dep.name
+  end
+else
+  ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
 
-require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
+  require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
+end
