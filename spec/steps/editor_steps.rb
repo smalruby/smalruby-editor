@@ -24,6 +24,10 @@ name_info = {
     id: 'save-button',
     selector: '#save-button',
   },
+  'メッセージ' => {
+    id: 'messages',
+    selector: '#messages',
+  },
 }
 
 step ':name にアクセスする' do |name|
@@ -112,4 +116,8 @@ step ':name は :value である' do |name, value|
   expect(page.evaluate_script(<<-JS)).to eq(value)
     $('#{name_info[name][:selector]}').val()
   JS
+end
+
+step ':name に :message を含む' do |name, message|
+  expect(page.find(name_info[name][:selector])).to have_content(message)
 end

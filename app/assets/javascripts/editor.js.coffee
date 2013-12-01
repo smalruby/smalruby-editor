@@ -48,7 +48,12 @@ $ ->
     done: (e, data) ->
       file = data.result
       if file.error
-        # エラーハンドリング
+        msg = $('<div class="alert alert-error" style="display: none">')
+          .append('<button type="button" class="close" data-dismiss="alert">×</button>')
+          .append('<h4><i class="icon-exclamation-sign"></i>エラー</h4>')
+          .append(file.name + 'は' + file.error)
+        $('#messages').append(msg)
+        msg.fadeIn('slow').delay(5000).fadeOut('slow')
       else
         $('#filename').val(file.name)
         session.getDocument().setValue(file.source)

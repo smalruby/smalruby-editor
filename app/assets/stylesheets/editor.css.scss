@@ -2,6 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#messages {
+    position: absolute;
+    right: 20px;
+    z-index: 9999;
+}
+
 #text-editor {
     position: absolute;
     left: 0;
