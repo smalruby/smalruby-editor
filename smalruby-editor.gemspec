@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
 
   runtime_dependencies =
     [
-     ['rails', '4.0.1'],
+     ['rails', '~> 4.0.0'],
      ['sqlite3'],
      ['sass-rails', '~> 4.0.0'],
      ['uglifier', '>= 1.3.0'],
