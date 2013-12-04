@@ -65,7 +65,7 @@ end
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'commands', '~> 0.2.1'
+  gem 'commands'
   gem 'rubocop'
   gem 'rspec-rails'
 end

@@ -237,7 +237,7 @@ DEPENDENCIES
   ace-rails-ap!
   capybara
   coffee-rails (~> 4.0.0)
-  commands (~> 0.2.1)
+  commands
   coveralls
   flatstrap-sass
   font-awesome-rails
