@@ -3,6 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
+  saving = false
+
   textEditor = ace.edit('text-editor')
   textEditor.setTheme('ace/theme/clouds')
   textEditor.setShowInvisibles(true)
@@ -28,6 +30,7 @@ $ ->
       data =
         filename: filename
         source: session.getDocument().getValue()
+      saving = true
       location.href = '/editor/save_file?' + $.param(data)
 
   $('#load-button').click ->
@@ -60,7 +63,8 @@ $ ->
   )
 
   window.onbeforeunload = (event) ->
-    if session.getDocument().getValue().length > 0
+    if !saving && session.getDocument().getValue().length > 0
       return '作成中のプログラムが消えてしまいます。'
     else
+      saving = false
       return
