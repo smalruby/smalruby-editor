@@ -58,3 +58,9 @@ $ ->
         $('#filename').val(file.name)
         session.getDocument().setValue(file.source)
   )
+
+  window.onbeforeunload = (event) ->
+    if session.getDocument().getValue().length > 0
+      return '作成中のプログラムが消えてしまいます。'
+    else
+      return
