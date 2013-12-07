@@ -51,6 +51,15 @@ step ':text_editor にプログラムを入力済みである:' do |text_editor,
   JS
 end
 
+step ':text_editor のプログラムは以下である:' do |text_editor, source|
+  expect(page.evaluate_script(<<-JS)).to eq(source)
+    ace.edit('#{name_info[text_editor][:id]}')
+      .getSession()
+      .getDocument()
+      .getValue()
+  JS
+end
+
 step 'プログラムの名前に :filename を指定する' do |filename|
   fill_in('filename', with: filename)
 end
@@ -120,4 +129,20 @@ end
 
 step ':name に :message を含む' do |name, message|
   expect(page.find(name_info[name][:selector])).to have_content(message)
+end
+
+step 'ページをリロードする' do
+end
+
+step '警告ダイアログの :name ボタンをクリックする' do |name|
+  case name
+  when 'dismiss'
+    if /selenium/ =~ Capybara.javascript_driver.to_s
+      page.driver.browser.switch_to.alert.dismiss
+    end
+  else
+    if /selenium/ =~ Capybara.javascript_driver.to_s
+      page.driver.browser.switch_to.alert.accept
+    end
+  end
 end
