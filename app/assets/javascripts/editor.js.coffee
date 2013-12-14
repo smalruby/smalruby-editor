@@ -14,6 +14,9 @@ $ ->
   session.setTabSize(2)
   session.setUseSoftTabs(true)
 
+  textEditor.focus()
+  textEditor.gotoLine(0, 0)
+
   # FIXME: エディタの切り替え機能を実装するときに以下の処理を削除する。
   #   なお、navbarの中のリンクの見た目をよくするためにa要素を使っているのだが、
   #   デフォルトではRubyをクリックするとリンク先に遷移してしまう。そこでリンク
