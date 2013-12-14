@@ -61,7 +61,7 @@ step ':name にフォーカスがあること' do |name|
   JS
 end
 
-step ':filename をアップロードする' do |filename|
+step ':filename をロードする' do |filename|
   page.execute_script("$('#load-file').show()")
   attach_file('load-file', Pathname(fixture_path).join(filename))
 end
