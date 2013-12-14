@@ -6,7 +6,7 @@ $ ->
   saving = false
 
   textEditor = ace.edit('text-editor')
-  textEditor.setTheme('ace/theme/clouds')
+  textEditor.setTheme('ace/theme/github')
   textEditor.setShowInvisibles(true)
 
   session = textEditor.getSession()

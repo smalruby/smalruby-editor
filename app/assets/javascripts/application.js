@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require ace/ace
-//= require ace/theme-clouds.js
+//= require ace/theme-github.js
 //= require ace/mode-ruby.js
 //= require bootstrap.js
 //= require jquery-fileupload/basic
