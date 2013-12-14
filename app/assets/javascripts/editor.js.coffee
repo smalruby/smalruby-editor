@@ -4,18 +4,23 @@
 
 $ ->
   saving = false
+  changed = false
 
   textEditor = ace.edit('text-editor')
   textEditor.setTheme('ace/theme/github')
   textEditor.setShowInvisibles(true)
 
+  textEditor.focus()
+  textEditor.gotoLine(0, 0)
+
+  textEditor.on('change', (e) ->
+    changed = true
+  )
+
   session = textEditor.getSession()
   session.setMode('ace/mode/ruby')
   session.setTabSize(2)
   session.setUseSoftTabs(true)
-
-  textEditor.focus()
-  textEditor.gotoLine(0, 0)
 
   # FIXME: エディタの切り替え機能を実装するときに以下の処理を削除する。
   #   なお、navbarの中のリンクの見た目をよくするためにa要素を使っているのだが、
@@ -25,7 +30,7 @@ $ ->
     e.preventDefault()
     false
 
-  $('#save-button').click ->
+  $('#save-button').click (e) ->
     filename = $.trim($('#filename').val())
     if filename.length <= 0
       $('#filename').focus()
@@ -34,9 +39,13 @@ $ ->
         filename: filename
         source: session.getDocument().getValue()
       saving = true
-      location.href = '/editor/save_file?' + $.param(data)
+      changed = false
+      window.open('/editor/save_file?' + $.param(data), '_blank')
 
-  $('#load-button').click ->
+  $('#load-button').click (e) ->
+    e.preventDefault()
+    if changed
+      return unless confirm('まだセーブしていないのでロードするとプログラムが消えてしまうよ！それでもロードしますか？')
     $(@).parent().find('input[name="load_file"]').click()
 
   $('#filename').keypress (e) ->
@@ -63,6 +72,7 @@ $ ->
       else
         $('#filename').val(file.name)
         session.getDocument().setValue(file.source)
+        changed = false
   )
 
   window.onbeforeunload = (event) ->

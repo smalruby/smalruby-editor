@@ -2,6 +2,27 @@
 
 step ':name にアクセスする' do |name|
   visit $name_info[name][:path]
+  page.execute_script(<<-JS)
+    if (window._open == undefined) {
+      window.openUrl = null;
+      window._open = window.open;
+      window.open = function() {
+        window.openUrl = arguments[0];
+        if (arguments[1] != '_blank') {
+          window._open.apply(window, arguments);
+        }
+      };
+    }
+  JS
+
+  if poltergeist?
+    page.execute_script(<<-JS)
+      if (window.confirmMsg == undefined) {
+        window.confirmMsg = null;
+        window.confirm = function(msg) { window.confirmMsg = msg; return true; }
+      }
+    JS
+  end
 end
 
 step ':name が表示されていること' do |name|
@@ -9,7 +30,7 @@ step ':name が表示されていること' do |name|
 end
 
 step ':name 画面を表示する' do |name|
-  visit $name_info[name][:path]
+  send ':name にアクセスする', name
 end
 
 step ':text_editor にプログラムを入力済みである:' do |text_editor, source|
@@ -35,22 +56,19 @@ step 'プログラムの名前に :filename を指定する' do |filename|
 end
 
 step ':name をクリックする' do |name|
-  click_button($name_info[name][:id])
+  click_on($name_info[name][:id])
 end
 
 step ':filename をダウンロードする' do |filename|
-  expect(page.response_headers['Content-Disposition'])
-    .to eq("attachment; filename=\"#{filename}\"")
-  expect(page.response_headers['Content-Type'])
-    .to eq('text/plain; charset=utf-8')
-end
-
-step 'ダウンロードしたファイルの内容が正しい:' do |source|
-  # TODO
+  url = page.evaluate_script('window.openUrl')
+  page.execute_script('window.openUrl = null')
+  expect(URI.parse(url).query.split('&')).to include("filename=#{filename}")
 end
 
 step 'ダウンロードしない' do
-  # TODO
+  url = page.evaluate_script('window.openUrl')
+  page.execute_script('window.openUrl = null')
+  expect(url).to be_nil
 end
 
 step ':name にフォーカスがあること' do |name|
@@ -107,12 +125,28 @@ end
 step '警告ダイアログの :name ボタンをクリックする' do |name|
   case name
   when 'dismiss'
-    if /selenium/ =~ Capybara.javascript_driver.to_s
+    if selenium?
       page.driver.browser.switch_to.alert.dismiss
     end
   else
-    if /selenium/ =~ Capybara.javascript_driver.to_s
+    if selenium?
       page.driver.browser.switch_to.alert.accept
     end
+  end
+end
+
+step '確認メッセージ :message を表示する' do |message|
+  if poltergeist?
+    actual = page.evaluate_script('window.confirmMsg')
+    page.execute_script('window.confirmMsg = null')
+    expect(actual).to eq(message)
+  end
+end
+
+step '確認メッセージを表示しない' do
+  if poltergeist?
+    actual = page.evaluate_script('window.confirmMsg')
+    page.execute_script('window.confirmMsg = null')
+    expect(actual).to be_nil
   end
 end

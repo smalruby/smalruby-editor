@@ -24,6 +24,10 @@ $name_info = {
     id: 'save-button',
     selector: '#save-button',
   },
+  'ロードボタン' => {
+    id: 'load-button',
+    selector: '#load-button',
+  },
   'メッセージ' => {
     id: 'messages',
     selector: '#messages',
