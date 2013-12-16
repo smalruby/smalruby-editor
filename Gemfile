@@ -78,4 +78,5 @@ group :test do
   gem 'turnip'
   gem 'coveralls', require: false
   gem 'json_spec'
+  gem 'spork-rails'
 end

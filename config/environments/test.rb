@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 SmalrubyEditor::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -5,7 +6,14 @@ SmalrubyEditor::Application.configure do
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped
   # and recreated between test runs. Don't rely on the data there!
-  config.cache_classes = true
+
+  # http://penguinlab.jp/blog/post/2256# より
+  # Spork 使用時はクラスをキャッシュしない
+  if defined?(Spork) && Spork.using_spork?
+    config.cache_classes = false
+  else
+    config.cache_classes = true
+  end
 
   # Do not eager load code on boot. This avoids loading your whole application
   # just for the purpose of running a single test. If you are using a tool that
