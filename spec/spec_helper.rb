@@ -24,7 +24,7 @@ Spork.prefork do
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
-  require_relative 'steps/global_variable'
+  load 'spec/steps/global_variable.rb', true
   Dir.glob("spec/steps/**/*_steps.rb") { |f| load f, true }
 
   # Checks for pending migrations before tests are run.

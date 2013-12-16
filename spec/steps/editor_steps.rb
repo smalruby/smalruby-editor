@@ -33,24 +33,6 @@ step ':name 画面を表示する' do |name|
   send ':name にアクセスする', name
 end
 
-step ':text_editor にプログラムを入力済みである:' do |text_editor, source|
-  page.execute_script(<<-JS)
-    ace.edit('#{$name_info[text_editor][:id]}')
-      .getSession()
-      .getDocument()
-      .setValue('#{source}')
-  JS
-end
-
-step ':text_editor のプログラムは以下である:' do |text_editor, source|
-  expect(page.evaluate_script(<<-JS)).to eq(source)
-    ace.edit('#{$name_info[text_editor][:id]}')
-      .getSession()
-      .getDocument()
-      .getValue()
-  JS
-end
-
 step 'プログラムの名前に :filename を指定する' do |filename|
   fill_in('filename', with: filename)
 end
@@ -84,31 +66,12 @@ step ':filename をロードする' do |filename|
   attach_file('load-file', Pathname(fixture_path).join(filename))
 end
 
-step ':text_editor に :filename を読み込む' do |text_editor, filename|
-  expect(page.evaluate_script(<<-JS)).to eq(Pathname(fixture_path).join(filename).read)
-    ace.edit('#{$name_info[text_editor][:id]}')
-      .getSession()
-      .getDocument()
-      .getValue()
-  JS
-end
-
 step 'JavaScriptによるリクエストが終わるまで待つ' do
   start_time = Time.now
   page.evaluate_script('jQuery.isReady&&jQuery.active==0').class.should_not eql(String) until page.evaluate_script('jQuery.isReady&&jQuery.active==0') or (start_time + 5.seconds) < Time.now do
     sleep 1
   end
 end
-
-step ':text_editor のプログラムは :value である' do |text_editor, value|
-  expect(page.evaluate_script(<<-JS)).to eq(value)
-    ace.edit('#{$name_info[text_editor][:id]}')
-      .getSession()
-      .getDocument()
-      .getValue()
-  JS
-end
-
 step ':name は :value である' do |name, value|
   expect(page.evaluate_script(<<-JS)).to eq(value)
     $('#{$name_info[name][:selector]}').val()
@@ -117,6 +80,10 @@ end
 
 step ':name に :message を含む' do |name, message|
   expect(page.find($name_info[name][:selector])).to have_content(message)
+end
+
+step ':name に :message を含まない' do |name, message|
+  expect(page.find($name_info[name][:selector])).to have_no_content(message)
 end
 
 step 'ページをリロードする' do

@@ -20,6 +20,10 @@ $name_info = {
     id: 'filename',
     selector: '#filename',
   },
+  'チェックボタン' => {
+    id: 'check-button',
+    selector: '#check-button',
+  },
   'セーブボタン' => {
     id: 'save-button',
     selector: '#save-button',

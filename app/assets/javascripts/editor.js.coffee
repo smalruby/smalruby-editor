@@ -30,6 +30,25 @@ $ ->
     e.preventDefault()
     false
 
+  $('#check-button').click (e) ->
+    e.preventDefault()
+    data =
+      source_code:
+        data: session.getDocument().getValue()
+    success = (data, textStatus, jqXHR) ->
+      for errorInfo in data
+        do (errorInfo) ->
+          msg = $('<div class="alert alert-error" style="display: none">')
+            .append('<button type="button" class="close" data-dismiss="alert">×</button>')
+            .append('<h4><i class="icon-exclamation-sign"></i>エラー</h4>')
+            .append("#{errorInfo.row}行")
+          if errorInfo.column > 0
+            msg.append("、#{errorInfo.column}文字")
+          msg.append(": #{errorInfo.message}")
+          $('#messages').append(msg)
+          msg.fadeIn('slow')
+    $.post('/editor/check', data, success,'json')
+
   $('#save-button').click (e) ->
     filename = $.trim($('#filename').val())
     if filename.length <= 0
