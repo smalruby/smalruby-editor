@@ -5,6 +5,10 @@ class EditorController < ApplicationController
   def index
   end
 
+  def check
+    render json: SourceCode.new(source_code_params).check_syntax
+  end
+
   def save_file
     send_data(params[:source], filename: params[:filename],
               disposition: 'attachment', type: 'text/plain; charset=utf-8')
@@ -25,5 +29,11 @@ class EditorController < ApplicationController
       res[:error] = 'Rubyのプログラムではありません'
     end
     render json: res, content_type: request.format
+  end
+
+  private
+
+  def source_code_params
+    params.require(:source_code).permit(:data)
   end
 end

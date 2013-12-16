@@ -5,8 +5,34 @@ require 'nkf'
 describe EditorController do
   describe "エディタ画面を表示する (GET 'index')" do
     it 'returns http success' do
-      get 'index'
+      get :index
       response.should be_success
+    end
+  end
+
+  describe "プログラムが正しいかチェックする (XHR POST 'check')" do
+    before do
+      params = {
+        source_code: {
+          data: data,
+        }
+      }.with_indifferent_access
+
+      xhr :post, :check, params
+    end
+
+    context 'プログラムが正しい場合' do
+      let(:data) { 'puts "Hello, World!"' }
+
+      it { expect(response).to be_success }
+      it { expect(response.body).to eq(SourceCode.new(data: data).check_syntax.to_json) }
+    end
+
+    context 'プログラムが正しくない場合' do
+      let(:data) { 'puts Hello, World!"' }
+
+      it { expect(response).to be_success }
+      it { expect(response.body).to eq(SourceCode.new(data: data).check_syntax.to_json) }
     end
   end
 
@@ -23,7 +49,7 @@ describe EditorController do
               type: 'text/plain; charset=utf-8')
         .once.and_call_original
 
-      get 'save_file', params
+      get :save_file, params
 
       expect(response).to be_success
     end
@@ -31,7 +57,7 @@ describe EditorController do
 
   describe "プログラムを読み込む (POST 'load_file')" do
     before do
-      post 'load_file', load_file: load_file
+      post :load_file, load_file: load_file
     end
 
     describe '正常系' do
