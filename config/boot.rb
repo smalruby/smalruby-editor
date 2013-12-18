@@ -2,7 +2,9 @@
 if ENV['RAILS_ENV'] == 'standalone'
   path = Pathname('../../smalruby-editor.gemspec').expand_path(__FILE__)
   spec = Dir.chdir(path.dirname.to_s) {
+    # rubocop:disable Eval
     eval(path.read, TOPLEVEL_BINDING, path.to_s)
+    # rubocop:enable Eval
   }
   spec.runtime_dependencies.each do |spec_dep|
     require spec_dep.name

@@ -1,0 +1,18 @@
+AllCops:
+  Excludes:
+    - db/seeds.rb
+
+AsciiComments:
+  Enabled: false
+
+# メソッドの戻り値としてブロックの値を使う場合にもエラーになるため無効
+# にしている
+Blocks:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+# WindowsだとEndOfLine copが動作しないため無効にしている
+EndOfLine:
+  Enabled: false

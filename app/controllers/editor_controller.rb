@@ -10,21 +10,16 @@ class EditorController < ApplicationController
   end
 
   def save_file
-    send_data(params[:source], filename: params[:filename],
-              disposition: 'attachment', type: 'text/plain; charset=utf-8')
+    send_data(params[:source],
+              filename: params[:filename],
+              disposition: 'attachment',
+              type: 'text/plain; charset=utf-8')
   end
 
   def load_file
-    f = params['load_file']
-    mime_type = MIME.check(f.path)
-    content_type = mime_type.try(:content_type) || f.content_type
-    res = {
-      name: f.original_filename,
-      type: content_type,
-      size: f.size,
-    }
-    if /\Atext\/plain/ =~ content_type
-      res[:source] = NKF.nkf('-w', f.read)
+    res = get_file_info(params['load_file'])
+    if /\Atext\/plain/ =~ res[:type]
+      res[:source] = NKF.nkf('-w', params['load_file'].read)
     else
       res[:error] = 'Rubyのプログラムではありません'
     end
@@ -35,5 +30,13 @@ class EditorController < ApplicationController
 
   def source_code_params
     params.require(:source_code).permit(:data)
+  end
+
+  def get_file_info(file)
+    {
+      name: file.original_filename,
+      type: MIME.check(file.path).try(:content_type) || file.content_type,
+      size: file.size,
+    }
   end
 end

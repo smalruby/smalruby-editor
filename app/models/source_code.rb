@@ -7,14 +7,9 @@ require 'open3'
 class SourceCode < ActiveRecord::Base
   # シンタックスをチェックする
   def check_syntax
-    tempfile = Tempfile.new('smalruby-editor')
-    tempfile.write(self.data)
-    path = tempfile.path
-    tempfile.close
-    stdout_str, stderr_str, status = *Open3.capture3("ruby -c #{path}")
-    if status.success?
-      return []
-    end
+    _, stderr_str, status = *open3_capture3_ruby_c
+    return [] if status.success?
+
     stderr_str.lines.each.with_object([]) { |line, res|
       if (md = /^.*:(\d+): (.*)$/.match(line))
         res << { row: md[1].to_i, column: 0, message: md[2] }
@@ -22,5 +17,17 @@ class SourceCode < ActiveRecord::Base
         res[-1][:column] = md[1].length
       end
     }
+  end
+
+  private
+
+  def open3_capture3_ruby_c
+    tempfile = Tempfile.new('smalruby-editor')
+    tempfile.write(data)
+    path = tempfile.path
+    tempfile.close
+    ruby_cmd = File.join(RbConfig::CONFIG['bindir'],
+                         RbConfig::CONFIG['RUBY_INSTALL_NAME'])
+    Open3.capture3("#{ruby_cmd} -c #{path}")
   end
 end

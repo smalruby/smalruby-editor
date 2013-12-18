@@ -17,6 +17,7 @@ require 'smalruby_editor'
 Dir.chdir(File.expand_path('../../', APP_PATH))
 require 'rails/commands/server'
 
+# rubocop:disable all
 module Rails
   class Server < ::Rack::Server
     def start
@@ -71,3 +72,4 @@ Rails::Server.new.tap do |server|
   Dir.chdir(Rails.application.root)
   server.start
 end
+# rubocop:enable all
