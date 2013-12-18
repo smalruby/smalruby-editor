@@ -21,3 +21,4 @@ deploy:
   app: smalruby
   on:
     repo: smalruby/smalruby-editor
+  run: "rake db:migrate"
