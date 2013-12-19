@@ -116,26 +116,81 @@ describe SourceCodesController do
         }
       }
 
-      before do
-        allow(@controller).to receive(:send_data).and_call_original
-        delete :download, {}, _session
+      context 'ファイル名が半角英数字の場合' do
+        before do
+          allow(@controller).to receive(:send_data).and_call_original
+          delete :download, {}, _session
+        end
+
+        specify 'プログラムをダウンロードする' do
+          expect(@controller).to have_received(:send_data)
+            .with(source_code.data,
+                  filename: source_code.filename,
+                  disposition: 'attachment',
+                  type: 'text/plain; charset=utf-8')
+            .once
+        end
+
+        specify 'プログラムをサーバ上から削除する' do
+          expect(SourceCode).to have(0).records
+        end
+
+        specify 'セッションから[:source_code]を削除する' do
+          expect(session[:source_code]).to be_nil
+        end
       end
 
-      specify 'プログラムをダウンロードする' do
-        expect(@controller).to have_received(:send_data)
-          .with(source_code.data,
-                filename: source_code.filename,
-                disposition: 'attachment',
-                type: 'text/plain; charset=utf-8')
-          .once
-      end
+      context 'ファイル名が日本語の場合' do
+        # rubocop:disable LineLength
+        USER_AGENT = {
+          IE11: 'Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; Touch; rv:11.0) like Gecko',
+          IE10: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0; Touch)',
+          Chrome20: 'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11',
+          Firefox14: 'Mozilla/5.0 (Windows NT 5.1; rv:14.0) Gecko/20100101 Firefox/14.0.1',
+        }
+        # rubocop:enable LineLength
 
-      specify 'プログラムをサーバ上から削除する' do
-        expect(SourceCode).to have(0).records
-      end
+        let(:source_code) {
+          SourceCode.create!(filename: '日本語.rb', data: 'puts "Hello, World!"')
+        }
 
-      specify 'セッションから[:source_code]を削除する' do
-        expect(session[:source_code]).to be_nil
+        [:IE10, :IE11].each do |browser|
+          context "ブラウザが#{browser}の場合" do
+            before do
+              @request.env['HTTP_USER_AGENT'] = USER_AGENT[browser]
+              allow(@controller).to receive(:send_data).and_call_original
+              delete :download, {}, _session
+            end
+
+            specify 'プログラムをダウンロードする' do
+              expect(@controller).to have_received(:send_data)
+                .with(source_code.data,
+                      filename: ERB::Util.url_encode(source_code.filename),
+                      disposition: 'attachment',
+                      type: 'text/plain; charset=utf-8')
+                .once
+            end
+          end
+        end
+
+        [:Chrome20, :Firefox14].each do |browser|
+          context "ブラウザが#{browser}の場合" do
+            before do
+              @request.env['HTTP_USER_AGENT'] = USER_AGENT[browser]
+              allow(@controller).to receive(:send_data).and_call_original
+              delete :download, {}, _session
+            end
+
+            specify 'プログラムをダウンロードする' do
+              expect(@controller).to have_received(:send_data)
+                .with(source_code.data,
+                      filename: source_code.filename,
+                      disposition: 'attachment',
+                      type: 'text/plain; charset=utf-8')
+                .once
+            end
+          end
+        end
       end
     end
 

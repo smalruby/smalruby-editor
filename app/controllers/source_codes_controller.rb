@@ -22,7 +22,7 @@ class SourceCodesController < ApplicationController
     end
 
     send_data(source_code.data,
-              filename: source_code.filename,
+              filename: encode_filename(source_code.filename),
               disposition: 'attachment',
               type: 'text/plain; charset=utf-8')
 
@@ -55,5 +55,10 @@ class SourceCodesController < ApplicationController
       type: MIME.check(file.path).try(:content_type) || file.content_type,
       size: file.size,
     }
+  end
+
+  def encode_filename(filename)
+    request.env['HTTP_USER_AGENT'] =~ /MSIE|Trident/ ?
+      ERB::Util.url_encode(filename) : filename
   end
 end
