@@ -32,7 +32,16 @@ step ':name をクリックする' do |name|
   click_on(NAME_INFO[name][:id])
 end
 
+step 'ダウンロードが完了するまで待つ' do
+  start_time = Time.now
+  until page.response_headers['Content-Disposition'] ||
+      (start_time + 5.seconds) < Time.now
+    sleep 1
+  end
+end
+
 step ':filename をダウンロードする' do |filename|
+  step 'ダウンロードが完了するまで待つ'
   expect(page.response_headers['Content-Disposition'])
     .to eq("attachment; filename=\"#{filename}\"")
   expect(page.response_headers['Content-Type'])
