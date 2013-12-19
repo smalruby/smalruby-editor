@@ -192,4 +192,50 @@ describe SourceCodesController do
       end
     end
   end
+
+  describe 'プログラムを読み込む (POST load)' do
+    before do
+      post :load, source_code: { file: load_file }
+    end
+
+    describe '正常系' do
+      let(:load_file) { fixture_file_upload('files/01.rb', 'text/plain') }
+
+      it { expect(response).to be_success }
+
+      it 'アップロードされたプログラムの情報をJSON形式でダウンロードできる' do
+        load_file.rewind
+        expected = {
+          source_code: {
+            filename: load_file.original_filename,
+            type: load_file.content_type,
+            size: load_file.size,
+            data: load_file.read.force_encoding('utf-8'),
+          }
+        }.to_json
+        expect(response.body).to be_json_eql(expected)
+      end
+    end
+
+    describe '異常系' do
+      context '画像をアップロードした場合' do
+        let(:load_file) {
+          fixture_file_upload('files/favicon.ico', 'application/octet-stream')
+        }
+
+        it { expect(response).to be_success }
+
+        it 'エラーを返す' do
+          info = {
+            filename: load_file.original_filename,
+            error: 'Rubyのプログラムではありません',
+          }
+          info.each do |path, value|
+            expect(response.body)
+              .to include_json(value.to_json).at_path("source_code/#{path}")
+          end
+        end
+      end
+    end
+  end
 end

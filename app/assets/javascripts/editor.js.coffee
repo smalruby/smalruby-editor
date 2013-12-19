@@ -69,7 +69,7 @@ $ ->
     e.preventDefault()
     if changed
       return unless confirm('まだセーブしていないのでロードするとプログラムが消えてしまうよ！それでもロードしますか？')
-    $(@).parent().find('input[name="load_file"]').click()
+    $(@).parent().find('input[name="source_code[file]"]').click()
 
   $('#filename').keypress (e) ->
     e = window.event if !e
@@ -84,17 +84,17 @@ $ ->
     add: (e, data) ->
       data.submit()
     done: (e, data) ->
-      file = data.result
-      if file.error
+      info = data.result.source_code
+      if info.error
         msg = $('<div class="alert alert-error" style="display: none">')
           .append('<button type="button" class="close" data-dismiss="alert">×</button>')
           .append('<h4><i class="icon-exclamation-sign"></i>エラー</h4>')
-          .append(file.name + 'は' + file.error)
+          .append(info.filename + 'は' + info.error)
         $('#messages').append(msg)
         msg.fadeIn('slow').delay(5000).fadeOut('slow')
       else
-        $('#filename').val(file.name)
-        session.getDocument().setValue(file.source)
+        $('#filename').val(info.filename)
+        session.getDocument().setValue(info.data)
         changed = false
   )
 

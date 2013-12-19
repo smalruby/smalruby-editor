@@ -4,13 +4,13 @@
       <li class="active"><a id="ruby-tab" href="#">Ruby</a></li>
     </ul>
 
-    <%= form_tag(editor_load_file_path, id: "file-form", class: "navbar-form pull-right", method: "post", multipart: true) do %>
+    <%= form_tag(source_codes_load_path, id: "file-form", class: "navbar-form pull-right", method: "post", multipart: true) do %>
       <button id="check-button" type="button" class="btn btn-primary">チェック</button>
       <input id="filename" type="text" class="span4" placeholder="プログラムの名前を入れてね（例：01.rb）">
       <button id="save-button" type="button" class="btn btn-primary">セーブ</button>
       <%= link_to '', source_codes_download_path, id: 'download-link', style: 'display: none', 'data-method' => 'delete' %>
       <button id="load-button" class="btn btn-primary">ロード</button>
-      <input id="load-file" type="file" name="load_file" style="display: none">
+      <input id="load-file" type="file" name="source_code[file]" style="display: none">
     <% end %>
   </div>
 </div>
