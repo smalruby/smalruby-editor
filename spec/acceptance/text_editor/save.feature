@@ -1,7 +1,7 @@
 # encoding: utf-8
 # language: ja
 @javascript
-機能: プログラムのセーブ
+機能: Save - プログラムのセーブ
   シナリオ: セーブボタンを押してプログラムを保存できる
     前提 "エディタ" 画面を表示する
     かつ テキストエディタに "puts 'Hello, World!'" を入力済みである
