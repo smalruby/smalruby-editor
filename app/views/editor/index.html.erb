@@ -8,6 +8,7 @@
       <button id="check-button" type="button" class="btn btn-primary">チェック</button>
       <input id="filename" type="text" class="span4" placeholder="プログラムの名前を入れてね（例：01.rb）">
       <button id="save-button" type="button" class="btn btn-primary">セーブ</button>
+      <%= link_to '', editor_destroy_file_path, id: 'destroy-link', style: 'display: none', 'data-method' => 'delete' %>
       <button id="load-button" class="btn btn-primary">ロード</button>
       <input id="load-file" type="file" name="load_file" style="display: none">
     <% end %>

@@ -11,5 +11,6 @@ module SmalrubyEditor
   class Application < Rails::Application
     config.time_zone = 'Tokyo'
     # config.i18n.default_locale = :ja
+    config.colorize_logging = false
   end
 end

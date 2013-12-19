@@ -7,7 +7,7 @@ require 'digest/sha2'
 # ソースコードを表現するモデル
 class SourceCode < ActiveRecord::Base
   validates :filename, presence: true
-  validates :data, presence: true
+  validates :data, presence: true, allow_blank: true
 
   # シンタックスをチェックする
   def check_syntax

@@ -47,19 +47,23 @@ $ ->
           msg.append(": #{errorInfo.message}")
           $('#messages').append(msg)
           msg.fadeIn('slow')
-    $.post('/editor/check', data, success,'json')
+    $.post('/editor/check', data, success, 'json')
 
   $('#save-button').click (e) ->
+    e.preventDefault()
     filename = $.trim($('#filename').val())
     if filename.length <= 0
       $('#filename').focus()
     else
       data =
-        filename: filename
-        source: session.getDocument().getValue()
-      saving = true
-      changed = false
-      window.open('/editor/save_file?' + $.param(data), '_blank')
+        source_code:
+          filename: filename
+          data: session.getDocument().getValue()
+      success = (data, textStatus, jqXHR) ->
+        saving = true
+        changed = false
+        $('#destroy-link').click()
+      $.post('/editor/save_file', data, success)
 
   $('#load-button').click (e) ->
     e.preventDefault()

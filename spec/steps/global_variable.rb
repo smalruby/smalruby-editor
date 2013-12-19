@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-$name_info = {
+::NAME_INFO = {
   'トップページ' => {
     path: '/',
   },
