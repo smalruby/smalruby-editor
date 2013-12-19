@@ -63,7 +63,7 @@ $ ->
         saving = true
         changed = false
         $('#destroy-link').click()
-      $.post('/editor/save_file', data, success)
+      $.post('/source_codes/', data, success)
 
   $('#load-button').click (e) ->
     e.preventDefault()

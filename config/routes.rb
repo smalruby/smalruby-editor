@@ -3,9 +3,10 @@ SmalrubyEditor::Application.routes.draw do
   root 'editor#index'
 
   post 'editor/check'
-  post 'editor/save_file'
   delete 'editor/destroy_file'
   post 'editor/load_file'
+
+  resources :source_codes, only: [:create]
 
   # The priority is based upon order of creation: first created ->
   # highest priority.

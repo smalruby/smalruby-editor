@@ -44,63 +44,6 @@ describe EditorController do
     end
   end
 
-  describe 'プログラムを保存する (XHR POST save_file)' do
-    let(:params) {
-      {
-        source_code: {
-          filename: '01.rb',
-          data: 'puts "Hello, World!"',
-        }
-      }
-    }
-
-    describe 'レスポンス' do
-      subject {
-        xhr :post, :save_file, params
-        response
-      }
-
-      it { should be_success }
-    end
-
-    it 'アップロードされたプログラムを保存できる' do
-      expect {
-        xhr :post, :save_file, params
-      }.to change { SourceCode.count }.by(1)
-    end
-
-    describe 'アップロードされたプログラム' do
-      subject {
-        ids = SourceCode.all.map(&:id)
-        xhr :post, :save_file, params
-        SourceCode.find((SourceCode.all.map(&:id) - ids).first)
-      }
-
-      its(:data) { should eq(params[:source_code][:data]) }
-      its(:filename) { should eq(params[:source_code][:filename]) }
-    end
-
-    describe 'session' do
-      before {
-        ids = SourceCode.all.map(&:id)
-        xhr :post, :save_file, params
-        @created_source_code =
-          SourceCode.find((SourceCode.all.map(&:id) - ids).first)
-      }
-
-      subject { session }
-
-      it '[:source_code][:id]はアップロードしたプログラムのIDである' do
-        expect(subject[:source_code][:id]).to eq(@created_source_code.id)
-      end
-
-      it '[:source_code][:digest]はアップロードしたプログラムのSHA256のハッシュ値である' do
-        expect(subject[:source_code][:digest])
-          .to eq(@created_source_code.digest)
-      end
-    end
-  end
-
   describe 'プログラムをダウンロードしてサーバ上から削除する (DELETE destroy_file)' do
     let(:source_code) {
       SourceCode.create!(filename: '01.rb', data: 'puts "Hello, World!"')

@@ -9,15 +9,6 @@ class EditorController < ApplicationController
     render json: SourceCode.new(source_code_params).check_syntax
   end
 
-  def save_file
-    source_code = SourceCode.create!(source_code_params)
-    session[:source_code] = {
-      id: source_code.id,
-      digest: source_code.digest,
-    }
-    render nothing: true
-  end
-
   def destroy_file
     source_code = SourceCode.find(session[:source_code][:id])
     unless source_code.digest == session[:source_code][:digest]
