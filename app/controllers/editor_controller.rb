@@ -5,19 +5,6 @@ class EditorController < ApplicationController
   def index
   end
 
-  def destroy_file
-    source_code = SourceCode.find(session[:source_code][:id])
-    unless source_code.digest == session[:source_code][:digest]
-      fail ActiveRecord::RecordNotFound
-    end
-    send_data(source_code.data,
-              filename: source_code.filename,
-              disposition: 'attachment',
-              type: 'text/plain; charset=utf-8')
-    source_code.destroy
-    session[:source_code] = nil
-  end
-
   def load_file
     res = get_file_info(params['load_file'])
     if /\Atext\/plain/ =~ res[:type]

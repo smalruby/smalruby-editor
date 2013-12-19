@@ -100,4 +100,96 @@ describe SourceCodesController do
       end
     end
   end
+
+  describe 'プログラムをダウンロードしてサーバ上から削除する (DELETE download)' do
+    let(:source_code) {
+      SourceCode.create!(filename: '01.rb', data: 'puts "Hello, World!"')
+    }
+
+    context 'セッションが正しい場合' do
+      let(:_session) {
+        {
+          source_code: {
+            id: source_code.id,
+            digest: source_code.digest,
+          }
+        }
+      }
+
+      before do
+        allow(@controller).to receive(:send_data).and_call_original
+        delete :download, {}, _session
+      end
+
+      specify 'プログラムをダウンロードする' do
+        expect(@controller).to have_received(:send_data)
+          .with(source_code.data,
+                filename: source_code.filename,
+                disposition: 'attachment',
+                type: 'text/plain; charset=utf-8')
+          .once
+      end
+
+      specify 'プログラムをサーバ上から削除する' do
+        expect(SourceCode).to have(0).records
+      end
+
+      specify 'セッションから[:source_code]を削除する' do
+        expect(session[:source_code]).to be_nil
+      end
+    end
+
+    context 'セッションが不正な場合' do
+      shared_examples 'raise exception' do
+        it {
+          expect {
+            delete :download, {}, _session
+          }.to raise_exception
+        }
+      end
+
+      context 'セッションに[:source_code]がない場合' do
+        let(:_session) { {} }
+
+        include_examples 'raise exception'
+      end
+
+      context 'セッションに[:source_code][:id]がない場合' do
+        let(:_session) {
+          {
+            source_code: {
+              digest: source_code.digest,
+            }
+          }
+        }
+
+        include_examples 'raise exception'
+      end
+
+      context 'セッションに[:source_code][:digest]がない場合' do
+        let(:_session) {
+          {
+            source_code: {
+              id: source_code.id,
+            }
+          }
+        }
+
+        include_examples 'raise exception'
+      end
+
+      context 'セッションの[:source_code][:digest]が不正な場合' do
+        let(:_session) {
+          {
+            source_code: {
+              id: source_code.id,
+              digest: 'invalid_digest',
+            }
+          }
+        }
+
+        include_examples 'raise exception'
+      end
+    end
+  end
 end

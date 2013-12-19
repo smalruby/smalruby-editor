@@ -62,7 +62,7 @@ $ ->
       success = (data, textStatus, jqXHR) ->
         saving = true
         changed = false
-        $('#destroy-link').click()
+        $('#download-link').click()
       $.post('/source_codes/', data, success, 'json')
 
   $('#load-button').click (e) ->
