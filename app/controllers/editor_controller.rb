@@ -10,10 +10,12 @@ class EditorController < ApplicationController
   end
 
   def save_file
-    send_data(params[:source],
-              filename: params[:filename],
-              disposition: 'attachment',
-              type: 'text/plain; charset=utf-8')
+    source_code = SourceCode.create!(source_code_params)
+    session[:source_code] = {
+      id: source_code.id,
+      hash: source_code.digest,
+    }
+    render nothing: true
   end
 
   def load_file
@@ -29,7 +31,7 @@ class EditorController < ApplicationController
   private
 
   def source_code_params
-    params.require(:source_code).permit(:data)
+    params.require(:source_code).permit(:data, :filename)
   end
 
   def get_file_info(file)

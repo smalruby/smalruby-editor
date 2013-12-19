@@ -3,8 +3,7 @@ SmalrubyEditor::Application.routes.draw do
   root 'editor#index'
 
   post 'editor/check'
-  # FIXME: POSTメソッドに変更する
-  get 'editor/save_file'
+  post 'editor/save_file'
   post 'editor/load_file'
 
   # The priority is based upon order of creation: first created ->

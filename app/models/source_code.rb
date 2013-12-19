@@ -2,9 +2,13 @@
 
 require 'tempfile'
 require 'open3'
+require 'digest/sha2'
 
 # ソースコードを表現するモデル
 class SourceCode < ActiveRecord::Base
+  validates :filename, presence: true
+  validates :data, presence: true
+
   # シンタックスをチェックする
   def check_syntax
     _, stderr_str, status = *open3_capture3_ruby_c
@@ -17,6 +21,11 @@ class SourceCode < ActiveRecord::Base
         res[-1][:column] = md[1].length
       end
     }
+  end
+
+  # ハッシュ値を計算する
+  def digest
+    Digest::SHA256.hexdigest(data)
   end
 
   private

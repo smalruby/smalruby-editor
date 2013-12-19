@@ -21,9 +21,24 @@ describe SourceCode, 'Rubyのソースコードを表現するモデル' do
       it { should_not be_empty }
       it {
         should include(row: 1, column: 19,
-                       message: "syntax error, unexpected tSTRING_BEG, expecting keyword_do or '{' or '('")
+                       message: 'syntax error, unexpected tSTRING_BEG,' \
+                       " expecting keyword_do or '{' or '('")
       }
-      it {should include(row: 1, column: 0, message: 'unterminated string meets end of file') }
+      it {
+        should include(row: 1, column: 0,
+                       message: 'unterminated string meets end of file')
+      }
     end
+  end
+
+  describe '#digest', 'プログラムのハッシュ値を計算する' do
+    let(:data) { 'puts "Hello, World!"' }
+    let(:source_code) {
+      SourceCode.new(data: data)
+    }
+
+    subject { source_code.digest }
+
+    it { should eq(Digest::SHA256.hexdigest(data)) }
   end
 end
