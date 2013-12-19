@@ -5,10 +5,6 @@ class EditorController < ApplicationController
   def index
   end
 
-  def check
-    render json: SourceCode.new(source_code_params).check_syntax
-  end
-
   def destroy_file
     source_code = SourceCode.find(session[:source_code][:id])
     unless source_code.digest == session[:source_code][:digest]
@@ -33,10 +29,6 @@ class EditorController < ApplicationController
   end
 
   private
-
-  def source_code_params
-    params.require(:source_code).permit(:data, :filename)
-  end
 
   def get_file_info(file)
     {

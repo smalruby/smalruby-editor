@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 class SourceCodesController < ApplicationController
+  def check
+    render json: SourceCode.new(source_code_params).check_syntax
+  end
+
   def create
     source_code = SourceCode.create!(source_code_params)
     session[:source_code] = {

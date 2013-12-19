@@ -47,7 +47,7 @@ $ ->
           msg.append(": #{errorInfo.message}")
           $('#messages').append(msg)
           msg.fadeIn('slow')
-    $.post('/editor/check', data, success, 'json')
+    $.post('/source_codes/check', data, success, 'json')
 
   $('#save-button').click (e) ->
     e.preventDefault()
@@ -63,7 +63,7 @@ $ ->
         saving = true
         changed = false
         $('#destroy-link').click()
-      $.post('/source_codes/', data, success)
+      $.post('/source_codes/', data, success, 'json')
 
   $('#load-button').click (e) ->
     e.preventDefault()
