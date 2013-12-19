@@ -4,6 +4,7 @@ SmalrubyEditor::Application.routes.draw do
 
   post 'editor/check'
   post 'editor/save_file'
+  delete 'editor/destroy_file'
   post 'editor/load_file'
 
   # The priority is based upon order of creation: first created ->

@@ -13,9 +13,22 @@ class EditorController < ApplicationController
     source_code = SourceCode.create!(source_code_params)
     session[:source_code] = {
       id: source_code.id,
-      hash: source_code.digest,
+      digest: source_code.digest,
     }
     render nothing: true
+  end
+
+  def destroy_file
+    source_code = SourceCode.find(session[:source_code][:id])
+    unless source_code.digest == session[:source_code][:digest]
+      fail ActiveRecord::RecordNotFound
+    end
+    send_data(source_code.data,
+              filename: source_code.filename,
+              disposition: 'attachment',
+              type: 'text/plain; charset=utf-8')
+    source_code.destroy
+    session[:source_code] = nil
   end
 
   def load_file
