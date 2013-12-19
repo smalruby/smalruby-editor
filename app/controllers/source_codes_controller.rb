@@ -58,7 +58,10 @@ class SourceCodesController < ApplicationController
   end
 
   def encode_filename(filename)
-    request.env['HTTP_USER_AGENT'] =~ /MSIE|Trident/ ?
-      ERB::Util.url_encode(filename) : filename
+    if request.env['HTTP_USER_AGENT'] =~ /MSIE|Trident/
+      return ERB::Util.url_encode(filename)
+    else
+      filename
+    end
   end
 end
