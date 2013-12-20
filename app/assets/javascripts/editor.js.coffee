@@ -2,9 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+changed = false
+
 $ ->
   saving = false
-  changed = false
 
   textEditor = ace.edit('text-editor')
   textEditor.setTheme('ace/theme/github')
@@ -65,12 +66,6 @@ $ ->
         $('#download-link').click()
       $.post('/source_codes/', data, success, 'json')
 
-  $('#load-button').click (e) ->
-    e.preventDefault()
-    if changed
-      return unless confirm('まだセーブしていないのでロードするとプログラムが消えてしまうよ！それでもロードしますか？')
-    $(@).parent().find('input[name="source_code[file]"]').click()
-
   $('#filename').keypress (e) ->
     e = window.event if !e
     if e.keyCode == 13
@@ -79,10 +74,14 @@ $ ->
     else
       true
 
+  $('#load-button').click (e) ->
+    e.preventDefault()
+    if changed
+      return unless confirm('まだセーブしていないのでロードするとプログラムが消えてしまうよ！それでもロードしますか？')
+    $(@).parent().find('input[name="source_code[file]"]').click()
+
   $('#file-form').fileupload(
     dataType: 'json'
-    add: (e, data) ->
-      data.submit()
     done: (e, data) ->
       info = data.result.source_code
       if info.error

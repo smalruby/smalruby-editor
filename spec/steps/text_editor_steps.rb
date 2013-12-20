@@ -34,22 +34,36 @@ end
 
 step 'ダウンロードが完了するまで待つ' do
   start_time = Time.now
-  until page.response_headers['Content-Disposition'] ||
-      (start_time + 5.seconds) < Time.now
-    sleep 1
+  if poltergeist?
+    until page.response_headers['Content-Disposition'] ||
+        (start_time + 5.seconds) < Time.now
+      sleep 1
+    end
+  elsif selenium?
+    until downloads_dir.exist? || (start_time + 5.seconds) < Time.now
+      sleep 1
+    end
   end
 end
 
 step ':filename をダウンロードする' do |filename|
   step 'ダウンロードが完了するまで待つ'
-  expect(page.response_headers['Content-Disposition'])
-    .to eq("attachment; filename=\"#{filename}\"")
-  expect(page.response_headers['Content-Type'])
-    .to eq('text/plain; charset=utf-8')
+  if poltergeist?
+    expect(page.response_headers['Content-Disposition'])
+      .to eq("attachment; filename=\"#{filename}\"")
+    expect(page.response_headers['Content-Type'])
+      .to eq('text/plain; charset=utf-8')
+  elsif selenium?
+    expect(downloads_dir.join(filename)).to be_exist
+  end
 end
 
 step 'ダウンロードしない' do
-  expect(page.response_headers['Content-Disposition']).to be_nil
+  if poltergeist?
+    expect(page.response_headers['Content-Disposition']).to be_nil
+  elsif selenium?
+    expect(downloads_dir).not_to be_exist
+  end
 end
 
 step ':name にフォーカスがあること' do |name|
@@ -61,8 +75,13 @@ step ':name にフォーカスがあること' do |name|
 end
 
 step ':filename をロードする' do |filename|
+  # HACK: input#load-file[type="file"]は非表示要素であるため、.show()し
+  #   ないと見つけられずattach_fileが失敗する
   page.execute_script("$('#load-file').show()")
-  attach_file('load-file', Pathname(fixture_path).join(filename))
+
+  path = Pathname(fixture_path).join(filename).to_s
+  path.gsub!(File::SEPARATOR, File::ALT_SEPARATOR) if windows?
+  attach_file('load-file', path)
 end
 
 step 'JavaScriptによるリクエストが終わるまで待つ' do
@@ -87,6 +106,11 @@ step ':name に :message を含まない' do |name, message|
 end
 
 step 'ページをリロードする' do
+  begin
+    step '"エディタ" 画面を表示する'
+  rescue Capybara::Poltergeist::TimeoutError => e
+    Rails.logger.debug("#{e.class.name}: #{e.message}")
+  end
 end
 
 step '警告ダイアログの :name ボタンをクリックする' do |name|
@@ -98,18 +122,39 @@ step '警告ダイアログの :name ボタンをクリックする' do |name|
   end
 end
 
-step '確認メッセージ :message を表示する' do |message|
+step '確認メッセージ :message を表示すること' do |message|
   if poltergeist?
     actual = page.evaluate_script('window.confirmMsg')
     page.execute_script('window.confirmMsg = null')
     expect(actual).to eq(message)
+  elsif selenium?
+    expect(page.driver.browser.switch_to.alert.text).to eq(message)
+    page.driver.browser.switch_to.alert.dismiss
   end
 end
 
-step '確認メッセージを表示しない' do
+step '確認メッセージを表示しないこと' do
   if poltergeist?
     actual = page.evaluate_script('window.confirmMsg')
     page.execute_script('window.confirmMsg = null')
     expect(actual).to be_nil
+  elsif selenium?
+    expect {
+      page.driver.browser.switch_to.alert
+    }.to raise_exception(Selenium::WebDriver::Error::NoAlertPresentError)
+  end
+end
+
+step '実際にはファイルをロードしないようにしておく' do
+  if selenium?
+    page.execute_script("$('#load-button').off('click')")
+    page.execute_script(<<-JS)
+      $('#load-button').click(function(e) {
+        e.preventDefault();
+        if (changed) {
+          confirm('まだセーブしていないのでロードするとプログラムが消えてしまうよ！それでもロードしますか？');
+        }
+      })
+    JS
   end
 end
