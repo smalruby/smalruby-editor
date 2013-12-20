@@ -9,12 +9,12 @@
     もし "チェックボタン" をクリックする
     かつ JavaScriptによるリクエストが終わるまで待つ
 
-    ならば "メッセージ" に "エラー" を含まない
+    ならば "メッセージ" に "エラー" を含まないこと
 
     もし テキストエディタに "puts Hello, World!'" を入力済みである
     かつ "チェックボタン" をクリックする
     かつ JavaScriptによるリクエストが終わるまで待つ
 
-    ならば "メッセージ" に "エラー" を含む
-    かつ "メッセージ" に "1行、19文字: syntax error, unexpected tSTRING_BEG, expecting keyword_do or '{' or '('" を含む
-    かつ "メッセージ" に "1行: unterminated string meets end of file" を含む
+    ならば "メッセージ" に "エラー" を含むこと
+    かつ "メッセージ" に "1行、19文字: syntax error, unexpected tSTRING_BEG, expecting keyword_do or '{' or '('" を含むこと
+    かつ "メッセージ" に "1行: unterminated string meets end of file" を含むこと

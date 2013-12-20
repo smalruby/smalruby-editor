@@ -46,7 +46,7 @@ step 'ダウンロードが完了するまで待つ' do
   end
 end
 
-step ':filename をダウンロードする' do |filename|
+step ':filename をダウンロードすること' do |filename|
   step 'ダウンロードが完了するまで待つ'
   if poltergeist?
     expect(page.response_headers['Content-Disposition'])
@@ -58,7 +58,7 @@ step ':filename をダウンロードする' do |filename|
   end
 end
 
-step 'ダウンロードしない' do
+step 'ダウンロードしないこと' do
   if poltergeist?
     expect(page.response_headers['Content-Disposition']).to be_nil
   elsif selenium?
@@ -91,17 +91,17 @@ step 'JavaScriptによるリクエストが終わるまで待つ' do
     sleep 1
   end
 end
-step ':name は :value である' do |name, value|
+step ':name は :value であること' do |name, value|
   expect(page.evaluate_script(<<-JS)).to eq(value)
     $('#{NAME_INFO[name][:selector]}').val()
   JS
 end
 
-step ':name に :message を含む' do |name, message|
+step ':name に :message を含むこと' do |name, message|
   expect(page.find(NAME_INFO[name][:selector])).to have_content(message)
 end
 
-step ':name に :message を含まない' do |name, message|
+step ':name に :message を含まないこと' do |name, message|
   expect(page.find(NAME_INFO[name][:selector])).to have_no_content(message)
 end
 
