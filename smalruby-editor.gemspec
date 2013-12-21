@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
      ['coffee-rails', '~> 4.0.0'],
      ['jquery-rails'],
      ['turbolinks'],
-     ['jbuilder', '~> 1.2'],
+     ['jbuilder', '~> 2.0'],
      ['ace-rails-ap'],
      ['flatstrap-sass'],
      ['font-awesome-rails'],
