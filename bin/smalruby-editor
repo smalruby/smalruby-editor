@@ -36,6 +36,15 @@ module Rails
         console.level = Rails.logger.level
 
         Rails.logger.extend(ActiveSupport::Logger.broadcast(console))
+
+        if ActiveRecord::Migrator.needs_migration?
+          ActiveRecord::Migration.verbose = true
+          begin
+            ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths)
+          ensure
+            ActiveRecord::Migration.verbose = false
+          end
+        end
       end
 
       uri = "http://localhost:#{options[:Port]}"
