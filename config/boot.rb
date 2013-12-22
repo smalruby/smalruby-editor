@@ -1,5 +1,6 @@
 # Set up gems listed in the Gemfile.
 if ENV['RAILS_ENV'] == 'standalone'
+  require 'pathname'
   path = Pathname('../../smalruby-editor.gemspec').expand_path(__FILE__)
   spec = Dir.chdir(path.dirname.to_s) {
     # rubocop:disable Eval
