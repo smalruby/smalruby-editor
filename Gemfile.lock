@@ -248,7 +248,6 @@ DEPENDENCIES
   commands
   coveralls
   flatstrap-sass
-  font-awesome-rails
   jbuilder (~> 2.0)
   jquery-fileupload-rails!
   jquery-rails

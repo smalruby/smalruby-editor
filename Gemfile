@@ -30,8 +30,6 @@ gem 'ace-rails-ap', github: 'dedico/ace-rails-ap'
 
 gem 'flatstrap-sass'
 
-gem 'font-awesome-rails'
-
 gem 'jquery-fileupload-rails', github: 'demiazz/jquery-fileupload-rails'
 
 gem 'shared-mime-info'

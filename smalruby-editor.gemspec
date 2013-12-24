@@ -39,8 +39,8 @@ Gem::Specification.new do |spec|
      ['jbuilder', '~> 2.0'],
      ['ace-rails-ap'],
      ['flatstrap-sass'],
-     ['font-awesome-rails'],
      ['jquery-fileupload-rails'],
+     ['shared-mime-info'],
      ['launchy'],
     ]
   runtime_dependencies.each do |args|

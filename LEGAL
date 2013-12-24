@@ -1,0 +1,13 @@
+LEGAL NOTICE INFORMATION
+------------------------
+
+All the files in this distribution are covered under either the
+smalruby-editor's license (see the file LICENSE) except some files
+mentioned below.
+
+public/fonts/FontAwesome.otf, public/fonts/fontawesome-webfont.eot,
+public/fonts/fontawesome-webfont.ttf,
+public/fonts/fontawesome-webfont.woff:
+
+  These's license is SIL Open Font License (OFL) 1.1:
+  http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL .
