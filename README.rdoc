@@ -17,7 +17,7 @@ The Smalruby(smɔ́ːrúːbi) Project will provide a Ruby learning environment f
 requirements:
 
 * Windows or UNIX like OS (Mac OS X, Linux, etc...)
-* Ruby 2.0.0-p247 or higher.
+* Ruby 2.0.0-p353 or higher.
 * MySQL
 * Git
 
