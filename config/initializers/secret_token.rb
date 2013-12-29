@@ -9,4 +9,9 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-SmalrubyEditor::Application.config.secret_key_base = ENV['SECRET_KEY_BASE']
+if Rails.env == 'production'
+  secret_key_base = ENV['SECRET_KEY_BASE']
+else
+  secret_key_base = '123456789012345678901234567890'
+end
+SmalrubyEditor::Application.config.secret_key_base = secret_key_base

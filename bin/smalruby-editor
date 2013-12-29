@@ -4,7 +4,6 @@
 require 'pathname'
 
 ENV['RAILS_ENV'] = 'standalone'
-ENV['SECRET_KEY_BASE'] ||= 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 ENV['SMALRUBY_EDITOR_HOME'] ||= Pathname('~/.smalruby-editor').expand_path.to_s
 
 APP_PATH = File.expand_path('../../config/application',  __FILE__)
