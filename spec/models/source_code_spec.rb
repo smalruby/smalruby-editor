@@ -2,6 +2,16 @@
 require 'spec_helper'
 
 describe SourceCode, 'Rubyのソースコードを表現するモデル' do
+  describe 'validation' do
+    describe 'filename' do
+      specify 'ディレクトリセパレータを含むことはできない' do
+        sc = SourceCode.new(filename: '/etc/passwd')
+        expect(sc).not_to be_valid
+        expect(sc.errors[:filename]).to include('includes directory separator(s)')
+      end
+    end
+  end
+
   describe '#check_syntax', 'シンタックスをチェックする' do
     let(:source_code) {
       SourceCode.new(data: data)

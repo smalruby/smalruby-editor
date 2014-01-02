@@ -7,6 +7,7 @@ require 'digest/sha2'
 # ソースコードを表現するモデル
 class SourceCode < ActiveRecord::Base
   validates :filename, presence: true
+  validate :validate_filename
   validates :data, presence: true, allow_blank: true
 
   # シンタックスをチェックする
@@ -38,5 +39,11 @@ class SourceCode < ActiveRecord::Base
     ruby_cmd = File.join(RbConfig::CONFIG['bindir'],
                          RbConfig::CONFIG['RUBY_INSTALL_NAME'])
     Open3.capture3("#{ruby_cmd} -c #{path}")
+  end
+
+  def validate_filename
+    if File.basename(filename) != filename
+      errors.add(:filename, 'includes directory separator(s)')
+    end
   end
 end
