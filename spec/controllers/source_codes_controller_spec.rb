@@ -248,6 +248,189 @@ describe SourceCodesController do
     end
   end
 
+  describe 'プログラムをホームディレクトリに保存してサーバ上から削除する' \
+           ' (DELETE write)', change_home_directory: true do
+    let(:source_code) {
+      SourceCode.create!(filename: '01.rb', data: 'puts "Hello, World!"')
+    }
+    let(:params) { {} }
+    let(:_session) {
+      {
+        source_code: {
+          id: source_code.id,
+          digest: source_code.digest,
+        }
+      }
+    }
+
+    context 'RAILS_ENVがstandaloneの場合', set_standalone_rails_env: true do
+      let(:path) { Pathname("~/#{source_code.filename}").expand_path.to_s }
+
+      context 'セッションが正しい場合' do
+        shared_examples 'success writing' do
+          let(:target_file) {
+            f = double('File')
+            allow(f).to receive(:write)
+            f
+          }
+
+          before do
+            allow(File).to receive(:open).and_yield(target_file)
+            xhr :delete, :write, params, _session
+          end
+
+          specify { expect(response).to be_success }
+
+          specify 'ホームディレクトリにファイルを保存する' do
+            expect(File).to have_received(:open).with(path, 'w').once
+            expect(target_file)
+              .to have_received(:write).with(source_code.data).once
+          end
+
+          specify 'プログラムをサーバ上から削除する' do
+            expect(SourceCode).to have(0).records
+          end
+
+          specify 'セッションから[:source_code]を削除する' do
+            expect(session[:source_code]).to be_nil
+          end
+        end
+
+        context 'ファイル名が半角英数字の場合' do
+          include_examples 'success writing'
+        end
+
+        context 'ファイル名が日本語の場合' do
+          let(:source_code) {
+            SourceCode.create!(filename: '日本語でも表現できる.rb',
+                               data: 'puts "Hello, World!"')
+          }
+
+          context 'OSがWindowsの場合', set_windows_platform: true do
+            let(:path) { super().encode('Windows-31J') }
+
+            include_examples 'success writing'
+          end
+
+          context 'OSがMac OS Xの場合', set_macosx_platform: true do
+            let(:path) { super().encode('UTF8-MAC') }
+
+            include_examples 'success writing'
+          end
+
+          context 'OSがLinuxの場合', set_linux_platform: true do
+            let(:path) { super().encode('UTF-8') }
+
+            include_examples 'success writing'
+          end
+        end
+
+        context '同じ名前のファイルが存在する場合' do
+          before do
+            allow(File).to receive(:exist?).with(path).and_return(true)
+          end
+
+          context '上書き保存モードの場合' do
+            let(:params) { { force: true } }
+
+            include_examples 'success writing'
+          end
+
+          context '上書き保存モードではない場合' do
+            before do
+              xhr :delete, :write, params, _session
+            end
+
+            specify 'プログラムをサーバ上から削除しない' do
+              expect(SourceCode).to have(1).records
+            end
+
+            specify 'セッションから[:source_code]を削除しない' do
+              expect(session[:source_code]).to eq(_session[:source_code])
+            end
+          end
+        end
+      end
+
+      context 'セッションが不正な場合' do
+        shared_examples 'raise exception' do
+          it {
+            expect {
+              xhr :delete, :write, params, _session
+            }.to raise_exception
+          }
+        end
+
+        context 'セッションに[:source_code]がない場合' do
+          let(:_session) { {} }
+
+          include_examples 'raise exception'
+        end
+
+        context 'セッションに[:source_code][:id]がない場合' do
+          let(:_session) {
+            {
+              source_code: {
+                digest: source_code.digest,
+              }
+            }
+          }
+
+          include_examples 'raise exception'
+        end
+
+        context 'セッションに[:source_code][:digest]がない場合' do
+          let(:_session) {
+            {
+              source_code: {
+                id: source_code.id,
+              }
+            }
+          }
+
+          include_examples 'raise exception'
+        end
+
+        context 'セッションの[:source_code][:digest]が不正な場合' do
+          let(:_session) {
+            {
+              source_code: {
+                id: source_code.id,
+                digest: 'invalid_digest',
+              }
+            }
+          }
+
+          include_examples 'raise exception'
+        end
+      end
+    end
+
+    context 'RAILS_ENVがstandalone以外の場合' do
+      subject do
+        xhr :delete, :write, params, _session
+      end
+
+      it { expect { subject }.to raise_exception }
+
+      it 'プログラムをサーバ上から削除しない' do
+        begin
+          subject
+        rescue
+          expect(SourceCode).to have(1).records
+        end
+      end
+
+      it 'セッションから[:source_code]を削除しない' do
+        begin
+          subject
+        rescue
+          expect(session[:source_code]).to eq(_session[:source_code])
+        end
+      end
+    end
+  end
+
   describe 'プログラムを読み込む (POST load)' do
     before do
       post :load, source_code: { file: load_file }

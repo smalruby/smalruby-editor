@@ -2,33 +2,41 @@
 require 'nkf'
 
 class SourceCodesController < ApplicationController
+  before_filter :check_whether_standalone, only: :write
+
   def check
     render json: SourceCode.new(source_code_params).check_syntax
   end
 
   def create
-    source_code = SourceCode.create!(source_code_params)
+    sc = SourceCode.create!(source_code_params)
     session[:source_code] = {
-      id: source_code.id,
-      digest: source_code.digest,
+      id: sc.id,
+      digest: sc.digest,
     }
-    render json: { source_code: { id: source_code.id } }
+    render json: { source_code: { id: sc.id } }
   end
 
   def download
-    source_code = SourceCode.find(session[:source_code][:id])
-    unless source_code.digest == session[:source_code][:digest]
-      fail ActiveRecord::RecordNotFound
-    end
-
     send_data(source_code.data,
-              filename: encode_filename(source_code.filename),
+              filename: url_encode_filename(source_code.filename),
               disposition: 'attachment',
               type: 'text/plain; charset=utf-8')
 
-    source_code.destroy
+    destroy_source_code_and_delete_session(source_code)
+  end
 
-    session[:source_code] = nil
+  def write
+    res = { source_code: { filename: source_code.filename } }
+
+    write_source_code(source_code)
+
+    destroy_source_code_and_delete_session(source_code)
+
+    render json: res
+  rescue => e
+    res[:source_code][:error] = e.message
+    render json: res
   end
 
   def load
@@ -45,6 +53,12 @@ class SourceCodesController < ApplicationController
 
   private
 
+  def check_whether_standalone
+    unless Rails.env == 'standalone'
+      fail "#{self.class.name}##{action_name}はstandaloneモードのみの機能です"
+    end
+  end
+
   def source_code_params
     params.require(:source_code).permit(:data, :filename)
   end
@@ -57,11 +71,48 @@ class SourceCodesController < ApplicationController
     }
   end
 
-  def encode_filename(filename)
+  def url_encode_filename(filename)
     if request.env['HTTP_USER_AGENT'] =~ /MSIE|Trident/
       return ERB::Util.url_encode(filename)
     else
       filename
     end
+  end
+
+  def encode_path(path)
+    if Platform::OS == :win32
+      path.encode('Windows-31J')
+    else
+      if Platform::IMPL == :macosx
+        path.encode('UTF8-MAC')
+      else
+        path.encode('UTF-8')
+      end
+    end
+  end
+
+  def source_code
+    return @source_code if @source_code
+    sc = SourceCode.find(session[:source_code][:id])
+    unless sc.digest == session[:source_code][:digest]
+      fail ActiveRecord::RecordNotFound
+    end
+    @source_code = sc
+  end
+
+  def write_source_code(source_code)
+    path = encode_path(Pathname("~/#{source_code.filename}").expand_path.to_s)
+
+    fail 'すでに同じ名前のプログラムがあります' if File.exist?(path) && params[:force].blank?
+
+    File.open(path, 'w') do |f|
+      f.write(source_code.data)
+    end
+  end
+
+  def destroy_source_code_and_delete_session(source_code)
+    source_code.destroy
+
+    session[:source_code] = nil
   end
 end

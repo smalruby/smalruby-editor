@@ -22,7 +22,7 @@ Spork.prefork do
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
-  Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+  Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| load f, true }
 
   load 'spec/steps/global_variable.rb', true
   Dir.glob('spec/steps/**/*_steps.rb') { |f| load f, true }
@@ -106,9 +106,7 @@ Spork.prefork do
 
     config.after(javascript: true) do
       page.execute_script('window.onbeforeunload = null')
-      if selenium?
-        FileUtils.rm_rf(downloads_dir)
-      end
+      FileUtils.rm_rf(downloads_dir) if selenium?
     end
   end
 end
