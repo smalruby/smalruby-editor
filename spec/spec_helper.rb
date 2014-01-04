@@ -24,9 +24,6 @@ Spork.prefork do
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
-  load 'spec/steps/global_variable.rb', true
-  Dir.glob('spec/steps/**/*_steps.rb') { |f| load f, true }
-
   # Checks for pending migrations before tests are run.
   # If you are not using ActiveRecord, you can remove this line.
   ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
@@ -107,6 +104,31 @@ Spork.prefork do
     config.after(javascript: true) do
       page.execute_script('window.onbeforeunload = null')
       FileUtils.rm_rf(downloads_dir) if selenium?
+    end
+
+    config.before(:all, javascript: true, standalone: true) do
+      expire_assets_cache
+    end
+
+    config.after(:all, javascript: true, standalone: true) do
+      expire_assets_cache
+    end
+
+    config.before(javascript: true, standalone: true) do
+      page.driver.restart
+
+      @_rails_env = Rails.env
+      Rails.env = ENV['RAILS_ENV'] = 'standalone'
+      @_home = ENV['HOME']
+      @_tmpdir = ENV['HOME'] = Dir.mktmpdir('smalruby-')
+    end
+
+    config.after(javascript: true, standalone: true) do
+      FileUtils.remove_entry_secure(@_tmpdir)
+      ENV['HOME'] = @_home
+      Rails.env = ENV['RAILS_ENV'] = @_rails_env
+
+      page.driver.restart
     end
   end
 end

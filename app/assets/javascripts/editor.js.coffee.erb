@@ -71,7 +71,7 @@ $ ->
             type: 'DELETE'
             dataType: 'json'
             success: (data, textStatus, jqXHR) ->
-              if data.source_code.error && confirm("前に#{filename}という名前でセーブしているのですが本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！")
+              if data.source_code.error && confirm("前に#{filename}という名前でセーブしているけど本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！")
                 $.ajax
                   url: '/source_codes/write'
                   type: 'DELETE'

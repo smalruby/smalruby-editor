@@ -157,3 +157,13 @@ step '実際にはファイルをロードしないようにしておく' do
     JS
   end
 end
+
+step 'ホームディレクトリに :filename が存在すること' do |filename|
+  path = Pathname("~/#{filename}").expand_path
+  expect(path).to be_exist
+end
+
+step 'ホームディレクトリの :filename の内容が :program であること' do |filename, program|
+  path = Pathname("~/#{filename}").expand_path
+  expect(path.read).to eq(program)
+end
