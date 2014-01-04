@@ -319,8 +319,6 @@ describe SourceCodesController do
           end
 
           context 'OSがLinuxの場合', set_linux_platform: true do
-            let(:path) { super().encode('UTF-8') }
-
             include_examples 'success writing'
           end
         end

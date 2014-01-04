@@ -86,7 +86,7 @@ class SourceCodesController < ApplicationController
       if Platform::IMPL == :macosx
         path.encode('UTF8-MAC')
       else
-        path.encode('UTF-8')
+        path
       end
     end
   end
