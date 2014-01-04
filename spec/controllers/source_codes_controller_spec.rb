@@ -249,7 +249,7 @@ describe SourceCodesController do
   end
 
   describe 'プログラムをホームディレクトリに保存してサーバ上から削除する' \
-           ' (DELETE write)', change_home_directory: true do
+           ' (DELETE write)' do
     let(:source_code) {
       SourceCode.create!(filename: '01.rb', data: 'puts "Hello, World!"')
     }

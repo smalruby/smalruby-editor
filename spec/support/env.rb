@@ -14,19 +14,6 @@ shared_context 'set standalone rails env', set_standalone_rails_env: true do
   end
 end
 
-# ホームディレクトリを一時ディレクトリに設定する
-shared_context 'change home directory', change_home_directory: true do
-  before do
-    @_home = ENV['HOME']
-    @_tmpdir = ENV['HOME'] = Dir.mktmpdir('smalruby-')
-  end
-
-  after do
-    FileUtils.remove_entry_secure(@_tmpdir)
-    ENV['HOME'] = @_home
-  end
-end
-
 # プラットフォームをWindowsにする
 shared_context 'set linux platform', set_linux_platform: true do
   before do
