@@ -306,21 +306,7 @@ describe SourceCodesController do
                                data: 'puts "Hello, World!"')
           }
 
-          context 'OSがWindowsの場合', set_windows_platform: true do
-            let(:path) { super().encode('Windows-31J') }
-
-            include_examples 'success writing'
-          end
-
-          context 'OSがMac OS Xの場合', set_macosx_platform: true do
-            let(:path) { super().encode('UTF8-MAC') }
-
-            include_examples 'success writing'
-          end
-
-          context 'OSがLinuxの場合', set_linux_platform: true do
-            include_examples 'success writing'
-          end
+          include_examples 'success writing'
         end
 
         context '同じ名前のファイルが存在する場合' do
