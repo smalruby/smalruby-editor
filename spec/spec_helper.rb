@@ -45,7 +45,7 @@ Spork.prefork do
     # If you're not using ActiveRecord, or you'd prefer not to run each of your
     # examples within a transaction, remove the following line or assign false
     # instead of true.
-    config.use_transactional_fixtures = true
+    config.use_transactional_fixtures = false
 
     # If true, the base class of anonymous controllers will be inferred
     # automatically. This will be the default behavior in future versions of
@@ -129,6 +129,14 @@ Spork.prefork do
       Rails.env = ENV['RAILS_ENV'] = @_rails_env
 
       page.driver.restart
+    end
+
+    config.before :suite do
+      DatabaseRewinder.clean_all
+    end
+
+    config.after :each do
+      DatabaseRewinder.clean
     end
   end
 end

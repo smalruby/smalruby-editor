@@ -79,4 +79,5 @@ group :test do
   gem 'coveralls', require: false
   gem 'json_spec'
   gem 'spork-rails'
+  gem 'database_rewinder'
 end
