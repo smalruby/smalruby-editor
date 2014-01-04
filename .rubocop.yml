@@ -1,6 +1,7 @@
 AllCops:
   Excludes:
     - db/seeds.rb
+    - spec/fixtures/**
 
 AsciiComments:
   Enabled: false

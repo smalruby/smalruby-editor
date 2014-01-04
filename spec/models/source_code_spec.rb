@@ -7,7 +7,8 @@ describe SourceCode, 'Rubyのソースコードを表現するモデル' do
       specify 'ディレクトリセパレータを含むことはできない' do
         sc = SourceCode.new(filename: '/etc/passwd')
         expect(sc).not_to be_valid
-        expect(sc.errors[:filename]).to include('includes directory separator(s)')
+        expect(sc.errors[:filename])
+          .to include('includes directory separator(s)')
       end
     end
   end

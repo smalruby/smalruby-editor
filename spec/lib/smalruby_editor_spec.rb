@@ -18,7 +18,8 @@ describe SmalrubyEditor do
       end
 
       describe 'ホームディレクトリ' do
-        %w(config db log tmp tmp/cache tmp/pids tmp/sessions tmp/sockets).each do |dir|
+        %w(config db log tmp
+           tmp/cache tmp/pids tmp/sessions tmp/sockets).each do |dir|
           it "#{dir}ディレクトリを作成する" do
             expect(@home_dir.join(dir)).to be_directory
           end
@@ -54,7 +55,8 @@ describe SmalrubyEditor do
       end
     end
 
-    describe '引数を指定しない場合は環境変数SMALRUBY_EDITOR_HOMEに従う', create_home_directory: true do
+    describe '引数を指定しない場合は環境変数SMALRUBY_EDITOR_HOMEに従う',
+             create_home_directory: true do
       before(:all) do
         ENV['SMALRUBY_EDITOR_HOME'] = @home_dir.to_s
         SmalrubyEditor.create_home_directory

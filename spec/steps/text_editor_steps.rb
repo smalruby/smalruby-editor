@@ -37,12 +37,10 @@ step 'ダウンロードが完了するまで待つ' do
   if poltergeist?
     until page.response_headers['Content-Disposition'] ||
         (start_time + 5.seconds) < Time.now
-      sleep 1
+      sleep(1)
     end
   elsif selenium?
-    until downloads_dir.exist? || (start_time + 5.seconds) < Time.now
-      sleep 1
-    end
+    sleep(1) until downloads_dir.exist? || (start_time + 5.seconds) < Time.now
   end
 end
 
@@ -123,6 +121,7 @@ step '警告ダイアログの :name ボタンをクリックする' do |name|
 end
 
 step '確認メッセージ :message を表示すること' do |message|
+  message.gsub!('\n', "\n")
   if poltergeist?
     actual = page.evaluate_script('window.confirmMsg')
     page.execute_script('window.confirmMsg = null')

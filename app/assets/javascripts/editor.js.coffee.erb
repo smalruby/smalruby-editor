@@ -1,0 +1,123 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://coffeescript.org/
+
+changed = false
+
+errorMessage = (msg, selector = '#messages') ->
+  html = $('<div class="alert alert-error" style="display: none">')
+    .append('<button type="button" class="close" data-dismiss="alert">×</button>')
+    .append('<h4><i class="icon-exclamation-sign"></i>エラー</h4>')
+    .append(msg)
+  $(selector).append(html)
+  html.fadeIn('slow')
+    .delay(10000)
+    .fadeOut('slow')
+
+$ ->
+  saving = false
+
+  textEditor = ace.edit('text-editor')
+  textEditor.setTheme('ace/theme/github')
+  textEditor.setShowInvisibles(true)
+
+  textEditor.focus()
+  textEditor.gotoLine(0, 0)
+
+  textEditor.on 'change', (e) ->
+    changed = true
+
+  session = textEditor.getSession()
+  session.setMode('ace/mode/ruby')
+  session.setTabSize(2)
+  session.setUseSoftTabs(true)
+
+  $('#check-button').click (e) ->
+    e.preventDefault()
+    $.ajax
+      url: '/source_codes/check'
+      type: 'POST'
+      data:
+        source_code:
+          data: session.getDocument().getValue()
+      dataType: 'json'
+      success: (data, textStatus, jqXHR) ->
+        for errorInfo in data
+          do (errorInfo) ->
+            msg = "#{errorInfo.row}行"
+            if errorInfo.column > 0
+              msg += "、#{errorInfo.column}文字"
+            errorMessage(msg + ": #{errorInfo.message}")
+
+  $('#save-button').click (e) ->
+    e.preventDefault()
+    filename = $.trim($('#filename').val())
+    if filename.length <= 0
+      $('#filename').focus()
+    else
+      data =
+      $.ajax
+        url: '/source_codes/'
+        type: 'POST'
+        data:
+          source_code:
+            filename: filename
+            data: session.getDocument().getValue()
+        dataType: 'json'
+        success: (data, textStatus, jqXHR) ->
+          <% if Rails.env == 'standalone' %>
+          $.ajax
+            url: '/source_codes/write'
+            type: 'DELETE'
+            dataType: 'json'
+            success: (data, textStatus, jqXHR) ->
+              if data.source_code.error && confirm("前に#{filename}という名前でセーブしているのですが本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！")
+                $.ajax
+                  url: '/source_codes/write'
+                  type: 'DELETE'
+                  data:
+                    force: true
+                  dataType: 'json'
+                  success: (data, textStatus, jqXHR) ->
+                    saving = true
+                    changed = false
+              else
+                saving = true
+                changed = false
+          <% else %>
+          saving = true
+          changed = false
+          $('#download-link').click()
+          <% end %>
+
+  $('#filename').keypress (e) ->
+    e = window.event if !e
+    if e.keyCode == 13
+      $('#save-button').click()
+      false
+    else
+      true
+
+  $('#load-button').click (e) ->
+    e.preventDefault()
+    if changed
+      return unless confirm('まだセーブしていないのでロードするとプログラムが消えてしまうよ！\nそれでもロードしますか？')
+    $(@).parent().find('input[name="source_code[file]"]').click()
+
+  $('#file-form').fileupload
+    dataType: 'json'
+    done: (e, data) ->
+      info = data.result.source_code
+      if info.error
+        errorMessage(info.filename + 'は' + info.error)
+      else
+        $('#filename').val(info.filename)
+        session.getDocument().setValue(info.data)
+        changed = false
+
+  window.onbeforeunload = (event) ->
+    if !saving && session.getDocument().getValue().length > 0
+      return '作成中のプログラムが消えてしまうよ！'
+    else
+      saving = false
+      return

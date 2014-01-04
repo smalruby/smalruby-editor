@@ -1,14 +1,16 @@
 <div class="navbar navbar-inverse">
   <div class="navbar-inner">
     <ul class="nav">
-      <li class="active"><a id="ruby-tab" href="#">Ruby</a></li>
+      <li class="active"><a id="ruby-tab" href="#" onclick="window.event.preventDefault(); return false;">Ruby</a></li>
     </ul>
 
     <%= form_tag(source_codes_load_path, id: "file-form", class: "navbar-form pull-right", method: "post", multipart: true) do %>
       <button id="check-button" type="button" class="btn btn-primary">チェック</button>
       <input id="filename" type="text" class="span4" placeholder="プログラムの名前を入れてね（例：01.rb）">
       <button id="save-button" type="button" class="btn btn-primary">セーブ</button>
+      <% unless Rails.env == 'standalone' %>
       <%= link_to '', source_codes_download_path, id: 'download-link', style: 'display: none', 'data-method' => 'delete' %>
+      <% end %>
       <button id="load-button" class="btn btn-primary">ロード</button>
       <input id="load-file" type="file" name="source_code[file]" style="display: none">
     <% end %>
@@ -19,4 +21,3 @@
 </div>
 
 <div id="text-editor"></div>
-
