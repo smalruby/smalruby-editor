@@ -79,18 +79,6 @@ class SourceCodesController < ApplicationController
     end
   end
 
-  def encode_path(path)
-    if Platform::OS == :win32
-      path.encode('Windows-31J')
-    else
-      if Platform::IMPL == :macosx
-        path.encode('UTF8-MAC')
-      else
-        path
-      end
-    end
-  end
-
   def source_code
     return @source_code if @source_code
     sc = SourceCode.find(session[:source_code][:id])
@@ -101,7 +89,7 @@ class SourceCodesController < ApplicationController
   end
 
   def write_source_code(source_code)
-    path = encode_path(Pathname("~/#{source_code.filename}").expand_path.to_s)
+    path = Pathname("~/#{source_code.filename}").expand_path.to_s
 
     fail 'すでに同じ名前のプログラムがあります' if File.exist?(path) && params[:force].blank?
 

@@ -42,7 +42,6 @@ Gem::Specification.new do |spec|
      ['jquery-fileupload-rails'],
      ['shared-mime-info'],
      ['launchy'],
-     ['Platform'],
     ]
   runtime_dependencies.each do |args|
     spec.add_runtime_dependency *args
