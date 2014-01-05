@@ -37,3 +37,12 @@ production:
   username: root
   password:
   host: localhost
+
+standalone:
+  adapter: mysql2
+  encoding: utf8
+  database: smalruby-editor_standalone
+  pool: 5
+  username: root
+  password:
+  host: localhost
