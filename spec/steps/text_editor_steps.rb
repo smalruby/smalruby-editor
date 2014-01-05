@@ -158,6 +158,12 @@ step '実際にはファイルをロードしないようにしておく' do
   end
 end
 
+step 'ホームディレクトリに :program という内容の :filename が存在する' do |program, filename|
+  File.open(Pathname("~/#{filename}").expand_path, 'w') do |f|
+    f.write(program)
+  end
+end
+
 step 'ホームディレクトリに :filename が存在すること' do |filename|
   path = Pathname("~/#{filename}").expand_path
   expect(path).to be_exist

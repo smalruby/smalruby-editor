@@ -4,6 +4,15 @@
 
 changed = false
 
+successMessage = (title, msg = '', selector = '#messages') ->
+  html = $('<div class="alert alert-success" style="display: none">')
+    .append("<h4><i class=\"icon-star\"></i>#{title}</h4>")
+    .append(msg)
+  $(selector).append(html)
+  html.fadeIn('slow')
+    .delay(3000)
+    .fadeOut('slow')
+
 errorMessage = (msg, selector = '#messages') ->
   html = $('<div class="alert alert-error" style="display: none">')
     .append('<button type="button" class="close" data-dismiss="alert">×</button>')
@@ -42,20 +51,27 @@ $ ->
           data: session.getDocument().getValue()
       dataType: 'json'
       success: (data, textStatus, jqXHR) ->
-        for errorInfo in data
-          do (errorInfo) ->
-            msg = "#{errorInfo.row}行"
-            if errorInfo.column > 0
-              msg += "、#{errorInfo.column}文字"
-            errorMessage(msg + ": #{errorInfo.message}")
+        if data.length == 0
+          successMessage('チェックしました', 'ただし、プログラムを動かすとエラーが見つかるかもしれません。')
+        else
+          for errorInfo in data
+            do (errorInfo) ->
+              msg = "#{errorInfo.row}行"
+              if errorInfo.column > 0
+                msg += "、#{errorInfo.column}文字"
+              errorMessage(msg + ": #{errorInfo.message}")
 
   $('#save-button').click (e) ->
     e.preventDefault()
     filename = $.trim($('#filename').val())
     if filename.length <= 0
+      errorMessage('セーブする前にプログラムに名前をつけてね！')
       $('#filename').focus()
     else
-      data =
+      afterSave = ->
+        saving = true
+        changed = false
+        successMessage('セーブしました')
       $.ajax
         url: '/source_codes/'
         type: 'POST'
@@ -79,14 +95,11 @@ $ ->
                     force: true
                   dataType: 'json'
                   success: (data, textStatus, jqXHR) ->
-                    saving = true
-                    changed = false
+                    afterSave()
               else
-                saving = true
-                changed = false
+                afterSave()
           <% else %>
-          saving = true
-          changed = false
+          afterSave()
           $('#download-link').click()
           <% end %>
 
@@ -114,6 +127,7 @@ $ ->
         $('#filename').val(info.filename)
         session.getDocument().setValue(info.data)
         changed = false
+        successMessage('ロードしました')
 
   window.onbeforeunload = (event) ->
     if !saving && session.getDocument().getValue().length > 0
