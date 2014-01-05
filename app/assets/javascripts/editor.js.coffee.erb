@@ -126,6 +126,7 @@ $ ->
       else
         $('#filename').val(info.filename)
         session.getDocument().setValue(info.data)
+        textEditor.moveCursorTo(0, 0)
         changed = false
         successMessage('ロードしました')
 
