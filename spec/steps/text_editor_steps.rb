@@ -64,6 +64,12 @@ step 'ダウンロードしないこと' do
   end
 end
 
+step ':name にフォーカスを移す' do |name|
+  page.execute_script(<<-JS)
+    $('#{NAME_INFO[name][:selector]}').focus()
+  JS
+end
+
 step ':name にフォーカスがあること' do |name|
   # HACK: 現在のPhantomJSでは$(':focus')は動作しない
   # https://github.com/netzpirat/guard-jasmine/issues/48
@@ -73,6 +79,8 @@ step ':name にフォーカスがあること' do |name|
 end
 
 step ':filename をロードする' do |filename|
+  step '"ロードボタン" にフォーカスを移す'
+
   # HACK: input#load-file[type="file"]は非表示要素であるため、.show()し
   #   ないと見つけられずattach_fileが失敗する
   page.execute_script("$('#load-file').show()")

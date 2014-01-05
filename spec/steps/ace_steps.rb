@@ -4,8 +4,7 @@ text_editor = 'テキストエディタ'
 
 step 'テキストエディタにフォーカスがあること' do
   expect(page.evaluate_script(<<-JS)).to be_true
-    $('#{NAME_INFO[text_editor][:selector]} textarea.ace_text-input').get(0) ==
-      document.activeElement
+    ace.edit('#{NAME_INFO[text_editor][:id]}').isFocused()
   JS
 end
 
