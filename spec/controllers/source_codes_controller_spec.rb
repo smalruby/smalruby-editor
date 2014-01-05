@@ -296,17 +296,23 @@ describe SourceCodesController do
           end
         end
 
-        context 'ファイル名が半角英数字の場合' do
-          include_examples 'success writing'
-        end
+        context '同じ名前のファイルが存在しない場合' do
+          before do
+            allow(File).to receive(:exist?).with(path).and_return(false)
+          end
 
-        context 'ファイル名が日本語の場合' do
-          let(:source_code) {
-            SourceCode.create!(filename: '日本語でも表現できる.rb',
-                               data: 'puts "Hello, World!"')
-          }
+          context 'ファイル名が半角英数字の場合' do
+            include_examples 'success writing'
+          end
 
-          include_examples 'success writing'
+          context 'ファイル名が日本語の場合' do
+            let(:source_code) {
+              SourceCode.create!(filename: '日本語でも表現できる.rb',
+                                 data: 'puts "Hello, World!"')
+            }
+
+            include_examples 'success writing'
+          end
         end
 
         context '同じ名前のファイルが存在する場合' do
