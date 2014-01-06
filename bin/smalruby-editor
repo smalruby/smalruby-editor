@@ -50,9 +50,6 @@ module Rails
       launchy = Launchy.open(uri) do |exception|
         puts "Attempted to open #{uri} and failed because #{exception}"
       end
-      if launchy.respond_to?(:join)
-        launchy.join
-      end
 
       super
     ensure
