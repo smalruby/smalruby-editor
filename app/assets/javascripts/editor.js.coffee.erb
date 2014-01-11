@@ -41,26 +41,6 @@ $ ->
   session.setTabSize(2)
   session.setUseSoftTabs(true)
 
-  $('#check-button').click (e) ->
-    e.preventDefault()
-    $.ajax
-      url: '/source_codes/check'
-      type: 'POST'
-      data:
-        source_code:
-          data: session.getDocument().getValue()
-      dataType: 'json'
-      success: (data, textStatus, jqXHR) ->
-        if data.length == 0
-          successMessage('チェックしました', 'ただし、プログラムを動かすとエラーが見つかるかもしれません。')
-        else
-          for errorInfo in data
-            do (errorInfo) ->
-              msg = "#{errorInfo.row}行"
-              if errorInfo.column > 0
-                msg += "、#{errorInfo.column}文字"
-              errorMessage(msg + ": #{errorInfo.message}")
-
   $('#save-button').click (e) ->
     e.preventDefault()
     filename = $.trim($('#filename').val())
@@ -72,6 +52,25 @@ $ ->
         saving = true
         changed = false
         successMessage('セーブしました')
+
+        $.ajax
+          url: '/source_codes/check'
+          type: 'POST'
+          data:
+            source_code:
+              data: session.getDocument().getValue()
+          dataType: 'json'
+          success: (data, textStatus, jqXHR) ->
+            if data.length == 0
+              successMessage('チェックしました', 'ただし、プログラムを動かすとエラーが見つかるかもしれません。')
+            else
+              for errorInfo in data
+                do (errorInfo) ->
+                  msg = "#{errorInfo.row}行"
+                  if errorInfo.column > 0
+                    msg += "、#{errorInfo.column}文字"
+                  errorMessage(msg + ": #{errorInfo.message}")
+
       $.ajax
         url: '/source_codes/'
         type: 'POST'

@@ -5,7 +5,6 @@
     </ul>
 
     <%= form_tag(source_codes_load_path, id: "file-form", class: "navbar-form pull-right", method: "post", multipart: true) do %>
-      <button id="check-button" type="button" class="btn btn-primary">チェック</button>
       <input id="filename" type="text" class="span4" placeholder="プログラムの名前を入れてね（例：01.rb）">
       <button id="save-button" type="button" class="btn btn-primary">セーブ</button>
       <% unless Rails.env == 'standalone' %>
