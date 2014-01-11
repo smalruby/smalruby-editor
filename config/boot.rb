@@ -7,8 +7,9 @@ if ENV['RAILS_ENV'] == 'standalone'
     eval(path.read, TOPLEVEL_BINDING, path.to_s)
     # rubocop:enable Eval
   }
-  spec.runtime_dependencies.each do |spec_dep|
-    require spec_dep.name
+  exclude_gems = %w(therubyracer)
+  spec.runtime_dependencies.each do |s|
+    require s.name unless exclude_gems.include?(s.name)
   end
 else
   ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)

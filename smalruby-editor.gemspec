@@ -69,6 +69,7 @@ Gem::Specification.new do |spec|
      ['jquery-fileupload-rails'],
      ['shared-mime-info'],
      ['launchy'],
+     ['mime-types', '~> 1.16'],
     ]
   runtime_dependencies << ['therubyracer'] unless is_windows
   runtime_dependencies.each do |args|
