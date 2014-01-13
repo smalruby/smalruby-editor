@@ -46,11 +46,6 @@ module Rails
         end
       end
 
-      uri = "http://localhost:#{options[:Port]}"
-      launchy = Launchy.open(uri) do |exception|
-        puts "Attempted to open #{uri} and failed because #{exception}"
-      end
-
       super
     ensure
       # The '-h' option calls exit before @options is set.
@@ -69,6 +64,20 @@ module Rails
         config:       File.expand_path("config.ru")
       })
     end
+
+    private
+
+    def parse_options_with_start_callback(args)
+      options = parse_options_without_start_callback(args)
+      options[:StartCallback] = -> {
+        uri = "http://localhost:#{options[:Port]}"
+        launchy = Launchy.open(uri) do |exception|
+          puts "Attempted to open #{uri} and failed because #{exception}"
+        end
+      }
+      options
+    end
+    alias_method_chain :parse_options, :start_callback
   end
 end
 
