@@ -166,6 +166,17 @@ step '実際にはファイルをロードしないようにしておく' do
   end
 end
 
+step '実際にはファイルをダウンロードしないようにしておく' do
+  if poltergeist?
+    page.execute_script(<<-JS)
+      $('#download-link').click(function(e) {
+        e.preventDefault();
+        return false;
+      })
+    JS
+  end
+end
+
 step 'ホームディレクトリに :program という内容の :filename が存在する' do |program, filename|
   File.open(Pathname("~/#{filename}").expand_path, 'w') do |f|
     f.write(program)
