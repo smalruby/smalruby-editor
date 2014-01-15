@@ -20,8 +20,6 @@ errorMessage = (msg, selector = '#messages') ->
     .append(msg)
   $(selector).append(html)
   html.fadeIn('slow')
-    .delay(10000)
-    .fadeOut('slow')
 
 $ ->
   saving = false
