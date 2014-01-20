@@ -8,6 +8,14 @@
     z-index: 9999;
 }
 
+#blocklyDiv {
+    position: absolute;
+    left: 0;
+    top: 60px;
+    right: 0;
+    bottom: 0;
+}
+
 #text-editor {
     position: absolute;
     left: 0;
