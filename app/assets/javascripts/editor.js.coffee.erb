@@ -24,6 +24,9 @@ errorMessage = (msg, selector = '#messages') ->
 $ ->
   saving = false
 
+  Blockly.inject(document.getElementById('blocklyDiv'),
+                 { path: '/blockly/', toolbox: document.getElementById('toolbox') })
+
   $('#tabs a:last').tab('show')
 
   textEditor = ace.edit('text-editor')
