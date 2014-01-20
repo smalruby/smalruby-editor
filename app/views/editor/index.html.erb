@@ -1,7 +1,8 @@
 <div class="navbar navbar-inverse">
   <div class="navbar-inner">
-    <ul class="nav">
-      <li class="active"><a id="ruby-tab" href="#" onclick="window.event.preventDefault(); return false;">Ruby</a></li>
+    <ul class="nav" id="tabs">
+      <li><a href="#block-tab" data-toggle="tab">ブロック</a></li>
+      <li><a href="#ruby-tab" data-toggle="tab">Ruby</a></li>
     </ul>
 
     <%= form_tag(source_codes_load_path, id: "file-form", class: "navbar-form pull-right", method: "post", multipart: true) do %>
@@ -19,4 +20,10 @@
 <div id="messages">
 </div>
 
-<div id="text-editor"></div>
+<div class="tab-content">
+  <div class="tab-pane active" id="block-tab"></div>
+
+  <div class="tab-pane" id="ruby-tab">
+    <div id="text-editor"></div>
+  </div>
+</div>

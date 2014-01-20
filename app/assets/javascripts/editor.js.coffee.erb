@@ -24,6 +24,8 @@ errorMessage = (msg, selector = '#messages') ->
 $ ->
   saving = false
 
+  $('#tabs a:last').tab('show')
+
   textEditor = ace.edit('text-editor')
   textEditor.setTheme('ace/theme/clouds')
   textEditor.setShowInvisibles(true)
