@@ -47,7 +47,6 @@ $ ->
       $('#filename').focus()
     else
       afterSave = ->
-        saving = true
         changed = false
         successMessage('セーブしました')
 
@@ -98,6 +97,7 @@ $ ->
                 afterSave()
           <% else %>
           afterSave()
+          saving = true
           $('#download-link').click()
           <% end %>
 
