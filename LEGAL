@@ -16,3 +16,9 @@ public/blockly/**/*:
 
   These's license is Apache License Version 2.0, January 2011:
   http://www.apache.org/licenses/ .
+
+public/favicon.ico, public/apple-touch-icon.png:
+
+  Copyright (C) Hikari Arakawa (Smalruby Project) 2013,
+  licensed under CC BY-SA 2.1 JP:
+  http://creativecommons.org/licenses/by-sa/2.1/jp/ .
