@@ -17,18 +17,23 @@ step ':name にアクセスする' do |name|
   end
 end
 
-step ':name にタブを切り替える' do |name|
-  page.execute_script(<<-JS)
-    $('#tabs a[href=\"#{NAME_INFO[name][:selector]}\"]').tab('show')
-  JS
+step ':name 画面を表示する' do |name|
+  send ':name にアクセスする', name
 end
 
 step ':name が表示されていること' do |name|
   expect(page).to have_selector(NAME_INFO[name][:selector])
 end
 
-step ':name 画面を表示する' do |name|
-  send ':name にアクセスする', name
+step ':name にタブを切り替える' do |name|
+  page.execute_script(<<-JS)
+    $('#tabs a[href=\"#{NAME_INFO[name][:selector]}\"]').tab('show')
+  JS
+end
+
+step ':name タブを表示する' do |name|
+  step '"エディタ" 画面を表示する'
+  step %("#{name}タブ" にタブを切り替える)
 end
 
 step 'プログラムの名前に :filename を指定する' do |filename|
