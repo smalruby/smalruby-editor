@@ -24,8 +24,10 @@ errorMessage = (msg, selector = '#messages') ->
 $ ->
   saving = false
 
-  Blockly.inject(document.getElementById('blocklyDiv'),
-                 { path: '/blockly/', toolbox: document.getElementById('toolbox') })
+  Blockly.inject document.getElementById('blocklyDiv'),
+    path: '/blockly/'
+    toolbox: document.getElementById('toolbox')
+    trashcan: true
 
   textEditor = ace.edit('text-editor')
   textEditor.setTheme('ace/theme/clouds')
