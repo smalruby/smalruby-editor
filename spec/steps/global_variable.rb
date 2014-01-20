@@ -8,6 +8,10 @@
     path: '/',
   },
 
+  'ブロックタブ' => {
+    id: 'block-tab',
+    selector: '#block-tab',
+  },
   'Rubyタブ' => {
     id: 'ruby-tab',
     selector: '#ruby-tab',

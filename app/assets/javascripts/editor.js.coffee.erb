@@ -33,7 +33,10 @@ $ ->
   textEditor.setTheme('ace/theme/clouds')
   textEditor.setShowInvisibles(true)
 
-  textEditor.focus()
+  $('a[data-toggle="tab"]').on 'shown', (e) ->
+    if $(e.target).attr('href') == '#ruby-tab'
+      textEditor.focus()
+
   textEditor.gotoLine(0, 0)
 
   textEditor.on 'change', (e) ->
