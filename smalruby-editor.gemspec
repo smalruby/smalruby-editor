@@ -70,6 +70,7 @@ Gem::Specification.new do |spec|
      ['shared-mime-info'],
      ['launchy'],
      ['mime-types', '~> 1.16'],
+     ['haml-rails'],
     ]
   runtime_dependencies << ['therubyracer'] unless is_windows
   runtime_dependencies.each do |args|

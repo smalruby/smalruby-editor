@@ -24,15 +24,7 @@
   <div class="tab-pane active" id="block-tab">
     <div id="blocklyDiv"></div>
 
-    <xml id="toolbox" style="display: none">
-      <block type="controls_if"></block>
-      <block type="controls_repeat_ext"></block>
-      <block type="logic_compare"></block>
-      <block type="math_number"></block>
-      <block type="math_arithmetic"></block>
-      <block type="text"></block>
-      <block type="text_print"></block>
-    </xml>
+    <%= render 'toolbox' %>
   </div>
 
   <div class="tab-pane" id="ruby-tab">

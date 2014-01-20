@@ -1,0 +1,39 @@
+%xml{:id => 'toolbox', :style => 'display: none'}
+  %category{:name => '動き'}
+    -# (　)歩動かす
+    -# x座標を(　)、y座標を(　)にする
+    -# もし端に着いたら、跳ね返る
+    -# 変数:x座標
+    %block{:type => 'math_number'}
+    -# 変数:y座標
+    %block{:type => 'math_number'}
+
+  %category{:name => '見た目'}
+    -# [　]と言う
+    %block{:type => 'text_print'}
+    -# 表示する
+    -# 隠す
+
+  %category{:name => '音'}
+    -# [▼]の音を鳴らす
+
+  %category{:name => 'Variables', :custom => 'VARIABLE'}
+    -# 変数を作る
+
+  %category{:name => 'イベント'}
+    -# はじまったとき
+
+  %category{:name => '制御'}
+    -# もし<　>なら
+    %block{:type => 'controls_if'}
+
+  %category{:name => '演算'}
+    -# 変数:(　) + (　)
+    %block{:type => 'math_arithmetic'}
+    -# 変数:(　) - (　)
+    %block{:type => 'math_arithmetic'}
+    -# 変数:(　) * (　)
+    %block{:type => 'math_arithmetic'}
+    -# 変数:(　) / (　)
+    %block{:type => 'math_arithmetic'}
+

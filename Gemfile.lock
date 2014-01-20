@@ -84,6 +84,13 @@ GEM
       multi_json (~> 1.3)
     gherkin (2.12.2-x86-mingw32)
       multi_json (~> 1.3)
+    haml (4.0.5)
+      tilt
+    haml-rails (0.5.3)
+      actionpack (>= 4.0.1)
+      activesupport (>= 4.0.1)
+      haml (>= 3.1, < 5.0)
+      railties (>= 4.0.1)
     hike (1.2.3)
     i18n (0.6.9)
     jbuilder (2.0.2)
@@ -251,6 +258,7 @@ DEPENDENCIES
   coveralls
   database_rewinder
   flatstrap-sass
+  haml-rails
   jbuilder (~> 2.0)
   jquery-fileupload-rails!
   jquery-rails
