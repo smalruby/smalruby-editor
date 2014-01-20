@@ -4,12 +4,13 @@ step ':name にアクセスする' do |name|
   visit NAME_INFO[name][:path]
 
   if poltergeist?
+    page.execute_script('window.confirmResult = true')
     page.execute_script(<<-JS)
       if (window.confirmMsg == undefined) {
         window.confirmMsg = null;
         window.confirm = function(msg) {
           window.confirmMsg = msg;
-          return true;
+          return window.confirmResult;
         }
       }
     JS
@@ -126,6 +127,10 @@ step '警告ダイアログの :name ボタンをクリックする' do |name|
   else
     page.driver.browser.switch_to.alert.accept if selenium?
   end
+end
+
+step '確認ダイアログをキャンセルするようにしておく' do
+  page.execute_script('window.confirmResult = false') if poltergeist?
 end
 
 step '確認メッセージ :message を表示すること' do |message|

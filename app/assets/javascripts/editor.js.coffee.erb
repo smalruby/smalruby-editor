@@ -84,15 +84,16 @@ $ ->
             type: 'DELETE'
             dataType: 'json'
             success: (data, textStatus, jqXHR) ->
-              if data.source_code.error && confirm("前に#{filename}という名前でセーブしているけど本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！")
-                $.ajax
-                  url: '/source_codes/write'
-                  type: 'DELETE'
-                  data:
-                    force: true
-                  dataType: 'json'
-                  success: (data, textStatus, jqXHR) ->
-                    afterSave()
+              if data.source_code.error
+                if confirm("前に#{filename}という名前でセーブしているけど本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！")
+                  $.ajax
+                    url: '/source_codes/write?force=1'
+                    type: 'DELETE'
+                    dataType: 'json'
+                    success: (data, textStatus, jqXHR) ->
+                      afterSave()
+                else
+                  successMessage('セーブをキャンセルしました')
               else
                 afterSave()
           <% else %>
