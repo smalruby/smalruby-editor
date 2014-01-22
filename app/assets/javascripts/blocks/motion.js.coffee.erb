@@ -1,11 +1,12 @@
 # 「動き」ジャンル
 
 <%
+  prefix = 'motion'
   color = 225
 %>
 
 # (　)歩動かす
-<% n = 'motion_move' %>
+<% n = "#{prefix}_move" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -22,7 +23,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   "move(#{arg})\n"
 
 # x座標を(　)、y座標を(　)にする
-<% n = 'motion_instance_variable_set_x_y' %>
+<% n = "#{prefix}_instance_variable_set_x_y" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -47,7 +48,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   """
 
 # もし端に着いたら、跳ね返る
-<% n = 'motion_turn_if_reach_wall' %>
+<% n = "#{prefix}_turn_if_reach_wall" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -61,7 +62,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   'turn_if_reach_wall\n'
 
 # 変数:x座標
-<% n = 'motion_self_x' %>
+<% n = "#{prefix}_self_x" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -74,7 +75,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   ['x', Blockly.Ruby.ORDER_ATOMIC]
 
 # 変数:y座標
-<% n = 'motion_self_y' %>
+<% n = "#{prefix}_self_y" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
