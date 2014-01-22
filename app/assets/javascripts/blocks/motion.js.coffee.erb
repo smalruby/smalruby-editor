@@ -5,7 +5,8 @@
 %>
 
 # (　)歩動かす
-Blockly.Blocks['motion_move'] =
+<% n = 'motion_move' %>
+Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
     @.setColour(<%= color %>)
@@ -16,12 +17,13 @@ Blockly.Blocks['motion_move'] =
     @.setNextStatement(true)
     @.setTooltip('')
 
-Blockly.Ruby['motion_move'] = (block) ->
+Blockly.Ruby['<%= n %>'] = (block) ->
   arg = Blockly.Ruby.valueToCode(this, 'STEP', Blockly.Ruby.ORDER_NONE) || '0'
   "move(#{arg})\n"
 
 # x座標を(　)、y座標を(　)にする
-Blockly.Blocks['motion_instance_variable_set_x_y'] =
+<% n = 'motion_instance_variable_set_x_y' %>
+Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
     @.setColour(<%= color %>)
@@ -35,8 +37,18 @@ Blockly.Blocks['motion_instance_variable_set_x_y'] =
     @.setNextStatement(true)
     @.setTooltip('')
 
+Blockly.Ruby['<%= n %>'] = (block) ->
+  x = Blockly.Ruby.valueToCode(this, 'X', Blockly.Ruby.ORDER_NONE) || '0'
+  y = Blockly.Ruby.valueToCode(this, 'Y', Blockly.Ruby.ORDER_NONE) || '0'
+  """
+  self.x = #{x}
+  self.y = #{y}
+
+  """
+
 # もし端に着いたら、跳ね返る
-Blockly.Blocks['motion_turn_if_reach_wall'] =
+<% n = 'motion_turn_if_reach_wall' %>
+Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
     @.setColour(<%= color %>)
@@ -45,8 +57,12 @@ Blockly.Blocks['motion_turn_if_reach_wall'] =
     @.setNextStatement(true)
     @.setTooltip('')
 
+Blockly.Ruby['<%= n %>'] = (block) ->
+  'turn_if_reach_wall\n'
+
 # 変数:x座標
-Blockly.Blocks['motion_self_x'] =
+<% n = 'motion_self_x' %>
+Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
     @.setColour(<%= color %>)
@@ -54,11 +70,18 @@ Blockly.Blocks['motion_self_x'] =
     @.setOutput(true, 'Number')
     @.setTooltip('')
 
+Blockly.Ruby['<%= n %>'] = (block) ->
+  ['x', Blockly.Ruby.ORDER_ATOMIC]
+
 # 変数:y座標
-Blockly.Blocks['motion_self_y'] =
+<% n = 'motion_self_y' %>
+Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
     @.setColour(<%= color %>)
     @.appendDummyInput().appendField('y座標')
     @.setOutput(true, 'Number')
     @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  ['y', Blockly.Ruby.ORDER_ATOMIC]

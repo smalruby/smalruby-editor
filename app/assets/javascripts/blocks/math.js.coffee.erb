@@ -1,4 +1,9 @@
-Blockly.Ruby['math_number'] = (block) ->
+# TODO: ジャンル分けをする
+
+# 数値
+# ブロックはBlocklyが提供している
+<% n = 'math_number' %>
+Blockly.Ruby['<%= n %>'] = (block) ->
   code = parseFloat(this.getTitleValue('NUM'))
   order = if code < 0 then Blockly.Ruby.ORDER_UNARY_SIGN else Blockly.Ruby.ORDER_ATOMIC
   [code, order]
