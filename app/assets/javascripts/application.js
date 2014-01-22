@@ -18,4 +18,7 @@
 //= require ace/mode-ruby.js
 //= require bootstrap.js
 //= require jquery-fileupload/basic
-//= require_tree .
+//= require_tree ./smalruby-editor
+//= require blockly/blockly_compressed
+//= require blockly/blocks_compressed
+//= require blockly/msg/js/ja
