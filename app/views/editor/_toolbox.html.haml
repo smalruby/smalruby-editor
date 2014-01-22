@@ -33,7 +33,7 @@
       %value{:name => 'TEXT'}
         %block{:type => 'text'}
           %field{:name => 'TEXT'}<
-            Hello!
+            こんにちは！
 
     -# 表示する
     %block{:type => 'looks_show'}
@@ -47,8 +47,22 @@
       %value{:name => 'NAME'}
         %block{:type => 'sound_preset_sounds'}
 
-  %category{:name => 'Variables', :custom => 'VARIABLE'}
-    -# 変数を作る
+  %category{:name => 'データ'}
+    -# テキスト
+    %block{:type => 'text'}
+      %field{:name => 'TEXT'}<
+        文章
+
+    -# 数値
+    %block{:type => 'math_number'}
+      %field{:name => 'NUM'}<
+        0
+
+    -# プリセットの画像
+    %block{:type => 'looks_preset_images'}
+
+    -# プリセットの音
+    %block{:type => 'sound_preset_sounds'}
 
   %category{:name => 'イベント'}
     -# はじまったとき

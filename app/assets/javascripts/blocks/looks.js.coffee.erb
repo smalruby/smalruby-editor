@@ -49,3 +49,33 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   "self.visible = false\n"
+
+# [▼]（プリセットの画像）
+<% n = "#{prefix}_preset_images" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    images = [
+      ['車1', 'car1.png'],
+      ['車2', 'car2.png'],
+      ['車3', 'car3.png'],
+      ['車4', 'car4.png'],
+      ['ボール1', 'ball1.png'],
+      ['ボール2', 'ball2.png'],
+      ['ボール3', 'ball3.png'],
+      ['ボール4', 'ball4.png'],
+      ['ボール5', 'ball5.png'],
+      ['ボール6', 'ball6.png'],
+      ['猫1', 'cat1.png'],
+      ['猫2', 'cat2.png'],
+      ['猫3', 'cat3.png'],
+      ['かえる1', 'frog1.png'],
+    ]
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput().appendField(new Blockly.FieldDropdown(images), 'NAME')
+    @.setOutput(true, 'String')
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  code = Blockly.Ruby.quote_(this.getTitleValue('NAME'))
+  [code, Blockly.Ruby.ORDER_ATOMIC]
