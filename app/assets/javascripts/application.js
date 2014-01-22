@@ -23,6 +23,6 @@
 //= require blockly/msg/js/ja
 //= require ./common
 //= require ./block_mode
-//= require_tree ./blocks
 //= require_tree ./generators
+//= require_tree ./blocks
 //= require ./ruby_mode

@@ -1,0 +1,4 @@
+Blockly.Ruby['math_number'] = (block) ->
+  code = parseFloat(this.getTitleValue('NUM'))
+  order = if code < 0 then Blockly.Ruby.ORDER_UNARY_SIGN else Blockly.Ruby.ORDER_ATOMIC
+  [code, order]

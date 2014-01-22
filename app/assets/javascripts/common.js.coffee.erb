@@ -34,6 +34,10 @@ $ ->
       window.blockMode = true
     else
       window.blockMode = false
+      data = Blockly.Ruby.workspaceToCode()
+      if $.trim(data).length > 0
+        setSourceCodeData(data)
+        window.textEditor.moveCursorTo(0, 0)
       window.textEditor.focus()
 
   $('#save-button').click (e) ->

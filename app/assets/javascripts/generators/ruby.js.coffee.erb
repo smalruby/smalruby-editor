@@ -1,0 +1,90 @@
+Blockly.Ruby = new Blockly.Generator('Ruby')
+
+Blockly.Ruby.addReservedWords '
+BEGIN    class    ensure   nil      self     when
+END      def      false    not      super    while
+alias    defined? for      or       then     yield
+and      do       if       redo     true     __LINE__
+begin    else     in       rescue   undef    __FILE__
+break    elsif    module   retry    unless   __ENCODING__
+case     end      next     return   until
+'.split(/\s+/)
+
+# TODO: 確認すること
+Blockly.Ruby.ORDER_ATOMIC = 0            # 0 "" ...
+Blockly.Ruby.ORDER_COLLECTION = 1        # tuples, lists, dictionaries
+Blockly.Ruby.ORDER_STRING_CONVERSION = 1 # `expression...`
+Blockly.Ruby.ORDER_MEMBER = 2            # . []
+Blockly.Ruby.ORDER_FUNCTION_CALL = 2     # ()
+Blockly.Ruby.ORDER_EXPONENTIATION = 3    # **
+Blockly.Ruby.ORDER_UNARY_SIGN = 4        # + -
+Blockly.Ruby.ORDER_BITWISE_NOT = 4       # ~
+Blockly.Ruby.ORDER_MULTIPLICATIVE = 5    # * / // %
+Blockly.Ruby.ORDER_ADDITIVE = 6          # + -
+Blockly.Ruby.ORDER_BITWISE_SHIFT = 7     # << >>
+Blockly.Ruby.ORDER_BITWISE_AND = 8       # &
+Blockly.Ruby.ORDER_BITWISE_XOR = 9       # ^
+Blockly.Ruby.ORDER_BITWISE_OR = 10       # |
+Blockly.Ruby.ORDER_RELATIONAL = 11       # in, not in, is, is not,
+                                         # <, <=, >, >=, <>, !=, ==
+Blockly.Ruby.ORDER_LOGICAL_NOT = 12      # not
+Blockly.Ruby.ORDER_LOGICAL_AND = 13      # and
+Blockly.Ruby.ORDER_LOGICAL_OR = 14       # or
+Blockly.Ruby.ORDER_CONDITIONAL = 15      # if else
+Blockly.Ruby.ORDER_LAMBDA = 16           # lambda
+Blockly.Ruby.ORDER_NONE = 99             # (...)
+
+Blockly.Ruby.INFINITE_LOOP_TRAP = null
+
+Blockly.Ruby.init = ->
+  Blockly.Ruby.definitions_ = Object.create(null)
+
+  if Blockly.Variables
+    if !Blockly.Ruby.variableDB_
+      Blockly.Ruby.variableDB_ = new Blockly.Names(Blockly.Ruby.RESERVED_WORDS_)
+    else
+      Blockly.Ruby.variableDB_.reset()
+
+    defvars = []
+    variables = Blockly.Variables.allVariables()
+    for v in variables
+      do (v) ->
+        defvars.push(Blockly.Ruby.variableDB_.getName(v, Blockly.Variables.NAME_TYPE) + ' = nil')
+    Blockly.Ruby.definitions_['variables'] = defvars.join('\n')
+
+Blockly.Ruby.finish = (code) ->
+  definitions = []
+  for name in Blockly.Ruby.definitions_
+    do (name) ->
+      definitions.push(Blockly.Ruby.definitions_[name])
+  definitions.join('\n\n') + '\n\n\n' + code
+
+Blockly.Ruby.scrubNakedValue = (line) ->
+  line + '\n'
+
+Blockly.Ruby.quote_ = (string) ->
+  # TODO: 実装すること
+  '\'' + string + '\''
+
+Blockly.Ruby.scrub_ = (block, code) ->
+  if code == null
+    return ''
+
+  commentCode = ''
+  if !block.outputConnection || !block.outputConnection.targetConnection
+    comment = block.getCommentText()
+    if comment
+      commentCode += @.prefixLines(comment, '# ') + '\n'
+
+    for input in block.inputList
+      do (input) =>
+        if input.type == Blockly.INPUT_VALUE
+          childBlock = input.connection.targetBlock()
+          if childBlock
+            comment = @.allNestedComments(childBlock)
+            if comment
+              commentCode += @.prefixLines(comment, '# ')
+
+  nextBlock = block.nextConnection && block.nextConnection.targetBlock()
+  nextCode = this.blockToCode(nextBlock)
+  commentCode + code + nextCode

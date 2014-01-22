@@ -16,6 +16,10 @@ Blockly.Blocks['motion_move'] =
     @.setNextStatement(true)
     @.setTooltip('')
 
+Blockly.Ruby['motion_move'] = (block) ->
+  arg = Blockly.Ruby.valueToCode(this, 'STEP', Blockly.Ruby.ORDER_NONE) || '0'
+  "move(#{arg})\n"
+
 # x座標を(　)、y座標を(　)にする
 Blockly.Blocks['motion_instance_variable_set_x_y'] =
   init: ()->
