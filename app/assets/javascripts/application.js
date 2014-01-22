@@ -21,4 +21,8 @@
 //= require blockly/blockly_compressed
 //= require blockly/blocks_compressed
 //= require blockly/msg/js/ja
-//= require_tree ./smalruby-editor
+//= require ./common
+//= require ./block_mode
+//= require_tree ./blocks
+//= require_tree ./generators
+//= require ./ruby_mode
