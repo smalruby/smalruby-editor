@@ -4,3 +4,44 @@
   prefix = 'sound'
   color = 296
 %>
+
+# [▼]（プリセットの音）
+<% n = "#{prefix}_preset_sounds" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    sounds = [
+      ['ピアノのド', 'piano_do.wav'],
+      ['ピアノのレ', 'piano_re.wav'],
+      ['ピアノのミ', 'piano_mi.wav'],
+      ['ピアノのファ', 'piano_fa.wav'],
+      ['ピアノのソ', 'piano_so.wav'],
+      ['ピアノのラ', 'piano_ra.wav'],
+      ['ピアノのシ', 'piano_si.wav'],
+      ['ピアノの高いド', 'piano_do_2.wav'],
+    ]
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput().appendField(new Blockly.FieldDropdown(sounds), 'NAME')
+    @.setOutput(true, 'String')
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  code = Blockly.Ruby.quote_(this.getTitleValue('NAME'))
+  [code, Blockly.Ruby.ORDER_ATOMIC]
+
+# [▼]の音を鳴らす
+<% n = "#{prefix}_play" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendValueInput('NAME').setCheck('String')
+    @.appendDummyInput().appendField('の音を鳴らす')
+    @.setInputsInline(true)
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  arg = Blockly.Ruby.valueToCode(this, 'NAME', Blockly.Ruby.ORDER_NONE) || ''
+  "play(name: #{arg})\n"

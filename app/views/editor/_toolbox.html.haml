@@ -43,6 +43,9 @@
 
   %category{:name => '音'}
     -# [▼]の音を鳴らす
+    %block{:type => 'sound_play'}
+      %value{:name => 'NAME'}
+        %block{:type => 'sound_preset_sounds'}
 
   %category{:name => 'Variables', :custom => 'VARIABLE'}
     -# 変数を作る
