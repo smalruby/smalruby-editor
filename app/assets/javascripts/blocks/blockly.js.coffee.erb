@@ -7,3 +7,11 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   code = parseFloat(this.getTitleValue('NUM'))
   order = if code < 0 then Blockly.Ruby.ORDER_UNARY_SIGN else Blockly.Ruby.ORDER_ATOMIC
   [code, order]
+
+
+<% prefix = 'text' %>
+
+<% n = "#{prefix}" %>
+Blockly.Ruby['<%= n %>'] = (block) ->
+  code = Blockly.Ruby.quote_(this.getTitleValue('TEXT'))
+  [code, Blockly.Ruby.ORDER_ATOMIC]

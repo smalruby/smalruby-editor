@@ -64,7 +64,10 @@ Blockly.Ruby.scrubNakedValue = (line) ->
 
 Blockly.Ruby.quote_ = (string) ->
   # TODO: 実装すること
-  '\'' + string + '\''
+  # stringに"を含んでいたら、aから順番にstringに含まれるか試して、含ま
+  # れていない文字を使って%Qa...aとしようかな。でも生成したソースコード
+  # の可読性が下がりますね。
+  '\"' + string + '\"'
 
 Blockly.Ruby.scrub_ = (block, code) ->
   if code == null

@@ -4,3 +4,48 @@
   prefix = 'looks'
   color = 264
 %>
+
+# [　]と言う
+<% n = "#{prefix}_say" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendValueInput('TEXT')
+    @.appendDummyInput().appendField('と言う')
+    @.setInputsInline(true)
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  arg = Blockly.Ruby.valueToCode(this, 'TEXT', Blockly.Ruby.ORDER_NONE) || ''
+  "say(#{arg})\n"
+
+# 表示する
+<% n = "#{prefix}_show" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput().appendField('表示する')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  "self.visible = true\n"
+
+# 隠す
+<% n = "#{prefix}_hide" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput().appendField('隠す')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  "self.visible = false\n"

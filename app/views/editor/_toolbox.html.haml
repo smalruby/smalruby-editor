@@ -4,18 +4,18 @@
     %block{:type => 'motion_move'}
       %value{:name => 'STEP'}
         %block{:type => 'math_number'}
-          %field{:name => 'NUM'}
+          %field{:name => 'NUM'}<
             10
 
     -# x座標を(　)、y座標を(　)にする
     %block{:type => 'motion_instance_variable_set_x_y'}
       %value{:name => 'X'}
         %block{:type => 'math_number'}
-          %field{:name => 'NUM'}
+          %field{:name => 'NUM'}<
             0
       %value{:name => 'Y'}
         %block{:type => 'math_number'}
-          %field{:name => 'NUM'}
+          %field{:name => 'NUM'}<
             0
 
     -# もし端に着いたら、跳ね返る
@@ -29,9 +29,17 @@
 
   %category{:name => '見た目'}
     -# [　]と言う
-    %block{:type => 'text_print'}
+    %block{:type => 'looks_say'}
+      %value{:name => 'TEXT'}
+        %block{:type => 'text'}
+          %field{:name => 'TEXT'}<
+            Hello!
+
     -# 表示する
+    %block{:type => 'looks_show'}
+
     -# 隠す
+    %block{:type => 'looks_hide'}
 
   %category{:name => '音'}
     -# [▼]の音を鳴らす
