@@ -1,12 +1,31 @@
 %xml{:id => 'toolbox', :style => 'display: none'}
   %category{:name => '動き'}
     -# (　)歩動かす
+    %block{:type => 'motion_move'}
+      %value{:name => 'STEP'}
+        %block{:type => 'math_number'}
+          %field{:name => 'NUM'}
+            10
+
     -# x座標を(　)、y座標を(　)にする
+    %block{:type => 'motion_instance_variable_set_x_y'}
+      %value{:name => 'X'}
+        %block{:type => 'math_number'}
+          %field{:name => 'NUM'}
+            0
+      %value{:name => 'Y'}
+        %block{:type => 'math_number'}
+          %field{:name => 'NUM'}
+            0
+
     -# もし端に着いたら、跳ね返る
+    %block{:type => 'motion_turn_if_reach_wall'}
+
     -# 変数:x座標
-    %block{:type => 'math_number'}
+    %block{:type => 'motion_self_x'}
+
     -# 変数:y座標
-    %block{:type => 'math_number'}
+    %block{:type => 'motion_self_y'}
 
   %category{:name => '見た目'}
     -# [　]と言う

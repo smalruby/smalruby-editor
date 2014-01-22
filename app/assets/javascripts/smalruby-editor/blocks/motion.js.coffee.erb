@@ -1,0 +1,60 @@
+# 「動き」ジャンル
+
+<%
+  color = 225
+%>
+
+# (　)歩動かす
+Blockly.Blocks['motion_move'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendValueInput('STEP').setCheck('Number')
+    @.appendDummyInput().appendField('歩動かす')
+    @.setInputsInline(true)
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+# x座標を(　)、y座標を(　)にする
+Blockly.Blocks['motion_instance_variable_set_x_y'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput().appendField('X座標を')
+    @.appendValueInput('X').setCheck('Number')
+    @.appendDummyInput().appendField('、Y座標を')
+    @.appendValueInput('Y').setCheck('Number')
+    @.appendDummyInput().appendField('にする')
+    @.setInputsInline(true)
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+# もし端に着いたら、跳ね返る
+Blockly.Blocks['motion_turn_if_reach_wall'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput().appendField('もし端に着いたら、跳ね返る')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+# 変数:x座標
+Blockly.Blocks['motion_self_x'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput().appendField('x座標')
+    @.setOutput(true, 'Number')
+    @.setTooltip('')
+
+# 変数:y座標
+Blockly.Blocks['motion_self_y'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput().appendField('y座標')
+    @.setOutput(true, 'Number')
+    @.setTooltip('')
