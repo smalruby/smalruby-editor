@@ -5,75 +5,33 @@
   color = 93
 %>
 
-
 # 変数:(　) + (　)
-<% n = "#{prefix}_add" %>
-Blockly.Blocks['<%= n %>'] =
-  init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendValueInput('A').setCheck('Number')
-    @.appendValueInput('B').setCheck('Number').appendField('＋')
-    @.setInputsInline(true)
-    @.setOutput(true, 'Number')
-    @.setTooltip('')
-
-Blockly.Ruby['<%= n %>'] = (block) ->
-  order = Blockly.Ruby.ORDER_ADDITIVE
-  a = Blockly.Ruby.valueToCode(block, 'A', order) || '0'
-  b = Blockly.Ruby.valueToCode(block, 'B', order) || '0'
-  [a + ' + ' + b, order]
-
 # 変数:(　) - (　)
-<% n = "#{prefix}_minus" %>
-Blockly.Blocks['<%= n %>'] =
-  init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendValueInput('A').setCheck('Number')
-    @.appendValueInput('B').setCheck('Number').appendField('ー')
-    @.setInputsInline(true)
-    @.setOutput(true, 'Number')
-    @.setTooltip('')
-
-Blockly.Ruby['<%= n %>'] = (block) ->
-  order = Blockly.Ruby.ORDER_ADDITIVE
-  a = Blockly.Ruby.valueToCode(block, 'A', order) || '0'
-  b = Blockly.Ruby.valueToCode(block, 'B', order) || '0'
-  [a + ' - ' + b, order]
-
 # 変数:(　) * (　)
-<% n = "#{prefix}_multiply" %>
-Blockly.Blocks['<%= n %>'] =
-  init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendValueInput('A').setCheck('Number')
-    @.appendValueInput('B').setCheck('Number').appendField('×')
-    @.setInputsInline(true)
-    @.setOutput(true, 'Number')
-    @.setTooltip('')
-
-Blockly.Ruby['<%= n %>'] = (block) ->
-  order = Blockly.Ruby.ORDER_MULTIPLICATIVE
-  a = Blockly.Ruby.valueToCode(block, 'A', order) || '0'
-  b = Blockly.Ruby.valueToCode(block, 'B', order) || '0'
-  [a + ' * ' + b, order]
-
 # 変数:(　) / (　)
-<% n = "#{prefix}_divide" %>
+<%
+  [
+    ['add', '＋', 'ADDITIVE', '+'],
+    ['minus', 'ー', 'ADDITIVE', '-'],
+    ['multiply', '×', 'MULTIPLICATIVE', '*'],
+    ['divide', '÷', 'MULTIPLICATIVE', '/'],
+  ].each do |suffix, operator_label, order_suffix, operator|
+    n = "#{prefix}_#{suffix}"
+%>
+
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
     @.setColour(<%= color %>)
     @.appendValueInput('A').setCheck('Number')
-    @.appendValueInput('B').setCheck('Number').appendField('÷')
+    @.appendValueInput('B').setCheck('Number').appendField('<%= operator_label %>')
     @.setInputsInline(true)
     @.setOutput(true, 'Number')
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  order = Blockly.Ruby.ORDER_MULTIPLICATIVE
+  order = Blockly.Ruby.ORDER_<%= order_suffix %>
   a = Blockly.Ruby.valueToCode(block, 'A', order) || '0'
   b = Blockly.Ruby.valueToCode(block, 'B', order) || '0'
-  [a + ' / ' + b, order]
+  [a + ' <%= operator %> ' + b, order]
+<% end %>
