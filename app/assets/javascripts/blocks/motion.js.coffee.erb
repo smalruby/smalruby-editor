@@ -61,13 +61,13 @@ Blockly.Blocks['<%= n %>'] =
 Blockly.Ruby['<%= n %>'] = (block) ->
   'turn_if_reach_wall\n'
 
-# 条件:端に着いたら
+# 条件:端に着いた
 <% n = "#{prefix}_reach_wall" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
     @.setColour(<%= color %>)
-    @.appendDummyInput().appendField('端に着いたら')
+    @.appendDummyInput().appendField('端に着いた')
     @.setOutput(true, 'Boolean')
     @.setTooltip('')
 
