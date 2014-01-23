@@ -1,0 +1,56 @@
+$ ->
+  data =
+    """
+    <xml xmlns="http://www.w3.org/1999/xhtml">
+      <block type="variables_set" inline="false" x="19" y="4">
+        <field name="VAR">char1</field>
+        <value name="VALUE">
+          <block type="data_characters" inline="true">
+            <value name="COSTUME">
+              <block type="looks_preset_images">
+                <field name="NAME">car1.png</field>
+              </block>
+            </value>
+            <value name="X">
+              <block type="math_number">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+            <value name="Y">
+              <block type="math_number">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+      <block type="events_on_start" x="22" y="78">
+        <field name="VAR">char1</field>
+        <statement name="DO">
+          <block type="control_loop">
+            <statement name="DO">
+              <block type="motion_move" inline="true">
+                <value name="STEP">
+                  <block type="math_number">
+                    <field name="NUM">10</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="control_if" inline="true">
+                    <value name="IF">
+                      <block type="motion_reach_wall" />
+                    </value>
+                    <statement name="THEN">
+                      <block type="motion_turn" />
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </statement>
+      </block>
+    </xml>
+    """
+  xml = Blockly.Xml.textToDom(data)
+  Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml)

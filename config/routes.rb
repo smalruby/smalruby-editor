@@ -2,6 +2,8 @@
 SmalrubyEditor::Application.routes.draw do
   root 'editor#index'
 
+  get 'demo' => 'editor#demo'
+
   resources :source_codes, only: [:create]
   post 'source_codes/check'
   delete 'source_codes/download'
