@@ -15,3 +15,20 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 Blockly.Ruby['<%= n %>'] = (block) ->
   code = Blockly.Ruby.quote_(this.getTitleValue('TEXT'))
   [code, Blockly.Ruby.ORDER_ATOMIC]
+
+
+# 変数
+<% prefix = 'variables' %>
+
+# [▼]（変数）
+<% n = "#{prefix}_get" %>
+Blockly.Ruby['<%= n %>'] = (block) ->
+  name = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
+  [name, Blockly.Ruby.ORDER_ATOMIC]
+
+# セット[▼]宛先
+<% n = "#{prefix}_set" %>
+Blockly.Ruby['<%= n %>'] = (block) ->
+  val = Blockly.Ruby.valueToCode(block, 'VALUE', Blockly.Ruby.ORDER_NONE) || '0'
+  name = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
+  name + ' = ' + val + '\n';

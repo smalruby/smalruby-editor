@@ -47,12 +47,6 @@ Blockly.Ruby.init = ->
 
     Blockly.Ruby.definitions_['require_smalruby'] = 'require "smalruby"'
 
-    defvars = []
-    for v in Blockly.Variables.allVariables()
-      do (v) ->
-        defvars.push(Blockly.Ruby.variableDB_.getName(v, Blockly.Variables.NAME_TYPE) + ' = nil')
-    Blockly.Ruby.definitions_['variables'] = defvars.join('\n')
-
 Blockly.Ruby.finish = (code) ->
   requires = []
   definitions = []
@@ -64,7 +58,9 @@ Blockly.Ruby.finish = (code) ->
       else
         definitions.push(def)
 
-  allDefs = requires.join('\n') + '\n\n' + definitions.join('\n\n')
+  allDefs = requires.join('\n')
+  if definitions.length > 0
+    allDefs += '\n\n' + definitions.join('\n\n')
   allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n\n\n') + code
 
 Blockly.Ruby.scrubNakedValue = (line) ->
