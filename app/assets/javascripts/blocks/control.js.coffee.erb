@@ -5,21 +5,38 @@
   color = 43
 %>
 
+# ずっと
+<% n = "#{prefix}_loop" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>);
+    @.appendDummyInput().appendField('ずっと')
+    @.appendStatementInput('DO')
+    @.appendDummyInput().appendField('を繰り返す')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true);
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  branch = Blockly.Ruby.statementToCode(block, 'DO') || '  ;\n'
+  'loop do\n' + branch + 'end\n'
+
 # もし<　>なら
 <% n = "#{prefix}_if" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
-    @.setColour(210);
+    @.setColour(<%= color %>)
     @.appendValueInput('IF').setCheck('Boolean').appendField('もし')
     @.appendDummyInput().appendField('ならば')
     @.appendStatementInput('THEN')
-    @.setPreviousStatement(true);
-    @.setNextStatement(true);
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
     @.setInputsInline(true)
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   cond = Blockly.Ruby.valueToCode(block, 'IF', Blockly.Ruby.ORDER_NONE) || 'false'
-  branch = Blockly.Ruby.statementToCode(block, 'THEN') || '  ;\n';
-  code = 'if ' + cond + '\n' + branch + 'end\n'
+  branch = Blockly.Ruby.statementToCode(block, 'THEN') || '  ;\n'
+  'if ' + cond + '\n' + branch + 'end\n'
