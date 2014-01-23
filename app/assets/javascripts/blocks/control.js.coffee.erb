@@ -10,12 +10,12 @@
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
-    @.setColour(<%= color %>);
+    @.setColour(<%= color %>)
     @.appendDummyInput().appendField('ずっと')
     @.appendStatementInput('DO')
     @.appendDummyInput().appendField('を繰り返す')
     @.setPreviousStatement(true)
-    @.setNextStatement(true);
+    @.setNextStatement(true)
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->

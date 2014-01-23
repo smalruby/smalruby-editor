@@ -4,3 +4,17 @@
   prefix = 'events'
   color = 33
 %>
+
+# はじまったとき
+<% n = "#{prefix}_on_start" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput().appendField('はじまったとき')
+    @.appendStatementInput('DO')
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
+  'char1.on(:start) do\n' + branch + 'end\n'
