@@ -11,10 +11,35 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
     @.setColour(<%= color %>)
-    @.appendDummyInput().appendField('はじまったとき')
+    @.appendDummyInput().appendField(new Blockly.FieldVariable('char1'), 'VAR').appendField('はじまったとき')
     @.appendStatementInput('DO')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
     @.setTooltip('')
 
+  getVars: ->
+    [@.getFieldValue('VAR')]
+
+  getVar: ->
+    @.getVars()[0]
+
+  renameVar: (oldName, newName) ->
+    if Blockly.Names.equals(oldName, @.getVar())
+      @.setFieldValue(newName, 'VAR')
+
+  customContextMenu: (options) ->
+    option =
+      enabled: true
+    name = @.getVar()
+    option.text = Blockly.Msg.VARIABLES_SET_CREATE_GET.replace('%1', name)
+    xmlField = goog.dom.createDom('field', null, name)
+    xmlField.setAttribute('name', 'VAR')
+    xmlBlock = goog.dom.createDom('block', null, xmlField)
+    xmlBlock.setAttribute('type', 'variables_get')
+    option.callback = Blockly.ContextMenu.callbackFactory(@, xmlBlock)
+    options.push(option)
+
 Blockly.Ruby['<%= n %>'] = (block) ->
+  var0 = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
   branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-  'char1.on(:start) do\n' + branch + 'end\n'
+  "#{var0}.on(:start) do\n" + branch + 'end\n'

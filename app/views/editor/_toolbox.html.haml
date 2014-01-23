@@ -48,6 +48,21 @@
         %block{:type => 'sound_preset_sounds'}
 
   %category{:name => 'データ'}
+    -# スプライト
+    %block{:type => 'variables_set'}
+      %value{:name => 'VALUE'}
+        %block{:type => 'data_characters'}
+          %value{:name => 'COSTUME'}
+            %block{:type => 'looks_preset_images'}
+          %value{:name => 'X'}
+            %block{:type => 'math_number'}
+              %field{:name => 'NUM'}<
+                0
+          %value{:name => 'Y'}
+            %block{:type => 'math_number'}
+              %field{:name => 'NUM'}<
+                0
+
     -# テキスト
     %block{:type => 'text'}
       %field{:name => 'TEXT'}<

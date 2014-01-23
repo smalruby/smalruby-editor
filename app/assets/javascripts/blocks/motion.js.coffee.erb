@@ -19,7 +19,7 @@ Blockly.Blocks['<%= n %>'] =
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  arg = Blockly.Ruby.valueToCode(this, 'STEP', Blockly.Ruby.ORDER_NONE) || '0'
+  arg = Blockly.Ruby.valueToCode(@, 'STEP', Blockly.Ruby.ORDER_NONE) || '0'
   "move(#{arg})\n"
 
 # x座標を(　)、y座標を(　)にする
@@ -39,8 +39,8 @@ Blockly.Blocks['<%= n %>'] =
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  x = Blockly.Ruby.valueToCode(this, 'X', Blockly.Ruby.ORDER_NONE) || '0'
-  y = Blockly.Ruby.valueToCode(this, 'Y', Blockly.Ruby.ORDER_NONE) || '0'
+  x = Blockly.Ruby.valueToCode(@, 'X', Blockly.Ruby.ORDER_NONE) || '0'
+  y = Blockly.Ruby.valueToCode(@, 'Y', Blockly.Ruby.ORDER_NONE) || '0'
   """
   self.x = #{x}
   self.y = #{y}

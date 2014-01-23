@@ -4,3 +4,22 @@
   prefix = 'data'
   color = 29
 %>
+
+# キャラクター
+<% n = "#{prefix}_characters" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendValueInput('COSTUME').appendField('コスチューム').setCheck('String')
+    @.appendValueInput('X').appendField('x座標').setCheck('Number')
+    @.appendValueInput('Y').appendField('y座標').setCheck('Number')
+    @.setOutput(true, null)
+    @.setInputsInline(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  costume = Blockly.Ruby.valueToCode(@, 'COSTUME', Blockly.Ruby.ORDER_NONE) || 'car1.png'
+  x = Blockly.Ruby.valueToCode(@, 'X', Blockly.Ruby.ORDER_NONE) || '0'
+  y = Blockly.Ruby.valueToCode(@, 'Y', Blockly.Ruby.ORDER_NONE) || '0'
+  ["Character.new(costume: #{costume}, x: #{x}, y: #{y})", Blockly.Ruby.ORDER_FUNCTION_CALL]
