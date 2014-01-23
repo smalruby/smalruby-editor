@@ -26,7 +26,7 @@ Blockly.Blocks['<%= n %>'] =
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  code = Blockly.Ruby.quote_(this.getTitleValue('NAME'))
+  code = Blockly.Ruby.quote_(@.getTitleValue('NAME'))
   [code, Blockly.Ruby.ORDER_ATOMIC]
 
 # [▼]の音を鳴らす
@@ -43,5 +43,5 @@ Blockly.Blocks['<%= n %>'] =
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  arg = Blockly.Ruby.valueToCode(this, 'NAME', Blockly.Ruby.ORDER_NONE) || ''
+  arg = Blockly.Ruby.valueToCode(@, 'NAME', Blockly.Ruby.ORDER_NONE) || ''
   "play(name: #{arg})\n"

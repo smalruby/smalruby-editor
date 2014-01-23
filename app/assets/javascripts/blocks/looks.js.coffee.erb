@@ -19,7 +19,7 @@ Blockly.Blocks['<%= n %>'] =
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  arg = Blockly.Ruby.valueToCode(this, 'TEXT', Blockly.Ruby.ORDER_NONE) || ''
+  arg = Blockly.Ruby.valueToCode(@, 'TEXT', Blockly.Ruby.ORDER_NONE) || ''
   "say(#{arg})\n"
 
 # 表示する
@@ -77,5 +77,5 @@ Blockly.Blocks['<%= n %>'] =
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  code = Blockly.Ruby.quote_(this.getTitleValue('NAME'))
+  code = Blockly.Ruby.quote_(@.getTitleValue('NAME'))
   [code, Blockly.Ruby.ORDER_ATOMIC]
