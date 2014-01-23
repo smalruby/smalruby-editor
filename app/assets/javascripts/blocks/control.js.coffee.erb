@@ -4,3 +4,22 @@
   prefix = 'control'
   color = 43
 %>
+
+# もし<　>なら
+<% n = "#{prefix}_if" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(210);
+    @.appendValueInput('IF').setCheck('Boolean').appendField('もし')
+    @.appendDummyInput().appendField('ならば')
+    @.appendStatementInput('THEN')
+    @.setPreviousStatement(true);
+    @.setNextStatement(true);
+    @.setInputsInline(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  cond = Blockly.Ruby.valueToCode(block, 'IF', Blockly.Ruby.ORDER_NONE) || 'false'
+  branch = Blockly.Ruby.statementToCode(block, 'THEN') || '  ;\n';
+  code = 'if ' + cond + '\n' + branch + 'end\n'

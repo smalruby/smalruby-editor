@@ -35,3 +35,36 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   b = Blockly.Ruby.valueToCode(block, 'B', order) || '0'
   [a + ' <%= operator %> ' + b, order]
 <% end %>
+
+# 条件:(　) < (　)
+# 条件:(　) <= (　)
+# 条件:(　) = (　)
+# 条件:(　) => (　)
+# 条件:(　) > (　)
+<%
+  [
+    ['compare_gt', '＜', '<'],
+    ['compare_gte', '≦', '<='],
+    ['compare_eq', '＝', '=='],
+    ['compare_lte', '≧', '>='],
+    ['compare_lt', '＞', '>'],
+  ].each do |suffix, operator_label, operator|
+    n = "#{prefix}_#{suffix}"
+%>
+
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.setOutput(true, 'Boolean')
+    @.appendValueInput('A')
+    @.appendValueInput('B').appendField('<%= operator_label %>')
+    @.setInputsInline(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  order = Blockly.Ruby.ORDER_RELATIONAL;
+  a = Blockly.Ruby.valueToCode(block, 'A', order) || '0'
+  b = Blockly.Ruby.valueToCode(block, 'B', order) || '0'
+  [a + ' <%= operator %> ' + b, order]
+<% end %>
