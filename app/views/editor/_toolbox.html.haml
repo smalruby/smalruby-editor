@@ -54,6 +54,12 @@
     -# もし端に着いたら、跳ね返る
     %block{:type => 'motion_turn_if_reach_wall'}
 
+    -# 条件:端に着いたら
+    %block{:type => 'motion_reach_wall'}
+
+    -# 跳ね返る
+    %block{:type => 'motion_turn'}
+
     -# 変数:x座標
     %block{:type => 'motion_self_x'}
 
@@ -85,11 +91,21 @@
     %block{:type => 'events_on_start'}
 
   %category{:name => '制御'}
+    -# (　)秒待つ
+    %block{:type => 'control_sleep'}
+      %value{:name => 'SEC'}
+        %block{:type => 'math_number'}
+          %field{:name => 'NUM'}<
+            0
+
     -# ずっと
     %block{:type => 'control_loop'}
 
     -# もし<　>なら
     %block{:type => 'control_if'}
+
+    -# もし<　>なら～でなければ
+    %block{:type => 'control_if_else'}
 
   %category{:name => '演算'}
     -# 変数:(　) + (　)

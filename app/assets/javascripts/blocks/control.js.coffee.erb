@@ -5,6 +5,23 @@
   color = 43
 %>
 
+# (　)秒待つ
+<% n = "#{prefix}_sleep" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendValueInput('SEC').setCheck('Number')
+    @.appendDummyInput().appendField('秒待つ')
+    @.setInputsInline(true)
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  arg = Blockly.Ruby.valueToCode(@, 'SEC', Blockly.Ruby.ORDER_NONE) || '0'
+  "sleep(#{arg})\n"
+
 # ずっと
 <% n = "#{prefix}_loop" %>
 Blockly.Blocks['<%= n %>'] =
@@ -40,3 +57,25 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   cond = Blockly.Ruby.valueToCode(block, 'IF', Blockly.Ruby.ORDER_NONE) || 'false'
   branch = Blockly.Ruby.statementToCode(block, 'THEN') || '  ;\n'
   'if ' + cond + '\n' + branch + 'end\n'
+
+# もし<　>なら～でなければ
+<% n = "#{prefix}_if_else" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendValueInput('IF').setCheck('Boolean').appendField('もし')
+    @.appendDummyInput().appendField('ならば')
+    @.appendStatementInput('THEN')
+    @.appendDummyInput().appendField('でなければ')
+    @.appendStatementInput('ELSE')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setInputsInline(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  cond = Blockly.Ruby.valueToCode(block, 'IF', Blockly.Ruby.ORDER_NONE) || 'false'
+  branch0 = Blockly.Ruby.statementToCode(block, 'THEN') || '\n'
+  branch1 = Blockly.Ruby.statementToCode(block, 'ELSE') || '\n'
+  'if ' + cond + '\n' + branch0 + 'else\n' + branch1 + 'end\n'

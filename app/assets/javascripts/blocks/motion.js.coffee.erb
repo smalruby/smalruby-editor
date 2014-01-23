@@ -61,6 +61,33 @@ Blockly.Blocks['<%= n %>'] =
 Blockly.Ruby['<%= n %>'] = (block) ->
   'turn_if_reach_wall\n'
 
+# 条件:端に着いたら
+<% n = "#{prefix}_reach_wall" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput().appendField('端に着いたら')
+    @.setOutput(true, 'Boolean')
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  ['reach_wall?', Blockly.Ruby.ORDER_ATOMIC]
+
+# 跳ね返る
+<% n = "#{prefix}_turn" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput().appendField('跳ね返る')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  'turn\n'
+
 # 変数:x座標
 <% n = "#{prefix}_self_x" %>
 Blockly.Blocks['<%= n %>'] =
