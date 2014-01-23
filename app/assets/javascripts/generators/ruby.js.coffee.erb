@@ -58,6 +58,9 @@ Blockly.Ruby.finish = (code) ->
       else
         definitions.push(def)
 
+  if definitions.length == 0 && code.length == 0
+    return ''
+
   allDefs = requires.join('\n')
   if definitions.length > 0
     allDefs += '\n\n' + definitions.join('\n\n')
