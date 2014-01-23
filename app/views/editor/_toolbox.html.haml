@@ -1,4 +1,37 @@
 %xml{:id => 'toolbox', :style => 'display: none'}
+  %category{:name => 'データ'}
+    -# キャラクター
+    %block{:type => 'variables_set'}
+      %value{:name => 'VALUE'}
+        %block{:type => 'data_characters'}
+          %value{:name => 'COSTUME'}
+            %block{:type => 'looks_preset_images'}
+          %value{:name => 'X'}
+            %block{:type => 'math_number'}
+              %field{:name => 'NUM'}<
+                0
+          %value{:name => 'Y'}
+            %block{:type => 'math_number'}
+              %field{:name => 'NUM'}<
+                0
+      %field{:name => 'VAR'}<
+        char1
+    -# テキスト
+    %block{:type => 'text'}
+      %field{:name => 'TEXT'}<
+        文章
+
+    -# 数値
+    %block{:type => 'math_number'}
+      %field{:name => 'NUM'}<
+        0
+
+    -# プリセットの画像
+    %block{:type => 'looks_preset_images'}
+
+    -# プリセットの音
+    %block{:type => 'sound_preset_sounds'}
+
   %category{:name => '動き'}
     -# (　)歩動かす
     %block{:type => 'motion_move'}
@@ -46,39 +79,6 @@
     %block{:type => 'sound_play'}
       %value{:name => 'NAME'}
         %block{:type => 'sound_preset_sounds'}
-
-  %category{:name => 'データ'}
-    -# スプライト
-    %block{:type => 'variables_set'}
-      %value{:name => 'VALUE'}
-        %block{:type => 'data_characters'}
-          %value{:name => 'COSTUME'}
-            %block{:type => 'looks_preset_images'}
-          %value{:name => 'X'}
-            %block{:type => 'math_number'}
-              %field{:name => 'NUM'}<
-                0
-          %value{:name => 'Y'}
-            %block{:type => 'math_number'}
-              %field{:name => 'NUM'}<
-                0
-      %field{:name => 'VAR'}<
-        char1
-    -# テキスト
-    %block{:type => 'text'}
-      %field{:name => 'TEXT'}<
-        文章
-
-    -# 数値
-    %block{:type => 'math_number'}
-      %field{:name => 'NUM'}<
-        0
-
-    -# プリセットの画像
-    %block{:type => 'looks_preset_images'}
-
-    -# プリセットの音
-    %block{:type => 'sound_preset_sounds'}
 
   %category{:name => 'イベント'}
     -# はじまったとき
