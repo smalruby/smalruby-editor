@@ -135,14 +135,28 @@
     -# 条件:(　) > (　)
     %block{:type => 'operators_compare_lt'}
 
+  %category{:name => '変数', :custom => 'VARIABLE'}
+
   %category{:name => 'ハードウェア'}
     -# ハードウェアを準備する
     %block{:type => 'hardware_init_arduino'}
 
-    -# LED[▼]をオンにする
-    %block{:type => 'hardware_led_on'}
+    %category{:name => 'LED'}
+      -# LED[▼]をオンにする
+      %block{:type => 'hardware_led_on'}
 
-    -# LED[▼]をオフにする
-    %block{:type => 'hardware_led_off'}
+      -# LED[▼]をオフにする
+      %block{:type => 'hardware_led_off'}
 
-  %category{:name => '変数', :custom => 'VARIABLE'}
+    %category{:name => 'ボタン'}
+      -# 条件:ボタン[▼]を押している
+      %block{:type => 'hardware_button_down'}
+
+      -# 条件:ボタン[▼]を離している
+      %block{:type => 'hardware_button_up'}
+
+      -# ボタン[▼]を押したとき
+      %block{:type => 'hardware_on_button_down'}
+
+      -# ボタン[▼]を離したとき
+      %block{:type => 'hardware_on_button_up'}

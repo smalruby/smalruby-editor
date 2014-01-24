@@ -11,7 +11,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
     @.setColour(<%= color %>)
-    @.appendDummyInput().appendField(new Blockly.FieldVariable('char1'), 'VAR').appendField('はじまったとき')
+    @.appendDummyInput()
+      .appendField(new Blockly.FieldVariable('char1'), 'VAR')
+      .appendField('はじまったとき')
     @.appendStatementInput('DO')
     @.setPreviousStatement(true)
     @.setNextStatement(true)
