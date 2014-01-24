@@ -135,4 +135,14 @@
     -# 条件:(　) > (　)
     %block{:type => 'operators_compare_lt'}
 
+  %category{:name => 'ハードウェア'}
+    -# ハードウェアを準備する
+    %block{:type => 'hardware_init_arduino'}
+
+    -# LED[▼]をオンにする
+    %block{:type => 'hardware_led_on'}
+
+    -# LED[▼]をオフにする
+    %block{:type => 'hardware_led_off'}
+
   %category{:name => '変数', :custom => 'VARIABLE'}

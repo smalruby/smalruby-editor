@@ -1,0 +1,53 @@
+# 「ハードウェア」ジャンル
+
+<%
+  prefix = 'hardware'
+  color = 208
+%>
+
+# ハードウェアの環境設定
+window.SmalrubyEditor.Hardware =
+  Type: 'Arduino' # 種別
+  DioPins: [0..13] # デジタルIOピン
+
+# ハードウェアを準備する
+<% n = "#{prefix}_init_arduino" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput().appendField('ハードウェアを準備する')
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  Blockly.Ruby.definitions_['init_arduino'] = 'init_arduino\n'
+  ''
+
+# LED[▼]をオンにする
+# LED[▼]をオフにする
+<%
+  [
+    ['on', 'オン'],
+    ['off', 'オフ'],
+  ].each do |method, label|
+    n = "#{prefix}_led_#{method}"
+%>
+
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    pins =
+      ([String(n), String(n)] for n in window.SmalrubyEditor.Hardware.DioPins)
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('LED')
+      .appendField(new Blockly.FieldDropdown(pins), 'PIN')
+      .appendField('を<%= label %>にする')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  pin = parseInt(@.getTitleValue('PIN'))
+  "led(#{pin}).<%= method %>"
+<% end %>
