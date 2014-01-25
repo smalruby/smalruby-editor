@@ -162,6 +162,17 @@
       -# 7セグディスプレイをオフにする
       %block{:type => 'hardware_seven_segment_display_off'}
 
+    %category{:name => 'LCD'}
+      -# LCDに(　)を表示する
+      %block{:type => 'hardware_lcd_puts'}
+        %value{:name => 'TEXT'}
+          %block{:type => 'text'}
+            %field{:name => 'TEXT'}<
+              Hello
+
+      -# LCDをクリアする
+      %block{:type => 'hardware_lcd_clear'}
+
     %category{:name => 'ボタン'}
       -# 条件:ボタン[▼]を押している
       %block{:type => 'hardware_button_down'}

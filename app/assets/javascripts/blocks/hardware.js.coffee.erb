@@ -140,6 +140,58 @@ Blockly.Blocks['<%= n %>'] =
 Blockly.Ruby['<%= n %>'] = (block) ->
   "seven_segment_display.off\n"
 
+# 「LCD」サブジャンル
+
+# LCDに(　)を表示する
+<% n = "#{prefix}_lcd_puts" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendValueInput('TEXT')
+      .appendField('LCDに')
+      .setCheck('String')
+    @.appendDummyInput()
+      .appendField('を表示する')
+    @.setInputsInline(true)
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  text = Blockly.Ruby.valueToCode(@, 'TEXT', Blockly.Ruby.ORDER_NONE) || ''
+  "lcd.puts(#{text})\n"
+
+# LCDをクリアする
+<% n = "#{prefix}_lcd_clear" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('LCDをクリアする')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  "lcd.clear\n"
+
+# 7セグディスプレイをオフにする
+<% n = "#{prefix}_seven_segment_display_off" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('7セグディスプレイをオフにする')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  "seven_segment_display.off\n"
+
 # 「ボタン」サブジャンル
 
 # 条件:ボタン[▼]を押している
