@@ -40,6 +40,18 @@
           %field{:name => 'NUM'}<
             10
 
+    -# 時計回りに(　)度回す
+    -# %block{:type => 'motion_rotate_right'}
+
+    -# 半時計回りに(　)度回す
+    -# %block{:type => 'motion_rotate_left'}
+
+    -# (　)度に向ける
+    -# %block{:type => 'motion_set_angle'}
+
+    -# マウスのポインターへ向ける
+    -# %block{:type => 'motion_set_angle_mouse'}
+
     -# x座標を(　)、y座標を(　)にする
     %block{:type => 'motion_instance_variable_set_x_y'}
       %value{:name => 'X'}
@@ -51,6 +63,24 @@
           %field{:name => 'NUM'}<
             0
 
+    -# [▼]へ行く
+    -# %block{:type => 'motion_go_to'}
+
+    -# (　)秒でx座標を(　)、y座標を(　)に変える
+    -# %block{:type => 'motion_glide_to_x_y'}
+
+    -# x座標を(　)ずつ変える
+    -# %block{:type => 'motion_change_x_by'}
+
+    -# x座標を(　)にする
+    -# %block{:type => 'motion_set_x'}
+
+    -# y座標を(　)ずつ変える
+    -# %block{:type => 'motion_change_y_by'}
+
+    -# y座標を(　)にする
+    -# %block{:type => 'motion_set_y'}
+
     -# もし端に着いたら、跳ね返る
     %block{:type => 'motion_turn_if_reach_wall'}
 
@@ -60,11 +90,17 @@
     -# 跳ね返る
     %block{:type => 'motion_turn'}
 
+    -# 回転方法を[▼]にする
+    -# %block{:type => 'motion_set_rotation_style'}
+
     -# 変数:x座標
     %block{:type => 'motion_self_x'}
 
     -# 変数:y座標
     %block{:type => 'motion_self_y'}
+
+    -# 変数:向き
+    -# %block{:type => 'motion_self_angle'}
 
   %category{:name => '見た目'}
     -# [　]と言う
