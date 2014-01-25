@@ -100,6 +100,7 @@ Spork.prefork do
     end
 
     config.include JsonSpec::Helpers
+    config.include ERB::Util, type: :helper
 
     config.after(javascript: true) do
       page.execute_script('window.onbeforeunload = null')
