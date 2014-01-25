@@ -9,6 +9,13 @@
 window.SmalrubyEditor.Hardware =
   Type: 'Arduino' # 種別
   DioPins: [0..13] # デジタルIOピン
+  AiPins: [0..5] # アナログ入力ピン
+
+dioPinDropdown =
+  ([String(n), String(n)] for n in window.SmalrubyEditor.Hardware.DioPins)
+
+AiPinDropdown =
+  ([String(n), String(n)] for n in window.SmalrubyEditor.Hardware.AiPins)
 
 # ハードウェアを準備する
 <% n = "#{prefix}_init_hardware" %>
@@ -22,9 +29,6 @@ Blockly.Blocks['<%= n %>'] =
 Blockly.Ruby['<%= n %>'] = (block) ->
   Blockly.Ruby.definitions_['init_hardware'] = 'init_hardware\n'
   ''
-
-dioPinDropdown =
-  ([String(n), String(n)] for n in window.SmalrubyEditor.Hardware.DioPins)
 
 # 「LED」サブジャンル
 
@@ -53,70 +57,6 @@ Blockly.Blocks['<%= n %>'] =
 Blockly.Ruby['<%= n %>'] = (block) ->
   pin = parseInt(@.getTitleValue('PIN'))
   "led(#{pin}).<%= method %>"
-<% end %>
-
-# 「ボタン」サブジャンル
-
-# 条件:ボタン[▼]を押している
-# 条件:ボタン[▼]を離している
-<%
-  [
-    ['down', '押している'],
-    ['up', '離している'],
-  ].each do |method, label|
-    n = "#{prefix}_button_#{method}"
-%>
-
-Blockly.Blocks['<%= n %>'] =
-  init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
-      .appendField('ボタン')
-      .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
-      .appendField('を<%= label %>')
-    @.setOutput(true, 'Boolean')
-    @.setTooltip('')
-
-Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = parseInt(@.getTitleValue('PIN'))
-  ["button(#{pin}).<%= method %>?", Blockly.Ruby.ORDER_ATOMIC]
-<% end %>
-
-# ボタン[▼]を押したとき
-# ボタン[▼]を離したとき
-<%
-  [
-    ['down', '押した'],
-    ['up', '離した'],
-  ].each do |name, label|
-    n = "#{prefix}_on_button_#{name}"
-%>
-
-Blockly.Blocks['<%= n %>'] =
-  init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
-      .appendField(new Blockly.FieldVariable('char1'), 'VAR')
-      .appendField('ボタン')
-      .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
-      .appendField('を<%= label %>とき')
-    @.appendStatementInput('DO')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
-
-  getVars: Blockly.Blocks['events_on_start'].getVars
-  getVar: Blockly.Blocks['events_on_start'].getVar
-  renameVar: Blockly.Blocks['events_on_start'].renameVar
-  customContextMenu: Blockly.Blocks['events_on_start'].customContextMenu
-
-Blockly.Ruby['<%= n %>'] = (block) ->
-  var0 = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
-  pin = parseInt(@.getTitleValue('PIN'))
-  branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-  "#{var0}.on(:button_<%= name %>, #{pin}) do\n" + branch + 'end\n'
 <% end %>
 
 # 「RGB LED」サブジャンル
@@ -199,3 +139,114 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   "seven_segment_display.off\n"
+
+# 「ボタン」サブジャンル
+
+# 条件:ボタン[▼]を押している
+# 条件:ボタン[▼]を離している
+<%
+  [
+    ['down', '押している'],
+    ['up', '離している'],
+  ].each do |method, label|
+    n = "#{prefix}_button_#{method}"
+%>
+
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('ボタン')
+      .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
+      .appendField('を<%= label %>')
+    @.setOutput(true, 'Boolean')
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  pin = parseInt(@.getTitleValue('PIN'))
+  ["button(#{pin}).<%= method %>?", Blockly.Ruby.ORDER_ATOMIC]
+<% end %>
+
+# ボタン[▼]を押したとき
+# ボタン[▼]を離したとき
+<%
+  [
+    ['down', '押した'],
+    ['up', '離した'],
+  ].each do |name, label|
+    n = "#{prefix}_on_button_#{name}"
+%>
+
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField(new Blockly.FieldVariable('char1'), 'VAR')
+      .appendField('ボタン')
+      .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
+      .appendField('を<%= label %>とき')
+    @.appendStatementInput('DO')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+  getVars: Blockly.Blocks['events_on_start'].getVars
+  getVar: Blockly.Blocks['events_on_start'].getVar
+  renameVar: Blockly.Blocks['events_on_start'].renameVar
+  customContextMenu: Blockly.Blocks['events_on_start'].customContextMenu
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  var0 = Blockly.Ruby.variableDB_
+    .getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
+  pin = parseInt(@.getTitleValue('PIN'))
+  branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
+  "#{var0}.on(:button_<%= name %>, #{pin}) do\n" + branch + 'end\n'
+<% end %>
+
+# 「センサー」サブジャンル
+
+# センサー[▼PIN]
+<% n = "#{prefix}_sensor_value" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('センサー')
+      .appendField(new Blockly.FieldDropdown(AiPinDropdown), 'PIN')
+    @.setOutput(true, 'Number')
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  pin = parseInt(@.getTitleValue('PIN'))
+  ["sensor(#{pin}).value", Blockly.Ruby.ORDER_ATOMIC]
+
+# センサー[▼PIN]が変化したとき
+<% n = "#{prefix}_on_sensor_change" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField(new Blockly.FieldVariable('char1'), 'VAR')
+      .appendField('センサー')
+      .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
+      .appendField('が変化したとき')
+    @.appendStatementInput('DO')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+  getVars: Blockly.Blocks['events_on_start'].getVars
+  getVar: Blockly.Blocks['events_on_start'].getVar
+  renameVar: Blockly.Blocks['events_on_start'].renameVar
+  customContextMenu: Blockly.Blocks['events_on_start'].customContextMenu
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  var0 = Blockly.Ruby.variableDB_
+    .getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
+  pin = parseInt(@.getTitleValue('PIN'))
+  branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
+  "#{var0}.on(:sensor_change, #{pin}) do |value|\n" + branch + 'end\n'
