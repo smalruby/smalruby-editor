@@ -36,7 +36,7 @@ describe EditorHelper do
     end
 
     shared_examples 'NUM is 0' do
-      it { should include(%(<field name="NUM">0</field>)) }
+      it { should include('<field name="NUM">0</field>') }
     end
 
     context '数値に文字列を指定した場合' do
@@ -75,14 +75,14 @@ describe EditorHelper do
     context '入力値の名前と文字列を指定しない場合' do
       subject { toolbox_text_value }
 
-      it { should include(%(<value name="TEXT">)) }
-      it { should include(%(<field name="TEXT"></field>)) }
+      it { should include('<value name="TEXT">') }
+      it { should include('<field name="TEXT"></field>') }
     end
 
     context '文字列を指定しない場合' do
       subject { toolbox_text_value(name) }
 
-      it { should include(%(<field name="TEXT"></field>)) }
+      it { should include('<field name="TEXT"></field>') }
     end
   end
 end
