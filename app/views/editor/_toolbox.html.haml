@@ -2,20 +2,14 @@
   %category{:name => 'データ'}
     -# キャラクター
     %block{:type => 'variables_set'}
+      = toolbox_character_field
       %value{:name => 'VALUE'}
         %block{:type => 'data_characters'}
           %value{:name => 'COSTUME'}
             %block{:type => 'looks_preset_images'}
-          %value{:name => 'X'}
-            %block{:type => 'math_number'}
-              %field{:name => 'NUM'}<
-                0
-          %value{:name => 'Y'}
-            %block{:type => 'math_number'}
-              %field{:name => 'NUM'}<
-                0
-      %field{:name => 'VAR'}<
-        char1
+          = toolbox_number_value('X')
+          = toolbox_number_value('Y')
+
     -# テキスト
     %block{:type => 'text'}
       %field{:name => 'TEXT'}<
@@ -35,51 +29,59 @@
   %category{:name => '動き'}
     -# (　)歩動かす
     %block{:type => 'motion_move'}
-      %value{:name => 'STEP'}
-        %block{:type => 'math_number'}
-          %field{:name => 'NUM'}<
-            10
+      = toolbox_number_value('STEP', 10)
 
     -# 時計回りに(　)度回す
-    -# %block{:type => 'motion_rotate_right'}
+    %block{:type => 'motion_rotate_right'}
+      = toolbox_number_value('ANGLE', 15)
 
     -# 半時計回りに(　)度回す
-    -# %block{:type => 'motion_rotate_left'}
+    %block{:type => 'motion_rotate_left'}
+      = toolbox_number_value('ANGLE', 15)
 
     -# (　)度に向ける
-    -# %block{:type => 'motion_set_angle'}
+    %block{:type => 'motion_set_angle'}
+      = toolbox_number_value('ANGLE', 90)
 
-    -# マウスのポインターへ向ける
-    -# %block{:type => 'motion_set_angle_mouse'}
+    -# マウスポインターへ向ける
+    %block{:type => 'motion_point_towards_mouse'}
+
+    -# [▼]へ向ける
+    %block{:type => 'motion_point_towards_character'}
+      = toolbox_character_field
 
     -# x座標を(　)、y座標を(　)にする
-    %block{:type => 'motion_instance_variable_set_x_y'}
-      %value{:name => 'X'}
-        %block{:type => 'math_number'}
-          %field{:name => 'NUM'}<
-            0
-      %value{:name => 'Y'}
-        %block{:type => 'math_number'}
-          %field{:name => 'NUM'}<
-            0
+    %block{:type => 'motion_set_x_y'}
+      = toolbox_number_value('X')
+      = toolbox_number_value('Y')
+
+    -# マウスポインターへ行く
+    %block{:type => 'motion_go_to_mouse'}
 
     -# [▼]へ行く
-    -# %block{:type => 'motion_go_to'}
+    %block{:type => 'motion_go_to_character'}
 
     -# (　)秒でx座標を(　)、y座標を(　)に変える
-    -# %block{:type => 'motion_glide_to_x_y'}
+    %block{:type => 'motion_glide_to_x_y'}
+      = toolbox_number_value('SEC', 1)
+      = toolbox_number_value('X')
+      = toolbox_number_value('Y')
 
     -# x座標を(　)ずつ変える
-    -# %block{:type => 'motion_change_x_by'}
+    %block{:type => 'motion_change_x_by'}
+      = toolbox_number_value('X', 10)
 
     -# x座標を(　)にする
-    -# %block{:type => 'motion_set_x'}
+    %block{:type => 'motion_set_x'}
+      = toolbox_number_value('X', 0)
 
     -# y座標を(　)ずつ変える
-    -# %block{:type => 'motion_change_y_by'}
+    %block{:type => 'motion_change_y_by'}
+      = toolbox_number_value('Y', 10)
 
     -# y座標を(　)にする
-    -# %block{:type => 'motion_set_y'}
+    %block{:type => 'motion_set_y'}
+      = toolbox_number_value('Y', 0)
 
     -# もし端に着いたら、跳ね返る
     %block{:type => 'motion_turn_if_reach_wall'}
@@ -91,7 +93,7 @@
     %block{:type => 'motion_turn'}
 
     -# 回転方法を[▼]にする
-    -# %block{:type => 'motion_set_rotation_style'}
+    %block{:type => 'motion_set_rotation_style'}
 
     -# 変数:x座標
     %block{:type => 'motion_self_x'}
@@ -100,15 +102,12 @@
     %block{:type => 'motion_self_y'}
 
     -# 変数:向き
-    -# %block{:type => 'motion_self_angle'}
+    %block{:type => 'motion_self_angle'}
 
   %category{:name => '見た目'}
     -# [　]と言う
     %block{:type => 'looks_say'}
-      %value{:name => 'TEXT'}
-        %block{:type => 'text'}
-          %field{:name => 'TEXT'}<
-            こんにちは！
+      = toolbox_text_value('TEXT', 'こんにちは！')
 
     -# 表示する
     %block{:type => 'looks_show'}
@@ -129,10 +128,7 @@
   %category{:name => '制御'}
     -# (　)秒待つ
     %block{:type => 'control_sleep'}
-      %value{:name => 'SEC'}
-        %block{:type => 'math_number'}
-          %field{:name => 'NUM'}<
-            0
+      = toolbox_number_value('SEC', 1)
 
     -# ずっと
     %block{:type => 'control_loop'}
@@ -201,10 +197,7 @@
     %category{:name => 'LCD'}
       -# LCDに(　)を表示する
       %block{:type => 'hardware_lcd_puts'}
-        %value{:name => 'TEXT'}
-          %block{:type => 'text'}
-            %field{:name => 'TEXT'}<
-              Hello
+        = toolbox_text_value('TEXT', 'Hello')
 
       -# LCDをクリアする
       %block{:type => 'hardware_lcd_clear'}
@@ -218,9 +211,11 @@
 
       -# ボタン[▼]を押したとき
       %block{:type => 'hardware_on_button_down'}
+        = toolbox_character_field
 
       -# ボタン[▼]を離したとき
       %block{:type => 'hardware_on_button_up'}
+        = toolbox_character_field
 
     %category{:name => 'センサー'}
       -# センサー[▼PIN]
@@ -228,3 +223,4 @@
 
       -# センサー[▼PIN]が変化したとき
       %block{:type => 'hardware_on_sensor_change'}
+        = toolbox_character_field
