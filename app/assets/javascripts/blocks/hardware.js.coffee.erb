@@ -119,6 +119,50 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   "#{var0}.on(:button_<%= name %>, #{pin}) do\n" + branch + 'end\n'
 <% end %>
 
+# 「RGB LED」サブジャンル
+
+# RGB LED[▼ピン]を[カラー]にする
+<% n = "#{prefix}_rgb_led_on" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('RGB LED')
+      .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
+      .appendField('を')
+      .appendField(new Blockly.FieldColour('#ff0000'), 'COLOUR')
+      .appendField('にする')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  pin = parseInt(@.getTitleValue('PIN'))
+  c = block.getFieldValue('COLOUR')
+  red = parseInt(c[1..2], 16)
+  green = parseInt(c[3..4], 16)
+  blue = parseInt(c[5..6], 16)
+  "rgb_led(#{pin}).on(red: #{red}, green: #{green}, blue: #{blue})"
+
+# RGB LED[▼ピン]をオフにする
+<% n = "#{prefix}_rgb_led_off" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('RGB LED')
+      .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
+      .appendField('をオフにする')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  pin = parseInt(@.getTitleValue('PIN'))
+  "rgb_led(#{pin}).off"
+
 # 「7セグディスプレイ」サブジャンル
 
 # 7セグディスプレイに[▼0-9]を表示する
