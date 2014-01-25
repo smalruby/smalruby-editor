@@ -139,7 +139,7 @@
 
   %category{:name => 'ハードウェア'}
     -# ハードウェアを準備する
-    %block{:type => 'hardware_init_arduino'}
+    %block{:type => 'hardware_init_hardware'}
 
     %category{:name => 'LED'}
       -# LED[▼]をオンにする
@@ -160,3 +160,10 @@
 
       -# ボタン[▼]を離したとき
       %block{:type => 'hardware_on_button_up'}
+
+    %category{:name => '7セグディスプレイ'}
+      -# 7セグディスプレイに[▼0-9]を表示する
+      %block{:type => 'hardware_seven_segment_display_show'}
+
+      -# 7セグディスプレイをオフにする
+      %block{:type => 'hardware_seven_segment_display_off'}

@@ -11,7 +11,7 @@ window.SmalrubyEditor.Hardware =
   DioPins: [0..13] # デジタルIOピン
 
 # ハードウェアを準備する
-<% n = "#{prefix}_init_arduino" %>
+<% n = "#{prefix}_init_hardware" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -20,11 +20,13 @@ Blockly.Blocks['<%= n %>'] =
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  Blockly.Ruby.definitions_['init_arduino'] = 'init_arduino\n'
+  Blockly.Ruby.definitions_['init_hardware'] = 'init_hardware\n'
   ''
 
 dioPinDropdown =
   ([String(n), String(n)] for n in window.SmalrubyEditor.Hardware.DioPins)
+
+# 「LED」サブジャンル
 
 # LED[▼]をオンにする
 # LED[▼]をオフにする
@@ -52,6 +54,8 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   pin = parseInt(@.getTitleValue('PIN'))
   "led(#{pin}).<%= method %>"
 <% end %>
+
+# 「ボタン」サブジャンル
 
 # 条件:ボタン[▼]を押している
 # 条件:ボタン[▼]を離している
@@ -114,3 +118,40 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
   "#{var0}.on(:button_<%= name %>, #{pin}) do\n" + branch + 'end\n'
 <% end %>
+
+# 「7セグディスプレイ」サブジャンル
+
+# 7セグディスプレイに[▼0-9]を表示する
+<% n = "#{prefix}_seven_segment_display_show" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    dropdown = ([String(n), String(n)] for n in [0..9])
+
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('7セグディスプレイに')
+      .appendField(new Blockly.FieldDropdown(dropdown), 'NUM')
+      .appendField('を表示する')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  num = parseInt(@.getTitleValue('NUM'))
+  "seven_segment_display.show(#{num})\n"
+
+# 7セグディスプレイをオフにする
+<% n = "#{prefix}_seven_segment_display_off" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('7セグディスプレイをオフにする')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  "seven_segment_display.off\n"
