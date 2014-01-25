@@ -8,6 +8,19 @@ describe EditorHelper do
     let(:name) { INCLUDED_HTML_STRING }
   end
 
+  describe '#toolbox_character_field' do
+    subject { toolbox_character_field(name) }
+
+    let(:name) { 'VAR' }
+
+    it { should be_html_safe }
+    it { should include(%(<field name="#{h name}">char1</field>)) }
+
+    context '名前にタグを含む場合', name_include_html: true do
+      it { should include(%(<field name="#{h name}">char1</field>)) }
+    end
+  end
+
   describe '#toolbox_number_value' do
     subject { toolbox_number_value(name, value) }
 

@@ -1,5 +1,13 @@
 # -*- coding: utf-8 -*-
 module EditorHelper
+  # ツールボックスのブロックに対して、キャラクターの入力フィールドの値を設定する
+  #
+  # @param [String] name 名前
+  # @return [String] XML
+  def toolbox_character_field(name = 'VAR')
+    %(<field name="#{h name}">char1</field>).html_safe
+  end
+
   # ツールボックスのブロックに対して、数値型の入力のブロックを設定する
   #
   # @param [String] name 入力値の名前
