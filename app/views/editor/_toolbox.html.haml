@@ -274,6 +274,44 @@
     -# 条件:(　) > (　)
     %block{:type => "#{category}_compare_lt"}
 
+    -# 変数:(　)から(　)までの乱数
+    %block{:type => "#{category}_rand"}
+      = toolbox_number_value('A', 1)
+      = toolbox_number_value('B', 10)
+
+    -# 条件:<　> かつ <　>
+    %block{:type => "#{category}_and"}
+
+    -# 条件:<　> または <　>
+    %block{:type => "#{category}_or"}
+
+    -# 条件:<　> ではない
+    %block{:type => "#{category}_negate"}
+
+    -# 変数:(　)の[　]番目
+    %block{:type => "#{category}_index_of"}
+      = toolbox_text_value('A', 'あいうえお')
+      = toolbox_number_value('INDEX', 1)
+
+    -# 変数:[　]の長さ
+    %block{:type => "#{category}_length"}
+      = toolbox_text_value('A', 'あいうえお')
+
+    -# 変数:(　)を(　)で割った余り
+    %block{:type => "#{category}_modulo"}
+      = toolbox_number_value('A', 5)
+      = toolbox_number_value('B', 2)
+
+    -# 変数:(　)を丸める
+    %block{:type => "#{category}_round"}
+      = toolbox_number_value('A', 0.5)
+
+    -# 変数:(　)の[▼数学関数]
+    %block{:type => "#{category}_math_method"}
+      = toolbox_number_value('NUM', 9)
+      %field{:name => 'METHOD'}<
+        Math.sqrt(%num%)
+
   %category{:name => '変数', :custom => 'VARIABLE'}
 
   - category = 'ruby'
