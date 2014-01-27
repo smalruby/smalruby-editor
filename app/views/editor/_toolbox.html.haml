@@ -207,6 +207,17 @@
 
   %category{:name => '変数', :custom => 'VARIABLE'}
 
+  - category = 'ruby'
+  %category{:name => 'Ruby'}
+    -# 文
+    %block{:type => "#{category}_statement"}
+
+    -# 式
+    %block{:type => "#{category}_expression"}
+
+    -# コメント
+    %block{:type => "#{category}_comment"}
+
   - category = 'hardware'
   %category{:name => 'ハードウェア'}
     -# ハードウェアを準備する

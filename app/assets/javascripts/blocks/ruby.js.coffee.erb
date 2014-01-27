@@ -1,0 +1,56 @@
+# 「Ruby」ジャンル
+
+<%
+  category = 'ruby'
+  color = 340
+%>
+
+# 文
+<% n = "#{category}_statement" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('文')
+      .appendField(new Blockly.FieldTextInput(''), 'STATEMENT')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  statement = @.getTitleValue('STATEMENT')
+  "#{statement}\n"
+
+# 式
+<% n = "#{category}_expression" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('式')
+      .appendField(new Blockly.FieldTextInput(''), 'EXP')
+    @.setOutput(true, null)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  exp = @.getTitleValue('EXP')
+  ["(#{exp})", Blockly.Ruby.ORDER_ATOMIC]
+
+# コメント
+<% n = "#{category}_comment" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('コメント')
+      .appendField(new Blockly.FieldTextInput(''), 'COMMENT')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  comment = @.getTitleValue('COMMENT')
+  "# #{comment}\n"

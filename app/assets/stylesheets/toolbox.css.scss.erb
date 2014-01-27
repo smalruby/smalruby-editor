@@ -32,6 +32,7 @@
     43
     93
     330
+    340
     208
   ).map(&:to_i)
 
@@ -42,7 +43,7 @@
   colors.each.with_index(1) do |(color, active_color), index|
 %>
 
-#\:<%= index%> {
+#\:<%= '%x' % index %> {
     .blocklyTreeRow {
         padding-top: 0.25em;
         padding-bottom: 0.25em;
