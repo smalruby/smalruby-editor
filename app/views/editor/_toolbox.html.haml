@@ -167,12 +167,11 @@
     -# はじまったとき
     %block{:type => "#{category}_on_start"}
 
-    -# キーボードの[▼キー]が[▼押されたとき/押され続けているとき]
+    -# キーボードの[▼キー]が[▼押された/押され続けている]とき
     %block{:type => "#{category}_on_key_push_or_down"}
-      %field{:name => 'KEY'}<
-        K_SPACE
+      = toolbox_key_field
 
-    -# キャラクターが[▼クリックされたとき/クリックされ続けているとき]
+    -# キャラクターが[▼クリックされた/クリックされ続けている]とき
     %block{:type => "#{category}_on_mouse_push_or_down"}
 
     -# キャラクターが[▼キャラクター]にぶつかったとき
@@ -205,6 +204,46 @@
 
     -# 1フレーム待つ
     %block{:type => "#{category}_await"}
+
+  - category = 'sensing'
+  %category{:name => '調べる'}
+    -# 条件:キーボードの[▼キー]が[▼押された/押され続けている]
+    %block{:type => "#{category}_input_key_push_or_down"}
+      = toolbox_key_field
+
+    -# 条件:マウスが[▼押された/押され続けている]
+    %block{:type => "#{category}_input_mouse_push_or_down"}
+
+    -# 変数:マウスのx座標
+    %block{:type => "#{category}_input_mouse_pos_x"}
+
+    -# 変数:マウスのy座標
+    %block{:type => "#{category}_input_mouse_pos_y"}
+
+    -# 条件:[▼キャラクター]に触れた
+    %block{:type => "#{category}_hit"}
+
+    -# [　]と聞いて待つ
+    %block{:type => "#{category}_ask"}
+      = toolbox_text_value('TEXT', 'あなたのお名前は？')
+
+    -# 変数:答え
+    %block{:type => "#{category}_answer"}
+
+    -# 変数:タイマー
+    %block{:type => "#{category}_timer_count"}
+
+    -# タイマーをリセット
+    %block{:type => "#{category}_timer_reset"}
+
+    -# 変数:[▼キャラクター]の[▼プロパティ]
+    %block{:type => "#{category}_character_property"}
+
+    -# 変数:現在の[▼時]
+    %block{:type => "#{category}_time_now"}
+
+    -# 変数:2000年からの日数
+    %block{:type => "#{category}_days_since_2000"}
 
   - category = 'operators'
   %category{:name => '演算'}

@@ -4,3 +4,237 @@
   category = 'sensing'
   color = 200
 %>
+
+# 調べるの環境設定
+window.SmalrubyEditor.Sensing =
+  KeyDropdown: [
+    ['↑', 'K_UP'],
+    ['↓', 'K_DOWN'],
+    ['←', 'K_LEFT'],
+    ['→', 'K_RIGHT'],
+    ['スペース', 'K_SPACE'],
+    <% (('a'..'z').to_a + ('0'..'9').to_a).each do |k| %>
+    ['<%= k %>', 'K_<%= k.upcase %>'],
+    <% end %>
+  ]
+  PushOrDownDropdown: [
+    ['押された', 'push'],
+    ['押され続けている', 'down'],
+  ]
+  MouseButtonDropdown: [
+    ['左ボタン', 'M_LBUTTON'],
+    ['中ボタン', 'M_MBUTTON'],
+    ['右ボタン', 'M_RBUTTON'],
+  ]
+
+# 条件:キーボードの[▼キー]が[▼押された/押され続けている]
+<% n = "#{category}_input_key_push_or_down" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    keyDropdown = window.SmalrubyEditor.Sensing.KeyDropdown
+    podDropdown = window.SmalrubyEditor.Sensing.PushOrDownDropdown
+
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('キーボードの')
+      .appendField(new Blockly.FieldDropdown(keyDropdown), 'KEY')
+      .appendField('が')
+      .appendField(new Blockly.FieldDropdown(podDropdown), 'POD')
+    @.setOutput(true, 'Boolean')
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  key = @.getTitleValue('KEY')
+  pod = @.getTitleValue('POD')
+  ["Input.key_#{pod}?(#{key})", Blockly.Ruby.ORDER_ATOMIC]
+
+# 条件:マウスが[▼押された/押され続けている]
+<% n = "#{category}_input_mouse_push_or_down" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    mbDropdown = window.SmalrubyEditor.Sensing.MouseButtonDropdown
+    podDropdown = window.SmalrubyEditor.Sensing.PushOrDownDropdown
+
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('マウスの')
+      .appendField(new Blockly.FieldDropdown(mbDropdown), 'MOUSE_BUTTON')
+      .appendField('が')
+      .appendField(new Blockly.FieldDropdown(podDropdown), 'POD')
+    @.setOutput(true, 'Boolean')
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  mb = @.getTitleValue('MOUSE_BUTTON')
+  pod = @.getTitleValue('POD')
+  ["Input.mouse_#{pod}?(#{mb})", Blockly.Ruby.ORDER_ATOMIC]
+
+# 変数:マウスのx座標
+# 変数:マウスのy座標
+<%
+  %w(x y).each do |suffix|
+    n = "#{category}_input_mouse_pos_#{suffix}"
+%>
+
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('マウスの<%= suffix %>座標')
+    @.setOutput(true, 'Number')
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  ['Input.mouse_pos_<%= suffix %>', Blockly.Ruby.ORDER_ATOMIC]
+<% end  %>
+
+# 条件:[▼キャラクター]に触れた
+<% n = "#{category}_hit" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField(new Blockly.FieldVariable('char1'), 'VAR0')
+      .appendField('に触れたとき')
+    @.setOutput(true, 'Boolean')
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  var0 = Blockly.Ruby.variableDB_
+    .getName(block.getFieldValue('VAR0'), Blockly.Variables.NAME_TYPE)
+  ["hit?(#{var0})", Blockly.Ruby.ORDER_ATOMIC]
+
+# [　]と聞いて待つ
+<% n = "#{category}_ask" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.interpolateMsg('%1と聞いて待つ',
+                     ['TEXT', ['String'], Blockly.ALIGN_RIGHT],
+                     Blockly.ALIGN_RIGHT)
+    @.setInputsInline(true)
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  text = Blockly.Ruby.valueToCode(@, 'TEXT', Blockly.Ruby.ORDER_NONE) || '""'
+  "ask(#{text})\n"
+
+# 変数:答え
+<% n = "#{category}_answer" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('答え')
+    @.setOutput(true, 'String')
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  ['answer', Blockly.Ruby.ORDER_ATOMIC]
+
+# 変数:タイマー
+<% n = "#{category}_timer_count" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('タイマー')
+    @.setOutput(true, 'Number')
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  ['timer.count', Blockly.Ruby.ORDER_ATOMIC]
+
+# タイマーをリセット
+<% n = "#{category}_timer_reset" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('タイマーをリセット')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  'timer.reset\n'
+
+# 変数:[▼キャラクター]の[▼プロパティ]
+<% n = "#{category}_character_property" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    dropdown = [
+      ['x座標', 'x'],
+      ['y座標', 'y'],
+      ['向き', 'angle'],
+      ['コスチューム番号', 'costume_index'],
+      ['コスチューム名', 'costume'],
+      ['大きさ', 'scale'],
+      ['ボリューム', 'volume'],
+    ]
+
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField(new Blockly.FieldVariable('char1'), 'VAR0')
+      .appendField('の')
+      .appendField(new Blockly.FieldDropdown(dropdown), 'PROPERTY')
+    @.setOutput(true, ['Number', 'String'])
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  var0 = Blockly.Ruby.variableDB_
+    .getName(block.getFieldValue('VAR0'), Blockly.Variables.NAME_TYPE)
+  property = @.getTitleValue('PROPERTY')
+  ["#{var0}.#{property}", Blockly.Ruby.ORDER_ATOMIC]
+
+# 変数:現在の[▼時]
+<% n = "#{category}_time_now" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    dropdown = [
+      ['年', 'year'],
+      ['月', 'month'],
+      ['日付', 'day'],
+      ['曜日', 'wday'],
+      ['時', 'hour'],
+      ['分', 'min'],
+      ['秒', 'sec'],
+    ]
+
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('現在の')
+      .appendField(new Blockly.FieldDropdown(dropdown), 'METHOD')
+    @.setOutput(true, 'Number')
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  method = @.getTitleValue('METHOD')
+  ["Time.now.#{method}", Blockly.Ruby.ORDER_ATOMIC]
+
+# 変数:2000年からの日数
+<% n = "#{category}_days_since_2000" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('2000年からの日数')
+    @.setOutput(true, 'Number')
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  ['(Time.now - Time.mktime(2000, 1, 1)).to_i / 1.day',
+   Blockly.Ruby.ORDER_ATOMIC]

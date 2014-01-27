@@ -24,25 +24,12 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
   "#{var0}.on(:start) do\n" + branch + 'end\n'
 
-# キーボードの[▼キー]が[▼押されたとき/押され続けているとき]
+# キーボードの[▼キー]が[▼押された/押され続けている]とき
 <% n = "#{category}_on_key_push_or_down" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    keyDropdown = [
-      ['↑', 'K_UP'],
-      ['↓', 'K_DOWN'],
-      ['←', 'K_LEFT'],
-      ['→', 'K_RIGHT'],
-      ['スペース', 'K_SPACE'],
-      <% (('a'..'z').to_a + ('0'..'9').to_a).each do |k| %>
-      ['<%= k %>', 'K_<%= k.upcase %>'],
-      <% end %>
-    ]
-
-    caseDropdown = [
-      ['押されたとき', 'push'],
-      ['押され続けているとき', 'down'],
-    ]
+    keyDropdown = window.SmalrubyEditor.Sensing.KeyDropdown
+    podDropdown = window.SmalrubyEditor.Sensing.PushOrDownDropdown
 
     @.setHelpUrl('')
     @.setColour(<%= color %>)
@@ -51,7 +38,8 @@ Blockly.Blocks['<%= n %>'] =
       .appendField('キーボードの')
       .appendField(new Blockly.FieldDropdown(keyDropdown), 'KEY')
       .appendField('が')
-      .appendField(new Blockly.FieldDropdown(caseDropdown), 'CASE')
+      .appendField(new Blockly.FieldDropdown(podDropdown), 'POD')
+      .appendField('とき')
     @.appendStatementInput('DO')
     @.setPreviousStatement(true)
     @.setNextStatement(true)
@@ -60,17 +48,17 @@ Blockly.Blocks['<%= n %>'] =
 Blockly.Ruby['<%= n %>'] = (block) ->
   var0 = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
   key = @.getTitleValue('KEY')
-  c = @.getTitleValue('CASE')
+  pod = @.getTitleValue('POD')
   branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-  "#{var0}.on(:key_#{c}, #{key}) do\n" + branch + 'end\n'
+  "#{var0}.on(:key_#{pod}, #{key}) do\n" + branch + 'end\n'
 
-# キャラクターが[▼クリックされたとき/クリックされ続けているとき]
+# キャラクターが[▼クリックされた/クリックされ続けている]とき
 <% n = "#{category}_on_mouse_push_or_down" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    caseDropdown = [
-      ['クリックされたとき', 'push'],
-      ['クリックされ続けているとき', 'down'],
+    podDropdown = [
+      ['クリックされた', 'push'],
+      ['クリックされ続けている', 'down'],
     ]
 
     @.setHelpUrl('')
@@ -78,7 +66,8 @@ Blockly.Blocks['<%= n %>'] =
     @.appendDummyInput()
       .appendField(new Blockly.FieldVariable('char1'), 'VAR')
       .appendField('キャラクターが')
-      .appendField(new Blockly.FieldDropdown(caseDropdown), 'CASE')
+      .appendField(new Blockly.FieldDropdown(podDropdown), 'POD')
+      .appendField('とき')
     @.appendStatementInput('DO')
     @.setPreviousStatement(true)
     @.setNextStatement(true)
@@ -86,9 +75,9 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   var0 = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
-  c = @.getTitleValue('CASE')
+  pod = @.getTitleValue('POD')
   branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-  "#{var0}.on(:mouse_#{c}) do |x, y|\n" + branch + 'end\n'
+  "#{var0}.on(:mouse_#{pod}) do |x, y|\n" + branch + 'end\n'
 
 # キャラクターが[▼キャラクター]にぶつかったとき
 <% n = "#{category}_on_hit" %>

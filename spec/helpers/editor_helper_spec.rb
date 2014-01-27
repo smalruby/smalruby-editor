@@ -21,6 +21,32 @@ describe EditorHelper do
     end
   end
 
+  describe '#toolbox_key_field' do
+    subject { toolbox_key_field(name, value) }
+
+    let(:name) { 'KEY' }
+    let(:value) { 'K_A' }
+
+    it { should be_html_safe }
+    it { should include(%(<field name="#{h name}">#{h value}</field>)) }
+
+    context '名前にタグを含む場合', name_include_html: true do
+      it { should include(%(<field name="#{h name}">#{h value}</field>)) }
+    end
+
+    context '値を省略した場合' do
+      subject { toolbox_key_field(name) }
+
+      it { should include(%(<field name="#{h name}">K_SPACE</field>)) }
+    end
+
+    context '名前と値を省略した場合' do
+      subject { toolbox_key_field }
+
+      it { should include(%(<field name="KEY">K_SPACE</field>)) }
+    end
+  end
+
   describe '#toolbox_number_value' do
     subject { toolbox_number_value(name, value) }
 
