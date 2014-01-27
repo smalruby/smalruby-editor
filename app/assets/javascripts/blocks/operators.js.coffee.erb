@@ -1,7 +1,7 @@
 # 「演算」ジャンル
 
 <%
-  prefix = 'operators'
+  category = 'operators'
   color = 93
 %>
 
@@ -16,7 +16,7 @@
     ['multiply', '×', 'MULTIPLICATIVE', '*'],
     ['divide', '÷', 'MULTIPLICATIVE', '/'],
   ].each do |suffix, operator_label, order_suffix, operator|
-    n = "#{prefix}_#{suffix}"
+    n = "#{category}_#{suffix}"
 %>
 
 Blockly.Blocks['<%= n %>'] =
@@ -49,7 +49,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
     ['compare_lte', '≧', '>='],
     ['compare_lt', '＞', '>'],
   ].each do |suffix, operator_label, operator|
-    n = "#{prefix}_#{suffix}"
+    n = "#{category}_#{suffix}"
 %>
 
 Blockly.Blocks['<%= n %>'] =

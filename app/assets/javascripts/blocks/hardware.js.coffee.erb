@@ -1,7 +1,7 @@
 # 「ハードウェア」ジャンル
 
 <%
-  prefix = 'hardware'
+  category = 'hardware'
   color = 208
 %>
 
@@ -18,7 +18,7 @@ AiPinDropdown =
   ([String(n), String(n)] for n in window.SmalrubyEditor.Hardware.AiPins)
 
 # ハードウェアを準備する
-<% n = "#{prefix}_init_hardware" %>
+<% n = "#{category}_init_hardware" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -39,7 +39,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
     ['on', 'オン'],
     ['off', 'オフ'],
   ].each do |method, label|
-    n = "#{prefix}_led_#{method}"
+    n = "#{category}_led_#{method}"
 %>
 
 Blockly.Blocks['<%= n %>'] =
@@ -62,7 +62,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 # 「RGB LED」サブジャンル
 
 # RGB LED[▼ピン]を[カラー]にする
-<% n = "#{prefix}_rgb_led_on" %>
+<% n = "#{category}_rgb_led_on" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -86,7 +86,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   "rgb_led(#{pin}).on(red: #{red}, green: #{green}, blue: #{blue})"
 
 # RGB LED[▼ピン]をオフにする
-<% n = "#{prefix}_rgb_led_off" %>
+<% n = "#{category}_rgb_led_off" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -106,7 +106,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 # 「7セグディスプレイ」サブジャンル
 
 # 7セグディスプレイに[▼0-9]を表示する
-<% n = "#{prefix}_seven_segment_display_show" %>
+<% n = "#{category}_seven_segment_display_show" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     dropdown = ([String(n), String(n)] for n in [0..9])
@@ -126,7 +126,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   "seven_segment_display.show(#{num})\n"
 
 # 7セグディスプレイをオフにする
-<% n = "#{prefix}_seven_segment_display_off" %>
+<% n = "#{category}_seven_segment_display_off" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -143,7 +143,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 # 「LCD」サブジャンル
 
 # LCDに(　)を表示する
-<% n = "#{prefix}_lcd_puts" %>
+<% n = "#{category}_lcd_puts" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -163,7 +163,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   "lcd.puts(#{text})\n"
 
 # LCDをクリアする
-<% n = "#{prefix}_lcd_clear" %>
+<% n = "#{category}_lcd_clear" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -178,7 +178,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   "lcd.clear\n"
 
 # 7セグディスプレイをオフにする
-<% n = "#{prefix}_seven_segment_display_off" %>
+<% n = "#{category}_seven_segment_display_off" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -201,7 +201,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
     ['down', '押している'],
     ['up', '離している'],
   ].each do |method, label|
-    n = "#{prefix}_button_#{method}"
+    n = "#{category}_button_#{method}"
 %>
 
 Blockly.Blocks['<%= n %>'] =
@@ -227,7 +227,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
     ['down', '押した'],
     ['up', '離した'],
   ].each do |name, label|
-    n = "#{prefix}_on_button_#{name}"
+    n = "#{category}_on_button_#{name}"
 %>
 
 Blockly.Blocks['<%= n %>'] =
@@ -260,7 +260,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 # 「センサー」サブジャンル
 
 # センサー[▼PIN]
-<% n = "#{prefix}_sensor_value" %>
+<% n = "#{category}_sensor_value" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -276,7 +276,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   ["sensor(#{pin}).value", Blockly.Ruby.ORDER_ATOMIC]
 
 # センサー[▼PIN]が変化したとき
-<% n = "#{prefix}_on_sensor_change" %>
+<% n = "#{category}_on_sensor_change" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')

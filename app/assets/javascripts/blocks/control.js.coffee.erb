@@ -1,12 +1,12 @@
 # 「制御」ジャンル
 
 <%
-  prefix = 'control'
+  category = 'control'
   color = 43
 %>
 
 # (　)秒待つ
-<% n = "#{prefix}_sleep" %>
+<% n = "#{category}_sleep" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -23,7 +23,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   "sleep(#{arg})\n"
 
 # ずっと
-<% n = "#{prefix}_loop" %>
+<% n = "#{category}_loop" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -40,7 +40,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   'loop do\n' + branch + 'end\n'
 
 # もし<　>なら
-<% n = "#{prefix}_if" %>
+<% n = "#{category}_if" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -59,7 +59,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   'if ' + cond + '\n' + branch + 'end\n'
 
 # もし<　>なら～でなければ
-<% n = "#{prefix}_if_else" %>
+<% n = "#{category}_if_else" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')

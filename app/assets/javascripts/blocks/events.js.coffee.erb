@@ -1,12 +1,12 @@
 # 「イベント」ジャンル
 
 <%
-  prefix = 'events'
+  category = 'events'
   color = 33
 %>
 
 # はじまったとき
-<% n = "#{prefix}_on_start" %>
+<% n = "#{category}_on_start" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')

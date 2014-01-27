@@ -1,12 +1,12 @@
 # 「データ」ジャンル
 
 <%
-  prefix = 'data'
+  category = 'data'
   color = 29
 %>
 
 # キャラクター
-<% n = "#{prefix}_characters" %>
+<% n = "#{category}_characters" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')

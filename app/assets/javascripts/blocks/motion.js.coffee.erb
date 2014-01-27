@@ -1,12 +1,12 @@
 # 「動き」ジャンル
 
 <%
-  prefix = 'motion'
+  category = 'motion'
   color = 225
 %>
 
 # (　)歩動かす
-<% n = "#{prefix}_move" %>
+<% n = "#{category}_move" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -29,7 +29,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
     ['right', '', ''],
     ['left', '半', '-'],
   ].each do |suffix, label_prefix, sign|
-    n = "#{prefix}_rotate_#{suffix}"
+    n = "#{category}_rotate_#{suffix}"
 %>
 
 Blockly.Blocks['<%= n %>'] =
@@ -46,11 +46,11 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   arg = Blockly.Ruby.valueToCode(@, 'ANGLE', Blockly.Ruby.ORDER_NONE) || '0'
-  "rotate(<%= prefix %>: <%= sign %>#{arg})\n"
+  "rotate(<%= suffix %>: <%= sign %>#{arg})\n"
 <% end %>
 
 # (　)度に向ける
-<% n = "#{prefix}_set_angle" %>
+<% n = "#{category}_set_angle" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -68,7 +68,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   "self.angle = #{angle}\n"
 
 # マウスポインターへ向ける
-<% n = "#{prefix}_point_towards_mouse" %>
+<% n = "#{category}_point_towards_mouse" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -83,7 +83,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   "point_towards(:mouse)\n"
 
 # [▼]へ向ける
-<% n = "#{prefix}_point_towards_character" %>
+<% n = "#{category}_point_towards_character" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -105,7 +105,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   "point_towards(#{var0})\n"
 
 # x座標を(　)、y座標を(　)にする
-<% n = "#{prefix}_set_x_y" %>
+<% n = "#{category}_set_x_y" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -130,7 +130,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   """
 
 # マウスポインターへ行く
-<% n = "#{prefix}_go_to_mouse" %>
+<% n = "#{category}_go_to_mouse" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -145,7 +145,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   "go_to(:mouse)\n"
 
 # [▼]へ行く
-# <% n = "#{prefix}_go_to_character" %>
+# <% n = "#{category}_go_to_character" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -167,7 +167,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   "go_to(#{var0})\n"
 
 # (　)秒でx座標を(　)、y座標を(　)に変える
-<% n = "#{prefix}_glide_to_x_y" %>
+<% n = "#{category}_glide_to_x_y" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -199,7 +199,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
     ['change_y_by', 'Y', 'ずつ変える', '+='],
     ['set_y', 'Y', 'にする', '='],
   ].each do |suffix, name, label_suffix, operator|
-    n = "#{prefix}_#{suffix}"
+    n = "#{category}_#{suffix}"
 %>
 
 Blockly.Blocks['<%= n %>'] =
@@ -220,7 +220,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% end %>
 
 # もし端に着いたら、跳ね返る
-<% n = "#{prefix}_turn_if_reach_wall" %>
+<% n = "#{category}_turn_if_reach_wall" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -234,7 +234,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   'turn_if_reach_wall\n'
 
 # 条件:端に着いた
-<% n = "#{prefix}_reach_wall" %>
+<% n = "#{category}_reach_wall" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -247,7 +247,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   ['reach_wall?', Blockly.Ruby.ORDER_ATOMIC]
 
 # 跳ね返る
-<% n = "#{prefix}_turn" %>
+<% n = "#{category}_turn" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
@@ -261,7 +261,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   'turn\n'
 
 # 回転方法を[▼]にする
-<% n = "#{prefix}_set_rotation_style" %>
+<% n = "#{category}_set_rotation_style" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     dropdown = [
@@ -293,7 +293,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
     ['y', 'y座標'],
     ['angle', '向き'],
   ].each do |method, label|
-    n = "#{prefix}_self_#{method}"
+    n = "#{category}_self_#{method}"
 %>
 
 Blockly.Blocks['<%= n %>'] =

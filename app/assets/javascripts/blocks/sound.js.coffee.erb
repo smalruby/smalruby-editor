@@ -1,12 +1,12 @@
 # 「音」ジャンル
 
 <%
-  prefix = 'sound'
+  category = 'sound'
   color = 296
 %>
 
 # [▼]（プリセットの音）
-<% n = "#{prefix}_preset_sounds" %>
+<% n = "#{category}_preset_sounds" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     sounds = [
@@ -30,7 +30,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   [code, Blockly.Ruby.ORDER_ATOMIC]
 
 # [▼]の音を鳴らす
-<% n = "#{prefix}_play" %>
+<% n = "#{category}_play" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
