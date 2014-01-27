@@ -108,15 +108,46 @@
 
   - category = 'looks'
   %category{:name => '見た目'}
+    -# [　]と(　)秒言う
+    %block{:type => "#{category}_say_second"}
+      = toolbox_text_value('TEXT', 'こんにちは！')
+      = toolbox_number_value('SEC', 2)
+
     -# [　]と言う
     %block{:type => "#{category}_say"}
       = toolbox_text_value('TEXT', 'こんにちは！')
+
+    -# [　]と(　)秒考える
+    %block{:type => "#{category}_think_second"}
+      = toolbox_text_value('TEXT', 'ふーん')
+      = toolbox_number_value('SEC', 2)
+
+    -# [　]と考える
+    %block{:type => "#{category}_think"}
+      = toolbox_text_value('TEXT', 'ふーん')
 
     -# 表示する
     %block{:type => "#{category}_show"}
 
     -# 隠す
     %block{:type => "#{category}_hide"}
+
+    -# 消滅する
+    %block{:type => "#{category}_vanish"}
+
+    -# 大きさを(　)％ずつ変える
+    %block{:type => "#{category}_change_scale_by"}
+      = toolbox_number_value('SCALE', 10)
+
+    -# 大きさを(　)％にする
+    %block{:type => "#{category}_set_scale"}
+      = toolbox_number_value('SCALE', 100)
+
+    -# 変数:大きさ
+    %block{:type => "#{category}_self_scale"}
+
+    -# [▼プリセット画像]
+    %block{:type => "#{category}_preset_images"}
 
   - category = 'sound'
   %category{:name => '音'}

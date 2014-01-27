@@ -1,57 +1,127 @@
 # 「見た目」ジャンル
 
 <%
-  prefix = 'looks'
+  category = 'looks'
   color = 264
 %>
 
+# [　]と(　)秒言う
 # [　]と言う
-<% n = "#{prefix}_say" %>
+# [　]と(　)秒考える
+# [　]と考える
+<%
+  [
+    ['say', '言う'],
+    ['think', '考える'],
+  ].each do |method, label_suffix|
+%>
+
+<% n = "#{category}_#{method}_second" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
     @.setColour(<%= color %>)
-    @.appendValueInput('TEXT')
-    @.appendDummyInput().appendField('と言う')
+    @.interpolateMsg('%1と%2秒<%= label_suffix %>',
+                     ['TEXT', ['String'], Blockly.ALIGN_RIGHT],
+                     ['SEC', ['Number'], Blockly.ALIGN_RIGHT],
+                     Blockly.ALIGN_RIGHT)
     @.setInputsInline(true)
     @.setPreviousStatement(true)
     @.setNextStatement(true)
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  arg = Blockly.Ruby.valueToCode(@, 'TEXT', Blockly.Ruby.ORDER_NONE) || ''
-  "say(#{arg})\n"
+  sec = Blockly.Ruby.valueToCode(@, 'SEC', Blockly.Ruby.ORDER_NONE) || ''
+  text = Blockly.Ruby.valueToCode(@, 'TEXT', Blockly.Ruby.ORDER_NONE) || ''
+  "<%= method %>(message: #{text}, second: #{sec})\n"
+
+<% n = "#{category}_#{method}" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.interpolateMsg('%1と<%= label_suffix %>',
+                     ['TEXT', ['String'], Blockly.ALIGN_RIGHT],
+                     Blockly.ALIGN_RIGHT)
+    @.setInputsInline(true)
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  text = Blockly.Ruby.valueToCode(@, 'TEXT', Blockly.Ruby.ORDER_NONE) || ''
+  "<%= method %>(message: #{text})\n"
+<% end %>
 
 # 表示する
-<% n = "#{prefix}_show" %>
-Blockly.Blocks['<%= n %>'] =
-  init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput().appendField('表示する')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
-
-Blockly.Ruby['<%= n %>'] = (block) ->
-  "self.visible = true\n"
-
 # 隠す
-<% n = "#{prefix}_hide" %>
+# 消滅する
+<%
+  [
+    ['show', '表示する', 'self.visible = true'],
+    ['hide', '隠す', 'self.visible = false'],
+    ['vanish', '消滅する', 'vanish'],
+  ].each do |suffix, label, code|
+    n = "#{category}_#{suffix}"
+%>
+
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
     @.setColour(<%= color %>)
-    @.appendDummyInput().appendField('隠す')
+    @.appendDummyInput().appendField('<%= label %>')
     @.setPreviousStatement(true)
     @.setNextStatement(true)
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  "self.visible = false\n"
+  "<%= code %>\n"
+<% end %>
 
-# [▼]（プリセットの画像）
-<% n = "#{prefix}_preset_images" %>
+# 大きさを(　)％ずつ変える
+# 大きさを(　)％にする
+<%
+  [
+    ['change_scale_by', 'ずつ変える', '+='],
+    ['set_scale', 'にする', '='],
+  ].each do |suffix, label_suffix, operator|
+    n = "#{category}_#{suffix}"
+%>
+
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.interpolateMsg('大きさを%1％<%= label_suffix %>',
+                     ['SCALE', ['Number'], Blockly.ALIGN_RIGHT],
+                     Blockly.ALIGN_RIGHT)
+    @.setInputsInline(true)
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  scale = Blockly.Ruby.valueToCode(@, 'SCALE', Blockly.Ruby.ORDER_NONE) || '0'
+  scale = parseInt(scale) / 100
+  "self.scale <%= operator %> #{scale}\n"
+<% end %>
+
+# 変数:大きさ
+<% n = "#{category}_self_scale" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput().
+      appendField('大きさ')
+    @.setOutput(true, 'Number')
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  ['scale', Blockly.Ruby.ORDER_ATOMIC]
+
+# [▼プリセット画像]
+<% n = "#{category}_preset_images" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     images = [
