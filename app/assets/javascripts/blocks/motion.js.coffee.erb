@@ -11,8 +11,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @.setHelpUrl('')
     @.setColour(<%= color %>)
-    @.appendValueInput('STEP').setCheck('Number')
-    @.appendDummyInput().appendField('歩動かす')
+    @.interpolateMsg('%1歩動かす',
+                     ['STEP', ['Number'], Blockly.ALIGN_RIGHT],
+                     Blockly.ALIGN_RIGHT)
     @.setInputsInline(true)
     @.setPreviousStatement(true)
     @.setNextStatement(true)
