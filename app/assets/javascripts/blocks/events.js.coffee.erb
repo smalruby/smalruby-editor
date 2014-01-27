@@ -19,29 +19,97 @@ Blockly.Blocks['<%= n %>'] =
     @.setNextStatement(true)
     @.setTooltip('')
 
-  getVars: ->
-    [@.getFieldValue('VAR')]
-
-  getVar: ->
-    @.getVars()[0]
-
-  renameVar: (oldName, newName) ->
-    if Blockly.Names.equals(oldName, @.getVar())
-      @.setFieldValue(newName, 'VAR')
-
-  customContextMenu: (options) ->
-    option =
-      enabled: true
-    name = @.getVar()
-    option.text = Blockly.Msg.VARIABLES_SET_CREATE_GET.replace('%1', name)
-    xmlField = goog.dom.createDom('field', null, name)
-    xmlField.setAttribute('name', 'VAR')
-    xmlBlock = goog.dom.createDom('block', null, xmlField)
-    xmlBlock.setAttribute('type', 'variables_get')
-    option.callback = Blockly.ContextMenu.callbackFactory(@, xmlBlock)
-    options.push(option)
-
 Blockly.Ruby['<%= n %>'] = (block) ->
   var0 = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
   branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
   "#{var0}.on(:start) do\n" + branch + 'end\n'
+
+# キーボードの[▼キー]が[▼押されたとき/押され続けているとき]
+<% n = "#{category}_on_key_push_or_down" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    keyDropdown = [
+      ['↑', 'K_UP'],
+      ['↓', 'K_DOWN'],
+      ['←', 'K_LEFT'],
+      ['→', 'K_RIGHT'],
+      ['スペース', 'K_SPACE'],
+      <% (('a'..'z').to_a + ('0'..'9').to_a).each do |k| %>
+      ['<%= k %>', 'K_<%= k.upcase %>'],
+      <% end %>
+    ]
+
+    caseDropdown = [
+      ['押されたとき', 'push'],
+      ['押され続けているとき', 'down'],
+    ]
+
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField(new Blockly.FieldVariable('char1'), 'VAR')
+      .appendField('キーボードの')
+      .appendField(new Blockly.FieldDropdown(keyDropdown), 'KEY')
+      .appendField('が')
+      .appendField(new Blockly.FieldDropdown(caseDropdown), 'CASE')
+    @.appendStatementInput('DO')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  var0 = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
+  key = @.getTitleValue('KEY')
+  c = @.getTitleValue('CASE')
+  branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
+  "#{var0}.on(:key_#{c}, #{key}) do\n" + branch + 'end\n'
+
+# キャラクターが[▼クリックされたとき/クリックされ続けているとき]
+<% n = "#{category}_on_mouse_push_or_down" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    caseDropdown = [
+      ['クリックされたとき', 'push'],
+      ['クリックされ続けているとき', 'down'],
+    ]
+
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField(new Blockly.FieldVariable('char1'), 'VAR')
+      .appendField('キャラクターが')
+      .appendField(new Blockly.FieldDropdown(caseDropdown), 'CASE')
+    @.appendStatementInput('DO')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  var0 = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
+  c = @.getTitleValue('CASE')
+  branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
+  "#{var0}.on(:mouse_#{c}) do |x, y|\n" + branch + 'end\n'
+
+# キャラクターが[▼キャラクター]にぶつかったとき
+<% n = "#{category}_on_hit" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField(new Blockly.FieldVariable('char1'), 'VAR0')
+      .appendField('が')
+      .appendField(new Blockly.FieldVariable('char2'), 'VAR1')
+      .appendField('にぶつかったとき')
+    @.appendStatementInput('DO')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  var0 = Blockly.Ruby.variableDB_
+    .getName(block.getFieldValue('VAR0'), Blockly.Variables.NAME_TYPE)
+  var1 = Blockly.Ruby.variableDB_
+    .getName(block.getFieldValue('VAR1'), Blockly.Variables.NAME_TYPE)
+  branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
+  "#{var0}.on(:hit, #{var1}) do\n" + branch + 'end\n'
