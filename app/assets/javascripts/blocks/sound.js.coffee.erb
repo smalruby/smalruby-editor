@@ -44,4 +44,32 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   arg = Blockly.Ruby.valueToCode(@, 'NAME', Blockly.Ruby.ORDER_NONE) || ''
-  "play(name: #{arg})\n"
+  "sound.play(name: #{arg})\n"
+
+# すべての音を止める
+<% n = "#{category}_stop" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput()
+      .appendField('すべての音を止める')
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  'sound.stop\n'
+
+# 変数:ボリューム
+<% n = "#{category}_volume" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.appendDummyInput().appendField('ボリューム')
+    @.setOutput(true, 'Number')
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  ['sound.volume', Blockly.Ruby.ORDER_ATOMIC]

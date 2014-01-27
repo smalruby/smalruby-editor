@@ -156,6 +156,12 @@
       %value{:name => 'NAME'}
         %block{:type => "#{category}_preset_sounds"}
 
+    -# すべての音を止める
+    %block{:type => "#{category}_stop"}
+
+    -# 変数:ボリューム
+    %block{:type => "#{category}_volume"}
+
   - category = 'events'
   %category{:name => 'イベント'}
     -# はじまったとき
