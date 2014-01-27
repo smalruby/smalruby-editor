@@ -1,0 +1,34 @@
+.navbar{:class => 'navbar-inverse'}
+  .navbar-inner
+    %ul.nav{:id => 'tabs'}
+      %li.active
+        %a{:href => '#block-tab', :'data-toggle' => 'tab'}<
+          ブロック
+      %li
+        %a{:href => '#ruby-tab', :'data-toggle' => 'tab'}<
+          Ruby
+
+    = form_tag(source_codes_load_path, id: "file-form", class: "navbar-form pull-right", method: "post", multipart: true) do
+      %button.btn{:id => 'load-button', :class => 'btn-primary'}<
+        ロード
+      %input#load-file{:type => 'file', :name => 'source_code[file]', :style => 'display: none'}
+      %input#filename{:type => 'text', :class => 'span4', :placeholder => 'プログラムの名前を入れてね（例：01.rb）'}
+      %button#save-button{:type => 'button', :class => 'btn btn-primary'}<
+        セーブ
+      - unless Rails.env == 'standalone'
+        = link_to '', source_codes_download_path, id: 'download-link', style: 'display: none', 'data-method' => 'delete'
+
+#messages
+
+.tab-content
+  #block-tab{:class => 'tab-pane active'}
+    #right-pane
+      #blockly-div
+
+      = render 'toolbox'
+
+    #left-pane
+      #preview
+
+  #ruby-tab{:class => 'tab-pane'}
+    #text-editor

@@ -8,20 +8,49 @@
     z-index: 9999;
 }
 
-#blockly-div {
-    position: absolute;
-    left: 0;
-    top: 60px;
-    right: 0;
-    bottom: 0;
-}
-
-#text-editor {
+.tab-content {
     position: absolute;
     left: 0;
     top: 60px;
     right: 0;
     bottom: 0;
 
-    font-size: 16pt;
+    .tab-pane {
+        position: relative;
+        height: 100%;
+
+        #left-pane {
+            position: relative;
+            width: 320px;
+            height: 100%;
+            float: left;
+            margin-left: -100%;
+        }
+
+        #right-pane {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            float: left;
+
+            #blockly-div {
+                margin-left: 320px;
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+            }
+        }
+
+        #text-editor {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+
+            font-size: 16pt;
+        }
+    }
 }
