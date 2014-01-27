@@ -43,7 +43,7 @@ describe EditorHelper do
     context '名前と値を省略した場合' do
       subject { toolbox_key_field }
 
-      it { should include(%(<field name="KEY">K_SPACE</field>)) }
+      it { should include('<field name="KEY">K_SPACE</field>') }
     end
   end
 
