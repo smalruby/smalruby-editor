@@ -203,6 +203,9 @@
     -# <　>まで繰り返す
     %block{:type => "#{category}_while"}
 
+    -# 1フレーム待つ
+    %block{:type => "#{category}_await"}
+
   - category = 'operators'
   %category{:name => '演算'}
     -# 変数:(　) + (　)
