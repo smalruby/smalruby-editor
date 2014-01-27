@@ -36,7 +36,7 @@ Blockly.Blocks['<%= n %>'] =
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  branch = Blockly.Ruby.statementToCode(block, 'DO') || '  ;\n'
+  branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
   'loop do\n' + branch + 'end\n'
 
 # もし<　>なら
@@ -79,3 +79,64 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   branch0 = Blockly.Ruby.statementToCode(block, 'THEN') || '\n'
   branch1 = Blockly.Ruby.statementToCode(block, 'ELSE') || '\n'
   'if ' + cond + '\n' + branch0 + 'else\n' + branch1 + 'end\n'
+
+# (　)回繰り返す
+<% n = "#{category}_times" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.interpolateMsg('%1回繰り返す',
+                     ['COUNT', ['Number'], Blockly.ALIGN_RIGHT],
+                     Blockly.ALIGN_RIGHT)
+    @.appendStatementInput('DO')
+    @.setInputsInline(true)
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  count = Blockly.Ruby.valueToCode(@, 'COUNT', Blockly.Ruby.ORDER_NONE) || '10'
+  branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
+  "#{count}.times do\n" + branch + 'end\n'
+
+# <　>まで待つ
+<% n = "#{category}_await_while" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.interpolateMsg('%1まで待つ',
+                     ['COND', ['Boolean'], Blockly.ALIGN_RIGHT],
+                     Blockly.ALIGN_RIGHT)
+    @.setInputsInline(true)
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  cond = Blockly.Ruby.valueToCode(@, 'COND', Blockly.Ruby.ORDER_NONE) || 'true'
+  "await while #{cond}\n"
+
+# <　>まで繰り返す
+<% n = "#{category}_while" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @.setHelpUrl('')
+    @.setColour(<%= color %>)
+    @.interpolateMsg('%1まで',
+                     ['COND', ['Boolean'], Blockly.ALIGN_RIGHT],
+                     Blockly.ALIGN_RIGHT)
+    @.appendStatementInput('DO')
+    @.appendDummyInput()
+      .appendField('を繰り返す')
+      .setAlign(Blockly.ALIGN_RIGHT)
+    @.setInputsInline(true)
+    @.setPreviousStatement(true)
+    @.setNextStatement(true)
+    @.setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  cond = Blockly.Ruby.valueToCode(@, 'COND', Blockly.Ruby.ORDER_NONE) || 'true'
+  branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
+  "while #{cond}\n" + branch + 'end\n'

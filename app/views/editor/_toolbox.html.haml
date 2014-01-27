@@ -193,6 +193,16 @@
     -# もし<　>なら～でなければ
     %block{:type => "#{category}_if_else"}
 
+    -# (　)回繰り返す
+    %block{:type => "#{category}_times"}
+      = toolbox_number_value('COUNT', 10)
+
+    -# <　>まで待つ
+    %block{:type => "#{category}_await_while"}
+
+    -# <　>まで繰り返す
+    %block{:type => "#{category}_while"}
+
   - category = 'operators'
   %category{:name => '演算'}
     -# 変数:(　) + (　)
