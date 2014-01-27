@@ -244,11 +244,6 @@ Blockly.Blocks['<%= n %>'] =
     @.setNextStatement(true)
     @.setTooltip('')
 
-  getVars: Blockly.Blocks['events_on_start'].getVars
-  getVar: Blockly.Blocks['events_on_start'].getVar
-  renameVar: Blockly.Blocks['events_on_start'].renameVar
-  customContextMenu: Blockly.Blocks['events_on_start'].customContextMenu
-
 Blockly.Ruby['<%= n %>'] = (block) ->
   var0 = Blockly.Ruby.variableDB_
     .getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
@@ -290,11 +285,6 @@ Blockly.Blocks['<%= n %>'] =
     @.setPreviousStatement(true)
     @.setNextStatement(true)
     @.setTooltip('')
-
-  getVars: Blockly.Blocks['events_on_start'].getVars
-  getVar: Blockly.Blocks['events_on_start'].getVar
-  renameVar: Blockly.Blocks['events_on_start'].renameVar
-  customContextMenu: Blockly.Blocks['events_on_start'].customContextMenu
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   var0 = Blockly.Ruby.variableDB_
