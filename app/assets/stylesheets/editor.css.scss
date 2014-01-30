@@ -2,6 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$left-pane-width: 260px;
+
+
 #messages {
     position: absolute;
     right: 20px;
@@ -10,6 +13,7 @@
 
 .tab-content {
     position: absolute;
+    width: 100%;
     left: 0;
     top: 60px;
     right: 0;
@@ -17,14 +21,21 @@
 
     .tab-pane {
         position: relative;
-        height: 100%;
+        height: 98%;
 
         #left-pane {
             position: relative;
-            width: 320px;
+            width: $left-pane-width;
             height: 100%;
             float: left;
             margin-left: -100%;
+
+            #character-selector {
+                margin-left: 20px;
+                width: 220px;
+                height: 100%;
+                background-color: navy;
+            }
         }
 
         #right-pane {
@@ -34,11 +45,11 @@
             float: left;
 
             #blockly-div {
-                margin-left: 320px;
+                margin-left: $left-pane-width;
                 position: absolute;
                 left: 0;
                 top: 0;
-                right: 0;
+                right: 20px;
                 bottom: 0;
             }
         }
