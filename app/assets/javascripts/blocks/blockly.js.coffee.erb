@@ -1,33 +1,33 @@
 # Blocklyが提供しているブロック
 
-<% prefix = 'math' %>
+<% category = 'math' %>
 
-<% n = "#{prefix}_number" %>
+<% n = "#{category}_number" %>
 Blockly.Ruby['<%= n %>'] = (block) ->
   code = parseFloat(@.getTitleValue('NUM'))
   order = if code < 0 then Blockly.Ruby.ORDER_UNARY_SIGN else Blockly.Ruby.ORDER_ATOMIC
   [code, order]
 
 
-<% prefix = 'text' %>
+<% category = 'text' %>
 
-<% n = "#{prefix}" %>
+<% n = "#{category}" %>
 Blockly.Ruby['<%= n %>'] = (block) ->
   code = Blockly.Ruby.quote_(@.getTitleValue('TEXT'))
   [code, Blockly.Ruby.ORDER_ATOMIC]
 
 
 # 変数
-<% prefix = 'variables' %>
+<% category = 'variables' %>
 
 # [▼]（変数）
-<% n = "#{prefix}_get" %>
+<% n = "#{category}_get" %>
 Blockly.Ruby['<%= n %>'] = (block) ->
   name = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
   [name, Blockly.Ruby.ORDER_ATOMIC]
 
 # セット[▼]宛先
-<% n = "#{prefix}_set" %>
+<% n = "#{category}_set" %>
 Blockly.Ruby['<%= n %>'] = (block) ->
   val = Blockly.Ruby.valueToCode(block, 'VALUE', Blockly.Ruby.ORDER_NONE) || '0'
   name = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
