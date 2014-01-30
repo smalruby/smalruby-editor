@@ -56,7 +56,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   pin = parseInt(@.getTitleValue('PIN'))
-  "led(#{pin}).<%= method %>"
+  "led(#{pin}).<%= method %>\n"
 <% end %>
 
 # 「RGB LED」サブジャンル
@@ -83,7 +83,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   red = parseInt(c[1..2], 16)
   green = parseInt(c[3..4], 16)
   blue = parseInt(c[5..6], 16)
-  "rgb_led(#{pin}).on(red: #{red}, green: #{green}, blue: #{blue})"
+  "rgb_led(#{pin}).on(red: #{red}, green: #{green}, blue: #{blue})\n"
 
 # RGB LED[▼ピン]をオフにする
 <% n = "#{category}_rgb_led_off" %>
@@ -101,7 +101,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   pin = parseInt(@.getTitleValue('PIN'))
-  "rgb_led(#{pin}).off"
+  "rgb_led(#{pin}).off\n"
 
 # 「7セグディスプレイ」サブジャンル
 
