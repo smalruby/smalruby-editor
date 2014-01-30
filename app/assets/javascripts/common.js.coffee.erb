@@ -23,8 +23,12 @@ window.errorMessage = (msg, selector = '#messages') ->
 $ ->
   saving = false
 
-  getSourceCodeData = ->
-    window.textEditor.getSession().getDocument().getValue()
+  getSourceCodeData = (filename)->
+    if filename && filename.match(/\.xml$/)
+      xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace)
+      Blockly.Xml.domToPrettyText(xmlDom)
+    else
+      window.textEditor.getSession().getDocument().getValue()
 
   setSourceCodeData = (data) ->
     window.textEditor.getSession().getDocument().setValue(data)
@@ -76,7 +80,7 @@ $ ->
         data:
           source_code:
             filename: filename
-            data: getSourceCodeData()
+            data: getSourceCodeData(filename)
         dataType: 'json'
         success: (data, textStatus, jqXHR) ->
           <% if Rails.env == 'standalone' %>
@@ -125,6 +129,11 @@ $ ->
         window.errorMessage(info.filename + 'は' + info.error)
       else
         $('#filename').val(info.filename)
+        if info.filename.match(/.xml$/)
+          xml = Blockly.Xml.textToDom(info.data)
+          Blockly.mainWorkspace.clear()
+          Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml)
+          info.data = Blockly.Ruby.workspaceToCode()
         setSourceCodeData(info.data)
         window.textEditor.moveCursorTo(0, 0)
         unless window.blockMode
