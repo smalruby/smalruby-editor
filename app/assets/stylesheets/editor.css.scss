@@ -2,8 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$left-pane-width: 260px;
-
+$margin: 20px;
+$character-size: 32px * 5;
+$left-pane-width: $character-size + $margin * 2;
 
 #messages {
     position: absolute;
@@ -11,7 +12,7 @@ $left-pane-width: 260px;
     z-index: 9999;
 }
 
-.tab-content {
+#modes-container {
     position: absolute;
     width: 100%;
     left: 0;
@@ -30,11 +31,76 @@ $left-pane-width: 260px;
             float: left;
             margin-left: -100%;
 
-            #character-selector {
-                margin-left: 20px;
-                width: 220px;
+            #selectors-container {
+                margin-left: $margin;
+                width: $character-size;
                 height: 100%;
-                background-color: navy;
+
+                ul.nav-pills {
+                    margin: 0 0 4px 0;
+                    font-size: 0.8em;
+                    line-height: 1em;
+
+                    li {
+                        line-height: 12px;
+
+                        a {
+                            margin-right: 2px;
+                            margin-tiop: 2px;
+                            margin-bottom: 2px;
+
+                            padding-top: 8px;
+                            padding-bottom: 8px;
+                            padding-right: 5px;
+                            padding-left: 5px;
+
+                            line-height: 10px;
+                        }
+                    }
+                }
+
+                #selectors-tab-content {
+                    $border-size: 5px;
+                    $border-color: #0088cc;
+
+                    height: 100%;
+
+                    #character-selector-tab {
+                        .character {
+                            width: $character-size;
+                            height: $character-size;
+
+                            a {
+                                text-decoration: none;
+                                overflow: hidden;
+                                display: table-cell;
+                                text-align: center;
+                                vertical-align: middle;
+                                width: $character-size;
+                                height: $character-size;
+                            }
+
+                            a:hover {
+                                width: $character-size - $border-size * 2;
+                                height: $character-size - $border-size * 2;
+                                border: $border-size solid $border-color;
+
+                                img {
+                                    margin: -$border-size;
+                                }
+                            }
+                        }
+                    }
+
+                    #scene-selector-tab {
+                        .scene {
+                            margin: 0 auto;
+                            width: $character-size - $border-size * 2;
+                            height: $character-size - $border-size * 2;
+                            border: $border-size solid $border-color;
+                        }
+                    }
+                }
             }
         }
 
@@ -49,7 +115,7 @@ $left-pane-width: 260px;
                 position: absolute;
                 left: 0;
                 top: 0;
-                right: 20px;
+                right: $margin;
                 bottom: 0;
             }
         }

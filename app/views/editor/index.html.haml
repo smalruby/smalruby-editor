@@ -20,15 +20,9 @@
 
 #messages
 
-.tab-content
+#modes-container{:class => 'tab-content'}
   #block-tab{:class => 'tab-pane active'}
-    #right-pane
-      #blockly-div
-
-      = render 'toolbox'
-
-    #left-pane
-      #character-selector
+    = render 'block_tab'
 
   #ruby-tab{:class => 'tab-pane'}
     #text-editor
