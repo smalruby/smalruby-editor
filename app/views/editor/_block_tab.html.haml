@@ -14,22 +14,24 @@
           ステージ
 
     #selectors-tab-content{:class => 'tab-content'}
-      #character-selector-tab{:class => 'tab-pane active'}
-        .character
+      #character-selector-tab{:class => 'tab-pane active selector-tab'}
+        - %w(car1 car2 cat1 cat2 frog1 ball1 ball2).each do |name|
+          .item
+            .item-info
+              .name
+                = name
+              .attributes
+                X: 200 Y: 300
+                %br
+                向き: 360°
+
+            %a{:href => '#', :onclick => 'event.preventDefault()'}
+              %img{:src => "/smalruby/assets/#{name}.png"}
+
+      #scene-selector-tab{:class => 'tab-pane selector-tab'}
+        .item
           %a{:href => '#', :onclick => 'window.event.preventDefault();'}
-            %img{:src => '/smalruby/assets/car1.png'}
-        .character
+            %div
+        .item
           %a{:href => '#', :onclick => 'window.event.preventDefault();'}
-            %img{:src => '/smalruby/assets/car2.png'}
-        .character
-          %a{:href => '#', :onclick => 'window.event.preventDefault();'}
-            %img{:src => '/smalruby/assets/ball1.png'}
-        .character
-          %a{:href => '#', :onclick => 'window.event.preventDefault();'}
-            %img{:src => '/smalruby/assets/cat1.png'}
-        .character
-          %a{:href => '#', :onclick => 'window.event.preventDefault();'}
-            %img{:src => '/smalruby/assets/frog1.png'}
-      #scene-selector-tab{:class => 'tab-pane'}
-        .scene
-        .scene
+            %div
