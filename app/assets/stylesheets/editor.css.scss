@@ -12,6 +12,20 @@ $left-pane-width: $character-size + $margin * 2;
     z-index: 9999;
 }
 
+.left-pane {
+    position: relative;
+    height: 100%;
+    float: left;
+    margin-left: -100%;
+}
+
+.right-pane {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    float: left;
+}
+
 #modes-container {
     position: absolute;
     width: 100%;
@@ -24,12 +38,8 @@ $left-pane-width: $character-size + $margin * 2;
         position: relative;
         height: 98%;
 
-        #left-pane {
-            position: relative;
+        #block-tab-left-pane {
             width: $left-pane-width;
-            height: 100%;
-            float: left;
-            margin-left: -100%;
 
             #selectors-container {
                 position: relative;
@@ -136,12 +146,7 @@ $left-pane-width: $character-size + $margin * 2;
             }
         }
 
-        #right-pane {
-            position: relative;
-            height: 100%;
-            width: 100%;
-            float: left;
-
+        #block-tab-right-pane {
             #blockly-div {
                 margin-left: $left-pane-width;
                 position: absolute;
@@ -160,6 +165,110 @@ $left-pane-width: $character-size + $margin * 2;
             bottom: 0;
 
             font-size: 16pt;
+        }
+    }
+}
+
+#character-modal {
+    $modal-frame-size: 1px;
+    $modal-body-margin: 15px;
+
+    $modal-margin: $modal-frame-size + $modal-body-margin;
+
+    $preview-width: 320px;
+    $preview-height: 240px;
+
+    $attributes-height: 160px;
+
+    $left-pane-width: $preview-width;
+    $right-pane-width: $character-size * 3 + $modal-body-margin;
+
+    $modal-width: $left-pane-width + $right-pane-width + $modal-margin * 2;
+    $modal-height: $preview-height + $attributes-height + $modal-margin * 2;
+
+    width: $modal-width;
+    height: $modal-height;
+    margin-left: -($modal-width / 2);
+
+    .modal-body {
+        position: relative;
+        height: 100%;
+        max-height: $modal-height - $modal-body-margin * 2;
+
+        #character-modal-left-pane {
+            width: $left-pane-width;
+            overflow: hidden;
+
+            #character-modal-preview {
+                position: relative;
+
+                width: $preview-width;
+                height: $preview-height;
+                background-color: black;
+
+                #character-modal-character {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+
+                    img {
+                        zoom: 50%;
+                    }
+                }
+            }
+
+            #character-modal-attributes {
+                position: absolute;
+                width: $preview-width;
+                top: $preview-height + $modal-body-margin;
+                left: 0;
+                right: 0;
+                bottom: 0;
+
+                #character-modal-form {
+                    margin-bottom: 0;
+
+                    .control-group {
+                        margin-bottom: 8px;
+
+                        .control-label {
+                            width: 100px;
+                        }
+
+                        .controls {
+                            margin-left: 100px + $modal-body-margin;
+
+                            input[type=range] {
+                                padding: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        #character-modal-right-pane {
+            overflow: hidden;
+
+            #character-modal-costume-selecter {
+                margin-left: $left-pane-width;
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: $right-pane-width + $modal-body-margin * 2;
+                overflow-y: scroll;
+
+                ul.thumbnails {
+                    margin: 0 0 10px 0;
+
+                    li {
+                        margin-left: $modal-body-margin;
+                        margin-bottom: $modal-body-margin;
+                    }
+                }
+            }
         }
     }
 }

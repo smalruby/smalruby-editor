@@ -1,0 +1,46 @@
+#character-modal{:class => 'modal hide fade', :tabindex => '-1',
+                 :role => 'dialog', :'aria-hidden' => 'true'}
+  .modal-body
+    #character-modal-right-pane{:class => 'right-pane'}
+      #character-modal-costume-selecter
+        .row-fluid
+          %ul.thumbnails
+            - %w(car1 car2 car3 car4 cat1 cat2 cat3 frog1 ball1 ball2 ball3 ball4 ball5 ball6 car1 car2 car3 car4 cat1 cat2 cat3 frog1 ball1 ball2 ball3 ball4 ball5 ball6).each do |name|
+              %li
+                %a.thumbnail{:href => "#"}
+                  %img{:src => "/smalruby/assets/#{name}.png"}
+
+    #character-modal-left-pane{:class => 'left-pane'}
+      #character-modal-preview
+        #character-modal-character
+          %img{:src => "/smalruby/assets/car1.png"}
+      #character-modal-attributes
+        %form#character-modal-form{:class => 'form-horizontal'}
+          .control-group
+            %label.control-label{:for => 'character_name'}<
+              名前
+            .controls
+              %input#character_name{:name => 'character[name]', :type => 'text', :placeholder => 'car1やball1など', :class => 'input-medium'}
+          .control-group
+            %label.control-label{:for => 'character_x'}<
+              X座標
+            .controls
+              %input#character_x{:name => 'character[x]', :type => 'range', :min => '0', :max => '639', :class => 'input-medium'}
+          .control-group
+            %label.control-label{:for => 'character_y'}<
+              Y座標
+            .controls
+              %input#character_y{:name => 'character[y]', :type => 'range', :min => '0', :max => '439', :class => 'input-medium'}
+          .control-group
+            %label.control-label{:for => 'character_angle'}<
+              向き
+            .controls
+              %input#character_angle{:name => 'character[angle]', :type => 'range', :min => '0', :max => '359', :class => 'input-medium'}
+
+  .modal-footer
+    %button.btn{:'data-dismiss' => 'modal', :'aria-hidden' => 'true'}<
+      %i.icon-remove
+      やめる
+    %button.btn{:class => 'btn-primary'}<
+      %i.icon-circle-blank
+      決めた！

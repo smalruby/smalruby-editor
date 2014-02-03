@@ -1,9 +1,9 @@
-#right-pane
+#block-tab-right-pane{:class => 'right-pane'}
   #blockly-div
 
   = render 'toolbox'
 
-#left-pane
+#block-tab-left-pane{:class => 'left-pane'}
   #selectors-container
     %ul.nav{:class => 'nav-pills'}
       %li.active
@@ -25,7 +25,7 @@
                 %br
                 向き: 360°
 
-            %a{:href => '#', :onclick => 'event.preventDefault()'}
+            %a{:href => '#', :onclick => "event.preventDefault(); $('#character-modal').modal('show');"}
               %img{:src => "/smalruby/assets/#{name}.png"}
 
       #scene-selector-tab{:class => 'tab-pane selector-tab'}
@@ -35,3 +35,5 @@
         .item
           %a{:href => '#', :onclick => 'window.event.preventDefault();'}
             %div
+
+= render 'character_modal'
