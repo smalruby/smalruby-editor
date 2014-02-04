@@ -72,6 +72,7 @@ Gem::Specification.new do |spec|
      ['mime-types', '~> 1.16'],
      ['haml-rails'],
      ['jquery-ui-rails'],
+     ['backbone-on-rails'],
     ]
   runtime_dependencies << ['therubyracer'] unless is_windows
   runtime_dependencies.each do |args|
