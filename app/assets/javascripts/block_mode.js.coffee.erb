@@ -6,3 +6,22 @@ $ ->
     path: '/blockly/'
     toolbox: document.getElementById('toolbox')
     trashcan: true
+
+  $('#character-modal-character').draggable
+    containment: '#character-modal-preview'
+    cursor: 'move'
+
+  $('#character-modal-preview').droppable
+    drop: (event, ui) ->
+      pos = ui.draggable.position()
+      $('#character-modal input[name="character[x]"]').val(pos.left * 2).change()
+      $('#character-modal input[name="character[y]"]').val(pos.top * 2).change()
+
+  $('#character-modal input[name="character[x]"]').change (e) ->
+    $('#character_x_value').text($(@).val())
+
+  $('#character-modal input[name="character[y]"]').change (e) ->
+    $('#character_y_value').text($(@).val())
+
+  $('#character-modal input[name="character[angle]"]').change (e) ->
+    $('#character_angle_value').text("#{$(@).val()}°")

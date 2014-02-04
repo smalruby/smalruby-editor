@@ -205,14 +205,14 @@ $left-pane-width: $character-size + $margin * 2;
                 width: $preview-width;
                 height: $preview-height;
                 background-color: black;
+                overflow: hidden;
 
                 #character-modal-character {
                     position: absolute;
-                    top: 0;
-                    left: 0;
 
                     img {
-                        zoom: 50%;
+                        width: 100%;
+                        height: 100%;
                     }
                 }
             }

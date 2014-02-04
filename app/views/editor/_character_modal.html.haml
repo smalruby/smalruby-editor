@@ -14,6 +14,7 @@
       #character-modal-preview
         #character-modal-character
           %img{:src => "/smalruby/assets/car1.png"}
+
       #character-modal-attributes
         %form#character-modal-form{:class => 'form-horizontal'}
           .control-group
@@ -26,16 +27,22 @@
               X座標
             .controls
               %input#character_x{:name => 'character[x]', :type => 'range', :min => '0', :max => '639', :class => 'input-medium'}
+              %span#character_x_value{:class => 'character_value'}
+                300
           .control-group
             %label.control-label{:for => 'character_y'}<
               Y座標
             .controls
               %input#character_y{:name => 'character[y]', :type => 'range', :min => '0', :max => '439', :class => 'input-medium'}
+              %span#character_y_value{:class => 'character_value'}
+                200
           .control-group
             %label.control-label{:for => 'character_angle'}<
               向き
             .controls
               %input#character_angle{:name => 'character[angle]', :type => 'range', :min => '0', :max => '359', :class => 'input-medium'}
+              %span#character_angle_value{:class => 'character_value'}
+                100°
 
   .modal-footer
     %button.btn{:'data-dismiss' => 'modal', :'aria-hidden' => 'true'}<
