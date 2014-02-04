@@ -72,6 +72,7 @@ group :development, :test do
   gem 'commands'
   gem 'rubocop'
   gem 'rspec-rails'
+  gem 'teaspoon'
 end
 
 group :test do
