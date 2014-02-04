@@ -25,7 +25,7 @@
 //= require blockly/msg/js/ja
 //= require underscore
 //= require backbone
-//= require smalruby_editor
+//= require smalruby
 //= require_tree ../templates
 //= require_tree ./models
 //= require_tree ./collections

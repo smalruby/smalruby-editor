@@ -6,4 +6,4 @@ require File.expand_path('../config/application', __FILE__)
 SmalrubyEditor::Application.load_tasks
 
 task(:default).clear
-task default: [:rubocop, :spec]
+task default: [:rubocop, :spec, :teaspoon]
