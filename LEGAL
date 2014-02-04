@@ -12,7 +12,7 @@ public/fonts/fontawesome-webfont.woff:
   These's license is SIL Open Font License (OFL) 1.1:
   http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL .
 
-app/assets/javascripts/blockly/**/*, public/blockly/**/*:
+vendor/assets/javascripts/blockly/**/*, public/blockly/**/*:
 
   These's license is Apache License Version 2.0, January 2011:
   http://www.apache.org/licenses/ .
