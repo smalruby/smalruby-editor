@@ -10,6 +10,10 @@ $ ->
   $('#character-modal-character').draggable
     containment: '#character-modal-preview'
     cursor: 'move'
+    drag: (event, ui) ->
+      pos = ui.position
+      $('#character-modal input[name="character[x]"]').val(pos.left * 2).change()
+      $('#character-modal input[name="character[y]"]').val(pos.top * 2).change()
 
   $('#character-modal-preview').droppable
     drop: (event, ui) ->
