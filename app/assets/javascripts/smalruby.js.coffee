@@ -3,7 +3,8 @@ window.Smalruby =
   Collections: {}
   Views: {}
   Routers: {}
-  initialize: -> {}
+  initialize: ->
+    @.Views.CharacterModalView = new Smalruby.CharacterModalView({ el: $('#character-modal') })
 
 $(document).ready ->
   Smalruby.initialize()

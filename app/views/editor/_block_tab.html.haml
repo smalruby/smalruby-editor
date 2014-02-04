@@ -25,7 +25,7 @@
                 %br
                 向き: 360°
 
-            %a{:href => '#', :onclick => "event.preventDefault(); $('#character-modal').modal('show');"}
+            %a{:href => '#', :onclick => 'event.preventDefault(); Smalruby.Views.CharacterModalView.render();'}
               %img{:src => "/smalruby/assets/#{name}.png"}
 
       #scene-selector-tab{:class => 'tab-pane selector-tab'}

@@ -5,10 +5,10 @@
       #character-modal-costume-selecter
         .row-fluid
           %ul.thumbnails
-            - %w(car1 car2 car3 car4 cat1 cat2 cat3 frog1 ball1 ball2 ball3 ball4 ball5 ball6 car1 car2 car3 car4 cat1 cat2 cat3 frog1 ball1 ball2 ball3 ball4 ball5 ball6).each do |name|
+            - %w(car1 car2 car3 car4 cat1 cat2 cat3 frog1 ball1 ball2 ball3 ball4 ball5 ball6).each do |name|
               %li
                 %a.thumbnail
-                  %img{:src => "/smalruby/assets/#{name}.png"}
+                  %img{:src => "/smalruby/assets/#{name}.png", :alt => "#{name}.png"}
 
     #character-modal-left-pane{:class => 'left-pane'}
       #character-modal-preview

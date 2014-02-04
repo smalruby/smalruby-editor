@@ -266,6 +266,10 @@ $left-pane-width: $character-size + $margin * 2;
                     li {
                         margin-left: $modal-body-margin;
                         margin-bottom: $modal-body-margin;
+
+                        a.active {
+                            background-color: #0088cc;
+                        }
                     }
                 }
             }
