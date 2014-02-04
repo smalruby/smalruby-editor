@@ -29,3 +29,10 @@ $ ->
 
   $('#character-modal input[name="character[angle]"]').change (e) ->
     $('#character_angle_value').text("#{$(@).val()}°")
+
+  $('#character-modal-costume-selecter a').click (e) ->
+    e.preventDefault()
+    $('#character-modal-character img').replaceWith($(@).find('img').clone())
+
+  $('#character-modal-ok-button').click (e) ->
+    $('#character-modal').modal('hide')
