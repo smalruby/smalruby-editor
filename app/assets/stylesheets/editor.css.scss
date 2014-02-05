@@ -230,6 +230,7 @@ $left-pane-width: $character-size + $margin * 2;
 
                 #character-modal-character {
                     position: absolute;
+                    -ms-touch-action: none;
 
                     img {
                         width: 100%;
