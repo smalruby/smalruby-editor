@@ -1,4 +1,4 @@
-# キャラクター選択ダイアログを表現するビュー
+# キャラクター設定ダイアログを表現するビュー
 Smalruby.CharacterModalView = Backbone.View.extend
   model: new Smalruby.Character()
 
@@ -6,11 +6,12 @@ Smalruby.CharacterModalView = Backbone.View.extend
     'click #character-modal-costume-selecter a': 'onSelectCostume'
     'click #character-modal-ok-button': 'onOk'
 
+  previewZoomLevel: 0.5
+
   initialize: ->
     @.target = null
 
     self = @
-    zoom = 2
 
     $('#character-modal-character').draggable
       containment: '#character-modal-preview'
@@ -18,15 +19,15 @@ Smalruby.CharacterModalView = Backbone.View.extend
       drag: (event, ui) ->
         pos = ui.position
         self.model.set
-          x: pos.left * zoom
-          y: pos.top * zoom
+          x: pos.left / self.previewZoomLevel
+          y: pos.top / self.previewZoomLevel
 
     $('#character-modal-preview').droppable
       drop: (event, ui) ->
         pos = ui.draggable.position()
         self.model.set
-          x: pos.left * zoom
-          y: pos.top * zoom
+          x: pos.left / self.previewZoomLevel
+          y: pos.top / self.previewZoomLevel
 
     @.$el.find('input[name="character[name]"]').keypress (e) ->
       e = window.event if !e
@@ -71,12 +72,12 @@ Smalruby.CharacterModalView = Backbone.View.extend
   onChangeX: (model, value, options) ->
     @.$el.find('input[name="character[x]"]').val(value)
     $('#character_x_value').text(value)
-    $('#character-modal-character').css('left', value / 2)
+    $('#character-modal-character').css('left', value * @.previewZoomLevel)
 
   onChangeY: (model, value, options) ->
     @.$el.find('input[name="character[y]"]').val(value)
     $('#character_y_value').text(value)
-    $('#character-modal-character').css('top', value / 2)
+    $('#character-modal-character').css('top', value * @.previewZoomLevel)
 
   onChangeAngle: (model, value, options) ->
     @.$el.find('input[name="character[angle]"]').val(value)
