@@ -175,6 +175,8 @@ $left-pane-width: $character-size + $margin * 2;
                 top: 0;
                 right: $margin;
                 bottom: 0;
+
+                -ms-touch-action: none;
             }
         }
 
@@ -230,6 +232,7 @@ $left-pane-width: $character-size + $margin * 2;
 
                 #character-modal-character {
                     position: absolute;
+
                     -ms-touch-action: none;
 
                     img {
