@@ -15,18 +15,6 @@
 
     #selectors-tab-content{:class => 'tab-content'}
       #character-selector-tab{:class => 'tab-pane active selector-tab'}
-        - %w(car1 car2 cat1 cat2 frog1 ball1 ball2).each do |name|
-          .item
-            .item-info
-              .name
-                = name
-              .attributes
-                X: 200 Y: 300
-                %br
-                向き: 360°
-
-            %a{:href => '#', :onclick => 'event.preventDefault(); Smalruby.Views.CharacterModalView.render();'}
-              %img{:src => "/smalruby/assets/#{name}.png"}
 
       #scene-selector-tab{:class => 'tab-pane selector-tab'}
         .item
@@ -37,3 +25,16 @@
             %div
 
 = render 'character_modal'
+
+%script#character-selector-template{:type => 'text/template'}
+  .item
+    .item-info
+      .name
+        {{- get('name') }}
+      .attributes
+        X: {{- get('x') }} Y: {{- get('y') }}
+        %br
+        向き: {{- get('angle') }}°
+
+    %a{:href => '#'}
+      %img{:src => '{{- costumeUrl() }}'}

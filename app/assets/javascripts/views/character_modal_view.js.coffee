@@ -13,21 +13,20 @@ Smalruby.CharacterModalView = Backbone.View.extend
 
     self = @
 
+    setPosition = (pos) ->
+      self.model.set
+        x: parseInt(pos.left / self.previewZoomLevel)
+        y: parseInt(pos.top / self.previewZoomLevel)
+
     $('#character-modal-character').draggable
       containment: '#character-modal-preview'
       cursor: 'move'
       drag: (event, ui) ->
-        pos = ui.position
-        self.model.set
-          x: pos.left / self.previewZoomLevel
-          y: pos.top / self.previewZoomLevel
+        setPosition(ui.position)
 
     $('#character-modal-preview').droppable
       drop: (event, ui) ->
-        pos = ui.draggable.position()
-        self.model.set
-          x: pos.left / self.previewZoomLevel
-          y: pos.top / self.previewZoomLevel
+        setPosition(ui.draggable.position())
 
     @.$el.find('input[name="character[name]"]').keypress (e) ->
       e = window.event if !e
@@ -72,12 +71,12 @@ Smalruby.CharacterModalView = Backbone.View.extend
   onChangeX: (model, value, options) ->
     @.$el.find('input[name="character[x]"]').val(value)
     $('#character_x_value').text(value)
-    $('#character-modal-character').css('left', value * @.previewZoomLevel)
+    $('#character-modal-character').css('left', parseInt(value * @.previewZoomLevel))
 
   onChangeY: (model, value, options) ->
     @.$el.find('input[name="character[y]"]').val(value)
     $('#character_y_value').text(value)
-    $('#character-modal-character').css('top', value * @.previewZoomLevel)
+    $('#character-modal-character').css('top', parseInt(value * @.previewZoomLevel))
 
   onChangeAngle: (model, value, options) ->
     @.$el.find('input[name="character[angle]"]').val(value)
