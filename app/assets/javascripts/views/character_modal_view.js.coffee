@@ -9,14 +9,12 @@ Smalruby.CharacterModalView = Backbone.View.extend
   previewZoomLevel: 0.5
 
   initialize: ->
-    @.target = null
+    @target = null
 
-    self = @
-
-    setPosition = (pos) ->
-      self.model.set
-        x: parseInt(pos.left / self.previewZoomLevel)
-        y: parseInt(pos.top / self.previewZoomLevel)
+    setPosition = (pos) =>
+      @model.set
+        x: parseInt(pos.left / @previewZoomLevel)
+        y: parseInt(pos.top / @previewZoomLevel)
 
     $('#character-modal-character').draggable
       containment: '#character-modal-preview'
@@ -28,58 +26,60 @@ Smalruby.CharacterModalView = Backbone.View.extend
       drop: (event, ui) ->
         setPosition(ui.draggable.position())
 
-    @.$el.find('input[name="character[name]"]').keypress (e) ->
+    @$el.find('input[name="character[name]"]').keypress (e) ->
       e = window.event if !e
       if e.keyCode == 13
         false
       else
         true
 
-    @.$el.find('input[name="character[name]"]').change (e)->
+    self = @
+    @$el.find('input[name="character[name]"]').change (e) ->
       self.model.set({ name: $(@).val() })
+      self.nameChanged = true
 
-    @.$el.find('input[name="character[x]"]').change (e)->
+    @$el.find('input[name="character[x]"]').change (e) ->
       self.model.set({ x: $(@).val() })
 
-    @.$el.find('input[name="character[y]"]').change (e)->
+    @$el.find('input[name="character[y]"]').change (e) ->
       self.model.set({ y: $(@).val() })
 
-    @.$el.find('input[name="character[angle]"]').change (e)->
+    @$el.find('input[name="character[angle]"]').change (e) ->
       self.model.set({ angle: $(@).val() })
 
-    @.listenTo(@.model, 'change:name', @.onChangeName)
-    @.listenTo(@.model, 'change:x', @.onChangeX)
-    @.listenTo(@.model, 'change:y', @.onChangeY)
-    @.listenTo(@.model, 'change:angle', @.onChangeAngle)
-    @.listenTo(@.model, 'change:costumes', @.onChangeCostumes)
+    @listenTo(@model, 'change:name', @onChangeName)
+    @listenTo(@model, 'change:x', @onChangeX)
+    @listenTo(@model, 'change:y', @onChangeY)
+    @listenTo(@model, 'change:angle', @onChangeAngle)
+    @listenTo(@model, 'change:costumes', @onChangeCostumes)
 
-    @.onChange(@.model)
+    @onChange(@model)
 
   render: ->
-    @.$el.modal('show')
+    @$el.modal('show')
 
   onChange: (model, options)->
-    @.onChangeName(@.model, @.model.get('name'))
-    @.onChangeX(@.model, @.model.get('x'))
-    @.onChangeY(@.model, @.model.get('y'))
-    @.onChangeAngle(@.model, @.model.get('angle'))
-    @.onChangeCostumes(@.model, @.model.get('costumes'))
+    @onChangeName(@model, @model.get('name'))
+    @onChangeX(@model, @model.get('x'))
+    @onChangeY(@model, @model.get('y'))
+    @onChangeAngle(@model, @model.get('angle'))
+    @onChangeCostumes(@model, @model.get('costumes'))
 
   onChangeName: (model, value, options) ->
-    @.$el.find('input[name="character[name]"]').val(value)
+    @$el.find('input[name="character[name]"]').val(value)
 
   onChangeX: (model, value, options) ->
     @.$el.find('input[name="character[x]"]').val(value)
     $('#character_x_value').text(value)
-    $('#character-modal-character').css('left', parseInt(value * @.previewZoomLevel))
+    $('#character-modal-character').css('left', parseInt(value * @previewZoomLevel))
 
   onChangeY: (model, value, options) ->
-    @.$el.find('input[name="character[y]"]').val(value)
+    @$el.find('input[name="character[y]"]').val(value)
     $('#character_y_value').text(value)
-    $('#character-modal-character').css('top', parseInt(value * @.previewZoomLevel))
+    $('#character-modal-character').css('top', parseInt(value * @previewZoomLevel))
 
   onChangeAngle: (model, value, options) ->
-    @.$el.find('input[name="character[angle]"]').val(value)
+    @$el.find('input[name="character[angle]"]').val(value)
     $('#character_angle_value').text("#{value}°")
 
   onChangeCostumes: (model, value, options) ->
@@ -87,20 +87,34 @@ Smalruby.CharacterModalView = Backbone.View.extend
       src: model.costumeUrl()
       alt: model.costume()
     $('#character-modal-character img').replaceWith(img)
-    @.$el.find('#character-modal-costume-selector a.thumbnail').removeClass('active')
-    @.$el.find("#character-modal-costume-selector img[alt=\"#{model.costume()}\"]").parent().addClass('active')
+    @$el.find('#character-modal-costume-selector a.thumbnail').removeClass('active')
+    @$el.find("#character-modal-costume-selector img[alt=\"#{model.costume()}\"]").parent().addClass('active')
 
   onSelectCostume: (e) ->
     e.preventDefault()
+
     costume = $(e.target).attr('alt') || $(e.target).find('img').attr('alt')
-    @.model.set({ costumes: [costume] })
+
+    attrs =
+      costumes: [costume]
+
+    unless @nameChanged
+      prefix = Smalruby.Character.costumeToNamePrefix(costume)
+      if prefix != @model.namePrefix()
+        if prefix == @target.namePrefix()
+          attrs['name'] = @target.get('name')
+        else
+          attrs['name'] = Smalruby.Collections.CharacterSet.uniqueName(costume)
+
+    @model.set(attrs)
 
   onOk: ->
-    @.$el.modal('hide')
-    if @.target
-      @.target.set(_.clone(@.model.attributes))
+    @$el.modal('hide')
+    if @target
+      @target.set(_.clone(@model.attributes))
 
   setCharacter: (character)->
-    @.target = character
-    @.model.set(_.clone(@.target.attributes))
+    @target = character
+    @model.set(_.clone(@target.attributes))
+    @nameChanged = false
     @

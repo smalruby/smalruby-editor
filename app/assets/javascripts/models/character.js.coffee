@@ -10,23 +10,26 @@ Smalruby.Character = Backbone.Model.extend({
     using: false
 
   initialize: ->
-    if @.get('costumes').length == 0
-      @.set({ costumes: [Smalruby.Character.PRESET_COSTUMES[0]] })
+    if @get('costumes').length == 0
+      @set({ costumes: [Smalruby.Character.PRESET_COSTUMES[0]] })
+
+  namePrefix: ->
+    Smalruby.Character.costumeToNamePrefix(@get('name'))
 
   costume: ->
-    @.get('costumes')[@.get('costumeIndex')]
+    @get('costumes')[@get('costumeIndex')]
 
-  costumeUrl: (index = @.get('costumeIndex')) ->
-    basename = @.get('costumes')[index]
+  costumeUrl: (index = @get('costumeIndex')) ->
+    basename = @get('costumes')[index]
     if _.indexOf(Smalruby.Character.PRESET_COSTUMES, basename) == -1
       basename
     else
       "/smalruby/assets/#{basename}"
 
   nextCostume: ->
-    i = @.get('costumeIndex') + 1
-    i = 0 if i >= @.get('costumes').length
-    @.set({ 'costumeIndex': i })
+    i = @get('costumeIndex') + 1
+    i = 0 if i >= @get('costumes').length
+    @set({ 'costumeIndex': i })
     i
 }, {
   PRESET_COSTUMES: [
@@ -45,4 +48,7 @@ Smalruby.Character = Backbone.Model.extend({
     'cat3.png'
     'frog1.png'
   ]
+
+  costumeToNamePrefix: (costume) ->
+    costume.substring(costume.lastIndexOf('/') + 1).replace(/\.[^.]*$/, '').replace(/[\d]*$/, '')
 })

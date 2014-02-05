@@ -1,8 +1,10 @@
 describe 'Smalruby.Character', ->
+  klass = Smalruby.Character
   self = null
 
   beforeEach ->
     self = new Smalruby.Character
+      name: 'car1'
       costumes: [
         'car1.png'
         'car2.png'
@@ -41,6 +43,10 @@ describe 'Smalruby.Character', ->
       it 'costumesが指定したものになる', ->
         expect(_.isEqual(self.get('costumes'), ['car1.png', 'car2.png'])).to.be(true)
 
+  describe '#namePrefix', ->
+    it 'car', ->
+      expect(self.namePrefix()).to.equal('car')
+
   describe '#costume', ->
     it 'car1.pngであること', ->
       expect(self.costume()).to.equal('car1.png')
@@ -77,5 +83,20 @@ describe 'Smalruby.Character', ->
 
   describe '.PRESET_COSTUMES', ->
     it '文字列の配列であること', ->
-      expect(Smalruby.Character.PRESET_COSTUMES).to.be.a('array')
-      expect(Smalruby.Character.PRESET_COSTUMES[0]).to.be.a('string')
+      expect(klass.PRESET_COSTUMES).to.be.a('array')
+      expect(klass.PRESET_COSTUMES[0]).to.be.a('string')
+
+  describe '.costumeToNamePrefix', ->
+    args = [
+      'car1.png'
+      'car1'
+      'car'
+      'http://example.com/car1.png'
+      'http://example.com/car1'
+      'http://example.com/car'
+    ]
+    for arg in args
+      do (arg) ->
+        describe arg, ->
+          it 'car', ->
+            expect(klass.costumeToNamePrefix(arg)).to.equal('car')
