@@ -3,7 +3,7 @@ Smalruby.CharacterModalView = Backbone.View.extend
   model: new Smalruby.Character()
 
   events:
-    'click #character-modal-costume-selecter a': 'onSelectCostume'
+    'click #character-modal-costume-selector a': 'onSelectCostume'
     'click #character-modal-ok-button': 'onOk'
 
   previewZoomLevel: 0.5
@@ -87,8 +87,8 @@ Smalruby.CharacterModalView = Backbone.View.extend
       src: model.costumeUrl()
       alt: model.costume()
     $('#character-modal-character img').replaceWith(img)
-    @.$el.find('#character-modal-costume-selecter a.thumbnail').removeClass('active')
-    @.$el.find("#character-modal-costume-selecter img[alt=\"#{model.costume()}\"]").parent().addClass('active')
+    @.$el.find('#character-modal-costume-selector a.thumbnail').removeClass('active')
+    @.$el.find("#character-modal-costume-selector img[alt=\"#{model.costume()}\"]").parent().addClass('active')
 
   onSelectCostume: (e) ->
     e.preventDefault()
