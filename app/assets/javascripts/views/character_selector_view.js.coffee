@@ -34,7 +34,15 @@ Smalruby.CharacterSelectorView = Backbone.View.extend
 
     html.find('a').click (e) ->
       e.preventDefault()
-      name = Smalruby.Collections.CharacterSet.uniqueName()
-      c = new Smalruby.Character({ name: name })
-      Smalruby.Collections.CharacterSet.add(c)
+
+      charSet = Smalruby.Collections.CharacterSet
+      attrs =
+        if (last = _.last(charSet.models))
+          name: charSet.uniqueName(last.costume())
+          costumes: _.clone(last.get('costumes'))
+        else
+          name: charSet.uniqueName()
+      c = new Smalruby.Character(attrs)
+      charSet.add(c)
+
       Smalruby.Views.CharacterModalView.setCharacter(c).render()
