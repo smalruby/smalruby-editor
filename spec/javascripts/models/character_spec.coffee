@@ -10,10 +10,10 @@ describe 'Smalruby.Character', ->
 
   describe 'プロパティのデフォルト値', ->
     beforeEach ->
-      self = new Smalruby.Character
+      self = new Smalruby.Character()
 
-    it 'name: PRESET_COSTUMESの1番目の要素の拡張子を除いたもの', ->
-      expect(self.get('name')).to.equal('car1')
+    it 'name: null', ->
+      expect(self.get('name')).to.be(null)
 
     it 'costumes: PRESET_COSTUMESの1番目の要素のみの配列', ->
       expect(_.isEqual(self.get('costumes'), [Smalruby.Character.PRESET_COSTUMES[0]])).to.be(true)
@@ -37,8 +37,9 @@ describe 'Smalruby.Character', ->
       expect(self.get('using')).to.be(false)
 
   describe '#initialize', ->
-    it 'nameにcostumesの1番目の要素の拡張子を除いたものが設定されていること', ->
-      expect(self.get('name')).to.equal('car1')
+    describe 'costumesを指定した場合', ->
+      it 'costumesが指定したものになる', ->
+        expect(_.isEqual(self.get('costumes'), ['car1.png', 'car2.png'])).to.be(true)
 
   describe '#costume', ->
     it 'car1.pngであること', ->

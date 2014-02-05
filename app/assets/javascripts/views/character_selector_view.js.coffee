@@ -34,6 +34,7 @@ Smalruby.CharacterSelectorView = Backbone.View.extend
 
     html.find('a').click (e) ->
       e.preventDefault()
-      character = new Smalruby.Character()
-      Smalruby.Collections.CharacterSet.add(character)
-      Smalruby.Views.CharacterModalView.setCharacter(character).render()
+      name = Smalruby.Collections.CharacterSet.uniqueName()
+      c = new Smalruby.Character({ name: name })
+      Smalruby.Collections.CharacterSet.add(c)
+      Smalruby.Views.CharacterModalView.setCharacter(c).render()

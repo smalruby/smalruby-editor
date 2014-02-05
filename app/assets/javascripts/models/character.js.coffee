@@ -1,6 +1,6 @@
 Smalruby.Character = Backbone.Model.extend({
   defaults:
-    name: null,
+    name: null
     costumes: [],
     costumeIndex: 0
     x: 0
@@ -10,17 +10,8 @@ Smalruby.Character = Backbone.Model.extend({
     using: false
 
   initialize: ->
-    attributes = {}
-
-    costumes = @.get('costumes')
-    if costumes.length == 0
-      attributes['costumes'] = costumes =
-        [Smalruby.Character.PRESET_COSTUMES[0]]
-
-    unless @.get('name')
-      attributes['name'] = costumes[0].replace(/\.[^.]*$/, '')
-
-    @.set(attributes)
+    if @.get('costumes').length == 0
+      @.set({ costumes: [Smalruby.Character.PRESET_COSTUMES[0]] })
 
   costume: ->
     @.get('costumes')[@.get('costumeIndex')]
