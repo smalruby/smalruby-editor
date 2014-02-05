@@ -89,6 +89,10 @@ $left-pane-width: $character-size + $margin * 2;
                             width: $character-size;
                             height: $character-size;
 
+                            a {
+                                cursor: pointer;
+                            }
+
                             .item-info {
                                 position: absolute;
                                 left: 0;
