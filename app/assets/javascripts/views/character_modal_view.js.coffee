@@ -81,6 +81,11 @@ Smalruby.CharacterModalView = Backbone.View.extend
   onChangeAngle: (model, value, options) ->
     @$el.find('input[name="character[angle]"]').val(value)
     $('#character_angle_value').text("#{value}°")
+    rotate = "rotate(#{-value}deg)"
+    $('#character-modal-character').css
+      '-moz-transform': rotate
+      '-webkit-transform': rotate
+      transform: rotate
 
   onChangeCostumes: (model, value, options) ->
     img = $('<img>').attr

@@ -28,6 +28,12 @@ Smalruby.CharacterSelectorView = Backbone.View.extend
       if character.get('using')
         removeButton.hide()
 
+      rotate = "rotate(#{character.get('angle') * -1}deg)"
+      html.find('img').css
+        '-moz-transform': rotate
+        '-webkit-transform': rotate
+        transform: rotate
+
     html = $('<div class="item"><a class="character"><i class="icon-plus-sign"></a></div>')
     @$el.append(html)
 
