@@ -33,6 +33,9 @@ describe 'Smalruby.Character', ->
     it 'visible: true', ->
       expect(self.get('visible')).to.be(true)
 
+    it 'using: false', ->
+      expect(self.get('using')).to.be(false)
+
   describe '#initialize', ->
     it 'nameにcostumesの1番目の要素の拡張子を除いたものが設定されていること', ->
       expect(self.get('name')).to.equal('car1')

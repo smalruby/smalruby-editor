@@ -118,9 +118,22 @@ $left-pane-width: $character-size + $margin * 2;
                                     line-height: 1.1em;
                                     text-align: right;
                                 }
+
+                                a.remove-button {
+                                    position: absolute;
+                                    top: $border-size * 2;
+                                    right: $border-size * 2;
+                                    display: block;
+                                    text-decoration: none;
+
+                                    font-size: 2em;
+                                    line-height: 1em;
+
+                                    z-index: 1;
+                                }
                             }
 
-                            a {
+                            a.character {
                                 position: relative;
                                 text-decoration: none;
                                 overflow: hidden;
@@ -129,9 +142,13 @@ $left-pane-width: $character-size + $margin * 2;
                                 vertical-align: middle;
                                 width: $character-size;
                                 height: $character-size;
+
+                                i {
+                                    font-size: 2em;
+                                }
                             }
 
-                            a:hover {
+                            a.character:hover {
                                 width: $character-size - $border-size * 2;
                                 height: $character-size - $border-size * 2;
                                 border: $border-size solid $border-color;

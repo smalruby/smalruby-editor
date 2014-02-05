@@ -7,6 +7,7 @@ Smalruby.Character = Backbone.Model.extend({
     y: 0
     angle: 0
     visible: true
+    using: false
 
   initialize: ->
     attributes = {}

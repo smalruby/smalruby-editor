@@ -35,6 +35,8 @@
         X: {{- get('x') }} Y: {{- get('y') }}
         %br
         向き: {{- get('angle') }}°
+      %a.remove-button
+        %i.icon-minus-sign
 
-    %a
+    %a.character
       %img{:src => '{{- costumeUrl() }}'}
