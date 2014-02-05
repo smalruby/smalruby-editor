@@ -29,7 +29,7 @@ Teaspoon.setup do |config|
 
   # Output
   # available: dot, tap, tap_y, swayze_or_oprah
-  config.formatters          = 'tap'
+  config.formatters          = 'dot'
   # suppress logs coming from console[log/error/debug]
   #config.suppress_log        = false
   #config.color               = true
