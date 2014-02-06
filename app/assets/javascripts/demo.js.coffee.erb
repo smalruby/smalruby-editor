@@ -3,58 +3,98 @@ window.Smalruby.initialize = ->
   @initialize_()
 
   charSet = @Collections.CharacterSet
-  c = new @Character({ name: charSet.uniqueName() })
-  charSet.add(c)
+  car1 = new @Character({ name: 'car1', costumes: ['car1.png'] })
+  car2 = new @Character({ name: 'car2', costumes: ['car4.png'], angle: 90 })
+  charSet.add(car1)
+  charSet.add(car2)
 
 $ ->
   data =
     """
     <xml xmlns="http://www.w3.org/1999/xhtml">
-      <block type="variables_set" inline="false" x="19" y="4">
-        <field name="VAR">char1</field>
-        <value name="VALUE">
-          <block type="data_characters" inline="true">
-            <value name="COSTUME">
-              <block type="looks_preset_images">
-                <field name="NAME">car1.png</field>
-              </block>
-            </value>
-            <value name="X">
-              <block type="math_number">
-                <field name="NUM">0</field>
-              </block>
-            </value>
-            <value name="Y">
-              <block type="math_number">
-                <field name="NUM">0</field>
-              </block>
-            </value>
-          </block>
-        </value>
-      </block>
-      <block type="events_on_start" x="22" y="78">
-        <field name="VAR">char1</field>
+      <block type="character_new" y="15" x="21">
+        <field name="NAME">car1</field>
         <statement name="DO">
-          <block type="control_loop">
+          <block type="events_on_start">
+            <field name="VAR">car1</field>
             <statement name="DO">
-              <block type="motion_move" inline="true">
-                <value name="STEP">
-                  <block type="math_number">
-                    <field name="NUM">10</field>
-                  </block>
-                </value>
-                <next>
-                  <block type="control_if" inline="true">
-                    <value name="IF">
-                      <block type="motion_reach_wall" />
+              <block type="control_loop">
+                <statement name="DO">
+                  <block type="motion_move" inline="true">
+                    <value name="STEP">
+                      <block type="math_number">
+                        <field name="NUM">10</field>
+                      </block>
                     </value>
-                    <statement name="THEN">
-                      <block type="motion_turn" />
-                    </statement>
+                    <next>
+                      <block type="control_if" inline="true">
+                        <value name="IF">
+                          <block type="motion_reach_wall" />
+                        </value>
+                        <statement name="THEN">
+                          <block type="motion_turn" />
+                        </statement>
+                      </block>
+                    </next>
                   </block>
-                </next>
+                </statement>
               </block>
             </statement>
+            <next>
+              <block type="events_on_mouse_push_or_down">
+                <field name="VAR">car1</field>
+                <field name="POD">push</field>
+                <statement name="DO">
+                  <block type="character_new">
+                    <field name="NAME">car2</field>
+                    <statement name="DO">
+                      <block type="events_on_start">
+                        <field name="VAR">car2</field>
+                        <statement name="DO">
+                          <block type="motion_set_x_y" inline="true">
+                            <value name="X">
+                              <block type="sensing_character_property">
+                                <field name="VAR0">car1</field>
+                                <field name="PROPERTY">x</field>
+                              </block>
+                            </value>
+                            <value name="Y">
+                              <block type="sensing_character_property">
+                                <field name="VAR0">car1</field>
+                                <field name="PROPERTY">y</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="control_loop">
+                                <statement name="DO">
+                                  <block type="motion_move" inline="true">
+                                    <value name="STEP">
+                                      <block type="math_number">
+                                        <field name="NUM">10</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="control_if" inline="true">
+                                        <value name="IF">
+                                          <block type="motion_reach_wall" />
+                                        </value>
+                                        <statement name="THEN">
+                                          <block type="motion_turn" />
+                                        </statement>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </statement>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                      </block>
+                    </statement>
+                  </block>
+                </statement>
+              </block>
+            </next>
           </block>
         </statement>
       </block>

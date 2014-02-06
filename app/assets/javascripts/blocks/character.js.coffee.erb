@@ -11,11 +11,19 @@ Blockly.Blocks['<%= n %>'] =
   init: ->
     @setHelpUrl('')
     @setColour(<%= color %>)
+
     size = Blockly.BlockSvg.FIELD_HEIGHT * 2
+    imageField = new Blockly.FieldImage(null, size, size)
+
     nameField = new Blockly.FieldLabel('')
+    # HACK: ラベルをXMLとして出力させるためにEDITABLEをtrueにしている
+    nameField.EDITABLE = true
+    # HACK: 画像とラベルの縦位置を合わせる
     nameField.textElement_.setAttribute('y', 10)
+    nameField.setText = _.bind(@nameFieldSetText_, @)
+
     @appendDummyInput()
-      .appendField(new Blockly.FieldImage(null, size, size), 'COSTUME')
+      .appendField(imageField, 'COSTUME')
       .appendField(nameField, 'NAME')
     @appendStatementInput('DO')
     @setPreviousStatement(true)
@@ -26,15 +34,26 @@ Blockly.Blocks['<%= n %>'] =
     @character.unlink?(@)
     Blockly.Block.prototype.dispose.apply(@, arguments)
 
+  nameFieldSetText_: (name) ->
+    charSet = Smalruby.Collections.CharacterSet
+    char = charSet.findWhere({ name: name })
+    if char
+      @setCharacter(char)
+    else
+      @fieldLableSetText_(@getField_('NAME'), name)
+
+  fieldLableSetText_: (field, text) ->
+    Blockly.FieldLabel.prototype.setText.call(field, text)
+
   setCharacter: (character) ->
     @character = character
     @setFieldValue(character.costumeUrl(), 'COSTUME')
-    @setFieldValue(character.get('name'), 'NAME')
+    @fieldLableSetText_(@getField_('NAME'), character.get('name'))
     character.link(@)
 
     character.on 'change', (model) =>
       @setFieldValue(model.costumeUrl(), 'COSTUME')
-      @setFieldValue(model.get('name'), 'NAME')
+      @fieldLableSetText_(@getField_('NAME'), character.get('name'))
 
     @
 
