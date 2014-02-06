@@ -1,3 +1,11 @@
+window.Smalruby.initialize_ = window.Smalruby.initialize
+window.Smalruby.initialize = ->
+  @initialize_()
+
+  charSet = @Collections.CharacterSet
+  c = new @Character({ name: charSet.uniqueName() })
+  charSet.add(c)
+
 $ ->
   data =
     """
