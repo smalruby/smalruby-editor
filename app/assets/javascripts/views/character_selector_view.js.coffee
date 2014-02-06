@@ -3,6 +3,8 @@ Smalruby.CharacterSelectorView = Backbone.View.extend({
   el: '#character-selector-tab'
 
   initialize: ->
+    @klass = Smalruby.CharacterSelectorView
+
     @listenTo(@model, name, @render) for name in ['add', 'remove', 'reset', 'change']
 
     @templateText = $('#character-selector-template').text()
@@ -22,9 +24,6 @@ Smalruby.CharacterSelectorView = Backbone.View.extend({
 
       Smalruby.Views.CharacterModalView.setCharacter(c).render()
 
-    @new_block_position = _.clone(Smalruby.CharacterSelectorView.NEW_BLOCK_POSITION)
-    @prev_block = null
-
     @render()
 
   render: ->
@@ -39,38 +38,14 @@ Smalruby.CharacterSelectorView = Backbone.View.extend({
         e.preventDefault()
         Smalruby.Views.CharacterModalView.setCharacter(character).render()
 
-      addBlockButton = html.find('a.add-block-button')
-      addBlockButton.click (e) =>
+      html.find('a.add-block-button').click (e) =>
         e.preventDefault()
-
-        if @prev_block
-          xy = @prev_block.getRelativeToSurfaceXY()
-          console.log(xy)
-          console.log(@new_block_position)
-
-        block = new Blockly.Block(Blockly.mainWorkspace, 'character_new')
-        block.setCharacter(character)
-        block.initSvg()
-        block.render()
-        block.moveBy(@new_block_position.x, @new_block_position.y)
-        block.select()
-
-        @prev_block = block
-        klass = Smalruby.CharacterSelectorView
-        @new_block_position.x += klass.NEW_BLOCK_DISTANCE
-        if @new_block_position.x > klass.NEW_BLOCK_MAX_POSITION.x
-          @new_block_position.x = klass.NEW_BLOCK_POSITION.x
-        @new_block_position.y += klass.NEW_BLOCK_DISTANCE
-        if @new_block_position.y > klass.NEW_BLOCK_MAX_POSITION.y
-          @new_block_position.y = klass.NEW_BLOCK_POSITION.y
-
-        character.set('using', true)
+        @addBlock_(character)
 
       removeButton = html.find('a.remove-button')
-      removeButton.click (e) ->
+      removeButton.click (e) =>
         e.preventDefault()
-        unless character.get('using')
-          Smalruby.Collections.CharacterSet.remove(character)
+        @removeCharacter_(character)
       if character.get('using')
         removeButton.hide()
 
@@ -79,14 +54,52 @@ Smalruby.CharacterSelectorView = Backbone.View.extend({
         '-moz-transform': rotate
         '-webkit-transform': rotate
         transform: rotate
+
+  addBlock_: (character) ->
+    newBlock = new Blockly.Block(Blockly.mainWorkspace, 'character_new')
+    newBlock.setCharacter(character)
+    newBlock.initSvg()
+    newBlock.render()
+    @moveByNewBlock_(newBlock)
+    newBlock.select()
+
+  moveByNewBlock_: (newBlock) ->
+    metrics = Blockly.mainWorkspace.getMetrics()
+    newXY =
+      x: metrics.viewLeft + @klass.NEW_BLOCK_MARGIN.LEFT
+      y: metrics.viewTop + @klass.NEW_BLOCK_MARGIN.TOP
+
+    if @prevBlock
+      xy = @prevBlock.getRelativeToSurfaceXY()
+      hw = @prevBlock.getHeightWidth()
+      newHW = newBlock.getHeightWidth()
+      if xy.x == @prevXY.x && xy.y == @prevXY.y
+        x = xy.x
+        y = xy.y + hw.height + @klass.NEW_BLOCK_MARGIN.TOP
+        if y + newHW.height > metrics.viewTop + metrics.viewHeight
+          x += hw.width + @klass.NEW_BLOCK_MARGIN.LEFT
+          y = newXY.y
+      else
+        x = @prevXY.x
+        y = @prevXY.y
+      if x >= metrics.viewLeft &&
+         x + newHW.width <= metrics.viewLeft + metrics.viewWidth &&
+         y >= metrics.viewTop &&
+         y + newHW.height <= metrics.viewTop + metrics.viewHeight
+        newXY.x = x
+        newXY.y = y
+
+    newBlock.moveBy(newXY.x, newXY.y)
+
+    @prevBlock = newBlock
+    @prevXY = newBlock.getRelativeToSurfaceXY()
+
+  removeCharacter_: (character) ->
+    unless character.get('using')
+      Smalruby.Collections.CharacterSet.remove(character)
+
 }, {
-  NEW_BLOCK_POSITION:
-    x: 0
-    y: 0
-
-  NEW_BLOCK_DISTANCE: 20
-
-  NEW_BLOCK_MAX_POSITION:
-    x: 320
-    y: 240
+  NEW_BLOCK_MARGIN:
+    LEFT: 20
+    TOP: 20
 })
