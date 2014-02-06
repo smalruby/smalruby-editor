@@ -151,27 +151,39 @@ $left-pane-width: $character-size + $margin * 2;
 
                             a.character {
                                 position: relative;
-                                text-decoration: none;
                                 overflow: hidden;
                                 display: table-cell;
                                 text-align: center;
                                 vertical-align: middle;
-                                width: $character-size;
-                                height: $character-size;
+
+                                width: $character-size - $border-size * 2;
+                                height: $character-size - $border-size * 2;
+
+                                border: $border-size solid white;
+
+                                img, div {
+                                    margin: -$border-size;
+                                }
+                            }
+
+                            a.character:hover {
+                                border: $border-size solid $border-color;
+                            }
+
+                            a#add-character-button.character {
+                                text-align: center;
+                                vertical-align: middle;
+                                font-size: 1em;
+
+                                border: $border-size dashed lightgray;
 
                                 i {
                                     font-size: 2em;
                                 }
                             }
 
-                            a.character:hover {
-                                width: $character-size - $border-size * 2;
-                                height: $character-size - $border-size * 2;
-                                border: $border-size solid $border-color;
-
-                                img, div {
-                                    margin: -$border-size;
-                                }
+                            a#add-character-button.character:hover {
+                                border: $border-size dashed $border-color;
                             }
                         }
                     }
