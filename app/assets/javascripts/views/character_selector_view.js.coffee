@@ -7,14 +7,30 @@ Smalruby.CharacterSelectorView = Backbone.View.extend
 
     @templateText = $('#character-selector-template').text()
 
+    $('#add-character-button').click (e) ->
+      e.preventDefault()
+
+      charSet = Smalruby.Collections.CharacterSet
+      attrs =
+        if (last = _.last(charSet.models))
+          name: charSet.uniqueName(last.costume())
+          costumes: _.clone(last.get('costumes'))
+        else
+          name: charSet.uniqueName()
+      c = new Smalruby.Character(attrs)
+      charSet.add(c)
+
+      Smalruby.Views.CharacterModalView.setCharacter(c).render()
+
     @render()
 
   render: ->
-    @$el.children().remove()
+    charsEl = $('#character-selector-character-set')
+    charsEl.children().remove()
 
     @model.each (character) =>
       html = $(_.template(@templateText, character))
-      @$el.append(html)
+      charsEl.append(html)
 
       html.find('a.character').click (e) ->
         e.preventDefault()
@@ -38,21 +54,3 @@ Smalruby.CharacterSelectorView = Backbone.View.extend
         '-moz-transform': rotate
         '-webkit-transform': rotate
         transform: rotate
-
-    html = $('<div class="item"><a class="character"><i class="icon-plus-sign"></a></div>')
-    @$el.append(html)
-
-    html.find('a').click (e) ->
-      e.preventDefault()
-
-      charSet = Smalruby.Collections.CharacterSet
-      attrs =
-        if (last = _.last(charSet.models))
-          name: charSet.uniqueName(last.costume())
-          costumes: _.clone(last.get('costumes'))
-        else
-          name: charSet.uniqueName()
-      c = new Smalruby.Character(attrs)
-      charSet.add(c)
-
-      Smalruby.Views.CharacterModalView.setCharacter(c).render()
