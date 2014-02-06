@@ -20,6 +20,11 @@ Smalruby.CharacterSelectorView = Backbone.View.extend
         e.preventDefault()
         Smalruby.Views.CharacterModalView.setCharacter(character).render()
 
+      addBlockButton = html.find('a.add-block-button')
+      addBlockButton.click (e) ->
+        e.preventDefault()
+        # TODO: キャラクターブロックの追加処理を実装する
+
       removeButton = html.find('a.remove-button')
       removeButton.click (e) ->
         e.preventDefault()

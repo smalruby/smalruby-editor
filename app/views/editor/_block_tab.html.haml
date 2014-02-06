@@ -35,8 +35,13 @@
         X: {{- get('x') }} Y: {{- get('y') }}
         %br
         向き: {{- get('angle') }}°
+
+      %a.add-block-button
+        %i.icon-folder-close-alt
+        %i.icon-double-angle-right
+
       %a.remove-button
-        %i.icon-minus-sign
+        %i.icon-remove
 
     %a.character
       %img{:src => '{{- costumeUrl() }}'}
