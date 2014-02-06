@@ -58,4 +58,6 @@ Blockly.Blocks['<%= n %>'] =
     @
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  ''
+  targetBlock = block.getInputTargetBlock('DO')
+  branch = Blockly.Ruby.blockToCode(targetBlock) || '\n'
+  branch
