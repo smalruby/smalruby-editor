@@ -1,8 +1,9 @@
 describe 'Smalruby.CharacterSet', ->
+  klass = Smalruby.CharacterSet
   self = null
 
   beforeEach ->
-    self = new Smalruby.CharacterSet()
+    self = new klass()
 
   describe '#uniqueName', ->
     describe 'costumeを省略した場合', ->
