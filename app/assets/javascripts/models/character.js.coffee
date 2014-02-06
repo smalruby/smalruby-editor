@@ -10,8 +10,20 @@ Smalruby.Character = Backbone.Model.extend({
     using: false
 
   initialize: ->
+    @objects = []
     if @get('costumes').length == 0
       @set({ costumes: [Smalruby.Character.PRESET_COSTUMES[0]] })
+
+  link: (object) ->
+    @objects.push(object)
+    @objects = _.uniq(@objects)
+    if @objects.length > 0
+      @set('using', true)
+
+  unlink: (object) ->
+    @objects = _.without(@objects, object)
+    if @objects.length == 0
+      @set('using', false)
 
   namePrefix: ->
     Smalruby.Character.costumeToNamePrefix(@get('name'))

@@ -3,7 +3,7 @@ describe 'Smalruby.Character', ->
   self = null
 
   beforeEach ->
-    self = new Smalruby.Character
+    self = new klass
       name: 'car1'
       costumes: [
         'car1.png'
@@ -12,13 +12,13 @@ describe 'Smalruby.Character', ->
 
   describe 'プロパティのデフォルト値', ->
     beforeEach ->
-      self = new Smalruby.Character()
+      self = new klass()
 
     it 'name: null', ->
       expect(self.get('name')).to.be(null)
 
     it 'costumes: PRESET_COSTUMESの1番目の要素のみの配列', ->
-      expect(_.isEqual(self.get('costumes'), [Smalruby.Character.PRESET_COSTUMES[0]])).to.be(true)
+      expect(_.isEqual(self.get('costumes'), [klass.PRESET_COSTUMES[0]])).to.be(true)
 
     it 'costumeIndex: 0', ->
       expect(self.get('costumeIndex')).to.equal(0)
@@ -58,7 +58,7 @@ describe 'Smalruby.Character', ->
 
     describe 'プリセットではない場合', ->
       beforeEach ->
-        self = new Smalruby.Character
+        self = new klass
           costumes: [
             'http://example.com/car1.png'
             'http://example.com/car2.png'
@@ -80,6 +80,50 @@ describe 'Smalruby.Character', ->
 
     it '次のコスチューム番号を返すこと', ->
       expect(self.nextCostume()).to.equal(1)
+
+  describe '#link', ->
+    linkObject = null
+
+    beforeEach ->
+      linkObject =
+        name: 'any object'
+
+    it '任意のオブジェクトと結びつきusingプロパティをtrueにできること', ->
+      self.link(linkObject)
+      expect(self.get('using')).to.be.ok
+
+    it '自分自身を返すこと', ->
+      expect(self.link(linkObject)).to.be(self)
+
+  describe '#unlink', ->
+    linkedObjects = null
+
+    beforeEach ->
+      linkedObjects = [
+        { name: 'any object 1' }
+        { name: 'any object 2' }
+        { name: 'any object 3' }
+      ]
+      self.link(o) for o in linkedObjects
+
+    it '任意のオブジェクトとの結びつきを解除してusingプロパティをfalseにできること', ->
+      self.unlink(o) for o in linkedObjects
+      expect(self.get('using')).to.not.be.ok
+
+    it 'すべてのオブジェクトとの結びつきを解除するまではusingプロパティがtrueのままであること', ->
+      self.unlink(linkedObjects[0])
+      expect(self.get('using')).to.be.ok
+      self.unlink(linkedObjects[1])
+      expect(self.get('using')).to.be.ok
+      self.unlink(linkedObjects[2])
+      expect(self.get('using')).to.not.be.ok
+
+    it '解除済みのオブジェクトを指定しても例外が発生しないこと', ->
+      self.unlink(linkedObjects[0])
+      expect(-> self.unlink(linkedObjects[0])).to.not.throwException()
+
+    it '自分自身を返すこと', ->
+      expect(self.unlink(linkedObjects[0]))
 
   describe '.PRESET_COSTUMES', ->
     it '文字列の配列であること', ->

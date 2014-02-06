@@ -1,0 +1,42 @@
+# 「キャラクター」ジャンル
+
+<%
+  category = 'character'
+  color = 198
+%>
+
+# キャラクター
+<% n = "#{category}_new" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ->
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    size = Blockly.BlockSvg.FIELD_HEIGHT * 2
+    nameField = new Blockly.FieldLabel('')
+    nameField.textElement_.setAttribute('y', 10)
+    @appendDummyInput()
+      .appendField(new Blockly.FieldImage(null, size, size), 'COSTUME')
+      .appendField(nameField, 'NAME')
+    @appendStatementInput('DO')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
+
+  dispose: (healStack, animate) ->
+    @character.unlink?(@)
+    Blockly.Block.prototype.dispose.apply(@, arguments)
+
+  setCharacter: (character) ->
+    @character = character
+    @setFieldValue(character.costumeUrl(), 'COSTUME')
+    @setFieldValue(character.get('name'), 'NAME')
+    character.link(@)
+
+    character.on 'change', (model) =>
+      @setFieldValue(model.costumeUrl(), 'COSTUME')
+      @setFieldValue(model.get('name'), 'NAME')
+
+    @
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  ''
