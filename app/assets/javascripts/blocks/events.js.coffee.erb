@@ -9,20 +9,21 @@
 <% n = "#{category}_on_start" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
-      .appendField(new Blockly.FieldVariable('char1'), 'VAR')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('はじまったとき')
-    @.appendStatementInput('DO')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @appendStatementInput('DO')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  var0 = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
-  branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-  "#{var0}.on(:start) do\n" + branch + 'end\n'
+  if (var0 = Blockly.Ruby.receiverName())
+    branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
+    "#{var0}.on(:start) do\n" + branch + 'end\n'
+  else
+    ''
 
 # キーボードの[▼キー]が[▼押された/押され続けている]とき
 <% n = "#{category}_on_key_push_or_down" %>
@@ -31,26 +32,27 @@ Blockly.Blocks['<%= n %>'] =
     keyDropdown = window.SmalrubyEditor.Sensing.KeyDropdown
     podDropdown = window.SmalrubyEditor.Sensing.PushOrDownDropdown
 
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
-      .appendField(new Blockly.FieldVariable('char1'), 'VAR')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('キーボードの')
       .appendField(new Blockly.FieldDropdown(keyDropdown), 'KEY')
       .appendField('が')
       .appendField(new Blockly.FieldDropdown(podDropdown), 'POD')
       .appendField('とき')
-    @.appendStatementInput('DO')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @appendStatementInput('DO')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  var0 = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
-  key = @.getTitleValue('KEY')
-  pod = @.getTitleValue('POD')
-  branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-  "#{var0}.on(:key_#{pod}, #{key}) do\n" + branch + 'end\n'
+  if (var0 = Blockly.Ruby.receiverName())
+    key = @getTitleValue('KEY')
+    pod = @getTitleValue('POD')
+    branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
+    "#{var0}.on(:key_#{pod}, #{key}) do\n" + branch + 'end\n'
+  else
+    ''
 
 # キャラクターが[▼クリックされた/クリックされ続けている]とき
 <% n = "#{category}_on_mouse_push_or_down" %>
@@ -61,44 +63,44 @@ Blockly.Blocks['<%= n %>'] =
       ['クリックされ続けている', 'down'],
     ]
 
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
-      .appendField(new Blockly.FieldVariable('char1'), 'VAR')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('キャラクターが')
       .appendField(new Blockly.FieldDropdown(podDropdown), 'POD')
       .appendField('とき')
-    @.appendStatementInput('DO')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @appendStatementInput('DO')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  var0 = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
-  pod = @.getTitleValue('POD')
-  branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-  "#{var0}.on(:mouse_#{pod}) do |x, y|\n" + branch + 'end\n'
+  if (var0 = Blockly.Ruby.receiverName())
+    pod = @getTitleValue('POD')
+    branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
+    "#{var0}.on(:mouse_#{pod}) do |x, y|\n" + branch + 'end\n'
+  else
+    ''
 
 # キャラクターが[▼キャラクター]にぶつかったとき
 <% n = "#{category}_on_hit" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
-      .appendField(new Blockly.FieldVariable('char1'), 'VAR0')
-      .appendField('が')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField(new Blockly.FieldVariable('char2'), 'VAR1')
       .appendField('にぶつかったとき')
-    @.appendStatementInput('DO')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @appendStatementInput('DO')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  var0 = Blockly.Ruby.variableDB_
-    .getName(block.getFieldValue('VAR0'), Blockly.Variables.NAME_TYPE)
-  var1 = Blockly.Ruby.variableDB_
-    .getName(block.getFieldValue('VAR1'), Blockly.Variables.NAME_TYPE)
-  branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-  "#{var0}.on(:hit, #{var1}) do\n" + branch + 'end\n'
+  if (var0 = Blockly.Ruby.receiverName())
+    var1 = Blockly.Ruby.variableDB_
+      .getName(block.getFieldValue('VAR1'), Blockly.Variables.NAME_TYPE)
+    branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
+    "#{var0}.on(:hit, #{var1}) do\n" + branch + 'end\n'
+  else
+    ''

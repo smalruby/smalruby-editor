@@ -8,7 +8,6 @@ $ ->
         <field name="NAME">car1</field>
         <statement name="DO">
           <block type="events_on_start">
-            <field name="VAR">car1</field>
             <statement name="DO">
               <block type="control_loop">
                 <statement name="DO">
@@ -34,14 +33,12 @@ $ ->
             </statement>
             <next>
               <block type="events_on_mouse_push_or_down">
-                <field name="VAR">car1</field>
                 <field name="POD">push</field>
                 <statement name="DO">
                   <block type="character_new">
                     <field name="NAME">car2</field>
                     <statement name="DO">
                       <block type="events_on_start">
-                        <field name="VAR">car2</field>
                         <statement name="DO">
                           <block type="motion_set_x_y" inline="true">
                             <value name="X">

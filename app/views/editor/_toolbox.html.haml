@@ -368,11 +368,9 @@
 
       -# ボタン[▼]を押したとき
       %block{:type => "#{category}_on_button_down"}
-        = toolbox_character_field
 
       -# ボタン[▼]を離したとき
       %block{:type => "#{category}_on_button_up"}
-        = toolbox_character_field
 
     %category{:name => 'センサー'}
       -# センサー[▼PIN]
@@ -380,4 +378,3 @@
 
       -# センサー[▼PIN]が変化したとき
       %block{:type => "#{category}_on_sensor_change"}
-        = toolbox_character_field

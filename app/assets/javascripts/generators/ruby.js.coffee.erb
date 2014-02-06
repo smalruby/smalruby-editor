@@ -37,15 +37,28 @@ Blockly.Ruby.ORDER_NONE = 99             # (...)
 Blockly.Ruby.INFINITE_LOOP_TRAP = null
 
 Blockly.Ruby.init = ->
-  Blockly.Ruby.definitions_ = Object.create(null)
+  @definitions_ = Object.create(null)
 
   if Blockly.Variables
-    if !Blockly.Ruby.variableDB_
-      Blockly.Ruby.variableDB_ = new Blockly.Names(Blockly.Ruby.RESERVED_WORDS_)
+    if !@variableDB_
+      @variableDB_ = new Blockly.Names(Blockly.Ruby.RESERVED_WORDS_)
     else
-      Blockly.Ruby.variableDB_.reset()
+      @variableDB_.reset()
 
-    Blockly.Ruby.definitions_['require_smalruby'] = 'require "smalruby"'
+    @definitions_['require_smalruby'] = 'require "smalruby"'
+    @definitions_['receiver_stack'] = []
+
+Blockly.Ruby.receiverStack = ->
+  @definitions_['receiver_stack']
+
+Blockly.Ruby.receiver = ->
+  _.last(@receiverStack())
+
+Blockly.Ruby.receiverName = ->
+  if (c = @receiver())
+    c.get('name')
+  else
+    null
 
 Blockly.Ruby.finish = (code) ->
   requires = []
@@ -53,7 +66,9 @@ Blockly.Ruby.finish = (code) ->
   for name of Blockly.Ruby.definitions_
     do (name) ->
       def = Blockly.Ruby.definitions_[name]
-      if def.match(/^require\s*('\S+'|"\S+")/)
+      if name == 'receiver_stack'
+        # この場合はプログラムエラー
+      else if def.match(/^require\s*('\S+'|"\S+")/)
         requires.push(def)
       else
         definitions.push(def)

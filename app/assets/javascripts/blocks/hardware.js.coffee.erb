@@ -21,10 +21,10 @@ AiPinDropdown =
 <% n = "#{category}_init_hardware" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput().appendField('ハードウェアを準備する')
-    @.setTooltip('')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput().appendField('ハードウェアを準備する')
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   Blockly.Ruby.definitions_['init_hardware'] = 'init_hardware'
@@ -44,18 +44,18 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('LED')
       .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
       .appendField('を<%= label %>にする')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = parseInt(@.getTitleValue('PIN'))
+  pin = parseInt(@getTitleValue('PIN'))
   "led(#{pin}).<%= method %>\n"
 <% end %>
 
@@ -65,20 +65,20 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_rgb_led_on" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('RGB LED')
       .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
       .appendField('を')
       .appendField(new Blockly.FieldColour('#ff0000'), 'COLOUR')
       .appendField('にする')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = parseInt(@.getTitleValue('PIN'))
+  pin = parseInt(@getTitleValue('PIN'))
   c = block.getFieldValue('COLOUR')
   red = parseInt(c[1..2], 16)
   green = parseInt(c[3..4], 16)
@@ -89,18 +89,18 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_rgb_led_off" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('RGB LED')
       .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
       .appendField('をオフにする')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = parseInt(@.getTitleValue('PIN'))
+  pin = parseInt(@getTitleValue('PIN'))
   "rgb_led(#{pin}).off\n"
 
 # 「7セグディスプレイ」サブジャンル
@@ -111,31 +111,31 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     dropdown = ([String(n), String(n)] for n in [0..9])
 
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('7セグディスプレイに')
       .appendField(new Blockly.FieldDropdown(dropdown), 'NUM')
       .appendField('を表示する')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  num = parseInt(@.getTitleValue('NUM'))
+  num = parseInt(@getTitleValue('NUM'))
   "seven_segment_display.show(#{num})\n"
 
 # 7セグディスプレイをオフにする
 <% n = "#{category}_seven_segment_display_off" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('7セグディスプレイをオフにする')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   "seven_segment_display.off\n"
@@ -146,17 +146,17 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_lcd_puts" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendValueInput('TEXT')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendValueInput('TEXT')
       .appendField('LCDに')
       .setCheck('String')
-    @.appendDummyInput()
+    @appendDummyInput()
       .appendField('を表示する')
-    @.setInputsInline(true)
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setInputsInline(true)
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   text = Blockly.Ruby.valueToCode(@, 'TEXT', Blockly.Ruby.ORDER_NONE) || ''
@@ -166,13 +166,13 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_lcd_clear" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('LCDをクリアする')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   "lcd.clear\n"
@@ -181,13 +181,13 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_seven_segment_display_off" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('7セグディスプレイをオフにする')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   "seven_segment_display.off\n"
@@ -206,17 +206,17 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('ボタン')
       .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
       .appendField('を<%= label %>')
-    @.setOutput(true, 'Boolean')
-    @.setTooltip('')
+    @setOutput(true, 'Boolean')
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = parseInt(@.getTitleValue('PIN'))
+  pin = parseInt(@getTitleValue('PIN'))
   ["button(#{pin}).<%= method %>?", Blockly.Ruby.ORDER_ATOMIC]
 <% end %>
 
@@ -232,24 +232,24 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
-      .appendField(new Blockly.FieldVariable('char1'), 'VAR')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('ボタン')
       .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
       .appendField('を<%= label %>とき')
-    @.appendStatementInput('DO')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @appendStatementInput('DO')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  var0 = Blockly.Ruby.variableDB_
-    .getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
-  pin = parseInt(@.getTitleValue('PIN'))
-  branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-  "#{var0}.on(:button_<%= name %>, #{pin}) do\n" + branch + 'end\n'
+  if (var0 = Blockly.Ruby.receiverName())
+    pin = parseInt(@getTitleValue('PIN'))
+    branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
+    "#{var0}.on(:button_<%= name %>, #{pin}) do\n" + branch + 'end\n'
+  else
+    ''
 <% end %>
 
 # 「センサー」サブジャンル
@@ -258,37 +258,37 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_sensor_value" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('センサー')
       .appendField(new Blockly.FieldDropdown(AiPinDropdown), 'PIN')
-    @.setOutput(true, 'Number')
-    @.setTooltip('')
+    @setOutput(true, 'Number')
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = parseInt(@.getTitleValue('PIN'))
+  pin = parseInt(@getTitleValue('PIN'))
   ["sensor(#{pin}).value", Blockly.Ruby.ORDER_ATOMIC]
 
 # センサー[▼PIN]が変化したとき
 <% n = "#{category}_on_sensor_change" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
-      .appendField(new Blockly.FieldVariable('char1'), 'VAR')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('センサー')
       .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
       .appendField('が変化したとき')
-    @.appendStatementInput('DO')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @appendStatementInput('DO')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  var0 = Blockly.Ruby.variableDB_
-    .getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
-  pin = parseInt(@.getTitleValue('PIN'))
-  branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-  "#{var0}.on(:sensor_change, #{pin}) do |value|\n" + branch + 'end\n'
+  if (var0 = Blockly.Ruby.receiverName())
+    pin = parseInt(@getTitleValue('PIN'))
+    branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
+    "#{var0}.on(:sensor_change, #{pin}) do |value|\n" + branch + 'end\n'
+  else
+    ''

@@ -58,6 +58,10 @@ Blockly.Blocks['<%= n %>'] =
     @
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  targetBlock = block.getInputTargetBlock('DO')
-  branch = Blockly.Ruby.blockToCode(targetBlock) || '\n'
-  branch
+  Blockly.Ruby.receiverStack().push(block.character)
+  try
+    targetBlock = block.getInputTargetBlock('DO')
+    code = Blockly.Ruby.blockToCode(targetBlock) || '\n'
+  finally
+    Blockly.Ruby.receiverStack().pop()
+  code
