@@ -20,9 +20,5 @@ window.Smalruby =
     @.Views.CharacterModalView = new Smalruby.CharacterModalView
       el: $('#character-modal')
 
-    name = @.Collections.CharacterSet.uniqueName()
-    c = new Smalruby.Character({ name: name })
-    @.Collections.CharacterSet.add(c)
-
 $(document).ready ->
   Smalruby.initialize()
