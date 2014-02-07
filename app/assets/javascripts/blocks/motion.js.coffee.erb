@@ -21,7 +21,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   arg = Blockly.Ruby.valueToCode(@, 'STEP', Blockly.Ruby.ORDER_NONE) || '0'
-  "move(#{arg})\n"
+  "#{Blockly.Ruby.rn()}move(#{arg})\n"
 
 # 時計回りに(　)度回す
 # 半時計回りに(　)度回す
@@ -47,7 +47,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   arg = Blockly.Ruby.valueToCode(@, 'ANGLE', Blockly.Ruby.ORDER_NONE) || '0'
-  "rotate(<%= suffix %>: <%= sign %>#{arg})\n"
+  "#{Blockly.Ruby.rn()}rotate(<%= suffix %>: <%= sign %>#{arg})\n"
 <% end %>
 
 # (　)度に向ける
@@ -66,7 +66,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   angle = Blockly.Ruby.valueToCode(@, 'ANGLE', Blockly.Ruby.ORDER_NONE) || '0'
-  "self.angle = #{angle}\n"
+  "#{Blockly.Ruby.rn({ dropSelf: false })}angle = #{angle}\n"
 
 # マウスポインターへ向ける
 <% n = "#{category}_point_towards_mouse" %>
@@ -81,7 +81,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  "point_towards(:mouse)\n"
+  "#{Blockly.Ruby.rn()}point_towards(:mouse)\n"
 
 # [▼]へ向ける
 <% n = "#{category}_point_towards_character" %>
@@ -98,7 +98,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   var0 = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
-  "point_towards(#{var0})\n"
+  "#{Blockly.Ruby.rn()}point_towards(#{var0})\n"
 
 # x座標を(　)、y座標を(　)にする
 <% n = "#{category}_set_x_y" %>
@@ -120,8 +120,8 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   x = Blockly.Ruby.valueToCode(@, 'X', Blockly.Ruby.ORDER_NONE) || '0'
   y = Blockly.Ruby.valueToCode(@, 'Y', Blockly.Ruby.ORDER_NONE) || '0'
   """
-  self.x = #{x}
-  self.y = #{y}
+  #{Blockly.Ruby.rn({ dropSelf: false })}x = #{x}
+  #{Blockly.Ruby.rn({ dropSelf: false })}y = #{y}
 
   """
 
@@ -138,7 +138,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  "go_to(:mouse)\n"
+  "#{Blockly.Ruby.rn()}go_to(:mouse)\n"
 
 # [▼]へ行く
 # <% n = "#{category}_go_to_character" %>
@@ -155,7 +155,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   var0 = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
-  "go_to(#{var0})\n"
+  "#{Blockly.Ruby.rn()}go_to(#{var0})\n"
 
 # (　)秒でx座標を(　)、y座標を(　)に変える
 <% n = "#{category}_glide_to_x_y" %>
@@ -177,7 +177,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   sec = Blockly.Ruby.valueToCode(@, 'SEC', Blockly.Ruby.ORDER_NONE) || '0'
   x = Blockly.Ruby.valueToCode(@, 'X', Blockly.Ruby.ORDER_NONE) || '0'
   y = Blockly.Ruby.valueToCode(@, 'Y', Blockly.Ruby.ORDER_NONE) || '0'
-  "glide_to(second: #{sec}, x: #{x}, y: #{y})\n"
+  "#{Blockly.Ruby.rn()}glide_to(second: #{sec}, x: #{x}, y: #{y})\n"
 
 # x座標を(　)ずつ変える
 # x座標を(　)にする
@@ -207,7 +207,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   <%= name.downcase %> = Blockly.Ruby.valueToCode(@, '<%= name %>', Blockly.Ruby.ORDER_NONE) || '0'
-  "self.<%= name.downcase %> <%= operator %> #{<%= name.downcase %>}\n"
+  "#{Blockly.Ruby.rn({ dropSelf: false })}<%= name.downcase %> <%= operator %> #{<%= name.downcase %>}\n"
 <% end %>
 
 # もし端に着いたら、跳ね返る
@@ -222,7 +222,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  'turn_if_reach_wall\n'
+  "#{Blockly.Ruby.rn()}turn_if_reach_wall\n"
 
 # 条件:端に着いた
 <% n = "#{category}_reach_wall" %>
@@ -235,7 +235,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  ['reach_wall?', Blockly.Ruby.ORDER_ATOMIC]
+  ["#{Blockly.Ruby.rn()}reach_wall?", Blockly.Ruby.ORDER_ATOMIC]
 
 # 跳ね返る
 <% n = "#{category}_turn" %>
@@ -249,7 +249,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  'turn\n'
+  "#{Blockly.Ruby.rn()}turn\n"
 
 # 回転方法を[▼]にする
 <% n = "#{category}_set_rotation_style" %>
@@ -273,7 +273,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   style = @getFieldValue('STYLE')
-  "self.rotation_style = :#{style}\n"
+  "#{Blockly.Ruby.rn({ dropSelf: false })}rotation_style = :#{style}\n"
 
 # 変数:x座標
 # 変数:y座標
@@ -296,5 +296,5 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  ['<%= method %>', Blockly.Ruby.ORDER_ATOMIC]
+  ["#{Blockly.Ruby.rn()}<%= method %>", Blockly.Ruby.ORDER_ATOMIC]
 <% end %>

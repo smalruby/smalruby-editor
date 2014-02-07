@@ -46,7 +46,14 @@ Blockly.Ruby.init = ->
       @variableDB_.reset()
 
     @definitions_['require_smalruby'] = 'require "smalruby"'
-    @definitions_['receiver_stack'] = []
+    @definitions_['receiver_stack'] = ['main']
+    @definitions_['character_stack'] = []
+
+Blockly.Ruby.characterStack = ->
+  @definitions_['character_stack']
+
+Blockly.Ruby.character = ->
+  _.last(@characterStack())
 
 Blockly.Ruby.receiverStack = ->
   @definitions_['receiver_stack']
@@ -54,11 +61,25 @@ Blockly.Ruby.receiverStack = ->
 Blockly.Ruby.receiver = ->
   _.last(@receiverStack())
 
-Blockly.Ruby.receiverName = ->
-  if (c = @receiver())
-    c.get('name')
+Blockly.Ruby.receiverName = (options = {}) ->
+  opts =
+    object: Blockly.Ruby.character()
+    dropSelf: true
+  _.extend(opts, options)
+  r = @receiver()
+  if r == opts.object
+    if opts.dropSelf
+      ''
+    else
+      'self.'
   else
-    null
+    "#{opts.object.get('name')}."
+
+Blockly.Ruby.cs = Blockly.Ruby.characterStack
+Blockly.Ruby.c = Blockly.Ruby.character
+Blockly.Ruby.rs = Blockly.Ruby.receiverStack
+Blockly.Ruby.r = Blockly.Ruby.r
+Blockly.Ruby.rn = Blockly.Ruby.receiverName
 
 Blockly.Ruby.finish = (code) ->
   requires = []
@@ -66,12 +87,11 @@ Blockly.Ruby.finish = (code) ->
   for name of Blockly.Ruby.definitions_
     do (name) ->
       def = Blockly.Ruby.definitions_[name]
-      if name == 'receiver_stack'
-        # この場合はプログラムエラー
-      else if def.match(/^require\s*('\S+'|"\S+")/)
-        requires.push(def)
-      else
-        definitions.push(def)
+      if _.isString(def)
+        if def.match(/^require\s*('\S+'|"\S+")/)
+          requires.push(def)
+        else
+          definitions.push(def)
 
   if definitions.length == 0 && code.length == 0
     return ''

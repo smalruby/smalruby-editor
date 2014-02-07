@@ -196,7 +196,8 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   var0 = Blockly.Ruby.variableDB_
     .getName(block.getFieldValue('VAR0'), Blockly.Variables.NAME_TYPE)
   property = @getFieldValue('PROPERTY')
-  ["#{var0}.#{property}", Blockly.Ruby.ORDER_ATOMIC]
+  c = Smalruby.Collections.CharacterSet.findWhere({ name: var0 })
+  ["#{Blockly.Ruby.rn({ object: c })}#{property}", Blockly.Ruby.ORDER_ATOMIC]
 
 # 変数:現在の[▼時]
 <% n = "#{category}_time_now" %>

@@ -2,9 +2,9 @@ $ ->
   data =
     """
     <xml xmlns="http://www.w3.org/1999/xhtml">
-      <character name="car1" costumes="car1.png" x="0" y="0" angle="0" />
-      <character name="car2" costumes="car4.png" x="0" y="0" angle="90" />
-      <block type="character_new" y="15" x="21">
+      <character name="car1" x="264" y="178" angle="0" costumes="car1.png" />
+      <character name="car2" x="0" y="0" angle="90" costumes="car4.png" />
+      <block type="character_new" x="21" y="15">
         <field name="NAME">car1</field>
         <statement name="DO">
           <block type="events_on_start">
@@ -32,28 +32,27 @@ $ ->
               </block>
             </statement>
             <next>
-              <block type="events_on_mouse_push_or_down">
-                <field name="POD">push</field>
+              <block type="events_on_click">
                 <statement name="DO">
                   <block type="character_new">
                     <field name="NAME">car2</field>
                     <statement name="DO">
-                      <block type="events_on_start">
-                        <statement name="DO">
-                          <block type="motion_set_x_y" inline="true">
-                            <value name="X">
-                              <block type="sensing_character_property">
-                                <field name="VAR0">car1</field>
-                                <field name="PROPERTY">x</field>
-                              </block>
-                            </value>
-                            <value name="Y">
-                              <block type="sensing_character_property">
-                                <field name="VAR0">car1</field>
-                                <field name="PROPERTY">y</field>
-                              </block>
-                            </value>
-                            <next>
+                      <block type="motion_set_x_y" inline="true">
+                        <value name="X">
+                          <block type="sensing_character_property">
+                            <field name="VAR0">car1</field>
+                            <field name="PROPERTY">x</field>
+                          </block>
+                        </value>
+                        <value name="Y">
+                          <block type="sensing_character_property">
+                            <field name="VAR0">car1</field>
+                            <field name="PROPERTY">y</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="events_on_start">
+                            <statement name="DO">
                               <block type="control_loop">
                                 <statement name="DO">
                                   <block type="motion_move" inline="true">
@@ -75,9 +74,9 @@ $ ->
                                   </block>
                                 </statement>
                               </block>
-                            </next>
+                            </statement>
                           </block>
-                        </statement>
+                        </next>
                       </block>
                     </statement>
                   </block>
@@ -89,19 +88,5 @@ $ ->
       </block>
     </xml>
     """
-  xml = Blockly.Xml.textToDom(data)
 
-  charSet = Smalruby.Collections.CharacterSet
-  x = 0
-  while (xmlChild = xml.childNodes[x])
-    if xmlChild.nodeName.toLowerCase() == 'character'
-      c = new Smalruby.Character
-        x: parseInt(xmlChild.getAttribute('x'), 10)
-        y: parseInt(xmlChild.getAttribute('y'), 10)
-        angle: parseInt(xmlChild.getAttribute('angle'), 10)
-        name: xmlChild.getAttribute('name')
-        costumes: xmlChild.getAttribute('costumes').split(',')
-      charSet.add(c)
-    x++
-
-  Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml)
+  Smalruby.loadXml(data)

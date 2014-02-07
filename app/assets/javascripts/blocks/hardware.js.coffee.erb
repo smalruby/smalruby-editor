@@ -247,7 +247,13 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   if (var0 = Blockly.Ruby.receiverName())
     pin = parseInt(@getFieldValue('PIN'))
     branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-    "#{var0}.on(:button_<%= name %>, #{pin}) do\n" + branch + 'end\n'
+    """
+
+
+    #{var0}.on(:button_<%= name %>, #{pin}) do
+    #{branch}end
+
+    """
   else
     ''
 <% end %>
@@ -289,6 +295,12 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   if (var0 = Blockly.Ruby.receiverName())
     pin = parseInt(@getFieldValue('PIN'))
     branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-    "#{var0}.on(:sensor_change, #{pin}) do |value|\n" + branch + 'end\n'
+    """
+
+
+    #{var0}.on(:sensor_change, #{pin}) do |value|
+    #{branch}end
+
+    """
   else
     ''

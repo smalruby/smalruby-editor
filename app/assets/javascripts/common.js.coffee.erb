@@ -26,6 +26,15 @@ $ ->
   getSourceCodeData = (filename)->
     if filename && filename.match(/\.xml$/)
       xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace)
+      blocklyDom = xmlDom.firstChild
+      Smalruby.Collections.CharacterSet.each (c) ->
+        e = goog.dom.createDom('character')
+        e.setAttribute('x', c.get('x'))
+        e.setAttribute('y', c.get('y'))
+        e.setAttribute('name', c.get('name'))
+        e.setAttribute('costumes', c.get('costumes').join(','))
+        e.setAttribute('angle', c.get('angle'))
+        xmlDom.insertBefore(e, blocklyDom)
       Blockly.Xml.domToPrettyText(xmlDom)
     else
       window.textEditor.getSession().getDocument().getValue()
@@ -130,9 +139,7 @@ $ ->
       else
         $('#filename').val(info.filename)
         if info.filename.match(/.xml$/)
-          xml = Blockly.Xml.textToDom(info.data)
-          Blockly.mainWorkspace.clear()
-          Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml)
+          Smalruby.loadXml(info.data)
           info.data = Blockly.Ruby.workspaceToCode()
         setSourceCodeData(info.data)
         window.textEditor.moveCursorTo(0, 0)

@@ -19,9 +19,19 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  if (var0 = Blockly.Ruby.receiverName())
-    branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-    "#{var0}.on(:start) do\n" + branch + 'end\n'
+  if (c = Blockly.Ruby.character())
+    Blockly.Ruby.receiverStack().push(c)
+    try
+      branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
+    finally
+      Blockly.Ruby.receiverStack().pop()
+    """
+
+
+    #{Blockly.Ruby.receiverName()}on(:start) do
+    #{branch}end
+
+    """
   else
     ''
 
@@ -50,35 +60,43 @@ Blockly.Ruby['<%= n %>'] = (block) ->
     key = @getFieldValue('KEY')
     pod = @getFieldValue('POD')
     branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-    "#{var0}.on(:key_#{pod}, #{key}) do\n" + branch + 'end\n'
+    """
+
+
+    #{var0}.on(:key_#{pod}, #{key}) do
+    #{branch}end
+
+    """
   else
     ''
 
-# キャラクターが[▼クリックされた/クリックされ続けている]とき
-<% n = "#{category}_on_mouse_push_or_down" %>
+# キャラクターがクリックされたとき
+<% n = "#{category}_on_click" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    podDropdown = [
-      ['クリックされた', 'push'],
-      ['クリックされ続けている', 'down'],
-    ]
-
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField('キャラクターが')
-      .appendField(new Blockly.FieldDropdown(podDropdown), 'POD')
-      .appendField('とき')
+      .appendField('キャラクターがクリックされたとき')
     @appendStatementInput('DO')
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  if (var0 = Blockly.Ruby.receiverName())
-    pod = @getFieldValue('POD')
-    branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-    "#{var0}.on(:mouse_#{pod}) do |x, y|\n" + branch + 'end\n'
+  if (c = Blockly.Ruby.character())
+    Blockly.Ruby.receiverStack().push(c)
+    try
+      branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
+    finally
+      Blockly.Ruby.receiverStack().pop()
+    """
+
+
+    #{Blockly.Ruby.receiverName()}on(:click) do |x, y|
+    #{branch}end
+
+    """
   else
     ''
 
@@ -101,6 +119,12 @@ Blockly.Ruby['<%= n %>'] = (block) ->
     var1 = Blockly.Ruby.variableDB_
       .getName(block.getFieldValue('VAR1'), Blockly.Variables.NAME_TYPE)
     branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-    "#{var0}.on(:hit, #{var1}) do\n" + branch + 'end\n'
+    """
+
+
+    #{var0}.on(:hit, #{var1}) do
+    #{branch}end
+
+    """
   else
     ''
