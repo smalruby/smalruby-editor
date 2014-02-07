@@ -9,14 +9,14 @@
 <% n = "#{category}_sleep" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendValueInput('SEC').setCheck('Number')
-    @.appendDummyInput().appendField('秒待つ')
-    @.setInputsInline(true)
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendValueInput('SEC').setCheck('Number')
+    @appendDummyInput().appendField('秒待つ')
+    @setInputsInline(true)
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   arg = Blockly.Ruby.valueToCode(@, 'SEC', Blockly.Ruby.ORDER_NONE) || '0'
@@ -26,14 +26,14 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_loop" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput().appendField('ずっと')
-    @.appendStatementInput('DO')
-    @.appendDummyInput().appendField('を繰り返す')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput().appendField('ずっと')
+    @appendStatementInput('DO')
+    @appendDummyInput().appendField('を繰り返す')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
@@ -43,15 +43,15 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_if" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendValueInput('IF').setCheck('Boolean').appendField('もし')
-    @.appendDummyInput().appendField('ならば')
-    @.appendStatementInput('THEN')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setInputsInline(true)
-    @.setTooltip('')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendValueInput('IF').setCheck('Boolean').appendField('もし')
+    @appendDummyInput().appendField('ならば')
+    @appendStatementInput('THEN')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setInputsInline(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   cond = Blockly.Ruby.valueToCode(block, 'IF', Blockly.Ruby.ORDER_NONE) || 'false'
@@ -62,17 +62,17 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_if_else" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendValueInput('IF').setCheck('Boolean').appendField('もし')
-    @.appendDummyInput().appendField('ならば')
-    @.appendStatementInput('THEN')
-    @.appendDummyInput().appendField('でなければ')
-    @.appendStatementInput('ELSE')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setInputsInline(true)
-    @.setTooltip('')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendValueInput('IF').setCheck('Boolean').appendField('もし')
+    @appendDummyInput().appendField('ならば')
+    @appendStatementInput('THEN')
+    @appendDummyInput().appendField('でなければ')
+    @appendStatementInput('ELSE')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setInputsInline(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   cond = Blockly.Ruby.valueToCode(block, 'IF', Blockly.Ruby.ORDER_NONE) || 'false'
@@ -84,16 +84,16 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_times" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.interpolateMsg('%1回繰り返す',
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @interpolateMsg('%1回繰り返す',
                      ['COUNT', ['Number'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
-    @.appendStatementInput('DO')
-    @.setInputsInline(true)
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @appendStatementInput('DO')
+    @setInputsInline(true)
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   count = Blockly.Ruby.valueToCode(@, 'COUNT', Blockly.Ruby.ORDER_NONE) || '10'
@@ -104,15 +104,15 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_await_while" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.interpolateMsg('%1まで待つ',
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @interpolateMsg('%1まで待つ',
                      ['COND', ['Boolean'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
-    @.setInputsInline(true)
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setInputsInline(true)
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   cond = Blockly.Ruby.valueToCode(@, 'COND', Blockly.Ruby.ORDER_NONE) || 'true'
@@ -122,19 +122,19 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_while" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.interpolateMsg('%1まで',
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @interpolateMsg('%1まで',
                      ['COND', ['Boolean'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
-    @.appendStatementInput('DO')
-    @.appendDummyInput()
+    @appendStatementInput('DO')
+    @appendDummyInput()
       .appendField('を繰り返す')
       .setAlign(Blockly.ALIGN_RIGHT)
-    @.setInputsInline(true)
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setInputsInline(true)
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   cond = Blockly.Ruby.valueToCode(@, 'COND', Blockly.Ruby.ORDER_NONE) || 'true'
@@ -145,13 +145,13 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_await" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('1フレーム待つ')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   'await\n'

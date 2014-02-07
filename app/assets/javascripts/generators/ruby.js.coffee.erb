@@ -100,16 +100,16 @@ Blockly.Ruby.scrub_ = (block, code) ->
   if !block.outputConnection || !block.outputConnection.targetConnection
     comment = block.getCommentText()
     if comment
-      commentCode += @.prefixLines(comment, '# ') + '\n'
+      commentCode += @prefixLines(comment, '# ') + '\n'
 
     for input in block.inputList
       do (input) =>
         if input.type == Blockly.INPUT_VALUE
           childBlock = input.connection.targetBlock()
           if childBlock
-            comment = @.allNestedComments(childBlock)
+            comment = @allNestedComments(childBlock)
             if comment
-              commentCode += @.prefixLines(comment, '# ')
+              commentCode += @prefixLines(comment, '# ')
 
   nextBlock = block.nextConnection && block.nextConnection.targetBlock()
   nextCode = this.blockToCode(nextBlock)

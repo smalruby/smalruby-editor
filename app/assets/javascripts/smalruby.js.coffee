@@ -13,11 +13,11 @@ window.Smalruby =
       interpolate: /{{=([\s\S]+?)}}/
     })
 
-    @.Collections.CharacterSet = new Smalruby.CharacterSet()
+    @Collections.CharacterSet = new Smalruby.CharacterSet()
 
-    @.Views.CharacterSelectorView = new Smalruby.CharacterSelectorView
-      model: @.Collections.CharacterSet
-    @.Views.CharacterModalView = new Smalruby.CharacterModalView
+    @Views.CharacterSelectorView = new Smalruby.CharacterSelectorView
+      model: @Collections.CharacterSet
+    @Views.CharacterModalView = new Smalruby.CharacterModalView
       el: $('#character-modal')
 
 $(document).ready ->

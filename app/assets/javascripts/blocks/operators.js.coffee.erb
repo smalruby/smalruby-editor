@@ -21,15 +21,15 @@
 
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.interpolateMsg('%1<%= operator_label %>%2',
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @interpolateMsg('%1<%= operator_label %>%2',
                      ['A', null, Blockly.ALIGN_RIGHT],
                      ['B', null, Blockly.ALIGN_RIGHT],
                     Blockly.ALIGN_RIGHT)
-    @.setInputsInline(true)
-    @.setOutput(true, null)
-    @.setTooltip('')
+    @setInputsInline(true)
+    @setOutput(true, null)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   order = Blockly.Ruby.ORDER_<%= order_suffix %>
@@ -56,15 +56,15 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.interpolateMsg('%1<%= operator_label %>%2',
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @interpolateMsg('%1<%= operator_label %>%2',
                      ['A', null, Blockly.ALIGN_RIGHT],
                      ['B', null, Blockly.ALIGN_RIGHT],
                     Blockly.ALIGN_RIGHT)
-    @.setInputsInline(true)
-    @.setOutput(true, 'Boolean')
-    @.setTooltip('')
+    @setInputsInline(true)
+    @setOutput(true, 'Boolean')
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   order = Blockly.Ruby.ORDER_RELATIONAL;
@@ -77,15 +77,15 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_rand" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.interpolateMsg('%1から%2までの乱数',
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @interpolateMsg('%1から%2までの乱数',
                      ['A', ['Number'], Blockly.ALIGN_RIGHT],
                      ['B', ['Number'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
-    @.setInputsInline(true)
-    @.setOutput(true, 'Number')
-    @.setTooltip('')
+    @setInputsInline(true)
+    @setOutput(true, 'Number')
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   order = Blockly.Ruby.ORDER_FUNCTION_CALL
@@ -105,15 +105,15 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.interpolateMsg('%1<%= label %>%2',
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @interpolateMsg('%1<%= label %>%2',
                      ['A', ['Boolean'], Blockly.ALIGN_RIGHT],
                      ['B', ['Boolean'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
-    @.setInputsInline(true)
-    @.setOutput(true, 'Boolean')
-    @.setTooltip('')
+    @setInputsInline(true)
+    @setOutput(true, 'Boolean')
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   order = Blockly.Ruby.ORDER_LOGICAL_<%= suffix.upcase %>
@@ -126,14 +126,14 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_negate" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.interpolateMsg('%1ではない',
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @interpolateMsg('%1ではない',
                      ['A', ['Boolean'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
-    @.setInputsInline(true)
-    @.setOutput(true, 'Boolean')
-    @.setTooltip('')
+    @setInputsInline(true)
+    @setOutput(true, 'Boolean')
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   order = Blockly.Ruby.ORDER_LOGICAL_NOT
@@ -144,15 +144,15 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_index_of" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.interpolateMsg('%1の%2番目',
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @interpolateMsg('%1の%2番目',
                      ['A', null, Blockly.ALIGN_RIGHT],
                      ['INDEX', ['Number'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
-    @.setInputsInline(true)
-    @.setOutput(true, null)
-    @.setTooltip('')
+    @setInputsInline(true)
+    @setOutput(true, null)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   order = Blockly.Ruby.ORDER_FUNCTION_CALL
@@ -164,14 +164,14 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_length" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.interpolateMsg('%1の長さ',
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @interpolateMsg('%1の長さ',
                      ['A', null, Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
-    @.setInputsInline(true)
-    @.setOutput(true, null)
-    @.setTooltip('')
+    @setInputsInline(true)
+    @setOutput(true, null)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   order = Blockly.Ruby.ORDER_FUNCTION_CALL
@@ -182,15 +182,15 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_modulo" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.interpolateMsg('%1を%2で割った余り',
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @interpolateMsg('%1を%2で割った余り',
                      ['A', ['Number'], Blockly.ALIGN_RIGHT],
                      ['B', ['Number'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
-    @.setInputsInline(true)
-    @.setOutput(true, 'Number')
-    @.setTooltip('')
+    @setInputsInline(true)
+    @setOutput(true, 'Number')
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   order = Blockly.Ruby.ORDER_MULTIPLICATIVE
@@ -202,14 +202,14 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_round" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.interpolateMsg('%1を丸める',
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @interpolateMsg('%1を丸める',
                      ['A', ['Number'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
-    @.setInputsInline(true)
-    @.setOutput(true, 'Number')
-    @.setTooltip('')
+    @setInputsInline(true)
+    @setOutput(true, 'Number')
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   order = Blockly.Ruby.ORDER_FUNCTION_CALL
@@ -237,19 +237,19 @@ Blockly.Blocks['<%= n %>'] =
       ['10^', '10 ** %num%'],
     ]
 
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendValueInput('NUM')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendValueInput('NUM')
       .setCheck('Number')
-    @.appendDummyInput()
+    @appendDummyInput()
       .appendField('の')
       .appendField(new Blockly.FieldDropdown(dropdown), 'METHOD')
-    @.setInputsInline(true)
-    @.setOutput(true, 'Number')
-    @.setTooltip('')
+    @setInputsInline(true)
+    @setOutput(true, 'Number')
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   order = Blockly.Ruby.ORDER_FUNCTION_CALL
-  method = @.getFieldValue('METHOD')
+  method = @getFieldValue('METHOD')
   num = Blockly.Ruby.valueToCode(block, 'NUM', order) || '0'
   [method.replace(/%num%/, num), order]

@@ -9,48 +9,48 @@
 <% n = "#{category}_statement" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('文')
       .appendField(new Blockly.FieldTextInput(''), 'STATEMENT')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  statement = @.getFieldValue('STATEMENT')
+  statement = @getFieldValue('STATEMENT')
   "#{statement}\n"
 
 # 式
 <% n = "#{category}_expression" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('式')
       .appendField(new Blockly.FieldTextInput(''), 'EXP')
-    @.setOutput(true, null)
-    @.setTooltip('')
+    @setOutput(true, null)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  exp = @.getFieldValue('EXP')
+  exp = @getFieldValue('EXP')
   ["(#{exp})", Blockly.Ruby.ORDER_ATOMIC]
 
 # コメント
 <% n = "#{category}_comment" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('コメント')
       .appendField(new Blockly.FieldTextInput(''), 'COMMENT')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  comment = @.getFieldValue('COMMENT')
+  comment = @getFieldValue('COMMENT')
   "# #{comment}\n"

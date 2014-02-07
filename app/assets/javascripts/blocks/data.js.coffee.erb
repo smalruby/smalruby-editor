@@ -9,14 +9,14 @@
 <% n = "#{category}_characters" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendValueInput('COSTUME').appendField('コスチューム').setCheck('String')
-    @.appendValueInput('X').appendField('x座標').setCheck('Number')
-    @.appendValueInput('Y').appendField('y座標').setCheck('Number')
-    @.setOutput(true, null)
-    @.setInputsInline(true)
-    @.setTooltip('')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendValueInput('COSTUME').appendField('コスチューム').setCheck('String')
+    @appendValueInput('X').appendField('x座標').setCheck('Number')
+    @appendValueInput('Y').appendField('y座標').setCheck('Number')
+    @setOutput(true, null)
+    @setInputsInline(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   costume = Blockly.Ruby.valueToCode(@, 'COSTUME', Blockly.Ruby.ORDER_NONE) || 'car1.png'

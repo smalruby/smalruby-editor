@@ -19,28 +19,28 @@ Blockly.Blocks['<%= n %>'] =
       ['ピアノのシ', 'piano_si.wav'],
       ['ピアノの高いド', 'piano_do_2.wav'],
     ]
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput().appendField(new Blockly.FieldDropdown(sounds), 'NAME')
-    @.setOutput(true, 'String')
-    @.setTooltip('')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput().appendField(new Blockly.FieldDropdown(sounds), 'NAME')
+    @setOutput(true, 'String')
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  code = Blockly.Ruby.quote_(@.getFieldValue('NAME'))
+  code = Blockly.Ruby.quote_(@getFieldValue('NAME'))
   [code, Blockly.Ruby.ORDER_ATOMIC]
 
 # [▼]の音を鳴らす
 <% n = "#{category}_play" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendValueInput('NAME').setCheck('String')
-    @.appendDummyInput().appendField('の音を鳴らす')
-    @.setInputsInline(true)
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendValueInput('NAME').setCheck('String')
+    @appendDummyInput().appendField('の音を鳴らす')
+    @setInputsInline(true)
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   arg = Blockly.Ruby.valueToCode(@, 'NAME', Blockly.Ruby.ORDER_NONE) || ''
@@ -50,13 +50,13 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_stop" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput()
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
       .appendField('すべての音を止める')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   'stop\n'
@@ -65,11 +65,11 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_volume" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput().appendField('ボリューム')
-    @.setOutput(true, 'Number')
-    @.setTooltip('')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput().appendField('ボリューム')
+    @setOutput(true, 'Number')
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   ['volume', Blockly.Ruby.ORDER_ATOMIC]

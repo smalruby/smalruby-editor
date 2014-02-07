@@ -69,7 +69,7 @@ Smalruby.CharacterModalView = Backbone.View.extend
     @$el.find('input[name="character[name]"]').val(value)
 
   onChangeX: (model, value, options) ->
-    @.$el.find('input[name="character[x]"]').val(value)
+    @$el.find('input[name="character[x]"]').val(value)
     $('#character_x_value').text(value)
     $('#character-modal-character').css('left', parseInt(value * @previewZoomLevel))
 

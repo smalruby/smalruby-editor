@@ -19,16 +19,16 @@
 <% n = "#{category}_#{method}_second" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.interpolateMsg('%1と%2秒<%= label_suffix %>',
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @interpolateMsg('%1と%2秒<%= label_suffix %>',
                      ['TEXT', ['String'], Blockly.ALIGN_RIGHT],
                      ['SEC', ['Number'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
-    @.setInputsInline(true)
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setInputsInline(true)
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   sec = Blockly.Ruby.valueToCode(@, 'SEC', Blockly.Ruby.ORDER_NONE) || ''
@@ -38,15 +38,15 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_#{method}" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.interpolateMsg('%1と<%= label_suffix %>',
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @interpolateMsg('%1と<%= label_suffix %>',
                      ['TEXT', ['String'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
-    @.setInputsInline(true)
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setInputsInline(true)
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   text = Blockly.Ruby.valueToCode(@, 'TEXT', Blockly.Ruby.ORDER_NONE) || ''
@@ -67,12 +67,12 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput().appendField('<%= label %>')
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput().appendField('<%= label %>')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   "<%= code %>\n"
@@ -90,15 +90,15 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.interpolateMsg('大きさを%1％<%= label_suffix %>',
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @interpolateMsg('大きさを%1％<%= label_suffix %>',
                      ['SCALE', ['Number'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
-    @.setInputsInline(true)
-    @.setPreviousStatement(true)
-    @.setNextStatement(true)
-    @.setTooltip('')
+    @setInputsInline(true)
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   scale = Blockly.Ruby.valueToCode(@, 'SCALE', Blockly.Ruby.ORDER_NONE) || '0'
@@ -110,12 +110,12 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_self_scale" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput().
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput().
       appendField('大きさ')
-    @.setOutput(true, 'Number')
-    @.setTooltip('')
+    @setOutput(true, 'Number')
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   ['scale', Blockly.Ruby.ORDER_ATOMIC]
@@ -140,12 +140,12 @@ Blockly.Blocks['<%= n %>'] =
       ['猫3', 'cat3.png'],
       ['かえる1', 'frog1.png'],
     ]
-    @.setHelpUrl('')
-    @.setColour(<%= color %>)
-    @.appendDummyInput().appendField(new Blockly.FieldDropdown(images), 'NAME')
-    @.setOutput(true, 'String')
-    @.setTooltip('')
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput().appendField(new Blockly.FieldDropdown(images), 'NAME')
+    @setOutput(true, 'String')
+    @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  code = Blockly.Ruby.quote_(@.getFieldValue('NAME'))
+  code = Blockly.Ruby.quote_(@getFieldValue('NAME'))
   [code, Blockly.Ruby.ORDER_ATOMIC]
