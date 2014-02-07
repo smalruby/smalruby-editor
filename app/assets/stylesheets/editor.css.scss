@@ -201,6 +201,10 @@ $left-pane-width: $character-size + $margin * 2;
                 bottom: 0;
 
                 -ms-touch-action: none;
+
+                svg.blocklySvg {
+                    overflow: hidden;
+                }
             }
         }
 
