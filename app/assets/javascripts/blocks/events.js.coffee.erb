@@ -47,8 +47,8 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   if (var0 = Blockly.Ruby.receiverName())
-    key = @getTitleValue('KEY')
-    pod = @getTitleValue('POD')
+    key = @getFieldValue('KEY')
+    pod = @getFieldValue('POD')
     branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
     "#{var0}.on(:key_#{pod}, #{key}) do\n" + branch + 'end\n'
   else
@@ -76,7 +76,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   if (var0 = Blockly.Ruby.receiverName())
-    pod = @getTitleValue('POD')
+    pod = @getFieldValue('POD')
     branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
     "#{var0}.on(:mouse_#{pod}) do |x, y|\n" + branch + 'end\n'
   else

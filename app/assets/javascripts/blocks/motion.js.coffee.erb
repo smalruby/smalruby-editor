@@ -272,7 +272,7 @@ Blockly.Blocks['<%= n %>'] =
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  style = @.getTitleValue('STYLE')
+  style = @.getFieldValue('STYLE')
   "self.rotation_style = :#{style}\n"
 
 # 変数:x座標

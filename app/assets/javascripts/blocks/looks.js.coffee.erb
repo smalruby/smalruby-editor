@@ -147,5 +147,5 @@ Blockly.Blocks['<%= n %>'] =
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  code = Blockly.Ruby.quote_(@.getTitleValue('NAME'))
+  code = Blockly.Ruby.quote_(@.getFieldValue('NAME'))
   [code, Blockly.Ruby.ORDER_ATOMIC]

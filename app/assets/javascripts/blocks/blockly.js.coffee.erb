@@ -4,7 +4,7 @@
 
 <% n = "#{category}_number" %>
 Blockly.Ruby['<%= n %>'] = (block) ->
-  code = parseFloat(@.getTitleValue('NUM'))
+  code = parseFloat(@.getFieldValue('NUM'))
   order = if code < 0 then Blockly.Ruby.ORDER_UNARY_SIGN else Blockly.Ruby.ORDER_ATOMIC
   [code, order]
 
@@ -13,7 +13,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 
 <% n = "#{category}" %>
 Blockly.Ruby['<%= n %>'] = (block) ->
-  code = Blockly.Ruby.quote_(@.getTitleValue('TEXT'))
+  code = Blockly.Ruby.quote_(@.getFieldValue('TEXT'))
   [code, Blockly.Ruby.ORDER_ATOMIC]
 
 

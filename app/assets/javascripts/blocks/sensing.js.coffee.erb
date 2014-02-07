@@ -45,8 +45,8 @@ Blockly.Blocks['<%= n %>'] =
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  key = @.getTitleValue('KEY')
-  pod = @.getTitleValue('POD')
+  key = @.getFieldValue('KEY')
+  pod = @.getFieldValue('POD')
   ["Input.key_#{pod}?(#{key})", Blockly.Ruby.ORDER_ATOMIC]
 
 # 条件:マウスが[▼押された/押され続けている]
@@ -67,8 +67,8 @@ Blockly.Blocks['<%= n %>'] =
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  mb = @.getTitleValue('MOUSE_BUTTON')
-  pod = @.getTitleValue('POD')
+  mb = @.getFieldValue('MOUSE_BUTTON')
+  pod = @.getFieldValue('POD')
   ["Input.mouse_#{pod}?(#{mb})", Blockly.Ruby.ORDER_ATOMIC]
 
 # 変数:マウスのx座標
@@ -195,7 +195,7 @@ Blockly.Blocks['<%= n %>'] =
 Blockly.Ruby['<%= n %>'] = (block) ->
   var0 = Blockly.Ruby.variableDB_
     .getName(block.getFieldValue('VAR0'), Blockly.Variables.NAME_TYPE)
-  property = @.getTitleValue('PROPERTY')
+  property = @.getFieldValue('PROPERTY')
   ["#{var0}.#{property}", Blockly.Ruby.ORDER_ATOMIC]
 
 # 変数:現在の[▼時]
@@ -221,7 +221,7 @@ Blockly.Blocks['<%= n %>'] =
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  method = @.getTitleValue('METHOD')
+  method = @.getFieldValue('METHOD')
   ["Time.now.#{method}", Blockly.Ruby.ORDER_ATOMIC]
 
 # 変数:2000年からの日数

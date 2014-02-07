@@ -19,7 +19,7 @@ Blockly.Blocks['<%= n %>'] =
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  statement = @.getTitleValue('STATEMENT')
+  statement = @.getFieldValue('STATEMENT')
   "#{statement}\n"
 
 # 式
@@ -35,7 +35,7 @@ Blockly.Blocks['<%= n %>'] =
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  exp = @.getTitleValue('EXP')
+  exp = @.getFieldValue('EXP')
   ["(#{exp})", Blockly.Ruby.ORDER_ATOMIC]
 
 # コメント
@@ -52,5 +52,5 @@ Blockly.Blocks['<%= n %>'] =
     @.setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  comment = @.getTitleValue('COMMENT')
+  comment = @.getFieldValue('COMMENT')
   "# #{comment}\n"

@@ -55,7 +55,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = parseInt(@getTitleValue('PIN'))
+  pin = parseInt(@getFieldValue('PIN'))
   "led(#{pin}).<%= method %>\n"
 <% end %>
 
@@ -78,7 +78,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = parseInt(@getTitleValue('PIN'))
+  pin = parseInt(@getFieldValue('PIN'))
   c = block.getFieldValue('COLOUR')
   red = parseInt(c[1..2], 16)
   green = parseInt(c[3..4], 16)
@@ -100,7 +100,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = parseInt(@getTitleValue('PIN'))
+  pin = parseInt(@getFieldValue('PIN'))
   "rgb_led(#{pin}).off\n"
 
 # 「7セグディスプレイ」サブジャンル
@@ -122,7 +122,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  num = parseInt(@getTitleValue('NUM'))
+  num = parseInt(@getFieldValue('NUM'))
   "seven_segment_display.show(#{num})\n"
 
 # 7セグディスプレイをオフにする
@@ -216,7 +216,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = parseInt(@getTitleValue('PIN'))
+  pin = parseInt(@getFieldValue('PIN'))
   ["button(#{pin}).<%= method %>?", Blockly.Ruby.ORDER_ATOMIC]
 <% end %>
 
@@ -245,7 +245,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   if (var0 = Blockly.Ruby.receiverName())
-    pin = parseInt(@getTitleValue('PIN'))
+    pin = parseInt(@getFieldValue('PIN'))
     branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
     "#{var0}.on(:button_<%= name %>, #{pin}) do\n" + branch + 'end\n'
   else
@@ -267,7 +267,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = parseInt(@getTitleValue('PIN'))
+  pin = parseInt(@getFieldValue('PIN'))
   ["sensor(#{pin}).value", Blockly.Ruby.ORDER_ATOMIC]
 
 # センサー[▼PIN]が変化したとき
@@ -287,7 +287,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   if (var0 = Blockly.Ruby.receiverName())
-    pin = parseInt(@getTitleValue('PIN'))
+    pin = parseInt(@getFieldValue('PIN'))
     branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
     "#{var0}.on(:sensor_change, #{pin}) do |value|\n" + branch + 'end\n'
   else

@@ -250,6 +250,6 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   order = Blockly.Ruby.ORDER_FUNCTION_CALL
-  method = @.getTitleValue('METHOD')
+  method = @.getFieldValue('METHOD')
   num = Blockly.Ruby.valueToCode(block, 'NUM', order) || '0'
   [method.replace(/%num%/, num), order]
