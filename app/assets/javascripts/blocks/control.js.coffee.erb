@@ -101,7 +101,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   "#{count}.times do\n" + branch + 'end\n'
 
 # <　>まで待つ
-<% n = "#{category}_await_while" %>
+<% n = "#{category}_await_until" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
@@ -116,10 +116,10 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   cond = Blockly.Ruby.valueToCode(@, 'COND', Blockly.Ruby.ORDER_NONE) || 'true'
-  "await while #{cond}\n"
+  "await until #{cond}\n"
 
 # <　>まで繰り返す
-<% n = "#{category}_while" %>
+<% n = "#{category}_until" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
@@ -139,7 +139,7 @@ Blockly.Blocks['<%= n %>'] =
 Blockly.Ruby['<%= n %>'] = (block) ->
   cond = Blockly.Ruby.valueToCode(@, 'COND', Blockly.Ruby.ORDER_NONE) || 'true'
   branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-  "while #{cond}\n" + branch + 'end\n'
+  "until #{cond}\n" + branch + 'end\n'
 
 # 1フレーム待つ
 <% n = "#{category}_await" %>

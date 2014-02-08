@@ -1,32 +1,4 @@
 %xml{:id => 'toolbox', :style => 'display: none'}
-  - category = 'data'
-  %category{:name => 'データ'}
-    -# キャラクター
-    %block{:type => 'variables_set'}
-      = toolbox_character_field
-      %value{:name => 'VALUE'}
-        %block{:type => 'data_characters'}
-          %value{:name => 'COSTUME'}
-            %block{:type => 'looks_preset_images'}
-          = toolbox_number_value('X')
-          = toolbox_number_value('Y')
-
-    -# テキスト
-    %block{:type => 'text'}
-      %field{:name => 'TEXT'}<
-        文章
-
-    -# 数値
-    %block{:type => 'math_number'}
-      %field{:name => 'NUM'}<
-        0
-
-    -# プリセットの画像
-    %block{:type => 'looks_preset_images'}
-
-    -# プリセットの音
-    %block{:type => 'sound_preset_sounds'}
-
   - category = 'motion'
   %category{:name => '動き'}
     -# (　)歩動かす
@@ -46,11 +18,11 @@
       = toolbox_number_value('ANGLE', 90)
 
     -# マウスポインターへ向ける
-    %block{:type => "#{category}_point_towards_mouse"}
+    -#%block{:type => "#{category}_point_towards_mouse"}
 
     -# [▼]へ向ける
-    %block{:type => "#{category}_point_towards_character"}
-      = toolbox_character_field
+    -#%block{:type => "#{category}_point_towards_character"}
+    -#  = toolbox_character_field
 
     -# x座標を(　)、y座標を(　)にする
     %block{:type => "#{category}_set_x_y"}
@@ -58,16 +30,16 @@
       = toolbox_number_value('Y')
 
     -# マウスポインターへ行く
-    %block{:type => "#{category}_go_to_mouse"}
+    -#%block{:type => "#{category}_go_to_mouse"}
 
     -# [▼]へ行く
-    %block{:type => "#{category}_go_to_character"}
+    -#%block{:type => "#{category}_go_to_character"}
 
     -# (　)秒でx座標を(　)、y座標を(　)に変える
-    %block{:type => "#{category}_glide_to_x_y"}
-      = toolbox_number_value('SEC', 1)
-      = toolbox_number_value('X')
-      = toolbox_number_value('Y')
+    -#%block{:type => "#{category}_glide_to_x_y"}
+    -#  = toolbox_number_value('SEC', 1)
+    -#  = toolbox_number_value('X')
+    -#  = toolbox_number_value('Y')
 
     -# x座標を(　)ずつ変える
     %block{:type => "#{category}_change_x_by"}
@@ -95,7 +67,7 @@
     %block{:type => "#{category}_turn"}
 
     -# 回転方法を[▼]にする
-    %block{:type => "#{category}_set_rotation_style"}
+    -#%block{:type => "#{category}_set_rotation_style"}
 
     -# 変数:x座標
     %block{:type => "#{category}_self_x"}
@@ -109,22 +81,22 @@
   - category = 'looks'
   %category{:name => '見た目'}
     -# [　]と(　)秒言う
-    %block{:type => "#{category}_say_second"}
-      = toolbox_text_value('TEXT', 'こんにちは！')
-      = toolbox_number_value('SEC', 2)
+    -#%block{:type => "#{category}_say_second"}
+    -#  = toolbox_text_value('TEXT', 'こんにちは！')
+    -#  = toolbox_number_value('SEC', 2)
 
     -# [　]と言う
     %block{:type => "#{category}_say"}
       = toolbox_text_value('TEXT', 'こんにちは！')
 
     -# [　]と(　)秒考える
-    %block{:type => "#{category}_think_second"}
-      = toolbox_text_value('TEXT', 'ふーん')
-      = toolbox_number_value('SEC', 2)
+    -#%block{:type => "#{category}_think_second"}
+    -#  = toolbox_text_value('TEXT', 'ふーん')
+    -#  = toolbox_number_value('SEC', 2)
 
     -# [　]と考える
-    %block{:type => "#{category}_think"}
-      = toolbox_text_value('TEXT', 'ふーん')
+    -#%block{:type => "#{category}_think"}
+    -#  = toolbox_text_value('TEXT', 'ふーん')
 
     -# 表示する
     %block{:type => "#{category}_show"}
@@ -136,18 +108,18 @@
     %block{:type => "#{category}_vanish"}
 
     -# 大きさを(　)％ずつ変える
-    %block{:type => "#{category}_change_scale_by"}
-      = toolbox_number_value('SCALE', 10)
+    -#%block{:type => "#{category}_change_scale_by"}
+    -#  = toolbox_number_value('SCALE', 10)
 
     -# 大きさを(　)％にする
-    %block{:type => "#{category}_set_scale"}
-      = toolbox_number_value('SCALE', 100)
+    -#%block{:type => "#{category}_set_scale"}
+    -#  = toolbox_number_value('SCALE', 100)
 
     -# 変数:大きさ
-    %block{:type => "#{category}_self_scale"}
+    -#%block{:type => "#{category}_self_scale"}
 
     -# [▼プリセット画像]
-    %block{:type => "#{category}_preset_images"}
+    -#%block{:type => "#{category}_preset_images"}
 
   - category = 'sound'
   %category{:name => '音'}
@@ -157,13 +129,13 @@
         %block{:type => "#{category}_preset_sounds"}
 
     -# すべての音を止める
-    %block{:type => "#{category}_stop"}
+    -#%block{:type => "#{category}_stop"}
 
     -# 変数:ボリューム
-    %block{:type => "#{category}_volume"}
+    -#%block{:type => "#{category}_volume"}
 
   - category = 'events'
-  %category{:name => 'イベント'}
+  %category{:name => '～のとき'}
     -# はじまったとき
     %block{:type => "#{category}_on_start"}
 
@@ -179,31 +151,34 @@
 
   - category = 'control'
   %category{:name => '制御'}
-    -# (　)秒待つ
-    %block{:type => "#{category}_sleep"}
-      = toolbox_number_value('SEC', 1)
+    %category{:name => '待つ'}
+      -# (　)秒待つ
+      %block{:type => "#{category}_sleep"}
+        = toolbox_number_value('SEC', 1)
 
-    -# ずっと
-    %block{:type => "#{category}_loop"}
+      -# <　>まで待つ
+      %block{:type => "#{category}_await_until"}
 
-    -# もし<　>なら
-    %block{:type => "#{category}_if"}
+      -# 1フレーム待つ
+      %block{:type => "#{category}_await"}
 
-    -# もし<　>なら～でなければ
-    %block{:type => "#{category}_if_else"}
+    %category{:name => 'もし～なら'}
+      -# もし<　>なら
+      %block{:type => "#{category}_if"}
 
-    -# (　)回繰り返す
-    %block{:type => "#{category}_times"}
-      = toolbox_number_value('COUNT', 10)
+      -# もし<　>なら～でなければ
+      %block{:type => "#{category}_if_else"}
 
-    -# <　>まで待つ
-    %block{:type => "#{category}_await_while"}
+    %category{:name => '繰り返す'}
+      -# ずっと
+      %block{:type => "#{category}_loop"}
 
-    -# <　>まで繰り返す
-    %block{:type => "#{category}_while"}
+      -# (　)回繰り返す
+      %block{:type => "#{category}_times"}
+        = toolbox_number_value('COUNT', 10)
 
-    -# 1フレーム待つ
-    %block{:type => "#{category}_await"}
+      -# <　>まで繰り返す
+      %block{:type => "#{category}_until"}
 
   - category = 'sensing'
   %category{:name => '調べる'}
@@ -224,17 +199,17 @@
     %block{:type => "#{category}_hit"}
 
     -# [　]と聞いて待つ
-    %block{:type => "#{category}_ask"}
-      = toolbox_text_value('TEXT', 'あなたのお名前は？')
+    -#%block{:type => "#{category}_ask"}
+    -#  = toolbox_text_value('TEXT', 'あなたのお名前は？')
 
     -# 変数:答え
-    %block{:type => "#{category}_answer"}
+    -#%block{:type => "#{category}_answer"}
 
     -# 変数:タイマー
-    %block{:type => "#{category}_timer_count"}
+    -#%block{:type => "#{category}_timer_count"}
 
     -# タイマーをリセット
-    %block{:type => "#{category}_timer_reset"}
+    -#%block{:type => "#{category}_timer_reset"}
 
     -# 変数:[▼キャラクター]の[▼プロパティ]
     %block{:type => "#{category}_character_property"}
@@ -312,7 +287,17 @@
       %field{:name => 'METHOD'}<
         Math.sqrt(%num%)
 
-  %category{:name => '変数', :custom => 'VARIABLE'}
+    -# テキスト
+    %block{:type => 'text'}
+      %field{:name => 'TEXT'}<
+        文章
+
+    -# 数値
+    %block{:type => 'math_number'}
+      %field{:name => 'NUM'}<
+        0
+
+  -#%category{:name => '変数', :custom => 'VARIABLE'}
 
   - category = 'ruby'
   %category{:name => 'Ruby'}
@@ -344,33 +329,33 @@
       -# RGB LED[▼ピン]をオフにする
       %block{:type => "#{category}_rgb_led_off"}
 
-    %category{:name => '7セグディスプレイ'}
-      -# 7セグディスプレイに[▼0-9]を表示する
-      %block{:type => "#{category}_seven_segment_display_show"}
+    -#%category{:name => '7セグディスプレイ'}
+    -#  -# 7セグディスプレイに[▼0-9]を表示する
+    -#  %block{:type => "#{category}_seven_segment_display_show"}
+    -#
+    -#  -# 7セグディスプレイをオフにする
+    -#  %block{:type => "#{category}_seven_segment_display_off"}
 
-      -# 7セグディスプレイをオフにする
-      %block{:type => "#{category}_seven_segment_display_off"}
+    -#%category{:name => 'LCD'}
+    -#  -# LCDに(　)を表示する
+    -#  %block{:type => "#{category}_lcd_puts"}
+    -#    = toolbox_text_value('TEXT', 'Hello')
+    -#
+    -#  -# LCDをクリアする
+    -#  %block{:type => "#{category}_lcd_clear"}
 
-    %category{:name => 'LCD'}
-      -# LCDに(　)を表示する
-      %block{:type => "#{category}_lcd_puts"}
-        = toolbox_text_value('TEXT', 'Hello')
-
-      -# LCDをクリアする
-      %block{:type => "#{category}_lcd_clear"}
-
-    %category{:name => 'ボタン'}
-      -# 条件:ボタン[▼]を押している
-      %block{:type => "#{category}_button_down"}
-
-      -# 条件:ボタン[▼]を離している
-      %block{:type => "#{category}_button_up"}
-
-      -# ボタン[▼]を押したとき
-      %block{:type => "#{category}_on_button_down"}
-
-      -# ボタン[▼]を離したとき
-      %block{:type => "#{category}_on_button_up"}
+    -#%category{:name => 'ボタン'}
+    -#  -# 条件:ボタン[▼]を押している
+    -#  %block{:type => "#{category}_button_down"}
+    -#
+    -#  -# 条件:ボタン[▼]を離している
+    -#  %block{:type => "#{category}_button_up"}
+    -#
+    -#  -# ボタン[▼]を押したとき
+    -#  %block{:type => "#{category}_on_button_down"}
+    -#
+    -#  -# ボタン[▼]を離したとき
+    -#  %block{:type => "#{category}_on_button_up"}
 
     %category{:name => 'センサー'}
       -# センサー[▼PIN]
