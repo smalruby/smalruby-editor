@@ -5,7 +5,10 @@
   シナリオ: 「ハードウェアを準備する」ブロックを配置する
     前提 "ブロック" タブを表示する
 
-    もし "hardware_init_hardware" ブロックを配置する
+    もし 次のブロックを配置する:
+    """
+    %block{:type => "hardware_init_hardware", :x => "0", :y => "0"}
+    """
     かつ ブロックからソースコードを生成する
 
     ならば テキストエディタのプログラムは以下であること:
@@ -18,9 +21,17 @@
 
   シナリオ: 「ハードウェアを準備する」ブロックとそれ以外のブロックを配置する
     前提 "ブロック" タブを表示する
+    かつ 次のキャラクターを追加する:
+      | name | costumes | x | y | angle |
+      | car1 | car1.png | 0 | 0 |     0 |
 
-    もし "hardware_init_hardware" ブロックを配置する
-    かつ "motion_move" ブロックを配置する
+    もし 次のブロックを配置する:
+    """
+    %block{:type => "hardware_init_hardware", :x => "0", :y => "0"}
+    %block{:type => "character_new", :x => "21", :y => "15"}
+      %field{:name => "NAME"}<
+        car1
+    """
     かつ ブロックからソースコードを生成する
 
     ならば テキストエディタのプログラムは以下であること:
@@ -29,6 +40,6 @@
 
     init_hardware
 
-    move(0)
+    car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
 
     """

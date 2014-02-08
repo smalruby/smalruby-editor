@@ -66,6 +66,6 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   finally
     Blockly.Ruby.characterStack().pop()
   """
-  #{c.get('name')} = Character.new(costume: '#{c.costume()}', x: #{c.get('x')}, y: #{c.get('y')}, angle: #{c.get('angle')})
+  #{c.get('name')} = Character.new(costume: #{Blockly.Ruby.quote_(c.costume())}, x: #{c.get('x')}, y: #{c.get('y')}, angle: #{c.get('angle')})
   #{branch}
   """
