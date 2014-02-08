@@ -57,6 +57,19 @@ Smalruby.CharacterModalView = Backbone.View.extend
 
   render: ->
     @$el.modal('show')
+    # HACK: ダイアログを表示して500ms程度待たないと画像のサイズが取得できなかった
+    f = ->
+      if @readImageSizeflag
+        img = $('#character-modal-costume-selector .active img')
+        if img.width() > 0
+          $('#character-modal-character').css
+            width: "#{img.width() / 2}px"
+            height: "#{img.height() / 2}px"
+          @readImageSizeflag = false
+        else
+          setTimeout(_.bind(f, @), 50)
+    if @readImageSizeflag
+      setTimeout(_.bind(f, @), 1)
 
   onChange: (model, options)->
     @onChangeName(@model, @model.get('name'))
@@ -93,7 +106,14 @@ Smalruby.CharacterModalView = Backbone.View.extend
       alt: model.costume()
     $('#character-modal-character img').replaceWith(img)
     @$el.find('#character-modal-costume-selector a.thumbnail').removeClass('active')
-    @$el.find("#character-modal-costume-selector img[alt=\"#{model.costume()}\"]").parent().addClass('active')
+    thumb = @$el.find("#character-modal-costume-selector img[alt=\"#{model.costume()}\"]")
+    thumb.parent().addClass('active')
+    if thumb.width() > 0
+      $('#character-modal-character').css
+        width: "#{thumb.width() / 2}px"
+        height: "#{thumb.height() / 2}px"
+    else
+      @readImageSizeflag = true
 
   onSelectCostume: (e) ->
     e.preventDefault()
