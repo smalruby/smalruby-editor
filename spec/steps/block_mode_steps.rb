@@ -13,6 +13,10 @@ puts xml
   JS
 end
 
+step 'すべてのブロックをクリアする' do
+  page.execute_script('Blockly.mainWorkspace.clear()')
+end
+
 step 'ブロックからソースコードを生成する' do
   step '"Rubyタブ" にタブを切り替える'
 end
