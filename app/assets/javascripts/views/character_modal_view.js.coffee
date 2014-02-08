@@ -11,6 +11,9 @@ Smalruby.CharacterModalView = Backbone.View.extend
   initialize: ->
     @target = null
 
+    $('#character-modal-costume-selector img').on 'dragstart', (e) ->
+      e.preventDefault()
+
     setPosition = (pos) =>
       @model.set
         x: parseInt(pos.left / @previewZoomLevel)

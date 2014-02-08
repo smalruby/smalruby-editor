@@ -50,10 +50,14 @@ Smalruby.CharacterSelectorView = Backbone.View.extend({
         removeButton.hide()
 
       rotate = "rotate(#{character.get('angle') * -1}deg)"
-      html.find('img').css
+      img = html.find('img')
+      img.css
         '-moz-transform': rotate
         '-webkit-transform': rotate
         transform: rotate
+      img.on 'dragstart', (e) ->
+        e.preventDefault()
+
 
   addBlock_: (character) ->
     newBlock = new Blockly.Block(Blockly.mainWorkspace, 'character_new')
