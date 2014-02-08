@@ -88,7 +88,10 @@ Blockly.Ruby.rn_ = Blockly.Ruby.receiverName
 
 Blockly.Ruby.characterMethodCall_ = (method, args) ->
   if @c()
-    "#{@rn_()}#{method}(#{args})\n"
+    if args && args.length > 0
+      "#{@rn_()}#{method}(#{args})\n"
+    else
+      "#{@rn_()}#{method}\n"
   else
     ''
 

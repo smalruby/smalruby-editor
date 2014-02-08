@@ -4,7 +4,6 @@ step '次のブロックを配置する:' do |haml|
   haml = %(%xml{:xmlns => "http://www.w3.org/1999/xhtml"}\n) + haml.lines.map { |s| "  #{s}" }.join
   engine = Haml::Engine.new(haml)
   xml = engine.render
-puts xml
   page.execute_script(<<-JS)
     do {
       var dom = Blockly.Xml.textToDom('#{escape_javascript(xml)}');

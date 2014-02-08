@@ -54,3 +54,21 @@ Blockly.Blocks['<%= n %>'] =
 Blockly.Ruby['<%= n %>'] = (block) ->
   comment = @getFieldValue('COMMENT')
   "# #{comment}\n"
+
+# p
+<% n = "#{category}_p" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @interpolateMsg('p %1',
+                     ['ARG', null, Blockly.ALIGN_RIGHT],
+                     Blockly.ALIGN_RIGHT)
+    @setInputsInline(true)
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  arg = Blockly.Ruby.valueToCode(@, 'ARG', Blockly.Ruby.ORDER_NONE) || '""'
+  "p(#{arg})\n"

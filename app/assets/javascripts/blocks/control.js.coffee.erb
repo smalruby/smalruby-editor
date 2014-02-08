@@ -55,7 +55,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   cond = Blockly.Ruby.valueToCode(block, 'IF', Blockly.Ruby.ORDER_NONE) || 'false'
-  branch = Blockly.Ruby.statementToCode(block, 'THEN') || '  ;\n'
+  branch = Blockly.Ruby.statementToCode(block, 'THEN') || '\n'
   'if ' + cond + '\n' + branch + 'end\n'
 
 # もし<　>なら～でなければ

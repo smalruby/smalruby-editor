@@ -22,7 +22,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @interpolateMsg('%1と%2秒<%= label_suffix %>',
-                     ['TEXT', ['String'], Blockly.ALIGN_RIGHT],
+                     ['TEXT', null, Blockly.ALIGN_RIGHT],
                      ['SEC', ['Number'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
@@ -41,7 +41,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @interpolateMsg('%1と<%= label_suffix %>',
-                     ['TEXT', ['String'], Blockly.ALIGN_RIGHT],
+                     ['TEXT', null, Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)

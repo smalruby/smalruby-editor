@@ -219,7 +219,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  "#{Blockly.Ruby.rn()}turn_if_reach_wall\n"
+  Blockly.Ruby.characterMethodCall_('turn_if_reach_wall')
 
 # 条件:端に着いた
 <% n = "#{category}_reach_wall" %>
@@ -232,7 +232,11 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  ["#{Blockly.Ruby.rn()}reach_wall?", Blockly.Ruby.ORDER_ATOMIC]
+  if Blockly.Ruby.c_()
+    code = "#{Blockly.Ruby.rn()}reach_wall?"
+  else
+    code = null
+  [code, Blockly.Ruby.ORDER_ATOMIC]
 
 # 跳ね返る
 <% n = "#{category}_turn" %>
@@ -246,7 +250,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  "#{Blockly.Ruby.rn()}turn\n"
+  Blockly.Ruby.characterMethodCall_('turn')
 
 # 回転方法を[▼]にする
 <% n = "#{category}_set_rotation_style" %>
@@ -293,5 +297,9 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  ["#{Blockly.Ruby.rn()}<%= method %>", Blockly.Ruby.ORDER_ATOMIC]
+  if Blockly.Ruby.c_()
+    code = "#{Blockly.Ruby.rn()}<%= method %>"
+  else
+    code = null
+  [code, Blockly.Ruby.ORDER_ATOMIC]
 <% end %>
