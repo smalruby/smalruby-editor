@@ -1,7 +1,8 @@
 # encoding: utf-8
 
 step '次のブロックを配置する:' do |haml|
-  haml = %(%xml{:xmlns => "http://www.w3.org/1999/xhtml"}\n) + haml.lines.map { |s| "  #{s}" }.join
+  haml = %(%xml{:xmlns => "http://www.w3.org/1999/xhtml"}\n) +
+    haml.lines.map { |s| "  #{s}" }.join
   engine = Haml::Engine.new(haml)
   xml = engine.render
   page.execute_script(<<-JS)
