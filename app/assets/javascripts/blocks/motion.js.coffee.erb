@@ -47,7 +47,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   arg = Blockly.Ruby.valueToCode(@, 'ANGLE', Blockly.Ruby.ORDER_NONE) || '0'
-  "#{Blockly.Ruby.rn()}rotate(<%= suffix %>: <%= sign %>#{arg})\n"
+  Blockly.Ruby.characterMethodCall_('rotate', "<%= sign %>#{arg}")
 <% end %>
 
 # (　)度に向ける
@@ -66,7 +66,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   angle = Blockly.Ruby.valueToCode(@, 'ANGLE', Blockly.Ruby.ORDER_NONE) || '0'
-  "#{Blockly.Ruby.rn({ dropSelf: false })}angle = #{angle}\n"
+  Blockly.Ruby.characterSetVariable_('angle', angle)
 
 # マウスポインターへ向ける
 <% n = "#{category}_point_towards_mouse" %>
@@ -119,11 +119,8 @@ Blockly.Blocks['<%= n %>'] =
 Blockly.Ruby['<%= n %>'] = (block) ->
   x = Blockly.Ruby.valueToCode(@, 'X', Blockly.Ruby.ORDER_NONE) || '0'
   y = Blockly.Ruby.valueToCode(@, 'Y', Blockly.Ruby.ORDER_NONE) || '0'
-  """
-  #{Blockly.Ruby.rn({ dropSelf: false })}x = #{x}
-  #{Blockly.Ruby.rn({ dropSelf: false })}y = #{y}
-
-  """
+  Blockly.Ruby.characterSetVariable_('x', x) +
+    Blockly.Ruby.characterSetVariable_('y', y)
 
 # マウスポインターへ行く
 <% n = "#{category}_go_to_mouse" %>
@@ -207,7 +204,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   <%= name.downcase %> = Blockly.Ruby.valueToCode(@, '<%= name %>', Blockly.Ruby.ORDER_NONE) || '0'
-  "#{Blockly.Ruby.rn({ dropSelf: false })}<%= name.downcase %> <%= operator %> #{<%= name.downcase %>}\n"
+  Blockly.Ruby.characterSetVariable_('<%= name.downcase %>', <%= name.downcase %>, '<%= operator %>')
 <% end %>
 
 # もし端に着いたら、跳ね返る

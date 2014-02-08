@@ -92,6 +92,12 @@ Blockly.Ruby.characterMethodCall_ = (method, args) ->
   else
     ''
 
+Blockly.Ruby.characterSetVariable_ = (name, val, operator = '=') ->
+  if @c()
+    "#{@rn_({ dropSelf: false})}#{name} #{operator} #{val}\n"
+  else
+    ''
+
 Blockly.Ruby.finish = (code) ->
   requires = []
   definitions = []
