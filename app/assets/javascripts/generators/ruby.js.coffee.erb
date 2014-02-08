@@ -76,10 +76,21 @@ Blockly.Ruby.receiverName = (options = {}) ->
     "#{opts.object.get('name')}."
 
 Blockly.Ruby.cs = Blockly.Ruby.characterStack
+Blockly.Ruby.cs_ = Blockly.Ruby.characterStack
 Blockly.Ruby.c = Blockly.Ruby.character
+Blockly.Ruby.c_ = Blockly.Ruby.character
 Blockly.Ruby.rs = Blockly.Ruby.receiverStack
+Blockly.Ruby.rs_ = Blockly.Ruby.receiverStack
 Blockly.Ruby.r = Blockly.Ruby.r
+Blockly.Ruby.r_ = Blockly.Ruby.r
 Blockly.Ruby.rn = Blockly.Ruby.receiverName
+Blockly.Ruby.rn_ = Blockly.Ruby.receiverName
+
+Blockly.Ruby.characterMethodCall_ = (method, args) ->
+  if @c()
+    "#{@rn_()}#{method}(#{args})\n"
+  else
+    ''
 
 Blockly.Ruby.finish = (code) ->
   requires = []

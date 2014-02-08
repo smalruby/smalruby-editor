@@ -20,11 +20,8 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  if Blockly.Ruby.c()
-    arg = Blockly.Ruby.valueToCode(@, 'STEP', Blockly.Ruby.ORDER_NONE) || '0'
-    "#{Blockly.Ruby.rn()}move(#{arg})\n"
-  else
-    ''
+  arg = Blockly.Ruby.valueToCode(@, 'STEP', Blockly.Ruby.ORDER_NONE) || '0'
+  Blockly.Ruby.characterMethodCall_('move', "#{arg}")
 
 # 時計回りに(　)度回す
 # 半時計回りに(　)度回す
