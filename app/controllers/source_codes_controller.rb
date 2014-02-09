@@ -51,6 +51,10 @@ class SourceCodesController < ApplicationController
     render json: { source_code: info }, content_type: request.format
   end
 
+  def run
+    render json: SourceCode.new(source_code_params).run
+  end
+
   private
 
   def check_whether_standalone

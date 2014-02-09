@@ -44,6 +44,26 @@ $ ->
         window.textEditor.moveCursorTo(0, 0)
       window.textEditor.focus()
 
+  $('#run-button').click (e) ->
+    e.preventDefault()
+    $.ajax
+      url: '/source_codes/run'
+      type: 'POST'
+      data:
+        source_code:
+          data: getSourceCodeData()
+      dataType: 'json'
+      success: (data, textStatus, jqXHR) ->
+        if data.length == 0
+          successMessage('実行しました')
+        else
+          for errorInfo in data
+            do (errorInfo) ->
+              msg = "#{errorInfo.row}行"
+              if errorInfo.column > 0
+                msg += "、#{errorInfo.column}文字"
+              errorMessage(msg + ": #{errorInfo.message}")
+
   $('#save-button').click (e) ->
     e.preventDefault()
     filename = $.trim($('#filename').val())
