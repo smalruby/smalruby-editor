@@ -150,35 +150,34 @@
     %block{:type => "#{category}_on_hit"}
 
   - category = 'control'
-  %category{:name => '制御'}
-    %category{:name => '待つ'}
-      -# (　)秒待つ
-      %block{:type => "#{category}_sleep"}
-        = toolbox_number_value('SEC', 1)
+  %category{:name => '繰り返し'}
+    -# ずっと
+    %block{:type => "#{category}_loop"}
 
-      -# <　>まで待つ
-      %block{:type => "#{category}_await_until"}
+    -# (　)回繰り返す
+    %block{:type => "#{category}_times"}
+      = toolbox_number_value('COUNT', 10)
 
-      -# 1フレーム待つ
-      %block{:type => "#{category}_await"}
+    -# <　>まで繰り返す
+    %block{:type => "#{category}_until"}
 
-    %category{:name => 'もし～なら'}
-      -# もし<　>なら
-      %block{:type => "#{category}_if"}
+  %category{:name => '待つ'}
+    -# (　)秒待つ
+    %block{:type => "#{category}_sleep"}
+      = toolbox_number_value('SEC', 1)
 
-      -# もし<　>なら～でなければ
-      %block{:type => "#{category}_if_else"}
+    -# <　>まで待つ
+    %block{:type => "#{category}_await_until"}
 
-    %category{:name => '繰り返す'}
-      -# ずっと
-      %block{:type => "#{category}_loop"}
+    -# 1フレーム待つ
+    %block{:type => "#{category}_await"}
 
-      -# (　)回繰り返す
-      %block{:type => "#{category}_times"}
-        = toolbox_number_value('COUNT', 10)
+  %category{:name => 'もし～なら'}
+    -# もし<　>なら
+    %block{:type => "#{category}_if"}
 
-      -# <　>まで繰り返す
-      %block{:type => "#{category}_until"}
+    -# もし<　>なら～でなければ
+    %block{:type => "#{category}_if_else"}
 
   - category = 'sensing'
   %category{:name => '調べる'}
@@ -221,7 +220,7 @@
     %block{:type => "#{category}_days_since_2000"}
 
   - category = 'operators'
-  %category{:name => '演算'}
+  %category{:name => '計算'}
     -# 変数:(　) + (　)
     %block{:type => "#{category}_add"}
 
@@ -234,34 +233,10 @@
     -# 変数:(　) / (　)
     %block{:type => "#{category}_divide"}
 
-    -# 条件:(　) < (　)
-    %block{:type => "#{category}_compare_gt"}
-
-    -# 条件:(　) <= (　)
-    %block{:type => "#{category}_compare_gte"}
-
-    -# 条件:(　) = (　)
-    %block{:type => "#{category}_compare_eq"}
-
-    -# 条件:(　) >= (　)
-    %block{:type => "#{category}_compare_lte"}
-
-    -# 条件:(　) > (　)
-    %block{:type => "#{category}_compare_lt"}
-
     -# 変数:(　)から(　)までの乱数
     %block{:type => "#{category}_rand"}
       = toolbox_number_value('A', 1)
       = toolbox_number_value('B', 10)
-
-    -# 条件:<　> かつ <　>
-    %block{:type => "#{category}_and"}
-
-    -# 条件:<　> または <　>
-    %block{:type => "#{category}_or"}
-
-    -# 条件:<　> ではない
-    %block{:type => "#{category}_negate"}
 
     -# 変数:(　)の[　]番目
     %block{:type => "#{category}_index_of"}
@@ -297,6 +272,31 @@
       %field{:name => 'NUM'}<
         0
 
+  %category{:name => '条件'}
+    -# 条件:(　) < (　)
+    %block{:type => "#{category}_compare_gt"}
+
+    -# 条件:(　) <= (　)
+    %block{:type => "#{category}_compare_gte"}
+
+    -# 条件:(　) = (　)
+    %block{:type => "#{category}_compare_eq"}
+
+    -# 条件:(　) >= (　)
+    %block{:type => "#{category}_compare_lte"}
+
+    -# 条件:(　) > (　)
+    %block{:type => "#{category}_compare_lt"}
+
+    -# 条件:<　> かつ <　>
+    %block{:type => "#{category}_and"}
+
+    -# 条件:<　> または <　>
+    %block{:type => "#{category}_or"}
+
+    -# 条件:<　> ではない
+    %block{:type => "#{category}_negate"}
+
   -#%category{:name => '変数', :custom => 'VARIABLE'}
 
   - category = 'ruby'
@@ -315,8 +315,9 @@
 
   - category = 'hardware'
   %category{:name => 'ハードウェア'}
-    -# ハードウェアを準備する
-    %block{:type => "#{category}_init_hardware"}
+    %category{:name => '準備'}
+      -# ハードウェアを準備する
+      %block{:type => "#{category}_init_hardware"}
 
     %category{:name => 'LED'}
       -# LED[▼]をオンにする
