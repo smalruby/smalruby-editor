@@ -31,6 +31,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
   dispose: (healStack, animate) ->
+    @character.off 'change', @changeHandler
     @character.unlink?(@)
     Blockly.Block.prototype.dispose.apply(@, arguments)
 
@@ -46,14 +47,19 @@ Blockly.Blocks['<%= n %>'] =
     Blockly.FieldLabel.prototype.setText.call(field, text)
 
   setCharacter: (character) ->
+    if @changeHandler
+      @character.off 'change', @changeHandler
+
     @character = character
     @setFieldValue(character.costumeUrl(), 'COSTUME')
     @fieldLableSetText_(@getField_('NAME'), character.get('name'))
     character.link(@)
 
-    character.on 'change', (model) =>
+    @changeHandler = (model) =>
       @setFieldValue(model.costumeUrl(), 'COSTUME')
       @fieldLableSetText_(@getField_('NAME'), character.get('name'))
+
+    character.on 'change', @changeHandler
 
     @
 
