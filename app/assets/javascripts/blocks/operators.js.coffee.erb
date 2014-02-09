@@ -156,7 +156,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   order = Blockly.Ruby.ORDER_FUNCTION_CALL
-  a = Blockly.Ruby.valueToCode(block, 'A', order) || 'あいうえお'
+  a = Blockly.Ruby.valueToCode(block, 'A', order) || '""'
   index = Blockly.Ruby.valueToCode(block, 'INDEX', order) || '0'
   ["#{a}[#{index}]", order]
 
@@ -175,7 +175,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   order = Blockly.Ruby.ORDER_FUNCTION_CALL
-  a = Blockly.Ruby.valueToCode(block, 'A', order) || 'あいうえお'
+  a = Blockly.Ruby.valueToCode(block, 'A', order) || '""'
   ["#{a}.length", order]
 
 # 変数:(　)を(　)で割った余り
