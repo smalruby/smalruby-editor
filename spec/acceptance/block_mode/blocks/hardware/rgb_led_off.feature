@@ -8,6 +8,8 @@
     もし 次のブロックを配置する:
     """
     %block{:type => "hardware_rgb_led_off", :x => "0", :y => "0"}
+      %field{:name => "AC"}<
+        anode
       %field{:name => "PIN"}<
         D3
     """
@@ -28,6 +30,8 @@
         car1
       %statement{:name => "DO"}
         %block{:type => "hardware_rgb_led_off", :x => "0", :y => "0"}
+          %field{:name => "AC"}<
+            anode
           %field{:name => "PIN"}<
             D3
     """
@@ -38,7 +42,7 @@
     require "smalruby"
 
     car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
-    car1.rgb_led("D3").off
+    car1.rgb_led_anode("D3").off
 
     """
 
@@ -57,6 +61,8 @@
         %block{:type => "events_on_start"}
           %statement{:name => "DO"}
             %block{:type => "hardware_rgb_led_off", :x => "0", :y => "0"}
+              %field{:name => "AC"}<
+                anode
               %field{:name => "PIN"}<
                 D3
     """
@@ -69,7 +75,7 @@
     car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
 
     car1.on(:start) do
-      rgb_led("D3").off
+      rgb_led_anode("D3").off
     end
 
     """
