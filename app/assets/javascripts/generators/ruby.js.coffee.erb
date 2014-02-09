@@ -151,7 +151,7 @@ Blockly.Ruby.finish = (code) ->
   allDefs = requires.join('\n') + '\n\n'
   if definitions.length > 0
     allDefs += definitions.join('\n')
-      .replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n\n')
+      .replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n')
   allDefs + code
 
 Blockly.Ruby.scrubNakedValue = (line) ->
