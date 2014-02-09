@@ -12,10 +12,18 @@ window.SmalrubyEditor.Hardware =
   AiPins: [0..5] # アナログ入力ピン
 
 dioPinDropdown =
-  ([String(n), String(n)] for n in window.SmalrubyEditor.Hardware.DioPins)
+  (["D#{n}", "D#{n}"] for n in window.SmalrubyEditor.Hardware.DioPins)
 
-AiPinDropdown =
-  ([String(n), String(n)] for n in window.SmalrubyEditor.Hardware.AiPins)
+pwmPinDropdown =
+  (["D#{n}", "D#{n}"] for n in [3, 9])
+
+aiPinDropdown =
+  (["A#{n}", "A#{n}"] for n in window.SmalrubyEditor.Hardware.AiPins)
+
+acDropdown = [
+  ['アノード', 'anode']
+  ['カソード', 'cathode']
+]
 
 # ハードウェアを準備する
 <% n = "#{category}_init_hardware" %>
@@ -32,8 +40,8 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 
 # 「LED」サブジャンル
 
-# LED[▼]をオンにする
-# LED[▼]をオフにする
+# LED[▼ピン]をオンにする
+# LED[▼ピン]をオフにする
 <%
   [
     ['on', 'オン'],
@@ -55,13 +63,13 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = parseInt(@getFieldValue('PIN'))
-  "led(#{pin}).<%= method %>\n"
+  pin = @getFieldValue('PIN')
+  Blockly.Ruby.characterMethodCall_("led(#{Blockly.Ruby.quote_(pin)}).<%= method %>")
 <% end %>
 
 # 「RGB LED」サブジャンル
 
-# RGB LED[▼ピン]を[カラー]にする
+# RGB LED[▼アノード]コモン[▼ピン]を[カラー]にする
 <% n = "#{category}_rgb_led_on" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
@@ -69,7 +77,9 @@ Blockly.Blocks['<%= n %>'] =
     @setColour(<%= color %>)
     @appendDummyInput()
       .appendField('RGB LED')
-      .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
+      .appendField(new Blockly.FieldDropdown(acDropdown), 'AC')
+      .appendField('コモン')
+      .appendField(new Blockly.FieldDropdown(pwmPinDropdown), 'PIN')
       .appendField('を')
       .appendField(new Blockly.FieldColour('#ff0000'), 'COLOUR')
       .appendField('にする')
@@ -78,14 +88,16 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = parseInt(@getFieldValue('PIN'))
+  ac = @getFieldValue('AC')
+  pin = @getFieldValue('PIN')
   c = block.getFieldValue('COLOUR')
   red = parseInt(c[1..2], 16)
   green = parseInt(c[3..4], 16)
   blue = parseInt(c[5..6], 16)
-  "rgb_led(#{pin}).on(red: #{red}, green: #{green}, blue: #{blue})\n"
+  Blockly.Ruby.characterMethodCall_("rgb_led_#{ac}(#{Blockly.Ruby.quote_(pin)}).on",
+                                    "red: #{red}, green: #{green}, blue: #{blue}")
 
-# RGB LED[▼ピン]をオフにする
+# RGB LED[▼アノード]コモン[▼ピン]をオフにする
 <% n = "#{category}_rgb_led_off" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
@@ -93,15 +105,18 @@ Blockly.Blocks['<%= n %>'] =
     @setColour(<%= color %>)
     @appendDummyInput()
       .appendField('RGB LED')
-      .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
+      .appendField(new Blockly.FieldDropdown(acDropdown), 'AC')
+      .appendField('コモン')
+      .appendField(new Blockly.FieldDropdown(pwmPinDropdown), 'PIN')
       .appendField('をオフにする')
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = parseInt(@getFieldValue('PIN'))
-  "rgb_led(#{pin}).off\n"
+  ac = @getFieldValue('AC')
+  pin = @getFieldValue('PIN')
+  Blockly.Ruby.characterMethodCall_("rgb_led_#{ac}(#{Blockly.Ruby.quote_(pin)}).off")
 
 # 「7セグディスプレイ」サブジャンル
 
@@ -216,7 +231,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = parseInt(@getFieldValue('PIN'))
+  pin = @getFieldValue('PIN')
   ["button(#{pin}).<%= method %>?", Blockly.Ruby.ORDER_ATOMIC]
 <% end %>
 
@@ -245,7 +260,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   if (var0 = Blockly.Ruby.receiverName())
-    pin = parseInt(@getFieldValue('PIN'))
+    pin = @getFieldValue('PIN')
     branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
     """
 
@@ -268,13 +283,13 @@ Blockly.Blocks['<%= n %>'] =
     @setColour(<%= color %>)
     @appendDummyInput()
       .appendField('センサー')
-      .appendField(new Blockly.FieldDropdown(AiPinDropdown), 'PIN')
+      .appendField(new Blockly.FieldDropdown(aiPinDropdown), 'PIN')
     @setOutput(true, 'Number')
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = parseInt(@getFieldValue('PIN'))
-  ["sensor(#{pin}).value", Blockly.Ruby.ORDER_ATOMIC]
+  pin = @getFieldValue('PIN')
+  Blockly.Ruby.characterMethodCallInput_("sensor(#{Blockly.Ruby.quote_(pin)}).value")
 
 # センサー[▼PIN]が変化したとき
 <% n = "#{category}_on_sensor_change" %>
@@ -284,7 +299,7 @@ Blockly.Blocks['<%= n %>'] =
     @setColour(<%= color %>)
     @appendDummyInput()
       .appendField('センサー')
-      .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
+      .appendField(new Blockly.FieldDropdown(aiPinDropdown), 'PIN')
       .appendField('が変化したとき')
     @appendStatementInput('DO')
     @setPreviousStatement(true)
@@ -292,15 +307,5 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  if (var0 = Blockly.Ruby.receiverName())
-    pin = parseInt(@getFieldValue('PIN'))
-    branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-    """
-
-
-    #{var0}.on(:sensor_change, #{pin}) do |value|
-    #{branch}end
-
-    """
-  else
-    ''
+  pin = @getFieldValue('PIN')
+  Blockly.Ruby.characterEvent_(block, 'DO', 'sensor_change', Blockly.Ruby.quote_(pin))

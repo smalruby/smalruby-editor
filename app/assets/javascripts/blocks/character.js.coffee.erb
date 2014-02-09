@@ -59,12 +59,12 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   c = block.character
-  Blockly.Ruby.characterStack().push(c)
+  Blockly.Ruby.cs_().push(c)
   try
     targetBlock = block.getInputTargetBlock('DO')
     branch = Blockly.Ruby.blockToCode(targetBlock) || '\n'
   finally
-    Blockly.Ruby.characterStack().pop()
+    Blockly.Ruby.cs_().pop()
   """
   #{c.get('name')} = Character.new(costume: #{Blockly.Ruby.quote_(c.costume())}, x: #{c.get('x')}, y: #{c.get('y')}, angle: #{c.get('angle')})
   #{branch}

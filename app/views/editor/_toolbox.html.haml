@@ -335,17 +335,17 @@
       %block{:type => "#{category}_init_hardware"}
 
     %category{:name => 'LED'}
-      -# LED[▼]をオンにする
+      -# LED[▼ピン]をオンにする
       %block{:type => "#{category}_led_on"}
 
-      -# LED[▼]をオフにする
+      -# LED[▼ピン]をオフにする
       %block{:type => "#{category}_led_off"}
 
     %category{:name => 'RGB LED'}
-      -# RGB LED[▼ピン]を[カラー]にする
+      -# RGB LED[▼アノード]コモン[▼ピン]を[カラー]にする
       %block{:type => "#{category}_rgb_led_on"}
 
-      -# RGB LED[▼ピン]をオフにする
+      -# RGB LED[▼アノード]コモン[▼ピン]をオフにする
       %block{:type => "#{category}_rgb_led_off"}
 
     -#%category{:name => '7セグディスプレイ'}
