@@ -232,11 +232,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  if Blockly.Ruby.c_()
-    code = "#{Blockly.Ruby.rn()}reach_wall?"
-  else
-    code = null
-  [code, Blockly.Ruby.ORDER_ATOMIC]
+  Blockly.Ruby.characterMethodCallInput_('reach_wall?')
 
 # 跳ね返る
 <% n = "#{category}_turn" %>
@@ -297,9 +293,5 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  if Blockly.Ruby.c_()
-    code = "#{Blockly.Ruby.rn()}<%= method %>"
-  else
-    code = null
-  [code, Blockly.Ruby.ORDER_ATOMIC]
+  Blockly.Ruby.characterMethodCallInput_('<%= method %>')
 <% end %>

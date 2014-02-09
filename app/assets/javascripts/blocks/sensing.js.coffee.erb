@@ -27,7 +27,7 @@ window.SmalrubyEditor.Sensing =
     ['右ボタン', 'M_RBUTTON'],
   ]
 
-# 条件:キーボードの[▼キー]が[▼押された/押され続けている]
+# 条件:キーボードの[▼キー]が[▼押された]
 <% n = "#{category}_input_key_push_or_down" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
@@ -49,7 +49,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   pod = @getFieldValue('POD')
   ["Input.key_#{pod}?(#{key})", Blockly.Ruby.ORDER_ATOMIC]
 
-# 条件:マウスが[▼押された/押され続けている]
+# 条件:マウスの[▼左ボタン]が[▼押された]
 <% n = "#{category}_input_mouse_push_or_down" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
@@ -98,15 +98,15 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField(new Blockly.FieldVariable('char1'), 'VAR0')
+      .appendField(new Blockly.FieldVariable('car1'), 'CHAR')
       .appendField('に触れた')
     @setOutput(true, 'Boolean')
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  var0 = Blockly.Ruby.variableDB_
-    .getName(block.getFieldValue('VAR0'), Blockly.Variables.NAME_TYPE)
-  ["hit?(#{var0})", Blockly.Ruby.ORDER_ATOMIC]
+  char = Blockly.Ruby.variableDB_
+    .getName(block.getFieldValue('CHAR'), Blockly.Variables.NAME_TYPE)
+  Blockly.Ruby.characterMethodCallInput_('hit?', char)
 
 # [　]と聞いて待つ
 <% n = "#{category}_ask" %>
@@ -186,18 +186,18 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField(new Blockly.FieldVariable('char1'), 'VAR0')
+      .appendField(new Blockly.FieldVariable('car1'), 'CHAR')
       .appendField('の')
       .appendField(new Blockly.FieldDropdown(dropdown), 'PROPERTY')
     @setOutput(true, ['Number', 'String'])
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  var0 = Blockly.Ruby.variableDB_
-    .getName(block.getFieldValue('VAR0'), Blockly.Variables.NAME_TYPE)
+  char = Blockly.Ruby.variableDB_
+    .getName(block.getFieldValue('CHAR'), Blockly.Variables.NAME_TYPE)
   property = @getFieldValue('PROPERTY')
-  c = Smalruby.Collections.CharacterSet.findWhere({ name: var0 })
-  ["#{Blockly.Ruby.rn({ object: c })}#{property}", Blockly.Ruby.ORDER_ATOMIC]
+  c = Smalruby.Collections.CharacterSet.findWhere({ name: char })
+  Blockly.Ruby.characterMethodCallInput_(property, null, { object: c })
 
 # 変数:現在の[▼時]
 <% n = "#{category}_time_now" %>

@@ -86,14 +86,23 @@ Blockly.Ruby.r_ = Blockly.Ruby.r
 Blockly.Ruby.rn = Blockly.Ruby.receiverName
 Blockly.Ruby.rn_ = Blockly.Ruby.receiverName
 
-Blockly.Ruby.characterMethodCall_ = (method, args) ->
-  if @c_()
-    if args && args.length > 0
-      "#{@rn_()}#{method}(#{args})\n"
-    else
-      "#{@rn_()}#{method}\n"
+Blockly.Ruby.characterMethodCall_ = (method, args, options = {}) ->
+  res = @characterMethodCallInput_(method, args, options)
+  if res[0]
+    "#{res[0]}\n"
   else
     ''
+
+Blockly.Ruby.characterMethodCallInput_ = (method, args, options = {}) ->
+  code =
+    if @c_()
+      if args && args.length > 0
+        "#{@rn_(options)}#{method}(#{args})"
+      else
+        "#{@rn_(options)}#{method}"
+    else
+      null
+  [code, @ORDER_FUNCTION_CALL]
 
 Blockly.Ruby.characterSetVariable_ = (name, val, operator = '=') ->
   if @c_()

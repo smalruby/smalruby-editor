@@ -190,11 +190,11 @@
 
   - category = 'sensing'
   %category{:name => '調べる'}
-    -# 条件:キーボードの[▼キー]が[▼押された/押され続けている]
+    -# 条件:キーボードの[▼キー]が[▼押された]
     %block{:type => "#{category}_input_key_push_or_down"}
       = toolbox_key_field
 
-    -# 条件:マウスが[▼押された/押され続けている]
+    -# 条件:マウスの[▼左ボタン]が[▼押された]
     %block{:type => "#{category}_input_mouse_push_or_down"}
 
     -# 変数:マウスのx座標
@@ -226,7 +226,7 @@
     %block{:type => "#{category}_time_now"}
 
     -# 変数:2000年からの日数
-    %block{:type => "#{category}_days_since_2000"}
+    -#%block{:type => "#{category}_days_since_2000"}
 
   - category = 'operators'
   %category{:name => '計算'}
