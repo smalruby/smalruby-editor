@@ -20,9 +20,9 @@ window.Smalruby =
     @Views.CharacterModalView = new Smalruby.CharacterModalView
       el: $('#character-modal')
 
-  loadXml: (data) ->
+  loadXml: (data, workspace = Blockly.mainWorkspace) ->
     xml = Blockly.Xml.textToDom(data)
-    Blockly.mainWorkspace.clear()
+    workspace.clear()
     chars = []
     i = 0
     while (xmlChild = xml.childNodes[i])
@@ -36,7 +36,20 @@ window.Smalruby =
         chars.push(c)
       i++
     Smalruby.Collections.CharacterSet.reset(chars)
-    Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml)
+    Blockly.Xml.domToWorkspace(workspace, xml)
+
+  dumpXml: (workspace = Blockly.mainWorkspace, charSet = Smalruby.Collections.CharacterSet) ->
+    xmlDom = Blockly.Xml.workspaceToDom(workspace)
+    blocklyDom = xmlDom.firstChild
+    charSet.each (c) ->
+      e = goog.dom.createDom('character')
+      e.setAttribute('x', c.get('x'))
+      e.setAttribute('y', c.get('y'))
+      e.setAttribute('name', c.get('name'))
+      e.setAttribute('costumes', c.get('costumes').join(','))
+      e.setAttribute('angle', c.get('angle'))
+      xmlDom.insertBefore(e, blocklyDom)
+    Blockly.Xml.domToPrettyText(xmlDom)
 
 $(document).ready ->
   Smalruby.initialize()

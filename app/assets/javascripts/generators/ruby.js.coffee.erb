@@ -87,7 +87,7 @@ Blockly.Ruby.rn = Blockly.Ruby.receiverName
 Blockly.Ruby.rn_ = Blockly.Ruby.receiverName
 
 Blockly.Ruby.characterMethodCall_ = (method, args) ->
-  if @c()
+  if @c_()
     if args && args.length > 0
       "#{@rn_()}#{method}(#{args})\n"
     else
@@ -96,8 +96,31 @@ Blockly.Ruby.characterMethodCall_ = (method, args) ->
     ''
 
 Blockly.Ruby.characterSetVariable_ = (name, val, operator = '=') ->
-  if @c()
+  if @c_()
     "#{@rn_({ dropSelf: false})}#{name} #{operator} #{val}\n"
+  else
+    ''
+
+Blockly.Ruby.characterEvent_ = (block, bodyName, name, arg = null) ->
+  if c = @c_()
+    @rs_().push(c)
+    try
+      body = Blockly.Ruby.statementToCode(block, bodyName) || '\n'
+    finally
+      @rs_().pop()
+
+    if arg
+      arg = ", #{arg}"
+    else
+      arg = ''
+
+    """
+
+
+    #{@rn_()}on(:#{name}#{arg}) do
+    #{body}end
+
+    """
   else
     ''
 
