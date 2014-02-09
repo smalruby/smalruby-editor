@@ -22,7 +22,7 @@
       end
     end
 
-    car1.on(:click) do |x, y|
+    car1.on(:click) do
       car2 = Character.new(costume: "car4.png", x: 0, y: 0, angle: 90)
       car2.x = x
       car2.y = y
