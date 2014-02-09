@@ -33,7 +33,7 @@ Blockly.Blocks['<%= n %>'] =
 Blockly.Ruby['<%= n %>'] = (block) ->
   sec = Blockly.Ruby.valueToCode(@, 'SEC', Blockly.Ruby.ORDER_NONE) || ''
   text = Blockly.Ruby.valueToCode(@, 'TEXT', Blockly.Ruby.ORDER_NONE) || ''
-  "<%= method %>(message: #{text}, second: #{sec})\n"
+  Blockly.Ruby.characterMethodCall_('<%= method %>', "message: #{text}, second: #{sec}")
 
 <% n = "#{category}_#{method}" %>
 Blockly.Blocks['<%= n %>'] =
@@ -50,18 +50,16 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   text = Blockly.Ruby.valueToCode(@, 'TEXT', Blockly.Ruby.ORDER_NONE) || ''
-  "<%= method %>(message: #{text})\n"
+  Blockly.Ruby.characterMethodCall_('<%= method %>', "message: #{text}")
 <% end %>
 
 # 表示する
 # 隠す
-# 消滅する
 <%
   [
-    ['show', '表示する', 'self.visible = true'],
-    ['hide', '隠す', 'self.visible = false'],
-    ['vanish', '消滅する', 'vanish'],
-  ].each do |suffix, label, code|
+    ['show', '表示する', 'true'],
+    ['hide', '隠す', 'false'],
+  ].each do |suffix, label, val|
     n = "#{category}_#{suffix}"
 %>
 
@@ -75,8 +73,22 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  "<%= code %>\n"
+  Blockly.Ruby.characterSetVariable_('visible', '<%= val %>')
 <% end %>
+
+# 消滅する
+<% n = "#{category}_vanish" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput().appendField('消滅する')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  Blockly.Ruby.characterMethodCall_('vanish')
 
 # 大きさを(　)％ずつ変える
 # 大きさを(　)％にする
