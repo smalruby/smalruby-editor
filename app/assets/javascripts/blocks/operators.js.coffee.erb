@@ -253,3 +253,27 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   method = @getFieldValue('METHOD')
   num = Blockly.Ruby.valueToCode(block, 'NUM', order) || '0'
   [method.replace(/%num%/, num), order]
+
+# 条件:真
+# 条件:偽
+<%
+  [
+    ['true', '真'],
+    ['false', '偽'],
+  ].each do |val, label|
+    n = "#{category}_#{val}"
+%>
+
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
+      .appendField('<%= label %>')
+    @setInputsInline(true)
+    @setOutput(true, 'Boolean')
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  ['<%= val %>', Blockly.Ruby.ORDER_ATOMIC]
+<% end %>

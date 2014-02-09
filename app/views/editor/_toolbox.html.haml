@@ -161,6 +161,15 @@
     -# <　>まで繰り返す
     %block{:type => "#{category}_until"}
 
+    -# 繰り返しから脱出する
+    %block{:type => "#{category}_break"}
+
+    -# 次の繰り返しにジャンプする
+    %block{:type => "#{category}_next"}
+
+    -# 現在の繰り返しをやり直す
+    %block{:type => "#{category}_redo"}
+
   %category{:name => '待つ'}
     -# (　)秒待つ
     %block{:type => "#{category}_sleep"}
@@ -296,6 +305,12 @@
 
     -# 条件:<　> ではない
     %block{:type => "#{category}_negate"}
+
+    -# 条件:真
+    %block{:type => "#{category}_true"}
+
+    -# 条件:偽
+    %block{:type => "#{category}_false"}
 
   -#%category{:name => '変数', :custom => 'VARIABLE'}
 
