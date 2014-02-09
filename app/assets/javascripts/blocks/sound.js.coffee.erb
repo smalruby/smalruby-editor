@@ -5,7 +5,7 @@
   color = 296
 %>
 
-# [▼]（プリセットの音）
+# [▼プリセット音声]
 <% n = "#{category}_preset_sounds" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
@@ -44,7 +44,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   arg = Blockly.Ruby.valueToCode(@, 'NAME', Blockly.Ruby.ORDER_NONE) || ''
-  "play(name: #{arg})\n"
+  Blockly.Ruby.characterMethodCall_('play', "name: #{arg}")
 
 # すべての音を止める
 <% n = "#{category}_stop" %>
