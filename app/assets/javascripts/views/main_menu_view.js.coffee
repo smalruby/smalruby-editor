@@ -11,11 +11,31 @@ Smalruby.MainMenuView = Backbone.View.extend
 
     sourceCode = new Smalruby.SourceCode()
     $('#filename').val(sourceCode.get('filename'))
+
+    $.blockUI
+      message:
+        """
+        <h3>
+          <i class="icon-play"></i>
+          プログラムの実行中
+        </h3>
+        <blockquote>
+          <p>
+            プログラムの画面に切り替えてください。
+          </p>
+          <small>
+            Escキーを押すとプログラムが終わります。<br>
+            続きはプログラムが終わってからです♪
+          </small>
+        </blockquote>
+        """
+      css:
+        border: 'none'
+
     sourceCode.run()
       .done (data) ->
-        if data.length == 0
-          successMessage('実行しました')
-        else
+        $.unblockUI()
+        if data.length > 0
           for errorInfo in data
             do (errorInfo) ->
               msg = "#{errorInfo.row}行"
@@ -23,6 +43,7 @@ Smalruby.MainMenuView = Backbone.View.extend
                 msg += "、#{errorInfo.column}文字"
               errorMessage(msg + ": #{errorInfo.message}")
       .fail ->
+        $.unblockUI()
         errorMessage('実行できませんでした')
 
   onReset: (e) ->
