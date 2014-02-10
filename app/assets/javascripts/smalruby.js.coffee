@@ -15,6 +15,7 @@ window.Smalruby =
 
     @Collections.CharacterSet = new Smalruby.CharacterSet()
 
+    @Views.MainMenuView = new Smalruby.MainMenuView()
     @Views.CharacterSelectorView = new Smalruby.CharacterSelectorView
       model: @Collections.CharacterSet
     @Views.CharacterModalView = new Smalruby.CharacterModalView

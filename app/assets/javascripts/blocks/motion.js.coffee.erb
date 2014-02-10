@@ -97,8 +97,8 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  var0 = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
-  "#{Blockly.Ruby.rn()}point_towards(#{var0})\n"
+  char = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
+  Blockly.Ruby.characterMethodCall_('point_towards', char)
 
 # x座標を(　)、y座標を(　)にする
 <% n = "#{category}_set_x_y" %>

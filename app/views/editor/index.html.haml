@@ -1,24 +1,43 @@
-.navbar{:class => 'navbar-inverse'}
+.navbar{:id => "main-menu", :class => 'navbar-inverse'}
   .navbar-inner
     %ul.nav{:id => 'tabs'}
       %li.active
         %a{:href => '#block-tab', :'data-toggle' => 'tab'}<
+          %i.icon-folder-close
           ブロック
       %li
         %a{:href => '#ruby-tab', :'data-toggle' => 'tab'}<
+          %i.icon-pencil
           Ruby
 
     = form_tag(source_codes_load_path, id: "file-form", class: "navbar-form pull-right", method: "post", multipart: true) do
-      %button.btn{:id => 'load-button', :class => 'btn-primary'}<
-        ロード
       %input#load-file{:type => 'file', :name => 'source_code[file]', :style => 'display: none'}
       %input#filename{:type => 'text', :class => 'span4', :placeholder => 'プログラムの名前を入れてね（例：01.rb）'}
-      %button#save-button{:type => 'button', :class => 'btn btn-primary'}<
-        セーブ
       %button#run-button{:class => "btn btn-primary"}<
+        %i.icon-play
         実行
       - unless Rails.env == 'standalone'
         = link_to '', source_codes_download_path, id: 'download-link', style: 'display: none', 'data-method' => 'delete'
+
+      .btn-group
+        %a.btn{:class => "dropdown-toggle btn-primary", :"data-toggle" => "dropdown", :href => "#"}
+          %i.icon-reorder
+        %ul.dropdown-menu{:class => "pull-right"}
+          %li
+            %a#load-button
+              %h4
+                %i.icon-folder-open
+                ロード
+          %li
+            %a#save-button
+              %h4
+                %i.icon-hdd
+                セーブ
+          %li
+            %a#reset-button
+              %h4
+                %i.icon-off
+                リセット
 
 #messages
 

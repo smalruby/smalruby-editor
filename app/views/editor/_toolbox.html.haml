@@ -18,11 +18,11 @@
       = toolbox_number_value('ANGLE', 90)
 
     -# マウスポインターへ向ける
-    -#%block{:type => "#{category}_point_towards_mouse"}
+    %block{:type => "#{category}_point_towards_mouse"}
 
     -# [▼]へ向ける
-    -#%block{:type => "#{category}_point_towards_character"}
-    -#  = toolbox_character_field
+    %block{:type => "#{category}_point_towards_character"}
+      = toolbox_character_field
 
     -# x座標を(　)、y座標を(　)にする
     %block{:type => "#{category}_set_x_y"}
