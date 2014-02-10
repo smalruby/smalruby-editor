@@ -1,3 +1,25 @@
+window.SmalrubyEditor = {}
+window.changed = false
+window.textEditor = null
+window.blockMode = true
+
+window.successMessage = (title, msg = '', selector = '#messages') ->
+  html = $('<div class="alert alert-success" style="display: none">')
+    .append("<h4><i class=\"icon-star\"></i>#{title}</h4>")
+    .append(msg)
+  $(selector).append(html)
+  html.fadeIn('slow')
+    .delay(3000)
+    .fadeOut('slow')
+
+window.errorMessage = (msg, selector = '#messages') ->
+  html = $('<div class="alert alert-error" style="display: none">')
+    .append('<button type="button" class="close" data-dismiss="alert">×</button>')
+    .append('<h4><i class="icon-exclamation-sign"></i>エラー</h4>')
+    .append(msg)
+  $(selector).append(html)
+  html.fadeIn('slow')
+
 window.Smalruby =
   Models: {}
   Collections: {}
@@ -20,6 +42,25 @@ window.Smalruby =
       model: @Collections.CharacterSet
     @Views.CharacterModalView = new Smalruby.CharacterModalView
       el: $('#character-modal')
+
+    $('a[data-toggle="tab"]').on 'shown', (e) ->
+      if $(e.target).attr('href') == '#block-tab'
+        window.blockMode = true
+      else
+        window.blockMode = false
+        data = Blockly.Ruby.workspaceToCode()
+        if $.trim(data).length > 0
+          window.textEditor.getSession().getDocument().setValue(data)
+          window.textEditor.moveCursorTo(0, 0)
+        window.textEditor.focus()
+
+    Smalruby.downloading = false
+    window.onbeforeunload = (event) ->
+      if !Smalruby.downloading && window.changed
+        return '作成中のプログラムが消えてしまうよ！'
+      else
+        Smalruby.downloading = false
+        return
 
   loadXml: (data, workspace = Blockly.mainWorkspace) ->
     xml = Blockly.Xml.textToDom(data)

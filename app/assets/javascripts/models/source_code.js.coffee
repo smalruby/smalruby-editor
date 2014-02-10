@@ -26,14 +26,38 @@ Smalruby.SourceCode = Backbone.Model.extend
     @set('data', data)
 
   run: ->
+    @post_('run')
+
+  check: ->
+    @post_('check')
+
+  save2: ->
+    @post_('')
+
+  write: (force = false) ->
+    action = 'write'
+    action += '?force=1' if force
+    @delete_(action)
+
+  post_: (action) ->
     dfr = $.Deferred()
     $.ajax
-      url: '/source_codes/run'
+      url: "/source_codes/#{action}"
       type: 'POST'
       data:
         source_code:
           filename: @get('filename')
           data: @get('data')
+      dataType: 'json'
+      success: (data, textStatus, jqXHR) -> dfr.resolve(data)
+      error: dfr.reject
+    dfr.promise()
+
+  delete_: (action) ->
+    dfr = $.Deferred()
+    $.ajax
+      url: "/source_codes/#{action}"
+      type: 'DELETE'
       dataType: 'json'
       success: (data, textStatus, jqXHR) -> dfr.resolve(data)
       error: dfr.reject

@@ -12,5 +12,6 @@ module SmalrubyEditor
     config.time_zone = 'Tokyo'
     # config.i18n.default_locale = :ja
     config.colorize_logging = false
+    config.filter_parameters += [:data]
   end
 end

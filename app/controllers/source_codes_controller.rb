@@ -58,7 +58,7 @@ class SourceCodesController < ApplicationController
   private
 
   def check_whether_standalone
-    unless Rails.env == 'standalone'
+    unless standalone?
       fail "#{self.class.name}##{action_name}はstandaloneモードのみの機能です"
     end
   end

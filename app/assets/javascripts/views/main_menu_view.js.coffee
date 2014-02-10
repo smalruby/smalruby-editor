@@ -3,34 +3,58 @@ Smalruby.MainMenuView = Backbone.View.extend
   el: '#main-menu'
 
   events:
-    'click button#run-button': 'onRun'
-    'click a#reset-button': 'onReset'
+    'click #run-button': 'onRun'
+    'click #download-button': 'onDownload'
+    'click #load-button': 'onLoad'
+    'click #save-button': 'onSave'
+    'click #check-button': 'onCheck'
+    'click #reset-button': 'onReset'
+
+  initialize: ->
+    $('#filename').keypress (e) ->
+      e = window.event if !e
+      if e.keyCode == 13
+        $('#save-button').click()
+        false
+      else
+        true
+
+    $('#file-form').fileupload
+      dataType: 'json'
+      done: (e, data) ->
+        info = data.result.source_code
+        if info.error
+          window.errorMessage(info.filename + 'は' + info.error)
+        else
+          $('#filename').val(info.filename)
+          if info.filename.match(/.xml$/)
+            Smalruby.loadXml(info.data)
+            info.data = Blockly.Ruby.workspaceToCode()
+          window.textEditor.getSession().getDocument().setValue(info.data)
+          window.textEditor.moveCursorTo(0, 0)
+          unless window.blockMode
+            window.textEditor.focus()
+          # TODO: window.changed -> Smalruby.Models.SourceCode.changed
+          window.changed = false
+          window.successMessage('ロードしました')
 
   onRun: (e) ->
     e.preventDefault()
 
-    sourceCode = new Smalruby.SourceCode()
-    $('#filename').val(sourceCode.get('filename'))
+    sourceCode = @getSourceCode()
 
-    $.blockUI
-      message:
+    @blockUI
+      title:
         """
-        <h3>
-          <i class="icon-play"></i>
-          プログラムの実行中
-        </h3>
-        <blockquote>
-          <p>
-            プログラムの画面に切り替えてください。
-          </p>
-          <small>
-            Escキーを押すとプログラムが終わります。<br>
-            続きはプログラムが終わってからです♪
-          </small>
-        </blockquote>
+        <i class="icon-play"></i>
+        プログラムの実行中
         """
-      css:
-        border: 'none'
+      message: 'プログラムの画面に切り替えてください。'
+      notice:
+        """
+        Escキーを押すとプログラムが終わります。<br>
+        続きはプログラムが終わってからです♪
+        """
 
     sourceCode.run()
       .done (data) ->
@@ -46,6 +70,127 @@ Smalruby.MainMenuView = Backbone.View.extend
         $.unblockUI()
         errorMessage('実行できませんでした')
 
+  onDownload: (e) ->
+    e.preventDefault()
+
+    sourceCode = @getSourceCode()
+
+    @blockUI
+      title:
+        """
+        プログラムのダウンロード中
+        """
+      message: 'プログラムをダウンロードしています。'
+      notice:
+        """
+        ダウンロードしたプログラムは、<br>
+        Windowsだと「ruby #{sourceCode.get('filename')}」、<br>
+        Macだと「rsdl #{sourceCode.get('filename')}」で実行できます。
+        """
+
+    sourceCode.save2()
+      .done (data) ->
+        $.unblockUI()
+        window.changed = false
+        window.successMessage('ダウンロードしました')
+        Smalruby.downloading = true
+        $('#download-link').click()
+      .fail ->
+        $.unblockUI()
+        window.errorMessage('ダウンロードできませんでした')
+
+  onLoad: (e) ->
+    e.preventDefault()
+
+    # TODO: window.changed -> Smalruby.Models.SourceCode.changed
+    if window.changed
+      return unless confirm('まだセーブしていないのでロードするとプログラムが消えてしまうよ！\nそれでもロードしますか？')
+    $('input#load-file[name="source_code[file]"]').click()
+
+  onSave: (e) ->
+    e.preventDefault()
+
+    filename = $.trim($('#filename').val())
+    if filename.length <= 0
+      window.errorMessage('セーブする前にプログラムに名前をつけてね！')
+      $('#filename').focus()
+      return
+
+    sourceCode = @getSourceCode()
+
+    @blockUI
+      title:
+        """
+        プログラムのセーブ中
+        """
+      message: 'プログラムをセーブしています。'
+      notice:
+        """
+        プログラムの名前は「#{sourceCode.get('filename')}」です。<br>
+        プログラムはホームディレクトリにセーブします。<br>
+        """
+
+    failedFunc = ->
+      $.unblockUI()
+      window.errorMessage('セーブできませんでした')
+
+    sourceCode.save2()
+      .done (data) ->
+        sourceCode.write()
+          .done (data) ->
+            afterSave = ->
+              $.unblockUI()
+              window.changed = false
+              window.successMessage('セーブしました')
+
+            if data.source_code.error
+              if confirm("前に#{filename}という名前でセーブしているけど本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！")
+                sourceCode.write(true)
+                  .done (data) ->
+                    afterSave()
+              else
+                $.unblockUI()
+                window.successMessage('セーブをキャンセルしました')
+            else
+              afterSave()
+          .fail -> failedFunc()
+      .fail -> failedFunc()
+
+  onCheck: (e) ->
+    e.preventDefault()
+
+    # TODO: 既存のシンタックスに関するエラーメッセージをcloseしておく
+
+    sourceCode = @getSourceCode()
+
+    @blockUI
+      title:
+        """
+        プログラムのチェック中
+        """
+      message: 'プログラムの文法をチェックしています。'
+      notice:
+        """
+        このチェックは簡易的なものですので、<br>
+        プログラムを動かすとエラーが見つかるかもしれません。
+        """
+
+    sourceCode.check()
+      .done (data) ->
+        $.unblockUI()
+        if data.length == 0
+          window.successMessage('チェックしました', 'ただし、プログラムを動かすとエラーが見つかるかもしれません。')
+        else
+          for errorInfo in data
+            do (errorInfo) ->
+              msg = "#{errorInfo.row}行"
+              if errorInfo.column > 0
+                msg += "、#{errorInfo.column}文字"
+              window.errorMessage(msg + ": #{errorInfo.message}")
+      .fail ->
+        $.unblockUI()
+        errorMessage('チェックできませんでした')
+
   onReset: (e) ->
     e.preventDefault()
 
@@ -53,3 +198,29 @@ Smalruby.MainMenuView = Backbone.View.extend
 
   getFilename: ->
     $.trim($('#filename').val())
+
+  getSourceCode: ->
+    sourceCode = new Smalruby.SourceCode()
+    $('#filename').val(sourceCode.get('filename'))
+    sourceCode
+
+  blockUI: (options) ->
+    $.blockUI
+      message:
+        """
+        <h3>
+          #{options.title}
+        </h3>
+        <blockquote>
+          <p>
+            #{options.message}
+          </p>
+          <small>
+            #{options.notice}
+          </small>
+        </blockquote>
+        """
+      css:
+        border: 'none'
+        'text-align': 'left'
+        'padding-left': '2em'
