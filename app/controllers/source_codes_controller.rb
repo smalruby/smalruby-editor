@@ -53,7 +53,8 @@ class SourceCodesController < ApplicationController
 
   def run
     source_code = SourceCode.new(source_code_params)
-    render json: source_code.run(Pathname("~/#{source_code.filename}").expand_path)
+    path = Pathname("~/#{source_code.filename}").expand_path
+    render json: source_code.run(path)
   end
 
   private

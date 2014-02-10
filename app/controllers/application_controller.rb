@@ -10,18 +10,14 @@ class ApplicationController < ActionController::Base
 
   # スタンドアローンモードかどうかを返す
   def standalone?
-    case Rails.env
-    when 'production'
-      false
-    when 'standalone'
+    return false if Rails.env == 'production'
+    return true if Rails.env == 'standalone'
+
+    if ENV['SMALRUBY_EDITOR_STANDALONE_MODE'] ||
+        File.exist?(Rails.root.join('tmp', 'standalone'))
       true
     else
-      if ENV['SMALRUBY_EDITOR_STANDALONE_MODE'] ||
-          File.exist?(Rails.root.join('tmp', 'standalone'))
-        true
-      else
-        false
-      end
+      false
     end
   end
 end

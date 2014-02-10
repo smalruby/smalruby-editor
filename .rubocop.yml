@@ -3,6 +3,7 @@ AllCops:
     - db/seeds.rb
     - spec/fixtures/**
 
+# 日本語でのコメントを許可する
 AsciiComments:
   Enabled: false
 
@@ -16,4 +17,8 @@ Documentation:
 
 # WindowsだとEndOfLine copが動作しないため無効にしている
 EndOfLine:
+  Enabled: false
+
+# diffが少なくなるためハッシュや配列の最後のカンマは許可する
+TrailingComma:
   Enabled: false
