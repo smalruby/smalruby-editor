@@ -2,7 +2,7 @@
 require 'nkf'
 
 class SourceCodesController < ApplicationController
-  before_filter :check_whether_standalone, only: :write
+  before_filter :check_whether_standalone, only: [:write, :run]
 
   def check
     render json: SourceCode.new(source_code_params).check_syntax
@@ -52,7 +52,8 @@ class SourceCodesController < ApplicationController
   end
 
   def run
-    render json: SourceCode.new(source_code_params).run
+    source_code = SourceCode.new(source_code_params)
+    render json: source_code.run(Pathname("~/#{source_code.filename}").expand_path)
   end
 
   private

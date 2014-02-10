@@ -52,23 +52,56 @@ Smalruby.MainMenuView = Backbone.View.extend
       message: 'プログラムの画面に切り替えてください。'
       notice:
         """
-        Escキーを押すとプログラムが終わります。<br>
-        続きはプログラムが終わってからです♪
+        プログラムをセーブ・チェックしてから実行するよ♪<br>
+        Escキーを押すとプログラムが終わります。
         """
 
-    sourceCode.run()
+    failedFunc = ->
+      $.unblockUI()
+      errorMessage('プログラムを実行できませんでした')
+
+    sourceCode.save2()
       .done (data) ->
-        $.unblockUI()
-        if data.length > 0
-          for errorInfo in data
-            do (errorInfo) ->
-              msg = "#{errorInfo.row}行"
-              if errorInfo.column > 0
-                msg += "、#{errorInfo.column}文字"
-              errorMessage(msg + ": #{errorInfo.message}")
-      .fail ->
-        $.unblockUI()
-        errorMessage('実行できませんでした')
+        sourceCode.write()
+          .done (data) ->
+            afterSave = ->
+              sourceCode.check()
+                .done (data) ->
+                  if data.length > 0
+                    failedFunc()
+                    for errorInfo in data
+                      do (errorInfo) ->
+                        msg = "#{errorInfo.row}行"
+                        if errorInfo.column > 0
+                          msg += "、#{errorInfo.column}文字"
+                        window.errorMessage(msg + ": #{errorInfo.message}")
+                  else
+                    sourceCode.run()
+                      .done (data) ->
+                        $.unblockUI()
+                        if data.length > 0
+                          for errorInfo in data
+                            do (errorInfo) ->
+                              msg = "#{errorInfo.row}行"
+                              if errorInfo.column > 0
+                                msg += "、#{errorInfo.column}文字"
+                              errorMessage(msg + ": #{errorInfo.message}")
+
+                      .fail -> failedFunc()
+
+                .fail -> failedFunc()
+
+            if data.source_code.error
+              if confirm("前に#{sourceCode.get('filename')}という名前でセーブしているけど本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！")
+                sourceCode.write(true)
+                  .done (data) ->
+                    afterSave()
+              else
+                failedFunc()
+            else
+              afterSave()
+          .fail -> failedFunc()
+      .fail -> failedFunc()
 
   onDownload: (e) ->
     e.preventDefault()
@@ -144,7 +177,7 @@ Smalruby.MainMenuView = Backbone.View.extend
               window.successMessage('セーブしました')
 
             if data.source_code.error
-              if confirm("前に#{filename}という名前でセーブしているけど本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！")
+              if confirm("前に#{sourceCode.get('filename')}という名前でセーブしているけど本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！")
                 sourceCode.write(true)
                   .done (data) ->
                     afterSave()

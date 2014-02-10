@@ -25,8 +25,8 @@ class SourceCode < ActiveRecord::Base
   end
 
   # プログラムを実行する
-  def run
-    _, stderr_str, status = *open3_capture3_run_program
+  def run(path)
+    _, stderr_str, status = *open3_capture3_run_program(path)
     return [] if status.success?
 
     stderr_str.lines.each.with_object([]) { |line, res|
@@ -37,7 +37,8 @@ class SourceCode < ActiveRecord::Base
       elsif (md = /( +)\^$/.match(line))
         res[-1][:column] = md[1].length
       else
-        res << { row: res[-1] ? res[-1][:row] : 0, column: 0, message: line.chomp }
+        row = res[-1] ? res[-1][:row] : 0
+        res << { row: row, column: 0, message: line.chomp }
       end
     }
   end
@@ -60,21 +61,17 @@ class SourceCode < ActiveRecord::Base
     tempfile.write(data)
     path = tempfile.path
     tempfile.close
-    ruby_cmd = File.join(RbConfig::CONFIG['bindir'],
-                         RbConfig::CONFIG['RUBY_INSTALL_NAME'])
     Open3.capture3("#{ruby_cmd} -c #{path}")
   end
 
-  def open3_capture3_run_program
-    tempfile = Tempfile.new('smalruby-editor')
-    tempfile.write(data)
-    path = tempfile.path
-    tempfile.close
-    ruby_cmd = File.join(RbConfig::CONFIG['bindir'],
-                         RbConfig::CONFIG['RUBY_INSTALL_NAME'])
-
+  def open3_capture3_run_program(path)
     Bundler.with_clean_env do
       Open3.capture3("#{ruby_cmd} #{path}")
     end
+  end
+
+  def ruby_cmd
+    File.join(RbConfig::CONFIG['bindir'],
+              RbConfig::CONFIG['RUBY_INSTALL_NAME'])
   end
 end
