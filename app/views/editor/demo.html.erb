@@ -5,6 +5,12 @@
     var data = '<%= escape_javascript(File.read(Rails.root.join("app/assets/demos/#{@filename}"))) %>';
     data = $('<div>').html(data).text();
     Smalruby.loadXml(data);
+
+    <% if @filename != 'default.xml' %>
+    var filename = $('<div>').html('<%= escape_javascript(@filename.sub(/\.xml$/, '.rb')) %>').text();
+    $('#filename').val(filename)
+    <% end %>
+
     window.changed = false;
   });
 </script>
