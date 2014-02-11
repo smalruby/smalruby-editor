@@ -23,8 +23,9 @@ task :release do
   Rake::Task['gem:release'].invoke
 
   sh 'git mirror'
-  # TODO:
-  # sh 'relish push smalruby/smalruby-editor'
+  Bundler.with_clean_env do
+    sh 'relish push smalruby/smalruby-editor'
+  end
 
   require 'smalruby_editor/version'
   next_version = SmalrubyEditor::VERSION.split('.').tap { |versions|
