@@ -30,18 +30,32 @@
     id: 'filename',
     selector: '#filename',
   },
-  'チェックボタン' => {
-    id: 'check-button',
-    selector: '#check-button',
+
+  'ダウンロードボタン' => {
+    id: 'download-button',
+    selector: '#download-button',
   },
-  'セーブボタン' => {
-    id: 'save-button',
-    selector: '#save-button',
+  '実行ボタン' => {
+    id: 'run-button',
+    selector: '#run-button',
   },
   'ロードボタン' => {
     id: 'load-button',
     selector: '#load-button',
   },
+  'セーブボタン' => {
+    id: 'save-button',
+    selector: '#save-button',
+  },
+  'チェックボタン' => {
+    id: 'check-button',
+    selector: '#check-button',
+  },
+  'リセットボタン' => {
+    id: 'reset-button',
+    selector: '#reset-button',
+  },
+
   'メッセージ' => {
     id: 'messages',
     selector: '#messages',

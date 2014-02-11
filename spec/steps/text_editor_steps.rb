@@ -40,6 +40,13 @@ step 'プログラムの名前に :filename を指定する' do |filename|
   fill_in('filename', with: filename)
 end
 
+step 'サブメニューの :name をクリックする' do |name|
+  # HACK: 以下では期待通りの動作にならなかったのでjQueryで無理やり実現した
+  # click_on('submenu-button')
+  # click_on(NAME_INFO[name][:id])
+  page.execute_script("$('#{NAME_INFO[name][:selector]}').click()")
+end
+
 step ':name をクリックする' do |name|
   click_on(NAME_INFO[name][:id])
 end

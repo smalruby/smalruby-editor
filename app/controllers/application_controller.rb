@@ -13,8 +13,9 @@ class ApplicationController < ActionController::Base
     return false if Rails.env == 'production'
     return true if Rails.env == 'standalone'
 
-    if ENV['SMALRUBY_EDITOR_STANDALONE_MODE'] ||
-        File.exist?(Rails.root.join('tmp', 'standalone'))
+    if Rails.env != 'test' &&
+        (ENV['SMALRUBY_EDITOR_STANDALONE_MODE'] ||
+         File.exist?(Rails.root.join('tmp', 'standalone')))
       true
     else
       false
