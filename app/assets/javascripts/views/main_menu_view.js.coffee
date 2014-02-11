@@ -65,6 +65,8 @@ Smalruby.MainMenuView = Backbone.View.extend
         sourceCode.write()
           .done (data) ->
             afterSave = ->
+              Smalruby.savedFilename = sourceCode.get('filename')
+              window.changed = false
               sourceCode.check()
                 .done (data) ->
                   if data.length > 0
@@ -92,7 +94,8 @@ Smalruby.MainMenuView = Backbone.View.extend
                 .fail -> failedFunc()
 
             if data.source_code.error
-              if confirm("前に#{sourceCode.get('filename')}という名前でセーブしているけど本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！")
+              if sourceCode.get('filename') == Smalruby.savedFilename ||
+                 confirm("前に#{sourceCode.get('filename')}という名前でセーブしているけど本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！")
                 sourceCode.write(true)
                   .done (data) ->
                     afterSave()
@@ -173,11 +176,13 @@ Smalruby.MainMenuView = Backbone.View.extend
           .done (data) ->
             afterSave = ->
               $.unblockUI()
+              Smalruby.savedFilename = sourceCode.get('filename')
               window.changed = false
               window.successMessage('セーブしました')
 
             if data.source_code.error
-              if confirm("前に#{sourceCode.get('filename')}という名前でセーブしているけど本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！")
+              if sourceCode.get('filename') == Smalruby.savedFilename ||
+                 confirm("前に#{sourceCode.get('filename')}という名前でセーブしているけど本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！")
                 sourceCode.write(true)
                   .done (data) ->
                     afterSave()
