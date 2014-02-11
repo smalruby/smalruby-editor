@@ -4,7 +4,7 @@ task :build do
   ENV['GEM_PLATFORM'] = 'linux'
   Rake::Task['gem:build'].invoke
 
-  ENV['GEM_PLATFORM'] = 'mingw32'
+  ENV['GEM_PLATFORM'] = 'x86-mingw32'
   Rake::Task['gem:build'].reenable
   Rake::Task['assets:clobber'].reenable
   Rake::Task['assets:precompile:standalone'].reenable
@@ -15,7 +15,7 @@ task :release do
   ENV['GEM_PLATFORM'] = 'linux'
   Rake::Task['gem:release'].invoke
 
-  ENV['GEM_PLATFORM'] = 'mingw32'
+  ENV['GEM_PLATFORM'] = 'x86-mingw32'
   Rake::Task['gem:release'].reenable
   Rake::Task['gem:build'].reenable
   Rake::Task['assets:clobber'].reenable
