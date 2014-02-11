@@ -2,7 +2,8 @@
 SmalrubyEditor::Application.routes.draw do
   root 'editor#index'
 
-  match '/demo(/:filename)' => 'editor#demo', defaults: { filename: 'default' }, via: :get
+  match '/demo(/:filename)' => 'editor#demo',
+        defaults: { filename: 'default' }, via: :get
 
   resources :source_codes, only: [:create]
   post 'source_codes/check'
