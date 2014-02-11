@@ -3,6 +3,7 @@
 require 'tempfile'
 require 'open3'
 require 'digest/sha2'
+require 'bundler'
 
 # ソースコードを表現するモデル
 class SourceCode < ActiveRecord::Base
@@ -46,8 +47,13 @@ class SourceCode < ActiveRecord::Base
   end
 
   def ruby_cmd
-    File.join(RbConfig::CONFIG['bindir'],
-              RbConfig::CONFIG['RUBY_INSTALL_NAME'])
+    path = Pathname('rsdl').expand_path(RbConfig::CONFIG['bindir'])
+    if path.exist?
+      path
+    else
+      Pathname(RbConfig::CONFIG['RUBY_INSTALL_NAME'])
+        .expand_path(RbConfig::CONFIG['bindir'])
+    end
   end
 
   def open3_capture3_ruby_c
@@ -55,7 +61,10 @@ class SourceCode < ActiveRecord::Base
     tempfile.write(data)
     path = tempfile.path
     tempfile.close
-    Open3.capture3("#{ruby_cmd} -c #{path}")
+
+    Bundler.with_clean_env do
+      Open3.capture3("#{ruby_cmd} -c #{path}")
+    end
   end
 
   def open3_capture3_run_program(path)
