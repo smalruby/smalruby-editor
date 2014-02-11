@@ -23,21 +23,23 @@ task :release do
   Rake::Task['gem:release'].invoke
 
   sh 'git mirror'
-  sh 'relish push smalruby/smalruby-editor'
+  # TODO:
+  # sh 'relish push smalruby/smalruby-editor'
 
-  require 'lib/smalruby_editor/version'
+  require 'smalruby_editor/version'
   next_version = SmalrubyEditor::VERSION.split('.').tap { |versions|
     versions[-1] = (versions[-1].to_i + 1).to_s
   }.join('.')
-  File.open('lib/smalruby_editor/version.rb', 'w+') do |f|
+  File.open('lib/smalruby_editor/version.rb', 'r+') do |f|
     lines = []
     while line = f.gets
       line = "#{$1} '#{next_version}'\n" if /(\s*VERSION = )/.match(line)
       lines << line
     end
     f.rewind
-    f.write(lines.join("\n"))
+    f.write(lines.join)
   end
-  sh "git commit -m 'バージョンを#{next_version}に更新'"
+  sh 'git add lib/smalruby_editor/version.rb'
+  sh "git commit -m #{next_version}"
   sh 'git push'
 end
