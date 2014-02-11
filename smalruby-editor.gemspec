@@ -73,6 +73,7 @@ Gem::Specification.new do |spec|
      ['haml-rails'],
      ['jquery-ui-rails'],
      ['backbone-on-rails'],
+     ['smalruby'],
     ]
   runtime_dependencies << ['therubyracer'] unless is_windows
   runtime_dependencies.each do |args|

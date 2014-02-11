@@ -73,6 +73,7 @@ group :development, :test do
   gem 'rubocop'
   gem 'rspec-rails'
   gem 'teaspoon'
+  gem 'smalruby'
 end
 
 group :test do
