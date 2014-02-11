@@ -31,8 +31,8 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  sec = Blockly.Ruby.valueToCode(@, 'SEC', Blockly.Ruby.ORDER_NONE) || ''
-  text = Blockly.Ruby.valueToCode(@, 'TEXT', Blockly.Ruby.ORDER_NONE) || ''
+  sec = Blockly.Ruby.valueToCode(@, 'SEC', Blockly.Ruby.ORDER_NONE) || '0'
+  text = Blockly.Ruby.valueToCode(@, 'TEXT', Blockly.Ruby.ORDER_NONE) || Blockly.Ruby.quote_('')
   Blockly.Ruby.characterMethodCall_('<%= method %>', "message: #{text}, second: #{sec}")
 
 <% n = "#{category}_#{method}" %>
@@ -49,7 +49,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  text = Blockly.Ruby.valueToCode(@, 'TEXT', Blockly.Ruby.ORDER_NONE) || ''
+  text = Blockly.Ruby.valueToCode(@, 'TEXT', Blockly.Ruby.ORDER_NONE) || Blockly.Ruby.quote_('')
   Blockly.Ruby.characterMethodCall_('<%= method %>', "message: #{text}")
 <% end %>
 

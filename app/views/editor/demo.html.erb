@@ -1,2 +1,10 @@
 <%= render template: 'editor/index' %>
-<%= javascript_include_tag "demo", "data-turbolinks-track" => true %>
+
+<script type="text/javascript">
+  $(function() {
+    var data = '<%= escape_javascript(File.read(Rails.root.join("app/assets/demos/#{@filename}"))) %>';
+    data = $('<div>').html(data).text();
+    Smalruby.loadXml(data);
+    window.changed = false;
+  });
+</script>

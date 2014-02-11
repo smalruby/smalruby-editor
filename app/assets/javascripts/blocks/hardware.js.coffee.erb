@@ -8,7 +8,7 @@
 # ハードウェアの環境設定
 window.SmalrubyEditor.Hardware =
   Type: 'Arduino' # 種別
-  DioPins: [0..13] # デジタルIOピン
+  DioPins: [2..13] # デジタルIOピン
   AiPins: [0..5] # アナログ入力ピン
 
 dioPinDropdown =
@@ -62,6 +62,8 @@ Blockly.Blocks['<%= n %>'] =
     @setNextStatement(true)
     @setTooltip('')
 
+    @setFieldValue('D2', 'PIN')
+
 Blockly.Ruby['<%= n %>'] = (block) ->
   pin = @getFieldValue('PIN')
   Blockly.Ruby.characterMethodCall_("led(#{Blockly.Ruby.quote_(pin)}).<%= method %>")
@@ -95,7 +97,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   green = parseInt(c[3..4], 16)
   blue = parseInt(c[5..6], 16)
   Blockly.Ruby.characterMethodCall_("rgb_led_#{ac}(#{Blockly.Ruby.quote_(pin)}).on",
-                                    "red: #{red}, green: #{green}, blue: #{blue}")
+                                    "color: [#{red}, #{green}, #{blue}]")
 
 # RGB LED[▼アノード]コモン[▼ピン]をオフにする
 <% n = "#{category}_rgb_led_off" %>

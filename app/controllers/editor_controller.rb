@@ -4,5 +4,6 @@ class EditorController < ApplicationController
   end
 
   def demo
+    @filename = (File.basename(params[:filename]) || 'default') + '.xml'
   end
 end
