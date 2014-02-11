@@ -46,7 +46,7 @@
     require "smalruby"
 
     car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
-    car1.rgb_led_anode("D3").on(red: 128, green: 128, blue: 128)
+    car1.rgb_led_anode("D3").on(color: [128, 128, 128])
 
     """
 
@@ -81,7 +81,7 @@
     car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
 
     car1.on(:start) do
-      rgb_led_anode("D3").on(red: 128, green: 128, blue: 128)
+      rgb_led_anode("D3").on(color: [128, 128, 128])
     end
 
     """
