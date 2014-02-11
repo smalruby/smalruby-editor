@@ -109,14 +109,6 @@ Spork.prefork do
       FileUtils.rm_rf(downloads_dir) if selenium?
     end
 
-    config.before(:all, javascript: true, standalone: true) do
-      expire_assets_cache
-    end
-
-    config.after(:all, javascript: true, standalone: true) do
-      expire_assets_cache
-    end
-
     config.before(javascript: true, standalone: true) do
       page.driver.restart
 
