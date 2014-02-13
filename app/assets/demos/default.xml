@@ -77,7 +77,7 @@
               <block type="control_loop">
                 <statement name="DO">
                   <block type="motion_point_towards_character">
-                    <field name="VAR">car1</field>
+                    <field name="CHAR">car1</field>
                     <next>
                       <block type="motion_move" inline="true">
                         <value name="STEP">

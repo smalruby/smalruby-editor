@@ -116,6 +116,7 @@ step 'JavaScriptによるリクエストが終わるまで待つ' do
     sleep 1
   end
 end
+
 step ':name は :value であること' do |name, value|
   expect(page.evaluate_script(<<-JS)).to eq(value)
     $('#{NAME_INFO[name][:selector]}').val()

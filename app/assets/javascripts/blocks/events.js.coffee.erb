@@ -69,7 +69,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField(new Blockly.FieldVariable('car1'), 'CHAR') # TODO
+      .appendField(new Smalruby.FieldCharacter(), 'CHAR') # TODO
       .appendField('にぶつかったとき')
     @appendStatementInput('DO')
     @setPreviousStatement(true)
@@ -77,6 +77,5 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  char = Blockly.Ruby.variableDB_
-    .getName(block.getFieldValue('CHAR'), Blockly.Variables.NAME_TYPE)
+  char = @getFieldValue('CHAR')
   Blockly.Ruby.characterEvent_(block, 'DO', 'hit', char)

@@ -98,14 +98,13 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField(new Blockly.FieldVariable('car1'), 'CHAR')
+      .appendField(new Smalruby.FieldCharacter(), 'CHAR')
       .appendField('に触れた')
     @setOutput(true, 'Boolean')
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  char = Blockly.Ruby.variableDB_
-    .getName(block.getFieldValue('CHAR'), Blockly.Variables.NAME_TYPE)
+  char = @getFieldValue('CHAR')
   Blockly.Ruby.characterMethodCallInput_('hit?', char)
 
 # [　]と聞いて待つ
@@ -186,15 +185,14 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField(new Blockly.FieldVariable('car1'), 'CHAR')
+      .appendField(new Smalruby.FieldCharacter(), 'CHAR')
       .appendField('の')
       .appendField(new Blockly.FieldDropdown(dropdown), 'PROPERTY')
     @setOutput(true, ['Number', 'String'])
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  char = Blockly.Ruby.variableDB_
-    .getName(block.getFieldValue('CHAR'), Blockly.Variables.NAME_TYPE)
+  char = @getFieldValue('CHAR')
   property = @getFieldValue('PROPERTY')
   c = Smalruby.Collections.CharacterSet.findWhere({ name: char })
   Blockly.Ruby.characterMethodCallInput_(property, null, { object: c })

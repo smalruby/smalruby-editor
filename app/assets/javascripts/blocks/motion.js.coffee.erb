@@ -90,14 +90,14 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField(new Blockly.FieldVariable('char1'), 'VAR')
+      .appendField(new Smalruby.FieldCharacter(), 'CHAR')
       .appendField('へ向ける')
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  char = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
+  char = @getFieldValue('CHAR')
   Blockly.Ruby.characterMethodCall_('point_towards', char)
 
 # x座標を(　)、y座標を(　)にする
@@ -144,14 +144,14 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField(new Blockly.FieldVariable('char1'), 'VAR')
+      .appendField(new Smalruby.FieldCharacter(), 'CHAR')
       .appendField('へ行く')
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  var0 = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
+  char = @getFieldValue('CHAR')
   "#{Blockly.Ruby.rn()}go_to(#{var0})\n"
 
 # (　)秒でx座標を(　)、y座標を(　)に変える

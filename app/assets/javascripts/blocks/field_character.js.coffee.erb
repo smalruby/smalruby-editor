@@ -1,0 +1,108 @@
+'use strict'
+
+goog.provide('Smalruby.FieldCharacter')
+
+goog.require('Blockly.FieldDropdown')
+
+
+Smalruby.FieldCharacter = (character, opt_changeHandler) ->
+  if opt_changeHandler
+    changeHandler = (value) =>
+      retVal = Smalruby.FieldCharacter.dropdownChange.call(@, value)
+      if retVal
+        newVal = retVal
+      else
+        retVal = @getValue()
+      opt_changeHandler.call(@, newVal)
+      retVal
+  else
+    changeHandler = Smalruby.FieldCharacter.dropdownChange
+
+  Smalruby.FieldCharacter.superClass_.constructor
+    .call(@, Smalruby.FieldCharacter.dropdownCreate, changeHandler)
+
+  charSet = Smalruby.Collections.CharacterSet
+  charSet.on('add', @onCharacterSetAdd_, @)
+  charSet.on('remove', @onCharacterSetRemove_, @)
+  charSet.on('reset', @onCharacterSetReset_, @)
+
+  @character = Smalruby.FieldCharacter.NullCharacter
+
+  unless character
+    character = Smalruby.Collections.CharacterSet.first()
+  @setCharacter(character)
+
+goog.inherits(Smalruby.FieldCharacter, Blockly.FieldDropdown)
+
+Smalruby.FieldCharacter.prototype.setCharacter = (character) ->
+  return if character == @character
+
+  @character.unlink(@)
+  @character.off('change:name', @onCharacterChangeName_, @)
+  @character = if character then character else Smalruby.FieldCharacter.NullCharacter
+  @character.link(@)
+  @character.on('change:name', @onCharacterChangeName_, @)
+
+  @setValue(@character.get('name'))
+
+Smalruby.FieldCharacter.prototype.onCharacterSetAdd_ = (model, collection, options) ->
+  if @character == Smalruby.FieldCharacter.NullCharacter
+    @setCharacter(model)
+
+Smalruby.FieldCharacter.prototype.onCharacterSetRemove_ = (model, collection, options) ->
+  if model == @character
+    @setCharacter()
+
+Smalruby.FieldCharacter.prototype.onCharacterSetReset_ = (collection, options) ->
+  if @character == Smalruby.FieldCharacter.NullCharacter
+    @setCharacter(collection.first())
+  else
+    @setCharacter(collection.findWhere({ name: @getValue() }))
+
+Smalruby.FieldCharacter.prototype.onCharacterChangeName_ = (model, value, options) ->
+  @setValue(value)
+
+Smalruby.FieldCharacter.prototype.clone = ->
+  new Smalruby.FieldCharacter(@character, @changeHandler_)
+
+Smalruby.FieldCharacter.prototype.dispose = ->
+  charSet = Smalruby.Collections.CharacterSet
+  charSet.off('add', @onCharacterSetAdd_, @)
+  charSet.off('remove', @onCharacterSetRemove_, @)
+  charSet.off('reset', @onCharacterSetReset_, @)
+  @setCharacter()
+
+  Blockly.FieldDropdown.prototype.dispose.call(@)
+
+Smalruby.FieldCharacter.prototype.setText = (value) ->
+  # HACK: XMLをロードしたときにキャラクターとリンクさせる
+  unless @character
+    @character = Smalruby.FieldCharacter.NullCharacter
+    charSet = Smalruby.Collections.CharacterSet
+    @setCharacter(charSet.findWhere({ name: value }))
+  Blockly.FieldDropdown.prototype.setText.call(@, value)
+
+Smalruby.FieldCharacter.dropdownCreate = ->
+  charSet = Smalruby.Collections.CharacterSet
+  if charSet.length > 0
+    Smalruby.Collections.CharacterSet.map (c) ->
+      n = c.get('name')
+      [n, n]
+  else
+    [[Smalruby.FieldCharacter.NullCharacter.get('name'), '']]
+
+Smalruby.FieldCharacter.dropdownChange = (value) ->
+  c = Smalruby.Collections.CharacterSet.findWhere({ name: value })
+  if c
+    @setCharacter(c)
+    value
+  else
+    null
+
+Smalruby.FieldCharacter.NullCharacter =
+  get: (name) ->
+    'キャラクターなし'
+  on: -> $.noop
+  off: -> $.noop
+  link: -> $.noop
+  unlink: -> $.noop
