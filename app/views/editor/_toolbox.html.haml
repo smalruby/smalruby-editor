@@ -22,7 +22,6 @@
 
     -# [▼]へ向ける
     %block{:type => "#{category}_point_towards_character"}
-      = toolbox_character_field
 
     -# x座標を(　)、y座標を(　)にする
     %block{:type => "#{category}_set_x_y"}
@@ -362,6 +361,11 @@
     -#
     -#  -# LCDをクリアする
     -#  %block{:type => "#{category}_lcd_clear"}
+
+    %category{:name => 'サーボ'}
+      -# サーボ[▼ピン]を(　)度(5～180)にする
+      %block{:type => "#{category}_servo_set_position"}
+        = toolbox_number_value('POS', 90)
 
     -#%category{:name => 'ボタン'}
     -#  -# 条件:ボタン[▼]を押している

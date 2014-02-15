@@ -9,12 +9,16 @@
 window.SmalrubyEditor.Hardware =
   Type: 'Arduino' # 種別
   DioPins: [2..13] # デジタルIOピン
+  PwmPins: [3, 5, 6, 9, 10, 11] # デジタルIOピンのうちPWMに対応しているピン
   AiPins: [0..5] # アナログ入力ピン
 
 dioPinDropdown =
   (["D#{n}", "D#{n}"] for n in window.SmalrubyEditor.Hardware.DioPins)
 
 pwmPinDropdown =
+  (["D#{n}", "D#{n}"] for n in window.SmalrubyEditor.Hardware.PwmPins)
+
+rgbLedPinDropdown =
   (["D#{n}", "D#{n}"] for n in [3, 9])
 
 aiPinDropdown =
@@ -81,7 +85,7 @@ Blockly.Blocks['<%= n %>'] =
       .appendField('RGB LED')
       .appendField(new Blockly.FieldDropdown(acDropdown), 'AC')
       .appendField('コモン')
-      .appendField(new Blockly.FieldDropdown(pwmPinDropdown), 'PIN')
+      .appendField(new Blockly.FieldDropdown(rgbLedPinDropdown), 'PIN')
       .appendField('を')
       .appendField(new Blockly.FieldColour('#ff0000'), 'COLOUR')
       .appendField('にする')
@@ -109,7 +113,7 @@ Blockly.Blocks['<%= n %>'] =
       .appendField('RGB LED')
       .appendField(new Blockly.FieldDropdown(acDropdown), 'AC')
       .appendField('コモン')
-      .appendField(new Blockly.FieldDropdown(pwmPinDropdown), 'PIN')
+      .appendField(new Blockly.FieldDropdown(rgbLedPinDropdown), 'PIN')
       .appendField('をオフにする')
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -208,6 +212,35 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   "seven_segment_display.off\n"
+
+# 「サーボ」サブジャンル
+
+# 「サーボ[▼ピン]を(　)度(5～180)にする」ブロック
+<% n = "#{category}_servo_set_position" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
+      .appendField('サーボ')
+      .appendField(new Blockly.FieldDropdown(pwmPinDropdown), 'PIN')
+      .appendField('を')
+    @appendValueInput('POS')
+      .setCheck('Number')
+    @appendDummyInput()
+      .appendField('度(5～180)にする')
+    @setInputsInline(true)
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  pin = @getFieldValue('PIN')  #p sensor("A0").value
+  #p sensor("A0").value.class
+  #p(sensor("A0").value / 6)
+
+  pos = Blockly.Ruby.valueToCode(@, 'POS', Blockly.Ruby.ORDER_FUNCTION_CALL) || '5'
+  Blockly.Ruby.characterMethodCall_("servo(#{Blockly.Ruby.quote_(pin)}).position = #{pos}")
 
 # 「ボタン」サブジャンル
 
