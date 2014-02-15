@@ -1,7 +1,7 @@
 # encoding: utf-8
 # language: ja
 @javascript
-機能: operators_divide - 「(　) / (　)」ブロック
+機能: operators_divide - 「変数:(　) / (　)」ブロック
   背景:
     前提 "ブロック" タブを表示する
 

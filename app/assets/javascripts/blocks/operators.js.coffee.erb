@@ -140,7 +140,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   a = Blockly.Ruby.valueToCode(block, 'A', order) || 'true'
   ["!#{a}", order]
 
-# 変数:(　)の[　]番目
+# 変数:(　)の(　)番目
 <% n = "#{category}_index_of" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
@@ -160,7 +160,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   index = Blockly.Ruby.valueToCode(block, 'INDEX', order) || '0'
   ["#{a}[#{index}]", order]
 
-# 変数:[　]の長さ
+# 変数:(　)の長さ
 <% n = "#{category}_length" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
@@ -194,8 +194,8 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   order = Blockly.Ruby.ORDER_MULTIPLICATIVE
-  a = Blockly.Ruby.valueToCode(block, 'A', order) || '5'
-  b = Blockly.Ruby.valueToCode(block, 'B', order) || '2'
+  a = Blockly.Ruby.valueToCode(block, 'A', order) || '1'
+  b = Blockly.Ruby.valueToCode(block, 'B', order) || '1'
   ["#{a} % #{b}", order]
 
 # 変数:(　)を丸める

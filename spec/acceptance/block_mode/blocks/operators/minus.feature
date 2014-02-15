@@ -1,7 +1,7 @@
 # encoding: utf-8
 # language: ja
 @javascript
-機能: operators_minus - 「(　) - (　)」ブロック
+機能: operators_minus - 「変数:(　) - (　)」ブロック
   背景:
     前提 "ブロック" タブを表示する
 
