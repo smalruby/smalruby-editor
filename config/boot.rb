@@ -7,7 +7,7 @@ if ENV['RAILS_ENV'] == 'standalone'
     eval(path.read, TOPLEVEL_BINDING, path.to_s)
     # rubocop:enable Eval
   }
-  exclude_gems = %w(therubyracer dxruby)
+  exclude_gems = %w(therubyracer smalruby)
   spec.runtime_dependencies.each do |s|
     require s.name unless exclude_gems.include?(s.name)
   end
