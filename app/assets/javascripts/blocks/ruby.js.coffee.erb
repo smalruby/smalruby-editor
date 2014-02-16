@@ -70,5 +70,5 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  arg = Blockly.Ruby.valueToCode(@, 'ARG', Blockly.Ruby.ORDER_NONE) || '""'
+  arg = Blockly.Ruby.valueToCode(@, 'ARG', Blockly.Ruby.ORDER_FUNCTION_CALL) || '""'
   "p(#{arg})\n"
