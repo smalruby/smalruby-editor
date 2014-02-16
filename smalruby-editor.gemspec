@@ -72,7 +72,6 @@ Gem::Specification.new do |spec|
      ['mime-types', '~> 1.16'],
      ['haml-rails'],
      ['jquery-ui-rails'],
-     ['eco-source', '>= 1.1.0.rc.1'],
      ['backbone-on-rails'],
      ['smalruby'],
     ]
