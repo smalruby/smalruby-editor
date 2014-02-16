@@ -13,6 +13,19 @@ step '次のブロックを配置する:' do |haml|
   JS
 end
 
+step '次のブロック(:comment)を配置する:' do |_, haml|
+  haml = %(%xml{:xmlns => "http://www.w3.org/1999/xhtml"}\n) +
+    haml.lines.map { |s| "  #{s}" }.join
+  engine = Haml::Engine.new(haml)
+  xml = engine.render
+  page.execute_script(<<-JS)
+    do {
+      var dom = Blockly.Xml.textToDom('#{escape_javascript(xml)}');
+      Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
+    } while (false);
+  JS
+end
+
 step 'すべてのブロックをクリアする' do
   page.execute_script('Blockly.mainWorkspace.clear()')
 end

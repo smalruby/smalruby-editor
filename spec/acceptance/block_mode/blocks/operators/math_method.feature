@@ -6,7 +6,7 @@
     前提 "ブロック" タブを表示する
 
   シナリオテンプレート: ブロックのみ配置する
-    もし 次のブロックを配置する:
+    もし 次のブロック("METHOD=<method>")を配置する:
       """
       %block{:type => "operators_math_method", :x => "0", :y => "0", :inline => "true"}
         %field{:name => "METHOD"}<
@@ -37,7 +37,7 @@
       | 10 ** %num%       | 10 ** 0       |
 
   シナリオテンプレート: 値を設定したブロックを配置する
-    もし 次のブロックを配置する:
+    もし 次のブロック("METHOD=<method>")を配置する:
       """
       %block{:type => "operators_math_method", :x => "0", :y => "0", :inline => "true"}
         %value{:name => "NUM"}
@@ -72,7 +72,7 @@
       | 10 ** %num%       | 10 ** 10       |
 
   シナリオテンプレート: 文と値を設定したブロックを配置する
-    もし 次のブロックを配置する:
+    もし 次のブロック("METHOD=<method>")を配置する:
       """
       %block{:type => "ruby_p", :x => "0", :y => "0", :inline => "true"}
         %value{:name => "ARG"}
