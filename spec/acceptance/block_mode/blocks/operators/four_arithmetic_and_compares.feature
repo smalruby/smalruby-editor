@@ -1,7 +1,7 @@
 # encoding: utf-8
 # language: ja
 @javascript
-機能: operators_add, operators_minus, operators_multiply, operators_divide, operators_modulo - 「変数:(　) + (　)」「変数:(　) - (　)」「変数:(　) * (　)」「変数:(　) / (　)」「変数:(　)を(　)で割った余り」ブロック
+機能: operators_{add,minus,multiply,divide}, operators_compare_{lt,lte,eq,gte,gt} - 「変数:(　) {+,-,*,/} (　)」「変数:(　) {<,<=,==,>=,>} (　)」ブロック
   背景:
     前提 "ブロック" タブを表示する
 
@@ -24,6 +24,11 @@
       | multiply                 | 0 * 0 |
       | divide                   | 0 / 1 |
       | modulo                   | 1 % 1   |
+      | compare_lt               | 0 < 0  |
+      | compare_lte              | 0 <= 0 |
+      | compare_eq               | 0 == 0 |
+      | compare_gte              | 0 >= 0 |
+      | compare_gt               | 0 > 0  |
 
   シナリオテンプレート: 値を設定したブロックを配置する
     もし 次のブロック("operators_<ブロック名のサフィックス>")を配置する:
@@ -52,6 +57,11 @@
       | multiply                 | *        |
       | divide                   | /        |
       | modulo                   | %        |
+      | compare_lt               | <        |
+      | compare_lte              | <=       |
+      | compare_eq               | ==       |
+      | compare_gte              | >=       |
+      | compare_gt               | >        |
 
   シナリオテンプレート: 文と値を設定したブロックを配置する
     もし 次のブロック("operators_<ブロック名のサフィックス>")を配置する:
@@ -82,3 +92,8 @@
       | multiply                 | *        |
       | divide                   | /        |
       | modulo                   | %        |
+      | compare_lt               | <        |
+      | compare_lte              | <=       |
+      | compare_eq               | ==       |
+      | compare_gte              | >=       |
+      | compare_gt               | >        |

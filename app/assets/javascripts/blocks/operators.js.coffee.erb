@@ -45,11 +45,11 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 # 条件:(　) > (　)
 <%
   [
-    ['compare_gt', '＜', '<'],
-    ['compare_gte', '≦', '<='],
+    ['compare_lt', '＜', '<'],
+    ['compare_lte', '≦', '<='],
     ['compare_eq', '＝', '=='],
-    ['compare_lte', '≧', '>='],
-    ['compare_lt', '＞', '>'],
+    ['compare_gte', '≧', '>='],
+    ['compare_gt', '＞', '>'],
   ].each do |suffix, operator_label, operator|
     n = "#{category}_#{suffix}"
 %>
