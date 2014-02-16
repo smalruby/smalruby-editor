@@ -45,12 +45,12 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 # 条件:(　) > (　)
 <%
   [
-    ['compare_lt', '＜', '<'],
-    ['compare_lte', '≦', '<='],
-    ['compare_eq', '＝', '=='],
-    ['compare_gte', '≧', '>='],
-    ['compare_gt', '＞', '>'],
-  ].each do |suffix, operator_label, operator|
+    ['compare_lt', '＜', '<', 'RELATIONAL'],
+    ['compare_lte', '≦', '<=', 'RELATIONAL'],
+    ['compare_eq', '＝', '==', 'EQUALS'],
+    ['compare_gte', '≧', '>=', 'RELATIONAL'],
+    ['compare_gt', '＞', '>', 'RELATIONAL'],
+  ].each do |suffix, operator_label, operator, order_suffix|
     n = "#{category}_#{suffix}"
 %>
 
@@ -67,7 +67,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  order = Blockly.Ruby.ORDER_RELATIONAL;
+  order = Blockly.Ruby.ORDER_<%= order_suffix %>;
   a = Blockly.Ruby.valueToCode(block, 'A', order) || '0'
   b = Blockly.Ruby.valueToCode(block, 'B', order) || '0'
   [a + ' <%= operator %> ' + b, order]
@@ -88,10 +88,9 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  order = Blockly.Ruby.ORDER_FUNCTION_CALL
-  a = Blockly.Ruby.valueToCode(block, 'A', order) || '0'
-  b = Blockly.Ruby.valueToCode(block, 'B', order) || '0'
-  ["rand(#{a}..#{b})", order]
+  a = Blockly.Ruby.valueToCode(block, 'A', Blockly.Ruby.ORDER_RANGE) || '0'
+  b = Blockly.Ruby.valueToCode(block, 'B', Blockly.Ruby.ORDER_RANGE) || '0'
+  ["rand(#{a}..#{b})", Blockly.Ruby.ORDER_FUNCTION_CALL]
 
 # 条件:<　> かつ <　>
 # 条件:<　> または <　>
@@ -136,7 +135,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  order = Blockly.Ruby.ORDER_LOGICAL_NOT
+  order = Blockly.Ruby.ORDER_UNARY_SIGN
   a = Blockly.Ruby.valueToCode(block, 'A', order) || 'true'
   ["!#{a}", order]
 
@@ -155,10 +154,9 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  order = Blockly.Ruby.ORDER_FUNCTION_CALL
-  a = Blockly.Ruby.valueToCode(block, 'A', order) || '""'
-  index = Blockly.Ruby.valueToCode(block, 'INDEX', order) || '0'
-  ["#{a}[#{index}]", order]
+  a = Blockly.Ruby.valueToCode(block, 'A', Blockly.Ruby.ORDER_FUNCTION_CALL) || '""'
+  index = Blockly.Ruby.valueToCode(block, 'INDEX', Blockly.Ruby.ORDER_INDEX) || '0'
+  ["#{a}[#{index}]", Blockly.Ruby.ORDER_FUNCTION_CALL]
 
 # 変数:(　)の長さ
 <% n = "#{category}_length" %>

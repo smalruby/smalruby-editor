@@ -10,28 +10,30 @@ break    elsif    module   retry    unless   __ENCODING__
 case     end      next     return   until
 '.split(/\s+/)
 
-# TODO: 確認すること
 Blockly.Ruby.ORDER_ATOMIC = 0            # 0 "" ...
 Blockly.Ruby.ORDER_COLLECTION = 1        # tuples, lists, dictionaries
 Blockly.Ruby.ORDER_STRING_CONVERSION = 1 # `expression...`
-Blockly.Ruby.ORDER_MEMBER = 2            # . []
-Blockly.Ruby.ORDER_FUNCTION_CALL = 2     # ()
-Blockly.Ruby.ORDER_EXPONENTIATION = 3    # **
-Blockly.Ruby.ORDER_UNARY_SIGN = 4        # + -
-Blockly.Ruby.ORDER_BITWISE_NOT = 4       # ~
-Blockly.Ruby.ORDER_MULTIPLICATIVE = 5    # * / // %
-Blockly.Ruby.ORDER_ADDITIVE = 6          # + -
-Blockly.Ruby.ORDER_BITWISE_SHIFT = 7     # << >>
-Blockly.Ruby.ORDER_BITWISE_AND = 8       # &
-Blockly.Ruby.ORDER_BITWISE_XOR = 9       # ^
-Blockly.Ruby.ORDER_BITWISE_OR = 10       # |
-Blockly.Ruby.ORDER_RELATIONAL = 11       # in, not in, is, is not,
-                                         # <, <=, >, >=, <>, !=, ==
-Blockly.Ruby.ORDER_LOGICAL_NOT = 12      # not
-Blockly.Ruby.ORDER_LOGICAL_AND = 13      # and
-Blockly.Ruby.ORDER_LOGICAL_OR = 14       # or
-Blockly.Ruby.ORDER_CONDITIONAL = 15      # if else
-Blockly.Ruby.ORDER_LAMBDA = 16           # lambda
+Blockly.Ruby.ORDER_MEMBER = 2           # ::
+Blockly.Ruby.ORDER_INDEX = 3            # []
+Blockly.Ruby.ORDER_FUNCTION_CALL = 4    # ()
+Blockly.Ruby.ORDER_UNARY_SIGN = 5       # +(単項)  !  ~
+Blockly.Ruby.ORDER_EXPONENTIATION = 6   # **
+Blockly.Ruby.ORDER_UNARY_MINUS_SIGN = 7 # -(単項)
+Blockly.Ruby.ORDER_MULTIPLICATIVE = 8   # *  /  %
+Blockly.Ruby.ORDER_ADDITIVE = 9         # +  -
+Blockly.Ruby.ORDER_BITWISE_SHIFT = 10   # << >>
+Blockly.Ruby.ORDER_BITWISE_AND = 11     # &
+Blockly.Ruby.ORDER_BITWISE_XOR = 12     # ^
+Blockly.Ruby.ORDER_BITWISE_OR = 12      # |
+Blockly.Ruby.ORDER_RELATIONAL = 13      # > >=  < <=
+Blockly.Ruby.ORDER_EQUALS = 14          # <=> ==  === !=  =~  !~
+Blockly.Ruby.ORDER_LOGICAL_AND = 15     # &&
+Blockly.Ruby.ORDER_LOGICAL_OR = 16      # ||
+Blockly.Ruby.ORDER_RANGE = 17           # ..  ...
+Blockly.Ruby.ORDER_CONDITIONAL = 18     # ?:(条件演算子)
+Blockly.Ruby.ORDER_ASSIGNMENT = 19      # =(+=, -= ... )
+Blockly.Ruby.ORDER_NOT = 20             # not
+Blockly.Ruby.ORDER_AND_OR = 21          # and or
 Blockly.Ruby.ORDER_NONE = 99             # (...)
 
 Blockly.Ruby.INFINITE_LOOP_TRAP = null

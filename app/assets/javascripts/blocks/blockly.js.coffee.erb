@@ -5,7 +5,7 @@
 <% n = "#{category}_number" %>
 Blockly.Ruby['<%= n %>'] = (block) ->
   code = parseFloat(@getFieldValue('NUM'))
-  order = if code < 0 then Blockly.Ruby.ORDER_UNARY_SIGN else Blockly.Ruby.ORDER_ATOMIC
+  order = if code < 0 then Blockly.Ruby.ORDER_UNARY_MINUS_SIGN else Blockly.Ruby.ORDER_ATOMIC
   [code, order]
 
 
