@@ -37,9 +37,11 @@ Smalruby.CharacterModalView = Backbone.View.extend
         true
 
     self = @
-    @$el.find('input[name="character[name]"]').change (e) ->
+    changeNameFunc = (e) ->
       self.model.set({ name: $(@).val() })
       self.nameChanged = true
+    @$el.find('input[name="character[name]"]').change(changeNameFunc)
+    @$el.find('input[name="character[name]"]').keyup(changeNameFunc)
 
     @$el.find('input[name="character[x]"]').change (e) ->
       self.model.set({ x: $(@).val() })
@@ -55,11 +57,14 @@ Smalruby.CharacterModalView = Backbone.View.extend
     @listenTo(@model, 'change:y', @onChangeY)
     @listenTo(@model, 'change:angle', @onChangeAngle)
     @listenTo(@model, 'change:costumes', @onChangeCostumes)
+    @listenTo(@model, 'change', @onChange)
 
-    @onChange(@model)
+    @callAllOnChangeAttributes_()
 
   render: ->
+    @onChange(@model)
     @$el.modal('show')
+
     # HACK: ダイアログを表示して500ms程度待たないと画像のサイズが取得できなかった
     f = ->
       if @readImageSizeflag
@@ -74,7 +79,7 @@ Smalruby.CharacterModalView = Backbone.View.extend
     if @readImageSizeflag
       setTimeout(_.bind(f, @), 1)
 
-  onChange: (model, options)->
+  callAllOnChangeAttributes_: ->
     @onChangeName(@model, @model.get('name'))
     @onChangeX(@model, @model.get('x'))
     @onChangeY(@model, @model.get('y'))
@@ -117,6 +122,22 @@ Smalruby.CharacterModalView = Backbone.View.extend
         height: "#{thumb.height() / 2}px"
     else
       @readImageSizeflag = true
+
+  onChange: (model, options) ->
+    return unless @target
+
+    @$el.find('.control-group[for="character[name]"]').removeClass('error')
+    @$el.find('#character-modal-ok-button').removeClass('disabled').removeAttr('disabled')
+
+    unless @model.isValid()
+      @$el.find('.control-group[for="character[name]"]').addClass('error')
+      @$el.find('#character-modal-ok-button').addClass('disabled').attr({ disabled: 'disabled' })
+
+    name = @model.get('name')
+    if @target.get('name') != name &&
+       Smalruby.Collections.CharacterSet.findWhere({ name: name })
+      @$el.find('.control-group[for="character[name]"]').addClass('error')
+      @$el.find('#character-modal-ok-button').addClass('disabled').attr({ disabled: 'disabled' })
 
   onSelectCostume: (e) ->
     e.preventDefault()

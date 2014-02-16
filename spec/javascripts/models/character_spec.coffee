@@ -43,6 +43,45 @@ describe 'Smalruby.Character', ->
       it 'costumesが指定したものになる', ->
         expect(_.isEqual(self.get('costumes'), ['car1.png', 'car2.png'])).to.be(true)
 
+  describe '#validate', ->
+    it 'nameは指定しなければいけない', ->
+      self.set({ name: '' })
+      expect(self.isValid()).to.not.be.ok()
+      self.set({ name: null })
+      expect(self.isValid()).to.not.be.ok()
+      self.set({ name: undefined })
+      expect(self.isValid()).to.not.be.ok()
+
+    describe 'nameはRubyの変数名として正しくなければいけない', ->
+      invalidNames = [
+        '1'
+        'CONSTANT'
+        '-abc'
+        '[1, 2, 3]'
+        '{ a: 1, b: 2}'
+        ':symbol'
+        'abc{'
+        'abc['
+        'abc:def'
+      ]
+      for name in invalidNames
+        do (name) ->
+          it "#{name}は不正であること", ->
+            self.set({ name: name })
+            expect(self.isValid()).to.not.be.ok()
+
+      invalidNames = [
+        'one'
+        'constant'
+        'o1e'
+        'あいうえお'
+      ]
+      for name in invalidNames
+        do (name) ->
+          it "#{name}は正しいこと", ->
+            self.set({ name: name })
+            expect(self.isValid()).to.be.ok()
+
   describe '#namePrefix', ->
     it 'car', ->
       expect(self.namePrefix()).to.equal('car')
@@ -90,7 +129,7 @@ describe 'Smalruby.Character', ->
 
     it '任意のオブジェクトと結びつきusingプロパティをtrueにできること', ->
       self.link(linkObject)
-      expect(self.get('using')).to.be.ok
+      expect(self.get('using')).to.be.ok()
 
     it '自分自身を返すこと', ->
       expect(self.link(linkObject)).to.be(self)
@@ -108,15 +147,15 @@ describe 'Smalruby.Character', ->
 
     it '任意のオブジェクトとの結びつきを解除してusingプロパティをfalseにできること', ->
       self.unlink(o) for o in linkedObjects
-      expect(self.get('using')).to.not.be.ok
+      expect(self.get('using')).to.not.be.ok()
 
     it 'すべてのオブジェクトとの結びつきを解除するまではusingプロパティがtrueのままであること', ->
       self.unlink(linkedObjects[0])
-      expect(self.get('using')).to.be.ok
+      expect(self.get('using')).to.be.ok()
       self.unlink(linkedObjects[1])
-      expect(self.get('using')).to.be.ok
+      expect(self.get('using')).to.be.ok()
       self.unlink(linkedObjects[2])
-      expect(self.get('using')).to.not.be.ok
+      expect(self.get('using')).to.not.be.ok()
 
     it '解除済みのオブジェクトを指定しても例外が発生しないこと', ->
       self.unlink(linkedObjects[0])

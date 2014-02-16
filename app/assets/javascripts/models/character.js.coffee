@@ -14,6 +14,27 @@ Smalruby.Character = Backbone.Model.extend({
     if @get('costumes').length == 0
       @set({ costumes: [Smalruby.Character.PRESET_COSTUMES[0]] })
 
+  validate: (attrs, options) ->
+    errors = []
+
+    name = attrs.name
+    if _.isUndefined(name) || _.isNull(name) ||
+       (_.isString(name) && name.length == 0)
+      errors.push
+        attr: 'name'
+        message: 'Name is required'
+
+    if _.isString(name) &&
+       name.match(/^[0-9A-Z]|[!\"\#$%&\'()\-=^~\\|@`\[{;+:*\]},<.>/?]/)
+      errors.push
+        attr: 'name'
+        message: 'Name is invalid'
+
+    if errors.length > 0
+      return errors
+
+    return
+
   link: (object) ->
     @objects.push(object)
     @objects = _.uniq(@objects)

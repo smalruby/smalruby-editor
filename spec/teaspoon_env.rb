@@ -22,7 +22,7 @@ Teaspoon.setup do |config|
   #config.server              = nil # defaults to Rack::Server
 
   # Behaviors
-  #config.server_timeout      = 20 # timeout for starting the server
+  config.server_timeout      = 120 # timeout for starting the server
   # defaults to any open port unless specified
   #config.server_port         = nil
   #config.fail_fast           = true # abort after the first failing suite
