@@ -37,8 +37,11 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-  'loop do\n' + branch + 'end\n'
+  if Blockly.Ruby.r_() == 'main'
+    ''
+  else
+    branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
+    'loop do\n' + branch + 'end\n'
 
 <%
   [

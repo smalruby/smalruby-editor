@@ -58,6 +58,15 @@ step 'テキストエディタのプログラムは以下を含むこと:' do |p
   JS
 end
 
+step 'テキストエディタのプログラムは以下を含まないこと:' do |program|
+  expect(page.evaluate_script(<<-JS)).not_to include(program)
+    ace.edit('#{NAME_INFO[text_editor][:id]}')
+      .getSession()
+      .getDocument()
+      .getValue()
+  JS
+end
+
 step 'テキストエディタのプログラムは :program であること' do |program|
   expect(page.evaluate_script(<<-JS)).to eq(program)
     ace.edit('#{NAME_INFO[text_editor][:id]}')
