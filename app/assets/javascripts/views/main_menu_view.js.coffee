@@ -164,10 +164,11 @@ Smalruby.MainMenuView = Backbone.View.extend
       $('#filename').focus()
       return
 
-    if filename.match(/\.xml$/)
-      sourceCode = @getSourceCode()
+    if window.blockMode
+      filename += '.xml' unless filename.match(/\.xml$/)
+      sourceCode = new Smalruby.SourceCode({ filename: filename })
     else
-      sourceCode = new Smalruby.SourceCode({ filename: filename + '.xml' })
+      sourceCode = @getSourceCode()
 
     @blockUI
       title:
