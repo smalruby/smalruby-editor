@@ -26,11 +26,13 @@ Smalruby.MainMenuView = Backbone.View.extend
         if info.error
           window.errorMessage(info.filename + 'は' + info.error)
         else
-          $('#filename').val(info.filename)
-          if info.filename.match(/.xml$/)
+          filename = info.filename
+          if filename.match(/\.xml$/)
+            filename = filename.replace(/(\.rb)?\.xml$/, '.rb')
             Smalruby.blocklyLoading = true
             Smalruby.loadXml(info.data)
             info.data = Blockly.Ruby.workspaceToCode()
+          $('#filename').val(filename)
           window.textEditor.getSession().getDocument().setValue(info.data)
           window.textEditor.moveCursorTo(0, 0)
           unless window.blockMode
