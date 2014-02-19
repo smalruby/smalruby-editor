@@ -28,15 +28,24 @@ Smalruby.MainMenuView = Backbone.View.extend
         else
           filename = info.filename
           if filename.match(/\.xml$/)
+            unless window.blockMode
+              $('#tabs a[href="#block-tab"]').tab('show')
+
             filename = filename.replace(/(\.rb)?\.xml$/, '.rb')
             Smalruby.blocklyLoading = true
             Smalruby.loadXml(info.data)
             info.data = Blockly.Ruby.workspaceToCode()
+          else
+            Smalruby.Collections.CharacterSet.reset()
+            Blockly.mainWorkspace.clear()
+
+            if window.blockMode
+              $('#tabs a[href="#ruby-tab"]').tab('show')
+              window.textEditor.focus()
+
           $('#filename').val(filename)
           window.textEditor.getSession().getDocument().setValue(info.data)
           window.textEditor.moveCursorTo(0, 0)
-          unless window.blockMode
-            window.textEditor.focus()
           # TODO: window.changed -> Smalruby.Models.SourceCode.changed
           window.changed = false
           window.successMessage('ロードしました')
