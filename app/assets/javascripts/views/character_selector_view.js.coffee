@@ -67,6 +67,11 @@ Smalruby.CharacterSelectorView = Backbone.View.extend({
     @moveByNewBlock_(newBlock)
     newBlock.select()
 
+    onStartBlock = new Blockly.Block(Blockly.mainWorkspace, 'events_on_start')
+    onStartBlock.initSvg()
+    onStartBlock.render()
+    newBlock.getInput('DO').connection.connect(onStartBlock.previousConnection)
+
   moveByNewBlock_: (newBlock) ->
     metrics = Blockly.mainWorkspace.getMetrics()
     newXY =
