@@ -1,27 +1,9 @@
 %xml{:id => 'toolbox', :style => 'display: none'}
   - category = 'motion'
-  %category{:name => '動き'}
+  %category{:name => '移動'}
     -# (　)歩動かす
     %block{:type => "#{category}_move"}
       = toolbox_number_value('STEP', 10)
-
-    -# 時計回りに(　)度回す
-    %block{:type => "#{category}_rotate_right"}
-      = toolbox_number_value('ANGLE', 15)
-
-    -# 半時計回りに(　)度回す
-    %block{:type => "#{category}_rotate_left"}
-      = toolbox_number_value('ANGLE', 15)
-
-    -# (　)度に向ける
-    %block{:type => "#{category}_set_angle"}
-      = toolbox_number_value('ANGLE', 90)
-
-    -# マウスポインターへ向ける
-    %block{:type => "#{category}_point_towards_mouse"}
-
-    -# [▼]へ向ける
-    %block{:type => "#{category}_point_towards_character"}
 
     -# x座標を(　)、y座標を(　)にする
     %block{:type => "#{category}_set_x_y"}
@@ -56,6 +38,13 @@
     %block{:type => "#{category}_set_y"}
       = toolbox_number_value('Y', 0)
 
+    -# 変数:x座標
+    %block{:type => "#{category}_self_x"}
+
+    -# 変数:y座標
+    %block{:type => "#{category}_self_y"}
+
+  %category{:name => '回転'}
     -# もし端に着いたら、跳ね返る
     %block{:type => "#{category}_turn_if_reach_wall"}
 
@@ -65,14 +54,26 @@
     -# 跳ね返る
     %block{:type => "#{category}_turn"}
 
+    -# 時計回りに(　)度回す
+    %block{:type => "#{category}_rotate_right"}
+      = toolbox_number_value('ANGLE', 15)
+
+    -# 半時計回りに(　)度回す
+    %block{:type => "#{category}_rotate_left"}
+      = toolbox_number_value('ANGLE', 15)
+
+    -# (　)度に向ける
+    %block{:type => "#{category}_set_angle"}
+      = toolbox_number_value('ANGLE', 90)
+
+    -# マウスポインターへ向ける
+    %block{:type => "#{category}_point_towards_mouse"}
+
+    -# [▼]へ向ける
+    %block{:type => "#{category}_point_towards_character"}
+
     -# 回転方法を[▼]にする
     -#%block{:type => "#{category}_set_rotation_style"}
-
-    -# 変数:x座標
-    %block{:type => "#{category}_self_x"}
-
-    -# 変数:y座標
-    %block{:type => "#{category}_self_y"}
 
     -# 変数:向き
     %block{:type => "#{category}_self_angle"}
