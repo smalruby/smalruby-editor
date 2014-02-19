@@ -35,18 +35,30 @@
     200
     93
     93
+    93
     340
     208
+    208
+    208
+    208
+    208
   ).map(&:to_i)
+
+  ruby_genre_index = hues.index(340) + 1
 
   colors = hues.map { |h|
     [hsv_to_rgb(h, 100, 80), hsv_to_rgb(h, 100, 100)]
   }
 
+  ids = (0..9).to_a + ('a'..'z').to_a
   colors.each.with_index(1) do |(color, active_color), index|
 %>
 
-#\:<%= '%x' % index %> {
+#\:<%= ids[index] %> {
+    <% if index == ruby_genre_index %>
+    display: none;
+
+    <% end %>
     .blocklyTreeRow {
         padding-top: 0.25em;
         padding-bottom: 0.25em;

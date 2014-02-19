@@ -247,15 +247,6 @@
       = toolbox_number_value('A', 1)
       = toolbox_number_value('B', 10)
 
-    -# 変数:(　)の(　)番目
-    %block{:type => "#{category}_index_of"}
-      = toolbox_text_value('A', 'あいうえお')
-      = toolbox_number_value('INDEX', 1)
-
-    -# 変数:(　)の長さ
-    %block{:type => "#{category}_length"}
-      = toolbox_text_value('A', 'あいうえお')
-
     -# 変数:(　)を(　)で割った余り
     %block{:type => "#{category}_modulo"}
       = toolbox_number_value('A', 5)
@@ -271,15 +262,25 @@
       %field{:name => 'METHOD'}<
         Math.sqrt(%num%)
 
-    -# テキスト
-    %block{:type => 'text'}
-      %field{:name => 'TEXT'}<
-        文章
-
     -# 数値
     %block{:type => 'math_number'}
       %field{:name => 'NUM'}<
         0
+
+  %category{:name => '文字'}
+    -# 変数:(　)の(　)番目
+    %block{:type => "#{category}_index_of"}
+      = toolbox_text_value('A', 'あいうえお')
+      = toolbox_number_value('INDEX', 1)
+
+    -# 変数:(　)の長さ
+    %block{:type => "#{category}_length"}
+      = toolbox_text_value('A', 'あいうえお')
+
+    -# テキスト
+    %block{:type => 'text'}
+      %field{:name => 'TEXT'}<
+        文章
 
   %category{:name => '条件'}
     -# 条件:(　) < (　)
@@ -329,7 +330,7 @@
     %block{:type => "#{category}_p"}
 
   - category = 'hardware'
-  %category{:name => 'ハードウェア'}
+  %category{:name => 'アクチュエータ'}
     %category{:name => '準備'}
       -# ハードウェアを準備する
       %block{:type => "#{category}_init_hardware"}
@@ -363,10 +364,10 @@
     -#  -# LCDをクリアする
     -#  %block{:type => "#{category}_lcd_clear"}
 
-    %category{:name => 'サーボ'}
-      -# サーボ[▼ピン]を(　)度(5～180)にする
-      %block{:type => "#{category}_servo_set_position"}
-        = toolbox_number_value('POS', 90)
+    -#%category{:name => 'サーボ'}
+    -#  -# サーボ[▼ピン]を(　)度(5～180)にする
+    -#  %block{:type => "#{category}_servo_set_position"}
+    -#    = toolbox_number_value('POS', 90)
 
     -#%category{:name => 'ボタン'}
     -#  -# 条件:ボタン[▼]を押している
@@ -381,9 +382,9 @@
     -#  -# ボタン[▼]を離したとき
     -#  %block{:type => "#{category}_on_button_up"}
 
-    %category{:name => 'センサー'}
-      -# センサー[▼PIN]
-      %block{:type => "#{category}_sensor_value"}
+  %category{:name => 'センサー'}
+    -# センサー[▼PIN]
+    %block{:type => "#{category}_sensor_value"}
 
-      -# センサー[▼PIN]が変化したとき
-      %block{:type => "#{category}_on_sensor_change"}
+    -# センサー[▼PIN]が変化したとき
+    %block{:type => "#{category}_on_sensor_change"}
