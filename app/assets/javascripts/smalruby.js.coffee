@@ -62,6 +62,33 @@ window.Smalruby =
         Smalruby.downloading = false
         return
 
+    Blockly.HSV_SATURATION = 1.0
+    Blockly.HSV_VALUE = 0.8
+
+    Blockly.inject document.getElementById('blockly-div'),
+      path: '/blockly/'
+      toolbox: document.getElementById('toolbox')
+      trashcan: true
+
+    Blockly.Toolbox.tree_.expandAll()
+
+    @blocklyFirst = true
+    @blocklyLoading = false
+    Blockly.addChangeListener =>
+      # HACK: Blocklyを初期化後に一回だけChangeListenerが呼び出させれ
+      # る。ここではそれを無視している。
+      if @blocklyFirst
+        @blocklyFirst = false
+        return
+
+      # HACK: XMLの読み込み後に一回だけChangeListenerが呼び出させれ
+      # る。ここではそれを無視している。
+      if @blocklyLoading
+        @blocklyLoading = false
+        return
+
+      window.changed = true
+
   loadXml: (data, workspace = Blockly.mainWorkspace) ->
     xml = Blockly.Xml.textToDom(data)
     workspace.clear()

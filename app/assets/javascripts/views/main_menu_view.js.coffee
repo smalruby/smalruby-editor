@@ -28,6 +28,7 @@ Smalruby.MainMenuView = Backbone.View.extend
         else
           $('#filename').val(info.filename)
           if info.filename.match(/.xml$/)
+            Smalruby.blocklyLoading = true
             Smalruby.loadXml(info.data)
             info.data = Blockly.Ruby.workspaceToCode()
           window.textEditor.getSession().getDocument().setValue(info.data)

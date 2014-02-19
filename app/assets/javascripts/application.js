@@ -32,7 +32,6 @@
 //= require_tree ./collections
 //= require_tree ./views
 //= require_tree ./routers
-//= require ./block_mode
 //= require_tree ./generators
 //= require ./blocks/field_character
 //= require_tree ./blocks
