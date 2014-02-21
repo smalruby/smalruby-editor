@@ -43,9 +43,29 @@ window.Smalruby =
     @Views.CharacterModalView = new Smalruby.CharacterModalView
       el: $('#character-modal')
 
-    $('a[data-toggle="tab"]').on 'shown', (e) ->
+    $('a[data-toggle="tab"]').on 'shown', (e) =>
       if $(e.target).attr('href') == '#block-tab'
-        window.blockMode = true
+        sourceCode = new Smalruby.SourceCode()
+        @blockUI
+          title:
+            """
+            <i class="icon-play"></i>
+            プログラムの変換中
+            """
+          message: 'プログラムをブロックに変換しています。'
+          notice:
+            """
+            変換できない場合は...
+            """
+
+        sourceCode.toBlocks().then((data) =>
+          window.blockMode = true
+          Smalruby.loadXml(data)
+        , =>
+          $('#tabs a[href="#ruby-tab"]').tab('show')
+          $.Deferred().resolve().promise()
+        )
+        .done(=> @unblockUI())
       else
         window.blockMode = false
         data = Blockly.Ruby.workspaceToCode()
@@ -89,6 +109,18 @@ window.Smalruby =
 
       window.changed = true
 
+    window.textEditor = textEditor = ace.edit('text-editor')
+    textEditor.setTheme('ace/theme/clouds')
+    textEditor.setShowInvisibles(true)
+    textEditor.gotoLine(0, 0)
+    textEditor.on 'change', (e) ->
+      window.changed = true
+
+    session = textEditor.getSession()
+    session.setMode('ace/mode/ruby')
+    session.setTabSize(2)
+    session.setUseSoftTabs(true)
+
   loadXml: (data, workspace = Blockly.mainWorkspace) ->
     xml = Blockly.Xml.textToDom(data)
     workspace.clear()
@@ -119,6 +151,30 @@ window.Smalruby =
       e.setAttribute('angle', c.get('angle'))
       xmlDom.insertBefore(e, blocklyDom)
     Blockly.Xml.domToPrettyText(xmlDom)
+
+  blockUI: (options) ->
+    $.blockUI
+      message:
+        """
+        <h3>
+          #{options.title}
+        </h3>
+        <blockquote>
+          <p>
+            #{options.message}
+          </p>
+          <small>
+            #{options.notice}
+          </small>
+        </blockquote>
+        """
+      css:
+        border: 'none'
+        'text-align': 'left'
+        'padding-left': '2em'
+
+  unblockUI: ->
+    $.unblockUI()
 
 $(document).ready ->
   Smalruby.initialize()

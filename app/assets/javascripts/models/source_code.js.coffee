@@ -39,7 +39,10 @@ Smalruby.SourceCode = Backbone.Model.extend
     action += '?force=1' if force
     @delete_(action)
 
-  post_: (action) ->
+  toBlocks: ->
+    @post_('to_blocks', 'html')
+
+  post_: (action, dataType = 'json') ->
     dfr = $.Deferred()
     $.ajax
       url: "/source_codes/#{action}"
@@ -48,7 +51,7 @@ Smalruby.SourceCode = Backbone.Model.extend
         source_code:
           filename: @get('filename')
           data: @get('data')
-      dataType: 'json'
+      dataType: dataType
       success: (data, textStatus, jqXHR) -> dfr.resolve(data)
       error: dfr.reject
     dfr.promise()

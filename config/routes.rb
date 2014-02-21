@@ -11,6 +11,7 @@ SmalrubyEditor::Application.routes.draw do
   post 'source_codes/load'
   delete 'source_codes/write'
   post 'source_codes/run'
+  post 'source_codes/to_blocks'
 
   # The priority is based upon order of creation: first created ->
   # highest priority.

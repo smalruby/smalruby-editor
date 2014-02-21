@@ -35,4 +35,3 @@
 //= require_tree ./generators
 //= require ./blocks/field_character
 //= require_tree ./blocks
-//= require ./ruby_mode

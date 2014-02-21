@@ -25,7 +25,7 @@ step 'テキストエディタにプログラムを入力済みである:' do |p
     ace.edit('#{NAME_INFO[text_editor][:id]}')
       .getSession()
       .getDocument()
-      .setValue('#{program.gsub(/'/, "\\\\'")}')
+      .setValue('#{program.gsub(/'/, "\\\\'").gsub(/\r?\n/, '\n')}')
   JS
 end
 

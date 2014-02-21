@@ -49,3 +49,7 @@ step '次のキャラクターを追加する:' do |table|
     JS
   end
 end
+
+step '次のXMLと同等のブロックが配置されていること:' do |xml|
+  expect(page.evaluate_script('Smalruby.dumpXml()')).to eq(xml)
+end
