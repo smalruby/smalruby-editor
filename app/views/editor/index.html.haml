@@ -2,11 +2,11 @@
   .navbar-inner
     %ul.nav{:id => 'tabs'}
       %li.active
-        %a{:href => '#block-tab', :'data-toggle' => 'tab'}<
+        %a#block-mode-button{:href => "#block-tab"}<
           %i.icon-folder-close
           ブロック
       %li
-        %a{:href => '#ruby-tab', :'data-toggle' => 'tab'}<
+        %a#ruby-mode-button{:href => "#ruby-tab"}<
           %i.icon-pencil
           Ruby
 

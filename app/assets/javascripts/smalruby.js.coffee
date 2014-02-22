@@ -11,6 +11,7 @@ window.successMessage = (title, msg = '', selector = '#messages') ->
   html.fadeIn('slow')
     .delay(3000)
     .fadeOut('slow')
+  return
 
 window.errorMessage = (msg, selector = '#messages') ->
   html = $('<div class="alert alert-error" style="display: none">')
@@ -19,6 +20,7 @@ window.errorMessage = (msg, selector = '#messages') ->
     .append(msg)
   $(selector).append(html)
   html.fadeIn('slow')
+  return
 
 window.Smalruby =
   Models: {}
@@ -42,37 +44,6 @@ window.Smalruby =
       model: @Collections.CharacterSet
     @Views.CharacterModalView = new Smalruby.CharacterModalView
       el: $('#character-modal')
-
-    $('a[data-toggle="tab"]').on 'shown', (e) =>
-      if $(e.target).attr('href') == '#block-tab'
-        sourceCode = new Smalruby.SourceCode()
-        @blockUI
-          title:
-            """
-            <i class="icon-play"></i>
-            プログラムの変換中
-            """
-          message: 'プログラムをブロックに変換しています。'
-          notice:
-            """
-            変換できない場合は...
-            """
-
-        sourceCode.toBlocks().then((data) =>
-          window.blockMode = true
-          Smalruby.loadXml(data)
-        , =>
-          $('#tabs a[href="#ruby-tab"]').tab('show')
-          $.Deferred().resolve().promise()
-        )
-        .done(=> @unblockUI())
-      else
-        window.blockMode = false
-        data = Blockly.Ruby.workspaceToCode()
-        if $.trim(data).length > 0
-          window.textEditor.getSession().getDocument().setValue(data)
-          window.textEditor.moveCursorTo(0, 0)
-        window.textEditor.focus()
 
     Smalruby.downloading = false
     window.onbeforeunload = (event) ->
@@ -151,30 +122,6 @@ window.Smalruby =
       e.setAttribute('angle', c.get('angle'))
       xmlDom.insertBefore(e, blocklyDom)
     Blockly.Xml.domToPrettyText(xmlDom)
-
-  blockUI: (options) ->
-    $.blockUI
-      message:
-        """
-        <h3>
-          #{options.title}
-        </h3>
-        <blockquote>
-          <p>
-            #{options.message}
-          </p>
-          <small>
-            #{options.notice}
-          </small>
-        </blockquote>
-        """
-      css:
-        border: 'none'
-        'text-align': 'left'
-        'padding-left': '2em'
-
-  unblockUI: ->
-    $.unblockUI()
 
 $(document).ready ->
   Smalruby.initialize()

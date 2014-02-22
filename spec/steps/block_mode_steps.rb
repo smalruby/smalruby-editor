@@ -53,3 +53,7 @@ end
 step '次のXMLと同等のブロックが配置されていること:' do |xml|
   expect(page.evaluate_script('Smalruby.dumpXml()')).to eq(xml)
 end
+
+step 'ブロックが配置されていないこと' do
+  send '次のXMLと同等のブロックが配置されていること:', '<xml></xml>'
+end

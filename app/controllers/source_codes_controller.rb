@@ -60,6 +60,8 @@ class SourceCodesController < ApplicationController
   def to_blocks
     source_code = SourceCode.new(source_code_params)
     render text: source_code.to_blocks
+  rescue
+    head :bad_request
   end
 
   private

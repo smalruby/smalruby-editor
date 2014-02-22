@@ -27,7 +27,7 @@ end
 
 step ':name にタブを切り替える' do |name|
   page.execute_script(<<-JS)
-    $('#tabs a[href=\"#{NAME_INFO[name][:selector]}\"]').tab('show')
+    $('#tabs a[href=\"#{NAME_INFO[name][:selector]}\"]').click()
   JS
 end
 

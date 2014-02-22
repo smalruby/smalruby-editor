@@ -22,3 +22,11 @@ EndOfLine:
 # diffが少なくなるためハッシュや配列の最後のカンマは許可する
 TrailingComma:
   Enabled: false
+
+# デフォルトの10は短すぎる。80x25を基準として1画面に収まる長さとした。
+MethodLength:
+  Max: 25
+
+# デフォルトの100は短すぎる。なんとなく250行とした。
+ClassLength:
+  Max: 250

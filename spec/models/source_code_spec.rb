@@ -54,53 +54,24 @@ describe SourceCode, 'Rubyのソースコードを表現するモデル' do
   end
 
   describe '#to_blocks', 'XML形式のブロックに変換する' do
-    let(:data) {
-      <<-EOS.strip_heredoc
-        require "smalruby"
-
-        car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
-
-        car1.on(:start) do
-          loop do
-            move(10)
-            turn_if_reach_wall
-          end
-        end
-      EOS
-    }
     let(:source_code) { SourceCode.new(data: data) }
 
     subject { source_code.to_blocks }
 
-    it 'XML形式のブロックを返すこと' do
-      should eq(<<-XML.strip_heredoc)
-        <xml xmlns="http://www.w3.org/1999/xhtml">
-          <character name="car1" x="0" y="0" angle="0" costumes="car1.png" />
-          <block type="character_new" x="4" y="4">
-            <field name="NAME">car1</field>
-            <statement name="DO">
-              <block type="events_on_start">
-                <statement name="DO">
-                  <block type="control_loop">
-                    <statement name="DO">
-                      <block type="motion_move" inline="true">
-                        <value name="STEP">
-                          <block type="math_number">
-                            <field name="NUM">10</field>
-                          </block>
-                        </value>
-                        <next>
-                          <block type="motion_turn_if_reach_wall" />
-                        </next>
-                      </block>
-                    </statement>
-                  </block>
-                </statement>
-              </block>
-            </statement>
-          </block>
-        </xml>
-      XML
+    describe '動作確認用のモックアップ' do
+      context '成功する場合' do
+        let(:data) { SourceCode::SUCCESS_DATA_MOCK }
+
+        it 'XML形式のブロックを返すこと' do
+          should eq(SourceCode::SUCCESS_XML_MOCK)
+        end
+      end
+
+      context '失敗する場合' do
+        let(:data) { '__FAIL__' }
+
+        it { expect { subject }.to raise_error }
+      end
     end
   end
 end

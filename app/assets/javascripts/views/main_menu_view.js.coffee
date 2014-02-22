@@ -3,6 +3,8 @@ Smalruby.MainMenuView = Backbone.View.extend
   el: '#main-menu'
 
   events:
+    'click #block-mode-button': 'onBlockMode'
+    'click #ruby-mode-button': 'onRubyMode'
     'click #run-button': 'onRun'
     'click #download-button': 'onDownload'
     'click #load-button': 'onLoad'
@@ -50,6 +52,43 @@ Smalruby.MainMenuView = Backbone.View.extend
           window.changed = false
           window.successMessage('ロードしました')
 
+  onBlockMode: (e) ->
+    e.preventDefault()
+
+    return if window.blockMode
+
+    @blockUI
+      title:
+        """
+        <i class="icon-filter"></i>
+        プログラムの変換中
+        """
+      message: 'プログラムをブロックに変換しています。'
+
+    sourceCode = new Smalruby.SourceCode()
+    sourceCode.toBlocks()
+      .then (data) ->
+        window.blockMode = true
+        $('#tabs a[href="#block-tab"]').tab('show')
+        Smalruby.loadXml(data)
+      .then(@unblockUI, @unblockUI)
+      .fail ->
+        window.errorMessage('ブロックへの変換に失敗しました')
+
+  onRubyMode: (e) ->
+    e.preventDefault()
+
+    return unless window.blockMode
+
+    window.blockMode = false
+    $('#tabs a[href="#ruby-tab"]').tab('show')
+
+    data = Blockly.Ruby.workspaceToCode()
+    if $.trim(data).length > 0
+      window.textEditor.getSession().getDocument().setValue(data)
+      window.textEditor.moveCursorTo(0, 0)
+    window.textEditor.focus()
+
   onRun: (e) ->
     e.preventDefault()
 
@@ -68,55 +107,40 @@ Smalruby.MainMenuView = Backbone.View.extend
         Escキーを押すとプログラムが終わります。
         """
 
-    failedFunc = ->
-      $.unblockUI()
-      errorMessage('プログラムを実行できませんでした')
-
+    errorMsg = 'プログラムを実行できませんでした'
     sourceCode.save2()
-      .done (data) ->
+      .then (data) ->
         sourceCode.write()
-          .done (data) ->
-            afterSave = ->
-              Smalruby.savedFilename = sourceCode.get('filename')
-              window.changed = false
-              sourceCode.check()
-                .done (data) ->
-                  if data.length > 0
-                    failedFunc()
-                    for errorInfo in data
-                      do (errorInfo) ->
-                        msg = "#{errorInfo.row}行"
-                        if errorInfo.column > 0
-                          msg += "、#{errorInfo.column}文字"
-                        window.errorMessage(msg + ": #{errorInfo.message}")
-                  else
-                    sourceCode.run()
-                      .done (data) ->
-                        $.unblockUI()
-                        if data.length > 0
-                          for errorInfo in data
-                            do (errorInfo) ->
-                              msg = "#{errorInfo.row}行"
-                              if errorInfo.column > 0
-                                msg += "、#{errorInfo.column}文字"
-                              errorMessage(msg + ": #{errorInfo.message}")
-
-                      .fail -> failedFunc()
-
-                .fail -> failedFunc()
-
-            if data.source_code.error
-              if sourceCode.get('filename') == Smalruby.savedFilename ||
-                 confirm("前に#{sourceCode.get('filename')}という名前でセーブしているけど本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！")
-                sourceCode.write(true)
-                  .done (data) ->
-                    afterSave()
-              else
-                failedFunc()
-            else
-              afterSave()
-          .fail -> failedFunc()
-      .fail -> failedFunc()
+      .then (data) =>
+        @confirmOverwrite_.call @, data, sourceCode, ->
+          errorMsg = 'プログラムの実行をキャンセルしました'
+      .then ->
+        Smalruby.savedFilename = sourceCode.get('filename')
+        window.changed = false
+        sourceCode.check()
+      .then (data) ->
+        if data.length > 0
+          for errorInfo in data
+            do (errorInfo) ->
+              msg = "#{errorInfo.row}行"
+              if errorInfo.column > 0
+                msg += "、#{errorInfo.column}文字"
+              window.errorMessage(msg + ": #{errorInfo.message}")
+          $.Deferred().reject().promise()
+      .then ->
+        sourceCode.run()
+      .then (data) ->
+        if data.length > 0
+          for errorInfo in data
+            do (errorInfo) ->
+              msg = "#{errorInfo.row}行"
+              if errorInfo.column > 0
+                msg += "、#{errorInfo.column}文字"
+              errorMessage(msg + ": #{errorInfo.message}")
+          $.Deferred().reject().promise()
+      .then(@unblockUI, @unblockUI)
+      .fail ->
+        errorMessage(errorMsg)
 
   onDownload: (e) ->
     e.preventDefault()
@@ -137,14 +161,13 @@ Smalruby.MainMenuView = Backbone.View.extend
         """
 
     sourceCode.save2()
-      .done (data) ->
-        $.unblockUI()
+      .then (data) ->
         window.changed = false
         window.successMessage('ダウンロードしました')
         Smalruby.downloading = true
         $('#download-link').click()
+      .then(@unblockUI, @unblockUI)
       .fail ->
-        $.unblockUI()
         window.errorMessage('ダウンロードできませんでした')
 
   onLoad: (e) ->
@@ -182,33 +205,20 @@ Smalruby.MainMenuView = Backbone.View.extend
         プログラムはホームディレクトリにセーブします。<br>
         """
 
-    failedFunc = ->
-      $.unblockUI()
-      window.errorMessage('セーブできませんでした')
-
+    errorMsg = 'セーブできませんでした'
     sourceCode.save2()
-      .done (data) ->
+      .then (data) ->
         sourceCode.write()
-          .done (data) ->
-            afterSave = ->
-              $.unblockUI()
-              Smalruby.savedFilename = sourceCode.get('filename')
-              window.changed = false
-              window.successMessage('セーブしました')
-
-            if data.source_code.error
-              if sourceCode.get('filename') == Smalruby.savedFilename ||
-                 confirm("前に#{sourceCode.get('filename')}という名前でセーブしているけど本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！")
-                sourceCode.write(true)
-                  .done (data) ->
-                    afterSave()
-              else
-                $.unblockUI()
-                window.successMessage('セーブをキャンセルしました')
-            else
-              afterSave()
-          .fail -> failedFunc()
-      .fail -> failedFunc()
+      .then (data) =>
+        @confirmOverwrite_.call @, data, sourceCode, ->
+          errorMsg = 'セーブをキャンセルしました'
+      .then(@unblockUI, @unblockUI)
+      .done ->
+        Smalruby.savedFilename = sourceCode.get('filename')
+        window.changed = false
+        window.successMessage('セーブしました')
+      .fail ->
+        window.errorMessage(errorMsg)
 
   onCheck: (e) ->
     e.preventDefault()
@@ -230,8 +240,7 @@ Smalruby.MainMenuView = Backbone.View.extend
         """
 
     sourceCode.check()
-      .done (data) ->
-        $.unblockUI()
+      .then (data) ->
         if data.length == 0
           window.successMessage('チェックしました', 'ただし、プログラムを動かすとエラーが見つかるかもしれません。')
         else
@@ -241,8 +250,8 @@ Smalruby.MainMenuView = Backbone.View.extend
               if errorInfo.column > 0
                 msg += "、#{errorInfo.column}文字"
               window.errorMessage(msg + ": #{errorInfo.message}")
+      .then(@unblockUI, @unblockUI)
       .fail ->
-        $.unblockUI()
         errorMessage('チェックできませんでした')
 
   onReset: (e) ->
@@ -259,22 +268,54 @@ Smalruby.MainMenuView = Backbone.View.extend
     sourceCode
 
   blockUI: (options) ->
-    $.blockUI
-      message:
+    message = ''
+    if options.title
+      message +=
         """
         <h3>
           #{options.title}
         </h3>
-        <blockquote>
+        """
+
+    if options.message || options.notice
+      part = ''
+      if options.message
+        part +=
+          """
           <p>
             #{options.message}
           </p>
+          """
+      if options.notice
+        part +=
+          """
           <small>
             #{options.notice}
           </small>
+          """
+
+      message +=
+        """
+        <blockquote>
+          #{part}
         </blockquote>
         """
+
+    $.blockUI
+      message: message
       css:
         border: 'none'
         'text-align': 'left'
         'padding-left': '2em'
+
+  unblockUI: ->
+    $.unblockUI()
+
+  confirmOverwrite_: (data, sourceCode, canceled = $.noop) ->
+    if data.source_code.error
+      if sourceCode.get('filename') == Smalruby.savedFilename ||
+         confirm("前に#{sourceCode.get('filename')}という名前でセーブしているけど本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！")
+        sourceCode.write(true)
+      else
+        canceled.call()
+        $.Deferred().reject().promise()
