@@ -6,8 +6,6 @@ task :build do
 
   ENV['GEM_PLATFORM'] = 'x86-mingw32'
   Rake::Task['gem:build'].reenable
-  Rake::Task['assets:clobber'].reenable
-  Rake::Task['assets:precompile:standalone'].reenable
   Rake::Task['gem:build'].invoke
 end
 
@@ -18,8 +16,6 @@ task :release do
   ENV['GEM_PLATFORM'] = 'x86-mingw32'
   Rake::Task['gem:release'].reenable
   Rake::Task['gem:build'].reenable
-  Rake::Task['assets:clobber'].reenable
-  Rake::Task['assets:precompile:standalone'].reenable
   Rake::Task['gem:release'].invoke
 
   sh 'git mirror'
