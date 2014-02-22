@@ -31,7 +31,7 @@ step 'すべてのブロックをクリアする' do
 end
 
 step 'ブロックからソースコードを生成する' do
-  step '"ブロックタブ" にタブを切り替える'
+  page.execute_script('window.blockMode = true')
   step '"Rubyタブ" にタブを切り替える'
 end
 
