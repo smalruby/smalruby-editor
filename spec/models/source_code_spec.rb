@@ -58,6 +58,12 @@ describe SourceCode, 'Rubyのソースコードを表現するモデル' do
 
     subject { source_code.to_blocks }
 
+    describe '通常の場合' do
+      let(:data) { 'puts "Hello, World!"' }
+
+      it { should eq('') }
+    end
+
     describe '動作確認用のモックアップ' do
       context '成功する場合' do
         let(:data) { SourceCode::SUCCESS_DATA_MOCK }

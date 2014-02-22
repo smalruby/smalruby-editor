@@ -43,7 +43,7 @@ class SourceCode < ActiveRecord::Base
     fail if data == '__FAIL__'
     return SUCCESS_XML_MOCK if data == SUCCESS_DATA_MOCK
 
-    '<xml></xml>'
+    ''
   end
 
   private

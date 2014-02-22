@@ -70,7 +70,7 @@ Smalruby.MainMenuView = Backbone.View.extend
       .then (data) ->
         window.blockMode = true
         $('#tabs a[href="#block-tab"]').tab('show')
-        Smalruby.loadXml(data)
+        Smalruby.loadXml(data) if data.length > 0
       .then(@unblockUI, @unblockUI)
       .fail ->
         window.errorMessage('ブロックへの変換に失敗しました')
