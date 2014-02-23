@@ -8,6 +8,8 @@
 
 The smalruby-editor is a visual programming editor that can create a Ruby script by combining individual blocks similar to Scratch. It can also enter the program as better than Scratch.
 
+DEMO: http://smalruby.herokuapp.com/demo/
+
 The smalruby-editor is a part of the Smalruby Project.
 
 The Smalruby(smɔ́ːrúːbi) Project will provide a Ruby learning environment for middle school students from the upper grades of elementary school. The goal of this project is to achieve software and community sites such as the {Scratch}[http://scratch.mit.edu/] in Ruby. The Scratch has experience as educational programming environment can be used in elementary school. This project consists of the following elements.
