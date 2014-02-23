@@ -9,6 +9,7 @@
 The smalruby-editor is a visual programming editor that can create a Ruby script by combining individual blocks similar to Scratch. It can also enter the program as better than Scratch.
 
 DEMO: http://smalruby.herokuapp.com/demo/
+DEMO(Arduino): http://smalruby.herokuapp.com/demo/rgb_led_anode/
 
 The smalruby-editor is a part of the Smalruby Project.
 
