@@ -87,11 +87,10 @@ Smalruby.MainMenuView = Backbone.View.extend
     $('#tabs a[href="#ruby-tab"]').tab('show')
 
     data = Blockly.Ruby.workspaceToCode()
-    if $.trim(data).length > 0
-      Smalruby.translating = true
-      window.textEditor.getSession().getDocument().setValue(data)
-      Smalruby.translating = false
-      window.textEditor.moveCursorTo(0, 0)
+    Smalruby.translating = true
+    window.textEditor.getSession().getDocument().setValue(data)
+    Smalruby.translating = false
+    window.textEditor.moveCursorTo(0, 0)
     window.textEditor.focus()
 
   onRun: (e) ->
