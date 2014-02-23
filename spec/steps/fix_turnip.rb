@@ -33,3 +33,30 @@ class Turnip::Builder
     end
   end
 end
+
+# HACK: RSpecのフォーマットがdocumentationの場合にTurnipの実行経過を出
+#   力する。Cucumberのようにしたいがstepの定義場所は取得できないため、
+#   featureの行番号を表示している。
+module Turnip::RSpec::Execute
+  def run_step_with_progress(feature_file, step)
+    require 'rspec/core/formatters/documentation_formatter'
+    if formatter.is_a?(RSpec::Core::Formatters::DocumentationFormatter)
+      output.print "    #{step.description} # #{feature_file}:#{step.line}"
+      s = Time.now
+      run_step_without_progress(feature_file, step)
+      elapsed = Time.now - s
+      output.puts " (#{elapsed} sec)"
+    else
+      run_step_without_progress(feature_file, step)
+    end
+  end
+  alias_method_chain :run_step, :progress
+
+  def formatter
+    @formatter ||= RSpec.configuration.formatters.first
+  end
+
+  def output
+    @output ||= formatter.output
+  end
+end
