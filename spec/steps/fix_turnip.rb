@@ -41,7 +41,7 @@ module Turnip::RSpec::Execute
   def run_step_with_progress(feature_file, step)
     require 'rspec/core/formatters/documentation_formatter'
     if formatter.is_a?(RSpec::Core::Formatters::DocumentationFormatter)
-      output.print "    #{step.description} # #{feature_file}:#{step.line}"
+      output.print "    #{step.description} # #{feature_file.sub(/^#{Regexp.quote(Rails.root.to_s.sub(/^(\S)/) { |s| s.downcase } + '/')}/, '')}:#{step.line}"
       s = Time.now
       run_step_without_progress(feature_file, step)
       elapsed = Time.now - s
