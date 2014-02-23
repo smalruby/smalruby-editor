@@ -133,7 +133,19 @@ end
 
 step 'ページをリロードする' do
   begin
-    step '"エディタ" 画面を表示する'
+    if poltergeist?
+      # HACK: Poltergeistではwindow.onbeforeunload によって表示されたダ
+      #   イアログを消せないためタイムアウト時間を1秒にすることで回避し
+      #   ている。
+      page.driver.timeout = 5
+      begin
+        step '"エディタ" 画面を表示する'
+      ensure
+        page.driver.timeout = 120
+      end
+    else
+      step '"エディタ" 画面を表示する'
+    end
   rescue Capybara::Poltergeist::TimeoutError => e
     Rails.logger.debug("#{e.class.name}: #{e.message}")
   end
