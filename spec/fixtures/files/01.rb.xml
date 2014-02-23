@@ -1,0 +1,126 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <character name="car1" costumes="car2.png" angle="0" y="0" x="0" />
+  <character name="car2" costumes="car3.png" angle="0" y="415" x="0" />
+  <block type="ruby_comment" y="25" x="34">
+    <field name="COMMENT">逃げる車</field>
+    <next>
+      <block type="character_new">
+        <field name="NAME">car1</field>
+        <statement name="DO">
+          <block type="events_on_start">
+            <statement name="DO">
+              <block type="control_loop">
+                <statement name="DO">
+                  <block type="motion_move" inline="true">
+                    <value name="STEP">
+                      <block type="math_number">
+                        <field name="NUM">6</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="control_if" inline="true">
+                        <value name="COND">
+                          <block type="motion_reach_wall" />
+                        </value>
+                        <statement name="THEN">
+                          <block type="motion_turn" />
+                        </statement>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </statement>
+            <next>
+              <block type="events_on_key_push_or_down">
+                <field name="KEY">K_LEFT</field>
+                <field name="POD">down</field>
+                <statement name="DO">
+                  <block type="motion_rotate_left" inline="true">
+                    <value name="ANGLE">
+                      <block type="math_number">
+                        <field name="NUM">15</field>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+                <next>
+                  <block type="events_on_key_push_or_down">
+                    <field name="KEY">K_RIGHT</field>
+                    <field name="POD">down</field>
+                    <statement name="DO">
+                      <block type="motion_rotate_right" inline="true">
+                        <value name="ANGLE">
+                          <block type="math_number">
+                            <field name="NUM">15</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </next>
+  </block>
+  <block type="ruby_comment" y="23" x="480">
+    <field name="COMMENT">追いかける車</field>
+    <next>
+      <block type="character_new">
+        <field name="NAME">car2</field>
+        <statement name="DO">
+          <block type="events_on_start">
+            <statement name="DO">
+              <block type="control_loop">
+                <statement name="DO">
+                  <block type="motion_point_towards_character">
+                    <field name="CHAR">car1</field>
+                    <next>
+                      <block type="motion_move" inline="true">
+                        <value name="STEP">
+                          <block type="math_number">
+                            <field name="NUM">3</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="control_if_else" inline="true">
+                            <value name="COND">
+                              <block type="sensing_hit">
+                                <field name="CHAR">car1</field>
+                              </block>
+                            </value>
+                            <statement name="THEN">
+                              <block type="looks_say" inline="true">
+                                <value name="TEXT">
+                                  <block type="text">
+                                    <field name="TEXT">追いつきました！</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </statement>
+                            <statement name="ELSE">
+                              <block type="looks_say" inline="true">
+                                <value name="TEXT">
+                                  <block type="text">
+                                    <field name="TEXT" />
+                                  </block>
+                                </value>
+                              </block>
+                            </statement>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </statement>
+          </block>
+        </statement>
+      </block>
+    </next>
+  </block>
+</xml>
