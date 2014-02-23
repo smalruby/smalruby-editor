@@ -84,8 +84,8 @@ window.Smalruby =
     textEditor.setTheme('ace/theme/clouds')
     textEditor.setShowInvisibles(true)
     textEditor.gotoLine(0, 0)
-    textEditor.on 'change', (e) ->
-      window.changed = true
+    textEditor.on 'change', (e) =>
+      window.changed = true unless @translating
 
     session = textEditor.getSession()
     session.setMode('ace/mode/ruby')

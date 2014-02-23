@@ -70,7 +70,10 @@ Smalruby.MainMenuView = Backbone.View.extend
       .then (data) ->
         window.blockMode = true
         $('#tabs a[href="#block-tab"]').tab('show')
-        Smalruby.loadXml(data) if data.length > 0
+        if data.length > 0
+          Smalruby.translating = true
+          Smalruby.loadXml(data)
+          Smalruby.translating = false
       .then(@unblockUI, @unblockUI)
       .fail ->
         window.errorMessage('ブロックへの変換に失敗しました')
@@ -85,7 +88,9 @@ Smalruby.MainMenuView = Backbone.View.extend
 
     data = Blockly.Ruby.workspaceToCode()
     if $.trim(data).length > 0
+      Smalruby.translating = true
       window.textEditor.getSession().getDocument().setValue(data)
+      Smalruby.translating = false
       window.textEditor.moveCursorTo(0, 0)
     window.textEditor.focus()
 
