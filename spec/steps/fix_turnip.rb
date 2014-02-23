@@ -50,7 +50,8 @@ module Turnip::RSpec::Execute
       run_step_without_progress(feature_file, step)
     end
   end
-  alias_method_chain :run_step, :progress
+  alias_method :run_step_without_progress, :run_step
+  alias_method :run_step, :run_step_with_progress
 
   def formatter
     @formatter ||= RSpec.configuration.formatters.first
