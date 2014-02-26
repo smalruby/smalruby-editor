@@ -31,6 +31,7 @@ Smalruby.MainMenuView = Backbone.View.extend
           filename = info.filename
           if filename.match(/\.xml$/)
             unless window.blockMode
+              window.blockMode = true
               $('#tabs a[href="#block-tab"]').tab('show')
 
             filename = filename.replace(/(\.rb)?\.xml$/, '.rb')
@@ -42,6 +43,7 @@ Smalruby.MainMenuView = Backbone.View.extend
             Blockly.mainWorkspace.clear()
 
             if window.blockMode
+              window.blockMode = false
               $('#tabs a[href="#ruby-tab"]').tab('show')
               window.textEditor.focus()
 
@@ -50,12 +52,18 @@ Smalruby.MainMenuView = Backbone.View.extend
           window.textEditor.moveCursorTo(0, 0)
           # TODO: window.changed -> Smalruby.Models.SourceCode.changed
           window.changed = false
+          Smalruby.changedAfterTranslating = true
           window.successMessage('ロードしました')
 
   onBlockMode: (e) ->
     e.preventDefault()
 
     return if window.blockMode
+
+    unless Smalruby.changedAfterTranslating
+      window.blockMode = true
+      $('#tabs a[href="#block-tab"]').tab('show')
+      return
 
     @blockUI
       title:
@@ -71,9 +79,11 @@ Smalruby.MainMenuView = Backbone.View.extend
         window.blockMode = true
         $('#tabs a[href="#block-tab"]').tab('show')
         if data.length > 0
+          Smalruby.blocklyLoading = true
           Smalruby.translating = true
           Smalruby.loadXml(data)
           Smalruby.translating = false
+          Smalruby.changedAfterTranslating = false
       .then(@unblockUI, @unblockUI)
       .fail ->
         window.errorMessage('ブロックへの変換に失敗しました')
@@ -86,10 +96,13 @@ Smalruby.MainMenuView = Backbone.View.extend
     window.blockMode = false
     $('#tabs a[href="#ruby-tab"]').tab('show')
 
+    return unless Smalruby.changedAfterTranslating
+
     data = Blockly.Ruby.workspaceToCode()
     Smalruby.translating = true
     window.textEditor.getSession().getDocument().setValue(data)
     Smalruby.translating = false
+    Smalruby.changedAfterTranslating = false
     window.textEditor.moveCursorTo(0, 0)
     window.textEditor.focus()
 

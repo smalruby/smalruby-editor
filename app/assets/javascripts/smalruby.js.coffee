@@ -66,6 +66,8 @@ window.Smalruby =
     @blocklyFirst = true
     @blocklyLoading = false
     Blockly.addChangeListener =>
+      Smalruby.changedAfterTranslating = true
+
       # HACK: Blocklyを初期化後に一回だけChangeListenerが呼び出させれ
       # る。ここではそれを無視している。
       if @blocklyFirst
@@ -85,7 +87,9 @@ window.Smalruby =
     textEditor.setShowInvisibles(true)
     textEditor.gotoLine(0, 0)
     textEditor.on 'change', (e) =>
-      window.changed = true unless @translating
+      unless @translating
+        window.changed = true
+        Smalruby.changedAfterTranslating = true
 
     session = textEditor.getSession()
     session.setMode('ace/mode/ruby')
