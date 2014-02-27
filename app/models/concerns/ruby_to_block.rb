@@ -130,7 +130,16 @@ module RubyToBlock
       end
 
       if md[:end]
-        if (ss = statement_stack.last)
+        ends_num = lines.select { |l|
+          md2 = STATEMENT_REGEXP.match(l)
+          md2 && md2[:end]
+        }.length + 1
+        ends_num -= lines.select { |l|
+          md2 = STATEMENT_REGEXP.match(l)
+          md2 && (md2[:events_on_start])
+        }.length
+        if (ss = statement_stack.last) &&
+            ends_num <= statement_stack.length
           case ss.first
           when :events_on_start
             current_block = ss[1]
