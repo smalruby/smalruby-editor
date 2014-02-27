@@ -5,7 +5,7 @@ def compact_source_code(source_code)
   source_code.lines.map(&:strip).reject(&:empty?).join(';')[0...80]
 end
 
-# rubocop:disable EmptyLines
+# rubocop:disable EmptyLines, LineLength
 
 describe RubyToBlock do
   describe '#to_blocks' do
