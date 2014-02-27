@@ -94,7 +94,6 @@ module RubyToBlock
         name = md2[1] ? md2[1] : receiver_stack.last.name
         c = characters[name]
         character_stack.push(c)
-        receiver_stack.push(c)
 
         do_block = Block.new('null')
         events_on_start_block = Block.new('events_on_start', statements: { DO: do_block })
@@ -103,21 +102,27 @@ module RubyToBlock
           current_block.add_statement(:DO, events_on_start_block)
           character_new_block = current_block
         else
-          character_new_block =
-            Block.new('character_new',
-                      fields: { NAME: name }, statements: { DO: events_on_start_block })
-
-          if current_block
-            if current_block.type == 'character_new'
-              blocks.push(character_new_block)
-            else
-              current_block.sibling = character_new_block
-            end
+          if c == receiver_stack.last
+            current_block.sibling = events_on_start_block
+            character_new_block = current_block.parent
           else
-            blocks.push(character_new_block)
+            character_new_block =
+              Block.new('character_new',
+                        fields: { NAME: name }, statements: { DO: events_on_start_block })
+            if current_block
+              if current_block.type == 'character_new'
+                blocks.push(character_new_block)
+              else
+                current_block.sibling = character_new_block
+              end
+            else
+              blocks.push(character_new_block)
+            end
           end
         end
         statement_stack.push([:events_on_start, character_new_block])
+
+        receiver_stack.push(c)
 
         current_block = do_block
 
