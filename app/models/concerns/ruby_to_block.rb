@@ -68,6 +68,7 @@ module RubyToBlock
 
       unless md
         block = Block.new('ruby_statement', fields: { STATEMENT: line })
+
         if current_block # TODO: リファクタリング
           current_block.sibling = block
         else
@@ -125,6 +126,20 @@ module RubyToBlock
         receiver_stack.push(c)
 
         current_block = do_block
+
+        next
+      end
+
+      if (s = md[:ruby_comment])
+        md2 = /#{RUBY_COMMENT_RE}/.match(s)
+        block = Block.new('ruby_comment', fields: { COMMENT: md2[1] })
+
+        if current_block # TODO: リファクタリング
+          current_block.sibling = block
+        else
+          blocks.push(block)
+        end
+        current_block = block
 
         next
       end
@@ -207,6 +222,8 @@ module RubyToBlock
 
   EVENTS_ON_START_RE = '^\s*(?:(\S+)\.)?on\(:start\)\ do$'
 
+  RUBY_COMMENT_RE = '^\s*\#\ (.*)$'
+
   END_RE = '^\s*end$'
 
   STATEMENT_REGEXP = %r{
@@ -215,6 +232,8 @@ module RubyToBlock
     (?<character>#{CHARACTER_RE})
     |
     (?<events_on_start>#{EVENTS_ON_START_RE})
+    |
+    (?<ruby_comment>#{RUBY_COMMENT_RE})
     |
     (?<end>#{END_RE})
   }x
@@ -372,6 +391,8 @@ module RubyToBlock
     end
 
     class CharacterNew < Base; end
+
+    class RubyComment < Base; end
 
     class RubyStatement < Base
       def parent=(block)
