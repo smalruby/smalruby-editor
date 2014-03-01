@@ -10,6 +10,74 @@ module RubyToBlock
       attr_accessor :values
       attr_accessor :statements
 
+      def self.inherited(child)
+        Block.register(child)
+      end
+
+      def self.blocknize(regexp, options = {})
+        klass = (class << self; self; end)
+        klass.instance_eval do
+          define_method(:regexp_string) do
+            regexp
+          end
+
+          if options.key?(:statement)
+            statement = options[:statement]
+            define_method(:statement?) do
+              statement
+            end
+          end
+
+          if options.key?(:priority)
+            priority = options[:priority]
+            define_method(:priority) do
+              priority
+            end
+          end
+
+          if options.key?(:indent)
+            indent = options[:indent]
+            define_method(:indent?) do
+              indent
+            end
+          end
+        end
+      end
+
+      def self.type
+        name.sub('RubyToBlock::Block::', '').underscore
+      end
+
+      # 正規表現を返す
+      def self.regexp
+        @regexp ||= Regexp.new(regexp_string)
+      end
+
+      # ステートメントかどうかを返す
+      #
+      # trueの場合、Block.statement_regexpに追加される
+      def self.statement?
+        false
+      end
+
+      # 正規表現の優先度を返す
+      def self.priority
+        0
+      end
+
+      # インデントする必要があるかどうかを返す
+      def self.indent?
+        false
+      end
+
+      # 正規表現にマッチしたデータを解析する
+      #
+      # @return [true] これ以上解析する必要がない
+      # @return [false] 解析できなかったのでさらなる解析が必要
+      def self.process_match_data(md, context)
+        true
+      end
+
       def initialize(options = {})
         @fields = options[:fields] || {}
         @values = options[:values] || {}
@@ -33,7 +101,7 @@ module RubyToBlock
       end
 
       def type
-        @type ||= self.class.name.sub('RubyToBlock::Block::', '').underscore
+        @type ||= self.class.type
       end
 
       def inline?
@@ -52,22 +120,19 @@ module RubyToBlock
         b = @statements[name]
         b = b.sibling while b.sibling
         b.sibling = block
+        nil
       end
 
       def sibling=(block)
-        block.parent = self.parent
+        block.parent = parent
         @sibling = block
-      end
-
-      def indent?
-        false
       end
 
       def indent_level
         b = self
         level = 0
         while b.parent
-          level += 1 if b.indent?
+          level += 1 if b.class.indent?
           b = b.parent
         end
         level
