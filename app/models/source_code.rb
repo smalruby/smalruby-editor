@@ -4,7 +4,9 @@ require 'tempfile'
 require 'open3'
 require 'digest/sha2'
 require 'bundler'
-require_relative 'concerns/ruby_to_block'
+silence_warnings do
+  require_relative 'concerns/ruby_to_block'
+end
 
 # ソースコードを表現するモデル
 class SourceCode < ActiveRecord::Base
