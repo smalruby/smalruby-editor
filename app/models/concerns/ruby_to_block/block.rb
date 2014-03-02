@@ -48,10 +48,16 @@ module RubyToBlock
       @blocks[type].process_match_data(md, context)
     end
 
+    # elseを処理する
+    def self.process_else(context)
+      st = context.statement
+      @blocks[st.first].process_else(context)
+    end
+
     # endを処理する
     def self.process_end(context)
-      s = context.statement
-      @blocks[s.first].process_end(context)
+      st = context.statement
+      @blocks[st.first].process_end(context)
     end
 
     # ブロックを表現するクラスを返す
@@ -61,7 +67,7 @@ module RubyToBlock
   end
 end
 
-preloads = ['base', 'value'].map { |s| "#{s}.rb"}
+preloads = %w(base value).map { |s| "#{s}.rb" }
 preloads.each do |preload|
   path = Pathname(__FILE__).dirname.join('block', preload)
   load path.expand_path

@@ -88,6 +88,14 @@ module RubyToBlock
         true
       end
 
+      # elseを発見した時の処理
+      #
+      # @return [true] これ以上処理する必要がない
+      # @return [false] 処理できなかった
+      def self.process_else(context)
+        false
+      end
+
       # endを発見した時の処理
       #
       # @return [true] これ以上処理する必要がない
@@ -139,9 +147,13 @@ module RubyToBlock
 
       def add_statement(name, block)
         b = @statements[name]
-        b = b.sibling while b.sibling
-        b.sibling = block
-        nil
+        if b
+          b = b.sibling while b.sibling
+          b.sibling = block
+        else
+          @statements[name] = block
+        end
+        self
       end
 
       def add_value(name, block)
@@ -152,7 +164,7 @@ module RubyToBlock
         else
           @values[name] = block
         end
-        nil
+        self
       end
 
       def sibling=(block)

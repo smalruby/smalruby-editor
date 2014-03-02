@@ -65,6 +65,14 @@ module RubyToBlock
       @statement_stack.last
     end
 
+    def statement_type
+      statement.first
+    end
+
+    def statement_block
+      statement[1]
+    end
+
     def value_name
       @value_name_stack.last
     end

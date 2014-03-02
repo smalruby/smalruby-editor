@@ -29,7 +29,7 @@
       """
       <xml>
         <character x="0" y="0" name="car1" costumes="car1.png" angle="0"></character>
-        <block type="character_new" x="4" y="4">
+        <block type="character_new" x="0" y="0">
           <field name="NAME">car1</field>
           <statement name="DO">
             <block type="events_on_start">

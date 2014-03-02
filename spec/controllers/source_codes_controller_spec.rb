@@ -468,24 +468,27 @@ describe SourceCodesController do
   end
 
   describe 'プログラムをXML形式のブロックに変換する (POST to_blocks)' do
+    let(:data) { 'data' }
+
     before do
+      allow_any_instance_of(SourceCode).to receive(:to_blocks) {
+        fail if data == '__FAIL__'
+        'success'
+      }
+
       post :to_blocks, source_code: { data: data }
     end
 
-    describe '動作確認用のモックアップ' do
-      context '成功する場合' do
-        let(:data) { SourceCode::SUCCESS_DATA_MOCK }
-
-        it 'XML形式のブロックを返すこと' do
-          expect(response.body).to eq(SourceCode::SUCCESS_XML_MOCK)
-        end
+    context '成功する場合' do
+      it 'SourceCode#to_blocksの結果をそのまま返すこと' do
+        expect(response.body).to eq('success')
       end
+    end
 
-      context '失敗する場合' do
-        let(:data) { '__FAIL__' }
+    context '失敗する場合' do
+      let(:data) { '__FAIL__' }
 
-        it { expect(response.status).to eq(400) }
-      end
+      it { expect(response.status).to eq(400) }
     end
   end
 end
