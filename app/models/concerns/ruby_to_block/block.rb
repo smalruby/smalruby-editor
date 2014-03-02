@@ -21,6 +21,17 @@ module RubyToBlock
       @statement_regexp = Regexp.new(regexps.join('|'), 'x')
     end
 
+    # 値を表現するブロックの正規表現を返す
+    def self.value_regexp
+      return @value_regexp if @value_regexp
+
+      regexps = @blocks.values.select(&:value?).sort_by(&:priority).reverse
+        .map { |klass|
+        "(?<#{klass.type}>#{klass.regexp_string})"
+      }
+      @value_regexp = Regexp.new(regexps.join('|'), 'x')
+    end
+
     # ブロックを登録する
     def self.register(klass)
       @blocks[klass.type] = klass
@@ -32,8 +43,20 @@ module RubyToBlock
     end
 
     # MatchDataを処理する
-    def self.process_match_data(type, match_data, context)
-      @blocks[type.to_s].process_match_data(match_data, context)
+    def self.process_match_data(md, context, type = nil)
+      type = md.names.find { |n| md[n.to_sym] } unless type
+      @blocks[type].process_match_data(md, context)
+    end
+
+    # endを処理する
+    def self.process_end(context)
+      s = context.statement
+      @blocks[s.first.to_s].process_end(context)
+    end
+
+    # ブロックを表現するクラスを返す
+    def self.[](type)
+      @blocks[type.to_s]
     end
   end
 end

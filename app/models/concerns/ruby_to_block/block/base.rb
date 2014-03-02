@@ -21,24 +21,22 @@ module RubyToBlock
             regexp
           end
 
-          if options.key?(:statement)
-            statement = options[:statement]
-            define_method(:statement?) do
-              statement
-            end
-          end
-
-          if options.key?(:priority)
-            priority = options[:priority]
-            define_method(:priority) do
-              priority
-            end
-          end
-
-          if options.key?(:indent)
-            indent = options[:indent]
-            define_method(:indent?) do
-              indent
+          %w(
+            statement
+            value
+            indent
+            inline
+            priority
+          ).each do |name|
+            sym = name.to_sym
+            if options.key?(sym)
+              v = options[sym]
+              if v.is_a?(TrueClass) || v.is_a?(FalseClass)
+                sym = "#{name}?".to_sym
+              end
+              define_method(sym) do
+                v
+              end
             end
           end
         end
@@ -60,6 +58,13 @@ module RubyToBlock
         false
       end
 
+      # 値かどうかを返す
+      #
+      # trueの場合、Block.value_regexpに追加される
+      def self.value?
+        false
+      end
+
       # 正規表現の優先度を返す
       def self.priority
         0
@@ -70,11 +75,27 @@ module RubyToBlock
         false
       end
 
+      # インラインのブロックかどうかを返す
+      def self.inline?
+        false
+      end
+
       # 正規表現にマッチしたデータを解析する
       #
       # @return [true] これ以上解析する必要がない
       # @return [false] 解析できなかったのでさらなる解析が必要
       def self.process_match_data(md, context)
+        true
+      end
+
+      # endを発見した時の処理
+      #
+      # @return [true] これ以上処理する必要がない
+      # @return [false] 処理できなかった
+      def self.process_end(context)
+        context.current_block = context.statement[1]
+        context.statement_stack.pop
+
         true
       end
 
@@ -105,7 +126,7 @@ module RubyToBlock
       end
 
       def inline?
-        false
+        @inline ||= self.class.inline?
       end
 
       def null?
@@ -120,6 +141,17 @@ module RubyToBlock
         b = @statements[name]
         b = b.sibling while b.sibling
         b.sibling = block
+        nil
+      end
+
+      def add_value(name, block)
+        b = @values[name]
+        if b
+          b = b.sibling while b.sibling
+          b.sibling = block
+        else
+          @values[name] = block
+        end
         nil
       end
 
@@ -153,7 +185,9 @@ module RubyToBlock
 
       def values_to_xml(parent)
         @values.each do |k, v|
-          # TODO
+          next if v.null?
+          e = parent.add_element('value', 'name' => k.to_s)
+          v.to_xml(e)
         end
       end
 

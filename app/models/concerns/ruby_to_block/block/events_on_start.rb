@@ -25,6 +25,12 @@ module RubyToBlock
         true
       end
 
+      def self.process_end(context)
+        context.receiver_stack.pop
+        context.character_stack.pop
+        super
+      end
+
       # rubocop:disable CyclomaticComplexity
 
       def self.process_match_data_add_block(context, name, character, block)

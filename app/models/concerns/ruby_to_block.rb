@@ -60,9 +60,8 @@ module RubyToBlock
       line.chomp!
       next if line.strip.empty?
       md = Block.statement_regexp.match(line)
-      type = context[:statement_regexp_symbols].find { |n| md[n] }
-      next if Block.process_match_data(type, md, context)
-      Block.process_match_data(:ruby_statement, md, context)
+      next if Block.process_match_data(md, context)
+      Block.process_match_data(md, context, 'ruby_statement')
     end
 
     make_xml(context)
