@@ -3,6 +3,7 @@
 module RubyToBlock
   # ソースコード解析の状態を表現するクラス
   class Context
+    attr_accessor :current_line
     attr_accessor :lines
     attr_accessor :characters
     attr_accessor :character_stack
@@ -24,7 +25,7 @@ module RubyToBlock
     end
 
     def next_line
-      lines.shift
+      self.current_line = lines.shift
     end
 
     def add_block(block)
