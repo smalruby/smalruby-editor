@@ -1,11 +1,11 @@
 module RubyToBlock
   module Block
     class EventsOnStart < Base
-      blocknize '^\s*(?:(\S+)\.)?on\(:start\)\ do$',
+      blocknize '^\s*(?:(\S+)\.)?on\(:start\)\s+do\s*$',
                 statement: true, indent: true
 
       def self.process_match_data(md, context)
-        md2 = Block.regexp(type).match(md[type])
+        md2 = regexp.match(md[type])
         name = md2[1] ? md2[1] : context.receiver_stack.last.name
         c = context.characters[name]
         context.character_stack.push(c)

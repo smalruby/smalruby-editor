@@ -44,5 +44,9 @@ module RubyToBlock
     def []=(symbol, val)
       send("#{symbol}=", val)
     end
+
+    def receiver
+      @receiver_stack.last
+    end
   end
 end

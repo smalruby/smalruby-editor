@@ -16,16 +16,13 @@ module RubyToBlock
         }.length
         if (ss = context[:statement_stack].last) &&
             ends_num <= context[:statement_stack].length
+          context.current_block = ss[1]
           case ss.first
           when :events_on_start
-            context[:current_block] = ss[1]
-
-            context[:receiver_stack].pop
-            context[:character_stack].pop
-            context[:statement_stack].pop
-          else
-            # TODO
+            context.receiver_stack.pop
+            context.character_stack.pop
           end
+          context.statement_stack.pop
 
           true
         else
