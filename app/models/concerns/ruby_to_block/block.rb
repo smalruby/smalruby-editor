@@ -62,11 +62,11 @@ module RubyToBlock
 end
 
 base_block = Pathname(__FILE__).dirname.join('block', 'base.rb')
-require base_block.expand_path
+load base_block.expand_path
 
 block_pattern = Pathname(__FILE__).dirname.join('block', '*.rb')
 block_files = Pathname.glob(block_pattern)
 block_files.delete(base_block)
 block_files.each do |path|
-  require path.expand_path
+  load path.expand_path
 end
