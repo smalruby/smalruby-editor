@@ -150,9 +150,5 @@ Spork.each_run do
 
     # machinist gem を利用してる場合、blueprints を再度読み直す
     # load "#{File.dirname(__FILE__)}/support/blueprints.rb"
-
-    silence_warnings do
-      Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| load f }
-    end
   end
 end
