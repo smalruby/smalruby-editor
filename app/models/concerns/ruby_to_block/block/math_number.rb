@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 module RubyToBlock
   module Block
-    class MathNumber < Base
+    class MathNumber < Value
       blocknize '^\s*([+-]?\d+(?:\.\d+)?)\s*$', value: true
 
       def self.process_match_data(md, context)

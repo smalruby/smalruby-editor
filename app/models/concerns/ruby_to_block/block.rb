@@ -61,12 +61,16 @@ module RubyToBlock
   end
 end
 
-base_block = Pathname(__FILE__).dirname.join('block', 'base.rb')
-load base_block.expand_path
+preloads = ['base', 'value'].map { |s| "#{s}.rb"}
+preloads.each do |preload|
+  path = Pathname(__FILE__).dirname.join('block', preload)
+  load path.expand_path
+end
 
 block_pattern = Pathname(__FILE__).dirname.join('block', '*.rb')
 block_files = Pathname.glob(block_pattern)
-block_files.delete(base_block)
 block_files.each do |path|
+  next if preloads.include?(path.basename)
+
   load path.expand_path
 end

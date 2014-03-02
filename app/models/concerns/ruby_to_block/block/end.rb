@@ -15,8 +15,7 @@ module RubyToBlock
             ends_num -= 1
           end
         end
-        if context.statement &&
-            ends_num <= context.statement_stack.length
+        if context.statement && ends_num <= context.statement_stack.length
           Block.process_end(context)
         else
           false
