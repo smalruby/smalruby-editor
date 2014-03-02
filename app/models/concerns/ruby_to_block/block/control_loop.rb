@@ -8,7 +8,7 @@ module RubyToBlock
 
         do_block = Block.new('null')
         block = new(statements: { DO: do_block })
-        context.statement_stack.push([:control_loop, block])
+        context.statement_stack.push([type, block])
         context.current_block.sibling = block
         context.current_block = do_block
 

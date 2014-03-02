@@ -51,7 +51,7 @@ module RubyToBlock
     # endを処理する
     def self.process_end(context)
       s = context.statement
-      @blocks[s.first.to_s].process_end(context)
+      @blocks[s.first].process_end(context)
     end
 
     # ブロックを表現するクラスを返す

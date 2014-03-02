@@ -10,11 +10,13 @@ module RubyToBlock
         true
       end
 
-      def parent=(block)
-        @parent = block
-        @original_statement ||= @fields[:STATEMENT]
+      private
+
+      def fields_to_xml(e)
         @fields[:STATEMENT] =
-          @original_statement.sub(/^ {0,#{indent_level * 2}}/, '')
+          @fields[:STATEMENT].sub(/^ {0,#{indent_level * 2}}/, '')
+
+        super
       end
     end
   end

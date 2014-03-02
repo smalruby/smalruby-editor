@@ -164,8 +164,8 @@ module RubyToBlock
         b = self
         level = 0
         while b.parent
-          level += 1 if b.class.indent?
           b = b.parent
+          level += 1 if b.class.indent?
         end
         level
       end

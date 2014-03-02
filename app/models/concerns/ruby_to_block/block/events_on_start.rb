@@ -17,7 +17,7 @@ module RubyToBlock
           process_match_data_add_block(context,
                                        name, c, events_on_start_block)
 
-        context.statement_stack.push([:events_on_start, character_new_block])
+        context.statement_stack.push([type, character_new_block])
         context.receiver_stack.push(c)
 
         context.current_block = do_block
