@@ -1,6 +1,6 @@
 module RubyToBlock
   module Block
-    class EventsOnClick < Event
+    class EventsOnClick < CharacterEvent
       blocknize '^\s*(?:(\S+)\.)?on\(:click\)\s+do\s*$',
                 statement: true, indent: true
 

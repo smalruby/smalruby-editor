@@ -1,6 +1,6 @@
 module RubyToBlock
   module Block
-    class EventsOnStart < Event
+    class EventsOnStart < CharacterEvent
       blocknize '^\s*(?:(\S+)\.)?on\(:start\)\s+do\s*$',
                 statement: true, indent: true
 

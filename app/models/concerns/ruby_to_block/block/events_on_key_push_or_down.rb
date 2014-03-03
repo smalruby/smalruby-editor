@@ -1,6 +1,6 @@
 module RubyToBlock
   module Block
-    class EventsOnKeyPushOrDown < Event
+    class EventsOnKeyPushOrDown < CharacterEvent
       blocknize '^\s*(?:(\S+)\.)?on\(:key_(down|push),\s*([^),]+)\)\s+do\s*$',
                 statement: true, indent: true
 
