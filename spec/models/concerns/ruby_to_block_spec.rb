@@ -423,6 +423,117 @@ end
       end
     end
 
+    _data = <<-EOS.strip_heredoc
+require "smalruby"
+
+init_hardware
+frog1 = Character.new(costume: "frog1.png", x: 261, y: 191, angle: 0)
+
+frog1.on(:click) do
+  say(message: "ライトをぴかっとさせるでよ♪")
+  rgb_led_anode("D3").on(color: [51, 51, 255])
+  sleep(1)
+  rgb_led_anode("D3").on(color: [255, 255, 153])
+  sleep(1)
+  rgb_led_anode("D3").on(color: [255, 0, 0])
+  sleep(1)
+  rgb_led_anode("D3").off
+  say(message: "")
+end
+    EOS
+    describe compact_source_code(_data) do
+      __data = _data
+      let(:data) { __data }
+
+      it '結果が正しいこと' do
+        should eq(<<-XML.strip_heredoc)
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <character name="frog1" x="261" y="191" angle="0" costumes="frog1.png" />
+  <block type="hardware_init_hardware" />
+  <block type="character_new">
+    <field name="NAME">frog1</field>
+    <statement name="DO">
+      <block type="events_on_click">
+        <statement name="DO">
+          <block type="looks_say" inline="true">
+            <value name="TEXT">
+              <block type="text">
+                <field name="TEXT">ライトをぴかっとさせるでよ♪</field>
+              </block>
+            </value>
+            <next>
+              <block type="hardware_rgb_led_on">
+                <field name="AC">anode</field>
+                <field name="PIN">D3</field>
+                <field name="COLOUR">#3333ff</field>
+                <next>
+                  <block type="control_sleep" inline="true">
+                    <value name="SEC">
+                      <block type="math_number">
+                        <field name="NUM">1</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="hardware_rgb_led_on">
+                        <field name="AC">anode</field>
+                        <field name="PIN">D3</field>
+                        <field name="COLOUR">#ffff99</field>
+                        <next>
+                          <block type="control_sleep" inline="true">
+                            <value name="SEC">
+                              <block type="math_number">
+                                <field name="NUM">1</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="hardware_rgb_led_on">
+                                <field name="AC">anode</field>
+                                <field name="PIN">D3</field>
+                                <field name="COLOUR">#ff0000</field>
+                                <next>
+                                  <block type="control_sleep" inline="true">
+                                    <value name="SEC">
+                                      <block type="math_number">
+                                        <field name="NUM">1</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="hardware_rgb_led_off">
+                                        <field name="AC">anode</field>
+                                        <field name="PIN">D3</field>
+                                        <next>
+                                          <block type="looks_say" inline="true">
+                                            <value name="TEXT">
+                                              <block type="text">
+                                                <field name="TEXT"></field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>
+        XML
+      end
+    end
+
     context '失敗する場合' do
       let(:data) { '__FAIL__' }
 

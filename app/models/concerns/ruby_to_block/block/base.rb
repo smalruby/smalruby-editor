@@ -88,6 +88,21 @@ module RubyToBlock
         true
       end
 
+      # 値を格納した文字列を解析する
+      #
+      # @return [true] これ以上解析する必要がない
+      # @return [false] 解析できなかったのでさらなる解析が必要
+      def self.process_value_string(context, string, name)
+        value_md = Block.value_regexp.match(string)
+        return false unless value_md
+
+        context.value_name_stack.push(name)
+        Block.process_match_data(value_md, context)
+        context.value_name_stack.pop
+
+        true
+      end
+
       # elseを発見した時の処理
       #
       # @return [true] これ以上処理する必要がない

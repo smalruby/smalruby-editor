@@ -7,15 +7,10 @@ module RubyToBlock
       def self.process_match_data(md, context)
         return false unless context.receiver
 
-        block = new
-        context.add_block(block)
+        context.add_block(new)
 
         md2 = regexp.match(md[type])
-        if (value_md = Block.value_regexp.match(md2[1]))
-          context.value_name_stack.push('ANGLE')
-          Block.process_match_data(value_md, context)
-          context.value_name_stack.pop
-        end
+        process_value_string(context, md2[1], 'ANGLE')
 
         true
       end
