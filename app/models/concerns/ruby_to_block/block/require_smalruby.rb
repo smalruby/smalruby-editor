@@ -1,7 +1,7 @@
 module RubyToBlock
   module Block
     class RequireSmalruby < Base
-      blocknize '^require\ "smalruby"$', statement: true
+      blocknize '^\s*require\s*"smalruby"\s*$', statement: true
     end
   end
 end

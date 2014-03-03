@@ -15,4 +15,28 @@ require "smalruby"
 
     it { should eq('') }
   end
+
+  _data = '   require "smalruby"'
+  describe compact_source_code(_data) do
+    __data = _data
+    let(:data) { __data }
+
+    it { should eq('') }
+  end
+
+  _data = 'require "smalruby"   '
+  describe compact_source_code(_data) do
+    __data = _data
+    let(:data) { __data }
+
+    it { should eq('') }
+  end
+
+  _data = '   require   "smalruby"   '
+  describe compact_source_code(_data) do
+    __data = _data
+    let(:data) { __data }
+
+    it { should eq('') }
+  end
 end
