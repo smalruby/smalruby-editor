@@ -1,6 +1,8 @@
 module RubyToBlock
   module Block
     class CharacterMethodCall < Base
+      # rubocop:disable CyclomaticComplexity
+
       def self.add_child_or_create_character_new_block(context, name, block)
         name = context.receiver.try(:name) unless name
         character = context.characters[name]
@@ -18,6 +20,8 @@ module RubyToBlock
         end
       end
       private_class_method :add_child_or_create_character_new_block
+
+      # rubocop:enable CyclomaticComplexity
 
       def self.create_character_new_block(context, name, block)
         character_new_block = Block.new('character_new',

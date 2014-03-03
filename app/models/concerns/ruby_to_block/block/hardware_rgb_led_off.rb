@@ -2,8 +2,10 @@
 module RubyToBlock
   module Block
     class HardwareRgbLedOff < CharacterMethodCall
+      # rubocop:disable LineLength
       blocknize '^\s*(?:(\S+)\.)?rgb_led_(anode|cathode)\("(D[39])"\)\.off\s*$',
                 statement: true
+      # rubocop:enable LineLength
 
       def self.process_match_data(md, context)
         md2 = regexp.match(md[type])
