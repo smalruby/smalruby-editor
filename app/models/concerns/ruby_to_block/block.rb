@@ -12,24 +12,12 @@ module RubyToBlock
 
     # ステートメントを表現するブロックの正規表現を返す
     def self.statement_regexp
-      return @statement_regexp if @statement_regexp
-
-      regexps = @blocks.values.select(&:statement?).sort_by(&:priority).reverse
-        .map { |klass|
-        "(?<#{klass.type}>#{klass.regexp_string})"
-      }
-      @statement_regexp = Regexp.new(regexps.join('|'), 'x')
+      @statement_regexp ||= make_regexp(:statement?)
     end
 
     # 値を表現するブロックの正規表現を返す
     def self.value_regexp
-      return @value_regexp if @value_regexp
-
-      regexps = @blocks.values.select(&:value?).sort_by(&:priority).reverse
-        .map { |klass|
-        "(?<#{klass.type}>#{klass.regexp_string})"
-      }
-      @value_regexp = Regexp.new(regexps.join('|'), 'x')
+      @value_regexp ||= make_regexp(:value?)
     end
 
     # ブロックを登録する
@@ -64,6 +52,15 @@ module RubyToBlock
     def self.[](type)
       @blocks[type.to_s]
     end
+
+    def self.make_regexp(method_symbol)
+      regexps = @blocks.values.select(&method_symbol).sort_by(&:priority)
+        .reverse.map { |klass|
+        "(?<#{klass.type}>#{klass.regexp_string})"
+      }
+      Regexp.new(regexps.join('|'), 'x')
+    end
+    private_class_method :make_regexp
   end
 end
 

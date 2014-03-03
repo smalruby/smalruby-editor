@@ -25,6 +25,17 @@ describe RubyToBlock::Block do
     its(:names) { should include('ruby_statement') }
   end
 
+  describe '.value_regexp' do
+    subject { described_class.value_regexp }
+
+    it { should be_kind_of(Regexp) }
+    it {
+      expect(subject.to_s)
+        .to match(/#{Regexp.quote('|(?<ruby_expression>^.*$))')}$/)
+    }
+    its(:names) { should include('ruby_expression') }
+  end
+
   describe '.regexp' do
     subject { described_class.regexp(type) }
 
