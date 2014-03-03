@@ -5,10 +5,11 @@ module RubyToBlock
       blocknize '^\s*sleep\((.+)\)\s*$', statement: true, inline: true
 
       def self.process_match_data(md, context)
-        context.add_block(new)
+        block = new
+        context.add_block(block)
 
         md2 = regexp.match(md[type])
-        process_value_string(context, md2[1], 'SEC')
+        process_value_string(context, block, md2[1], 'SEC')
 
         true
       end

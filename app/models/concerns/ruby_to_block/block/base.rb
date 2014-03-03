@@ -92,13 +92,18 @@ module RubyToBlock
       #
       # @return [true] これ以上解析する必要がない
       # @return [false] 解析できなかったのでさらなる解析が必要
-      def self.process_value_string(context, string, name)
+      def self.process_value_string(context, block, string, name)
         value_md = Block.value_regexp.match(string)
         return false unless value_md
 
+        _current_block = context.current_block
+        context.current_block = block
         context.value_name_stack.push(name)
+
         Block.process_match_data(value_md, context)
+
         context.value_name_stack.pop
+        context.current_block = _current_block
 
         true
       end
@@ -166,6 +171,7 @@ module RubyToBlock
           b = b.sibling while b.sibling
           b.sibling = block
         else
+          block.parent = self
           @statements[name] = block
         end
         self
@@ -177,6 +183,7 @@ module RubyToBlock
           b = b.sibling while b.sibling
           b.sibling = block
         else
+          block.parent = self
           @values[name] = block
         end
         self
