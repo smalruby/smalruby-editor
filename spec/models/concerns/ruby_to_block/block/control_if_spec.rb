@@ -4,8 +4,11 @@ require_relative 'shared/block_examples'
 
 # rubocop:disable EmptyLines, LineLength
 
-describe RubyToBlock::Block::ControlIf, to_blocks: true do
-  _data = <<-EOS.strip_heredoc
+describe RubyToBlock::Block::ControlIf,
+         RubyToBlock::Block::OperatorsTrue,
+         RubyToBlock::Block::OperatorsFalse,
+         to_blocks: true do
+  _data = <<-EOS
 if true
 
 end
@@ -15,19 +18,17 @@ end
     let(:data) { __data }
 
     it '結果が正しいこと' do
-      should eq(<<-XML.strip_heredoc)
-<xml xmlns="http://www.w3.org/1999/xhtml">
+      should eq_block_xml(<<-XML)
   <block type="control_if" inline="true">
     <value name="COND">
       <block type="operators_true" />
     </value>
   </block>
-</xml>
       XML
     end
   end
 
-  _data = <<-EOS.strip_heredoc
+  _data = <<-EOS
 if false
 
 end
@@ -37,19 +38,17 @@ end
     let(:data) { __data }
 
     it '結果が正しいこと' do
-      should eq(<<-XML.strip_heredoc)
-<xml xmlns="http://www.w3.org/1999/xhtml">
+      should eq_block_xml(<<-XML)
   <block type="control_if" inline="true">
     <value name="COND">
       <block type="operators_false" />
     </value>
   </block>
-</xml>
       XML
     end
   end
 
-  _data = <<-EOS.strip_heredoc
+  _data = <<-EOS
 if true
   puts "Hello, World!"
 end
@@ -59,8 +58,7 @@ end
     let(:data) { __data }
 
     it '結果が正しいこと' do
-      should eq(<<-XML.strip_heredoc)
-<xml xmlns="http://www.w3.org/1999/xhtml">
+      should eq_block_xml(<<-XML)
   <block type="control_if" inline="true">
     <value name="COND">
       <block type="operators_true" />
@@ -71,7 +69,6 @@ end
       </block>
     </statement>
   </block>
-</xml>
       XML
     end
   end

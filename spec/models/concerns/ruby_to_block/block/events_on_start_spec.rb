@@ -5,38 +5,23 @@ require_relative 'shared/block_examples'
 # rubocop:disable EmptyLines, LineLength
 
 describe RubyToBlock::Block::EventsOnStart, to_blocks: true do
-  _data = <<-EOS.strip_heredoc
-require "smalruby"
-
-car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
-
+  parts = <<-EOS
 car1.on(:start) do
 
 end
   EOS
-  describe compact_source_code(_data) do
-    __data = _data
-    let(:data) { __data }
+  describe compact_source_code(parts), character_new_data: true do
+    _parts = parts
+    let(:parts) { _parts }
 
     it '結果が正しいこと' do
-      should eq(<<-XML.strip_heredoc)
-<xml xmlns="http://www.w3.org/1999/xhtml">
-  <character name="car1" x="0" y="0" angle="0" costumes="car1.png" />
-  <block type="character_new">
-    <field name="NAME">car1</field>
-    <statement name="DO">
+      should eq_block_xml(<<-XML)
       <block type="events_on_start" />
-    </statement>
-  </block>
-</xml>
       XML
     end
   end
 
-  _data = <<-EOS.strip_heredoc
-require "smalruby"
-
-car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
+  parts = <<-EOS
 cat1 = Character.new(costume: "cat1.png", x: 200, y: 150, angle: 90)
 
 car1.on(:start) do
@@ -52,13 +37,12 @@ cat1.on(:start) do
 
 end
   EOS
-  describe compact_source_code(_data) do
-    __data = _data
-    let(:data) { __data }
+  describe compact_source_code(parts), character_new_data: true do
+    _parts = parts
+    let(:parts) { _parts }
 
     it '結果が正しいこと' do
-      should eq(<<-XML.strip_heredoc)
-<xml xmlns="http://www.w3.org/1999/xhtml">
+      should eq_block_xml(<<-XML)
   <character name="car1" x="0" y="0" angle="0" costumes="car1.png" />
   <character name="cat1" x="200" y="150" angle="90" costumes="cat1.png" />
   <block type="character_new">
@@ -77,15 +61,11 @@ end
       <block type="events_on_start" />
     </statement>
   </block>
-</xml>
       XML
     end
   end
 
-  _data = <<-EOS.strip_heredoc
-require "smalruby"
-
-car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
+  parts = <<-EOS
 cat1 = Character.new(costume: "cat1.png", x: 200, y: 150, angle: 90)
 
 car1.on(:start) do
@@ -95,13 +75,12 @@ car1.on(:start) do
   end
 end
   EOS
-  describe compact_source_code(_data) do
-    __data = _data
-    let(:data) { __data }
+  describe compact_source_code(parts), character_new_data: true do
+    _parts = parts
+    let(:parts) { _parts }
 
     it '結果が正しいこと' do
-      should eq(<<-XML.strip_heredoc)
-<xml xmlns="http://www.w3.org/1999/xhtml">
+      should eq_block_xml(<<-XML)
   <character name="car1" x="0" y="0" angle="0" costumes="car1.png" />
   <character name="cat1" x="200" y="150" angle="90" costumes="cat1.png" />
   <block type="character_new">
@@ -119,42 +98,22 @@ end
       </block>
     </statement>
   </block>
-</xml>
       XML
     end
   end
 
-  _data = <<-EOS.strip_heredoc
-require "smalruby"
+  parts = <<-EOS
+on(:start) do
 
-car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
-
-car1.on(:start) do
-
-  on(:start) do
-
-  end
 end
   EOS
-  describe compact_source_code(_data) do
-    __data = _data
-    let(:data) { __data }
+  describe compact_source_code(parts), on_start_data: true do
+    _parts = parts
+    let(:parts) { _parts }
 
     it '結果が正しいこと' do
-      should eq(<<-XML.strip_heredoc)
-<xml xmlns="http://www.w3.org/1999/xhtml">
-  <character name="car1" x="0" y="0" angle="0" costumes="car1.png" />
-  <block type="character_new">
-    <field name="NAME">car1</field>
-    <statement name="DO">
-      <block type="events_on_start">
-        <statement name="DO">
+      should eq_block_xml(<<-XML)
           <block type="events_on_start" />
-        </statement>
-      </block>
-    </statement>
-  </block>
-</xml>
       XML
     end
   end
