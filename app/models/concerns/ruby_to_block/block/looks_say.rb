@@ -2,7 +2,7 @@
 module RubyToBlock
   module Block
     class LooksSay < CharacterMethodCall
-      blocknize '^\s*(?:(\S+)\.)?say\(message:\s*("[^"]*")\)\s*$',
+      blocknize '^\s*' + CHAR_RE + 'say\(message:\s*("[^"]*")\)\s*$',
                 statement: true, inline: true
 
       def self.process_match_data(md, context)
@@ -14,8 +14,6 @@ module RubyToBlock
         process_value_string(context, block, md2[2], 'TEXT')
 
         true
-      rescue
-        false
       end
     end
   end

@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 module RubyToBlock
   module Block
-    class MotionMove < Base
-      blocknize '^\s*move\((.+)\)\s*$', statement: true, inline: true
+    class MotionMove < CharacterMethodCall
+      blocknize '^\s*' + CHAR_RE + 'move\((.+)\)\s*$',
+                statement: true, inline: true
 
       def self.process_match_data(md, context)
-        return false unless context.receiver
+        md2 = regexp.match(md[type])
 
         block = new
-        context.add_block(block)
-
-        md2 = regexp.match(md[type])
-        process_value_string(context, block, md2[1], 'STEP')
+        _, context.current_block =
+          *add_child_or_create_character_new_block(context, md2[1], block)
+        process_value_string(context, block, md2[2], 'STEP')
 
         true
       end

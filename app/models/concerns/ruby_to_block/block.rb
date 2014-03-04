@@ -34,18 +34,24 @@ module RubyToBlock
     def self.process_match_data(md, context, type = nil)
       type = md.names.find { |n| md[n.to_sym] } unless type
       @blocks[type].process_match_data(md, context)
+    rescue
+      false
     end
 
     # elseを処理する
     def self.process_else(context)
       st = context.statement
       @blocks[st.first].process_else(context)
+    rescue
+      false
     end
 
     # endを処理する
     def self.process_end(context)
       st = context.statement
       @blocks[st.first].process_end(context)
+    rescue
+      false
     end
 
     # ブロックを表現するクラスを返す
@@ -64,10 +70,14 @@ module RubyToBlock
   end
 end
 
-preloads = %w(base value).map { |s| "#{s}.rb" }
+preloads = %w(base value character_method_call character_event).map { |s|
+  "#{s}.rb"
+}
 preloads.each do |preload|
   path = Pathname(__FILE__).dirname.join('block', preload)
-  load path.expand_path
+  silence_warnings do
+    load path.expand_path
+  end
 end
 
 block_pattern = Pathname(__FILE__).dirname.join('block', '*.rb')
@@ -75,5 +85,7 @@ block_files = Pathname.glob(block_pattern)
 block_files.each do |path|
   next if preloads.include?(path.basename)
 
-  load path.expand_path
+  silence_warnings do
+    load path.expand_path
+  end
 end

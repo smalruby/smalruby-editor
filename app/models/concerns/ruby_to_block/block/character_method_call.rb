@@ -1,6 +1,8 @@
 module RubyToBlock
   module Block
     class CharacterMethodCall < Base
+      CHAR_RE = '(?:(\S+)\.)?'
+
       # rubocop:disable CyclomaticComplexity
 
       def self.add_child_or_create_character_new_block(context, name, block)

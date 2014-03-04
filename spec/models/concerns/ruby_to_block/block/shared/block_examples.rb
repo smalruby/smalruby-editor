@@ -34,6 +34,7 @@ class EqBlockXml < RSpec::Matchers::BuiltIn::Eq
     indent = @expected.slice(/\A(\s*).*$/, 1).length
     re = /\A {#{indent},}/
     @actual = actual.lines.select { |l| re.match(l) }.join
+    @actual = actual if @actual.empty?
     match(@expected, @actual)
   end
 end
