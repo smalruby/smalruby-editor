@@ -1,8 +1,10 @@
 module RubyToBlock
   module Block
     class EventsOnKeyPushOrDown < CharacterEvent
-      blocknize '^\s*(?:(\S+)\.)?on\(:key_(down|push),\s*([^),]+)\)\s+do\s*$',
+      # rubocop:disable LineLength
+      blocknize '^\s*' + CHAR_RE + 'on\(:key_(down|push),\s*([^),]+)\)\s+do\s*$',
                 statement: true, indent: true
+      # rubocop:enable LineLength
 
       def self.process_match_data(md, context)
         md2 = regexp.match(md[type])

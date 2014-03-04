@@ -3,6 +3,16 @@ module RubyToBlock
     class CharacterMethodCall < Base
       CHAR_RE = '(?:(\S+)\.)?'
 
+      def self.process_match_data(md, context)
+        md2 = regexp.match(md[type])
+
+        block = new
+        _, context.current_block =
+          *add_child_or_create_character_new_block(context, md2[1], block)
+
+        true
+      end
+
       # rubocop:disable CyclomaticComplexity
 
       def self.add_child_or_create_character_new_block(context, name, block)

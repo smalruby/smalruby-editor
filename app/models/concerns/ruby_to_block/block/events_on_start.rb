@@ -1,7 +1,7 @@
 module RubyToBlock
   module Block
     class EventsOnStart < CharacterEvent
-      blocknize '^\s*(?:(\S+)\.)?on\(:start\)\s+do\s*$',
+      blocknize '^\s*' + CHAR_RE + 'on\(:start\)\s+do\s*$',
                 statement: true, indent: true
 
       def self.process_match_data(md, context)
