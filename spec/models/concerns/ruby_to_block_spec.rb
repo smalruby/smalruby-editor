@@ -7,7 +7,7 @@ require_relative 'ruby_to_block/block/shared/block_examples'
 describe RubyToBlock do
   describe '#to_blocks', to_blocks: true  do
     context '成功する場合' do
-      _data = <<-EOS.strip_heredoc
+      _data = <<-EOS
 require "smalruby"
 
 car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
@@ -24,7 +24,7 @@ end
         let(:data) { __data }
 
         it '結果が正しいこと' do
-          should eq(<<-XML.strip_heredoc)
+          should eq_block_xml(<<-XML)
 <xml xmlns="http://www.w3.org/1999/xhtml">
   <character name="car1" x="0" y="0" angle="0" costumes="car1.png" />
   <block type="character_new">
@@ -55,7 +55,7 @@ end
         end
       end
 
-      _data = <<-EOS.strip_heredoc
+      _data = <<-EOS
 require "smalruby"
 
 car1 = Character.new(costume: "car2.png", x: 0, y: 0, angle: 0)
@@ -83,7 +83,7 @@ end
         let(:data) { __data }
 
         it '結果が正しいこと' do
-          should eq(<<-XML.strip_heredoc)
+          should eq_block_xml(<<-XML)
 <xml xmlns="http://www.w3.org/1999/xhtml">
   <character name="car1" x="0" y="0" angle="0" costumes="car2.png" />
   <block type="ruby_comment">
@@ -156,7 +156,7 @@ end
         end
       end
 
-      _data = <<-EOS.strip_heredoc
+      _data = <<-EOS
 require "smalruby"
 
 car1 = Character.new(costume: "car2.png", x: 0, y: 0, angle: 0)
@@ -180,7 +180,7 @@ end
         let(:data) { __data }
 
         it '結果が正しいこと' do
-          should eq(<<-XML.strip_heredoc)
+          should eq_block_xml(<<-XML)
 <xml xmlns="http://www.w3.org/1999/xhtml">
   <character name="car1" x="0" y="0" angle="0" costumes="car2.png" />
   <character name="car2" x="0" y="415" angle="0" costumes="car3.png" />
@@ -246,7 +246,7 @@ end
         end
       end
 
-      _data = <<-EOS.strip_heredoc
+      _data = <<-EOS
 require "smalruby"
 
 car1 = Character.new(costume: "car2.png", x: 0, y: 0, angle: 0)
@@ -289,7 +289,7 @@ end
         let(:data) { __data }
 
         it '結果が正しいこと' do
-          should eq(<<-XML.strip_heredoc)
+          should eq_block_xml(<<-XML)
 <xml xmlns="http://www.w3.org/1999/xhtml">
   <character name="car1" x="0" y="0" angle="0" costumes="car2.png" />
   <character name="car2" x="0" y="415" angle="0" costumes="car3.png" />
@@ -423,7 +423,7 @@ end
       end
     end
 
-    _data = <<-EOS.strip_heredoc
+    _data = <<-EOS
 require "smalruby"
 
 init_hardware
@@ -446,7 +446,7 @@ end
       let(:data) { __data }
 
       it '結果が正しいこと' do
-        should eq(<<-XML.strip_heredoc)
+        should eq_block_xml(<<-XML)
 <xml xmlns="http://www.w3.org/1999/xhtml">
   <character name="frog1" x="261" y="191" angle="0" costumes="frog1.png" />
   <block type="hardware_init_hardware" />
