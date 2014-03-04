@@ -6,7 +6,7 @@ module RubyToBlock
       # rubocop:disable CyclomaticComplexity
 
       def self.add_child_or_create_character_new_block(context, name, block)
-        name = context.receiver.try(:name) unless name
+        name = context.receiver.try(:name) if !name || name == 'self'
         character = context.characters[name]
         fail unless character
 

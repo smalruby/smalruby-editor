@@ -30,6 +30,26 @@ say(message: "こんにちは")
   end
 
   parts = <<-EOS
+self.say(message: "こんにちは")
+  EOS
+  describe compact_source_code(parts), on_start_data: true do
+    _parts = parts
+    let(:parts) { _parts }
+
+    it '結果が正しいこと' do
+      should eq_block_xml(<<-XML)
+          <block type="looks_say" inline="true">
+            <value name="TEXT">
+              <block type="text">
+                <field name="TEXT">こんにちは</field>
+              </block>
+            </value>
+          </block>
+      XML
+    end
+  end
+
+  parts = <<-EOS
 say(message: "こんにちは")
 puts "Hello, World!"
   EOS

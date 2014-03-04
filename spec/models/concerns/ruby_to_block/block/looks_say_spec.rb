@@ -60,4 +60,20 @@ say(message: "こんにちは")
       XML
     end
   end
+
+  parts = <<-EOS
+self.say(message: "こんにちは")
+  EOS
+  describe compact_source_code(parts) do
+    _parts = parts
+    let(:data) { _parts }
+
+    it '結果が正しいこと' do
+      should eq_block_xml(<<-XML)
+  <block type="ruby_statement">
+    <field name="STATEMENT">self.say(message: &quot;こんにちは&quot;)</field>
+  </block>
+      XML
+    end
+  end
 end
