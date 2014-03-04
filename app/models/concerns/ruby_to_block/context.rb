@@ -30,7 +30,14 @@ module RubyToBlock
 
     def add_block(block)
       if current_block
-        current_block.sibling = block
+        # HACK: コメントは下の行に関係することが多いため対象外としている
+        if current_block.type == 'character_new' &&
+            block.type != 'character_new' && block.type != 'ruby_comment'
+          current_block.add_statement(:DO, block)
+          block = current_block
+        else
+          current_block.sibling = block
+        end
       else
         blocks.push(block)
       end

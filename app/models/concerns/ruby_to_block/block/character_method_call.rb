@@ -6,17 +6,18 @@ module RubyToBlock
       def self.add_child_or_create_character_new_block(context, name, block)
         name = context.receiver.try(:name) unless name
         character = context.characters[name]
-        return nil unless character
+        fail unless character
 
         cb = context.current_block
         if cb && cb.type == 'character_new' && cb[:NAME] == name
           cb.add_statement(:DO, block)
-          [cb, :add_statement]
+          [cb, block]
         elsif character == context.receiver
           cb.sibling = block
-          [cb.parent, :sibling]
+          [cb.parent, block]
         else
-          [create_character_new_block(context, name, block), :create]
+          character_new = create_character_new_block(context, name, block)
+          [character_new, character_new]
         end
       end
       private_class_method :add_child_or_create_character_new_block

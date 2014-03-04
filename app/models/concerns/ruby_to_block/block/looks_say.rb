@@ -9,20 +9,13 @@ module RubyToBlock
         md2 = regexp.match(md[type])
 
         block = new
-
-        character_new_block, how =
+        _, context.current_block =
           *add_child_or_create_character_new_block(context, md2[1], block)
-        return false unless character_new_block
-
         process_value_string(context, block, md2[2], 'TEXT')
 
-        if how == :create
-          context.current_block = character_new_block
-        else
-          context.current_block = block
-        end
-
         true
+      rescue
+        false
       end
     end
   end
