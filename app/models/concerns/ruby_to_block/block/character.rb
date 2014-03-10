@@ -4,7 +4,7 @@ module RubyToBlock
     # ソースコードに含まれるキャラクターを表現するクラス
     class Character < Base
       # rubocop:disable LineLength
-      blocknize '^\s*(\S+)\ =\ Character\.new\(costume:\ "([^"]+)",\ x:\ (\d+),\ y:\ (\d+),\ angle:\ (\d+)\)$',
+      blocknize '^\s*(\S+)\s*=\s*Character\.new\(costume:\s*"(\s*[^"]+\s*)"\s*,\s*x:\s*(\s*\d+\s*)\s*,\s*y:\s*(\s*\d+\s*)\s*,\s*angle:\s*(\s*\d+\s*)\)\s*$',
                 statement: true
       # rubocop:enable LineLength
 
