@@ -369,6 +369,22 @@
     -#  %block{:type => "#{category}_servo_set_position"}
     -#    = toolbox_number_value('POS', 90)
 
+    %category{:name => '車'}
+      -# 「2WD車[▼ピン]を進める」ブロック
+      %block{:type => "#{category}_two_wheel_drive_car_forward"}
+
+      -# 「2WD車[▼ピン]をバックさせる」ブロック
+      %block{:type => "#{category}_two_wheel_drive_car_backward"}
+
+      -# 「2WD車[▼ピン]を左に曲げる」ブロック
+      %block{:type => "#{category}_two_wheel_drive_car_turn_left"}
+
+      -# 「2WD車[▼ピン]を右に曲げる」ブロック
+      %block{:type => "#{category}_two_wheel_drive_car_turn_right"}
+
+      -# 「2WD車[▼ピン]を止める」ブロック
+      %block{:type => "#{category}_two_wheel_drive_car_stop"}
+
     -#%category{:name => 'ボタン'}
     -#  -# 条件:ボタン[▼]を押している
     -#  %block{:type => "#{category}_button_down"}

@@ -235,12 +235,49 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = @getFieldValue('PIN')  #p sensor("A0").value
-  #p sensor("A0").value.class
-  #p(sensor("A0").value / 6)
+  pin = @getFieldValue('PIN')
 
   pos = Blockly.Ruby.valueToCode(@, 'POS', Blockly.Ruby.ORDER_FUNCTION_CALL) || '5'
   Blockly.Ruby.characterMethodCall_("servo(#{Blockly.Ruby.quote_(pin)}).position = #{pos}")
+
+# 「車」サブジャンル
+
+# 「2WD車[▼ピン]を進める」ブロック
+# 「2WD車[▼ピン]をバックさせる」ブロック
+# 「2WD車[▼ピン]を左に曲げる」ブロック
+# 「2WD車[▼ピン]を右に曲げる」ブロック
+# 「2WD車[▼ピン]を止める」ブロック
+<%
+  [
+    ['forward', '進める'],
+    ['backward', 'バックさせる'],
+    ['turn_left', '左に曲げる'],
+    ['turn_right', '右に曲げる'],
+    ['stop', '止める'],
+  ].each do |method, label|
+    n = "#{category}_two_wheel_drive_car_#{method}"
+%>
+
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    dropdown = (["D#{n}", "D#{n}"] for n in [2..10])
+
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
+      .appendField('2WD車')
+      .appendField(new Blockly.FieldDropdown(dropdown), 'PIN')
+      .appendField('を<%= label %>')
+    @setInputsInline(true)
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  pin = @getFieldValue('PIN')
+
+  Blockly.Ruby.characterMethodCall_("two_wheel_drive_car(#{Blockly.Ruby.quote_(pin)}).<%= method %>")
+<% end %>
 
 # 「ボタン」サブジャンル
 
