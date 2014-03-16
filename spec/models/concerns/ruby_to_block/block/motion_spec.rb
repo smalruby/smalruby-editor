@@ -194,6 +194,55 @@ car1.y = 0
   end
 
   parts = <<-EOS
+car1.move(10)
+car1.x = 0
+car1.y = 0
+car1.x += 10
+  EOS
+  describe compact_source_code(parts), character_new_data: true do
+    _parts = parts
+    let(:parts) { _parts }
+
+    it '結果が正しいこと' do
+      should eq_block_xml(<<-XML)
+    <field name="NAME">car1</field>
+    <statement name="DO">
+      <block type="motion_move" inline="true">
+        <value name="STEP">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+        <next>
+          <block type="motion_set_x_y" inline="true">
+            <value name="X">
+              <block type="math_number">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+            <value name="Y">
+              <block type="math_number">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+            <next>
+              <block type="motion_change_x_by" inline="true">
+                <value name="X">
+                  <block type="math_number">
+                    <field name="NUM">10</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+      XML
+    end
+  end
+
+  parts = <<-EOS
 car1.on(:start) do
   turn_if_reach_wall
   if reach_wall?

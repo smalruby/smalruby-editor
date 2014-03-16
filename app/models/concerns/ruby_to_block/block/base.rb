@@ -5,6 +5,7 @@ module RubyToBlock
     # すべてのブロックのベースクラス
     class Base
       attr_accessor :parent
+      attr_accessor :prev_sibling
       attr_accessor :sibling
       attr_accessor :fields
       attr_accessor :values
@@ -192,6 +193,7 @@ module RubyToBlock
       def sibling=(block)
         block.parent = parent
         @sibling = block
+        block.prev_sibling = self
       end
 
       def indent_level

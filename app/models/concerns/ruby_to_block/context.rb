@@ -24,8 +24,18 @@ module RubyToBlock
       @current_block = nil
     end
 
+    # 次の行に移動して、改行を含むその行の文字列を返す
+    #
+    # @return [String] 改行を含む次の行の文字列
     def next_line
       self.current_line = lines.shift
+    end
+
+    # 次の行を参照する
+    #
+    # @return [String] 次の行の文字列
+    def look_next_line
+      lines.first
     end
 
     def add_block(block)

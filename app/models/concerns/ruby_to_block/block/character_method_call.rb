@@ -1,7 +1,7 @@
 module RubyToBlock
   module Block
     class CharacterMethodCall < Base
-      CHAR_RE = '(?:(\S+)\.)?'
+      include CharacterOperation
 
       def self.process_match_data(md, context)
         md2 = regexp.match(md[type])
@@ -20,15 +20,17 @@ module RubyToBlock
         character = context.characters[name]
         fail unless character
 
+        block.character = character
+
         cb = context.current_block
-        if cb && cb.type == 'character_new' && cb[:NAME] == name
+        if cb && cb.type == 'character_new' && cb.character == character
           cb.add_statement(:DO, block)
-          [cb, block]
+          [cb, cb]
         elsif character == context.receiver
           cb.sibling = block
           [cb.parent, block]
         else
-          character_new = create_character_new_block(context, name, block)
+          character_new = create_character_new_block(context, character, block)
           [character_new, character_new]
         end
       end
@@ -36,10 +38,11 @@ module RubyToBlock
 
       # rubocop:enable CyclomaticComplexity
 
-      def self.create_character_new_block(context, name, block)
+      def self.create_character_new_block(context, character, block)
         character_new_block = Block.new('character_new',
-                                        fields: { NAME: name },
+                                        fields: { NAME: character.name },
                                         statements: { DO: block })
+        character_new_block.character = character
 
         cb = context.current_block
         if cb && cb.type != 'character_new'

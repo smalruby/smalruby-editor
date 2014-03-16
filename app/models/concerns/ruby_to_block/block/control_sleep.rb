@@ -9,7 +9,7 @@ module RubyToBlock
         context.add_block(block)
 
         md2 = regexp.match(md[type])
-        process_value_string(context, block, md2[1], 'SEC')
+        process_value_string(context, block, md2[1], :SEC)
 
         true
       end

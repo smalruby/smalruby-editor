@@ -70,7 +70,13 @@ module RubyToBlock
   end
 end
 
-preloads = %w(base value character_method_call character_event).map { |s|
+preloads = %w(
+  base
+  value
+  character_operation
+  character_method_call
+  character_event
+).map { |s|
   "#{s}.rb"
 }
 preloads.each do |preload|

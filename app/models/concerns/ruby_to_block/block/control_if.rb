@@ -17,7 +17,7 @@ module RubyToBlock
         md2 = regexp.match(md[type])
         if (value_md = Block.value_regexp.match(md2[1]))
           context.current_block = block
-          context.value_name_stack.push('COND')
+          context.value_name_stack.push(:COND)
           Block.process_match_data(value_md, context)
           context.value_name_stack.pop
         end
