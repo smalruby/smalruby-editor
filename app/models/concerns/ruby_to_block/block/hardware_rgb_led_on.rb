@@ -15,9 +15,7 @@ module RubyToBlock
         color_code = '#' + color.map { |c| sprintf('%02x', c) }.join
         block = new(fields: { AC: md2[2], PIN: md2[3], COLOUR: color_code })
 
-        _, context.current_block =
-          *add_child_or_create_character_new_block(context, md2[1], block)
-
+        add_character_method_call_block(context, md2[1], block)
         true
       end
     end
