@@ -7,18 +7,21 @@ module RubyToBlock
         super
       end
 
-      def self.add_child_or_create_character_new_block(context, name, block)
-        name = context.receiver.try(:name) unless name
-        character = context.characters[name]
+      def self.add_character_event_blocks(context, name, block)
+        do_block = Block.new('null')
+        block.add_statement(:DO, do_block)
+
+        character = get_character(context, name)
         context.character_stack.push(character)
 
-        character_new_block, _ = *super
+        character_new_block, _ =
+          add_child_or_create_character_new_block(context, name, block)
 
         context.receiver_stack.push(character)
 
-        character_new_block
+        context.statement_stack.push([type, character_new_block])
+        context.current_block = do_block
       end
-      private_class_method :add_child_or_create_character_new_block
     end
   end
 end

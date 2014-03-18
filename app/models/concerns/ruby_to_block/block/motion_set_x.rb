@@ -7,11 +7,8 @@ module RubyToBlock
 
       def self.process_match_data(md, context)
         md2 = regexp.match(md[type])
-
-        block = new
-        _, context.current_block =
-          *add_child_or_create_character_new_block(context, md2[1], block)
-        process_value_string(context, block, md2[2], :X)
+        block = add_character_method_call_block(context, md2[1], new,
+                                                X: md2[2])
 
         md3 = MotionSetY.regexp.match(context.look_next_line)
         process_motion_set_y(context, block, md3) if md3
@@ -20,15 +17,12 @@ module RubyToBlock
       end
 
       def self.process_motion_set_y(context, block, md)
-        name = md[1]
-        name = context.receiver.try(:name) if !name || name == 'self'
-        character = context.characters[name]
-        return unless character
-
-        if block.character == character
+        if block.character == get_character(context, md[1])
           process_value_string(context, block, md[2], :Y)
           context.next_line
         end
+      rescue
+        return
       end
       private_class_method :process_motion_set_y
 

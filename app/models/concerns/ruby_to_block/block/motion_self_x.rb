@@ -9,10 +9,7 @@ module RubyToBlock
       def self.process_match_data(md, context)
         md2 = regexp.match(md[type])
 
-        name = md2[1]
-        name = context.receiver.try(:name) if !name || name == 'self'
-        character = context.characters[name]
-        fail unless character
+        character = get_character(context, md2[1])
 
         block = new
         context.add_value(block)

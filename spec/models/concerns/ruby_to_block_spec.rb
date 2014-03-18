@@ -25,7 +25,6 @@ end
 
         it '結果が正しいこと' do
           should eq_block_xml(<<-XML)
-<xml xmlns="http://www.w3.org/1999/xhtml">
   <character name="car1" x="0" y="0" angle="0" costumes="car1.png" />
   <block type="character_new">
     <field name="NAME">car1</field>
@@ -50,7 +49,6 @@ end
       </block>
     </statement>
   </block>
-</xml>
           XML
         end
       end
@@ -84,7 +82,6 @@ end
 
         it '結果が正しいこと' do
           should eq_block_xml(<<-XML)
-<xml xmlns="http://www.w3.org/1999/xhtml">
   <character name="car1" x="0" y="0" angle="0" costumes="car2.png" />
   <block type="ruby_comment">
     <field name="COMMENT">逃げる車</field>
@@ -151,7 +148,6 @@ end
       </block>
     </next>
   </block>
-</xml>
           XML
         end
       end
@@ -181,7 +177,6 @@ end
 
         it '結果が正しいこと' do
           should eq_block_xml(<<-XML)
-<xml xmlns="http://www.w3.org/1999/xhtml">
   <character name="car1" x="0" y="0" angle="0" costumes="car2.png" />
   <character name="car2" x="0" y="415" angle="0" costumes="car3.png" />
   <block type="ruby_comment">
@@ -241,7 +236,6 @@ end
       </block>
     </next>
   </block>
-</xml>
           XML
         end
       end
@@ -290,7 +284,6 @@ end
 
         it '結果が正しいこと' do
           should eq_block_xml(<<-XML)
-<xml xmlns="http://www.w3.org/1999/xhtml">
   <character name="car1" x="0" y="0" angle="0" costumes="car2.png" />
   <character name="car2" x="0" y="415" angle="0" costumes="car3.png" />
   <block type="ruby_comment">
@@ -417,7 +410,6 @@ end
       </block>
     </next>
   </block>
-</xml>
           XML
         end
       end
@@ -447,7 +439,6 @@ end
 
       it '結果が正しいこと' do
         should eq_block_xml(<<-XML)
-<xml xmlns="http://www.w3.org/1999/xhtml">
   <character name="frog1" x="261" y="191" angle="0" costumes="frog1.png" />
   <block type="hardware_init_hardware" />
   <block type="character_new">
@@ -529,7 +520,6 @@ end
       </block>
     </statement>
   </block>
-</xml>
         XML
       end
     end
