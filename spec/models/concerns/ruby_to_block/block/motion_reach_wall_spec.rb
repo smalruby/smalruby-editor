@@ -56,7 +56,9 @@ end
       should eq_block_xml(<<-XML)
   <block type="control_if" inline="true">
     <value name="COND">
-      <block type="motion_reach_wall" />
+      <block type="ruby_expression">
+        <field name="EXP">reach_wall?</field>
+      </block>
     </value>
   </block>
       XML

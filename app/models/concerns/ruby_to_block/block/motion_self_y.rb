@@ -10,6 +10,7 @@ module RubyToBlock
         md2 = regexp.match(md[type])
 
         character = get_character(context, md2[1])
+        return false if context.receiver != character
 
         block = new
         context.add_value(block)

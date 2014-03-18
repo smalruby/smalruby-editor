@@ -258,17 +258,12 @@ car1.on(:start) do
   end
 end
 car1.turn_if_reach_wall
-if car1.reach_wall?
-  car1.turn
-end
+car1.turn
 car1.rotate(15)
 car1.rotate(-15)
 car1.angle = 90
 car1.point_towards(:mouse)
 car1.point_towards(car1)
-if car1.angle < 90
-
-end
   EOS
   describe compact_source_code(parts), character_new_data: true do
     _parts = parts
@@ -348,13 +343,7 @@ end
         <next>
           <block type="motion_turn_if_reach_wall">
             <next>
-              <block type="control_if" inline="true">
-                <value name="COND">
-                  <block type="motion_reach_wall" />
-                </value>
-                <statement name="THEN">
-                  <block type="motion_turn" />
-                </statement>
+              <block type="motion_turn">
                 <next>
                   <block type="motion_rotate_right" inline="true">
                     <value name="ANGLE">
@@ -381,22 +370,6 @@ end
                                 <next>
                                   <block type="motion_point_towards_character">
                                     <field name="CHAR">car1</field>
-                                    <next>
-                                      <block type="control_if" inline="true">
-                                        <value name="COND">
-                                          <block type="operators_compare_lt" inline="true">
-                                            <value name="A">
-                                              <block type="motion_self_angle" />
-                                            </value>
-                                            <value name="B">
-                                              <block type="math_number">
-                                                <field name="NUM">90</field>
-                                              </block>
-                                            </value>
-                                          </block>
-                                        </value>
-                                      </block>
-                                    </next>
                                   </block>
                                 </next>
                               </block>

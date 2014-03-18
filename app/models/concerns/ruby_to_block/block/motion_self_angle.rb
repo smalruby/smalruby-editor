@@ -1,9 +1,9 @@
 module RubyToBlock
   module Block
-    class MotionSelfX < Value
+    class MotionSelfAngle < Value
       include CharacterOperation
 
-      blocknize '^\s*' + CHAR_RE + 'x\s*$',
+      blocknize '^\s*' + CHAR_RE + 'angle\s*$',
                 value: true
 
       def self.process_match_data(md, context)

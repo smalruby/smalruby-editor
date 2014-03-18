@@ -5,9 +5,7 @@ module RubyToBlock
       blocknize '^.*$', value: true, priority: -Float::INFINITY
 
       def self.process_match_data(md, context)
-        exp = md[type]
-        exp = exp[1..-2] if /^\(.*\)$/.match(exp)
-        context.add_value(new(fields: { EXP: exp }))
+        context.add_value(new(fields: { EXP: md.string }))
 
         true
       end

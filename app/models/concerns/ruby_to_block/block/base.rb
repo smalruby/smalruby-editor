@@ -94,6 +94,9 @@ module RubyToBlock
       # @return [true] これ以上解析する必要がない
       # @return [false] 解析できなかったのでさらなる解析が必要
       def self.process_value_string(context, block, string, name)
+        # HACK: 最初と最後の括弧を取り除く
+        string = string[1..-2] while string[0] == '(' && string[-1] == ')'
+
         value_md = Block.value_regexp.match(string)
         return false unless value_md
 
@@ -101,7 +104,9 @@ module RubyToBlock
         context.current_block = block
         context.value_name_stack.push(name)
 
-        Block.process_match_data(value_md, context)
+        unless Block.process_match_data(value_md, context)
+          Block.process_match_data(value_md, context, 'ruby_expression')
+        end
 
         context.value_name_stack.pop
         context.current_block = _current_block

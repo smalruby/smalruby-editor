@@ -2,7 +2,23 @@
 module RubyToBlock
   module Block
     class MotionReachWall < Value
-      blocknize '^\s*reach_wall\?\s*$', value: true
+      include CharacterOperation
+
+      blocknize '^\s*' + CHAR_RE + 'reach_wall\?\s*$',
+                value: true
+
+      def self.process_match_data(md, context)
+        md2 = regexp.match(md[type])
+
+        character = get_character(context, md2[1])
+        return false if context.receiver != character
+
+        block = new
+        context.add_value(block)
+        block.character = character
+
+        true
+      end
     end
   end
 end
