@@ -13,7 +13,8 @@ module RubyToBlock
         true
       end
 
-      def self.add_character_method_call_block(context, name, block, values = {})
+      def self.add_character_method_call_block(context, name, block,
+                                               values = {})
         _, context.current_block =
           *add_child_or_create_character_new_block(context, name, block)
 
