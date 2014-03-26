@@ -29,7 +29,11 @@
           %i.icon-reorder
         %ul.dropdown-menu{:class => "pull-right"}
           %li
-            %a#load-button
+            - if standalone?
+              - load_id = 'load-local-button'
+            - else
+              - load_id = 'load-button'
+            %a{:id => "#{load_id}"}
               %h4
                 %i.icon-folder-open
                 ロード

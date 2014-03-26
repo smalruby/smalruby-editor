@@ -1,0 +1,49 @@
+#load-modal{:class => "modal hide fade", :tabindex => "-1",
+            :role => "dialog", :"aria-hidden" => "true"}
+  .modal-body
+    %ul.thumbnails{:id => "load-modal-local-programs",
+                   :class => "list-programs"}
+
+    .page-header
+      %h3<
+        いろいろなプログラム
+    %ul.thumbnails{:id => "load-modal-demo-programs",
+                   :class => "list-programs"}
+      %li
+        .thumbnail
+          %img{:src => "smalruby/assets/car2.png"}
+          %blockquote
+            %p
+              車のおいかけっこ
+            %small
+              default
+      %li
+        .thumbnail
+          %img{:src => "smalruby/assets/frog1.png"}
+          %blockquote
+            %p
+              ライトをぴかっとさせるでよ
+            %small
+              rgb_led_anode
+
+    .page-header
+      %h3<
+        プログラムをさがす
+    %ul.thumbnails{:class => "list-programs"}
+      %li
+        .thumbnail{:style => "width: 200px;"}
+          %h1{:style => "font-size: 100px; text-align: center;"}
+            %i.icon-folder-open-alt
+          %blockquote
+            %p
+              このコンピュータ
+            %small
+              Computer
+
+  .modal-footer
+    %button.btn{:"data-dismiss" => "modal", :"aria-hidden" => "true"}<
+      %i.icon-remove
+      やめる
+    %button#load-modal-ok-button{:class => "btn btn-primary"}<
+      %i.icon-circle-blank
+      決めた！

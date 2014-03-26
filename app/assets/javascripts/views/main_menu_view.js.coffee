@@ -7,6 +7,7 @@ Smalruby.MainMenuView = Backbone.View.extend
     'click #ruby-mode-button': 'onRubyMode'
     'click #run-button': 'onRun'
     'click #download-button': 'onDownload'
+    'click #load-local-button': 'onLoadLocal'
     'click #load-button': 'onLoad'
     'click #save-button': 'onSave'
     'click #check-button': 'onCheck'
@@ -186,6 +187,15 @@ Smalruby.MainMenuView = Backbone.View.extend
       .then(@unblockUI, @unblockUI)
       .fail ->
         window.errorMessage('ダウンロードできませんでした')
+
+  onLoadLocal: (e) ->
+    e.preventDefault()
+
+    # TODO: window.changed -> Smalruby.Models.SourceCode.changed
+    if window.changed
+      return unless confirm('まだセーブしていないのでロードするとプログラムが消えてしまうよ！\nそれでもロードしますか？')
+
+    Smalruby.Views.LoadModalView.render()
 
   onLoad: (e) ->
     e.preventDefault()

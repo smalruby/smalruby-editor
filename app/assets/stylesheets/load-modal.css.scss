@@ -1,0 +1,36 @@
+#load-modal {
+    $modal-frame-size: 1px;
+    $modal-body-margin: 15px;
+
+    $modal-margin: $modal-frame-size + $modal-body-margin;
+    $modal-body-width: 700px;
+    $modal-body-height: 400px;
+
+    $modal-width: $modal-body-width + $modal-margin * 2;
+    $modal-height: $modal-body-height + $modal-margin * 2;
+
+    width: $modal-width;
+    height: $modal-height;
+    margin-left: -($modal-width / 2);
+
+    .modal-body {
+        position: relative;
+        height: 100%;
+        max-height: $modal-height - $modal-body-margin * 2;
+
+        .list-programs {
+            .thumbnail {
+                width: 200px;
+
+                img {
+                    max-width: 80px;
+                    max-height: 80px;
+                }
+
+                blockquote {
+                    margin: 0 0 0;
+                }
+            }
+        }
+    }
+}

@@ -44,6 +44,11 @@ window.Smalruby =
       model: @Collections.CharacterSet
     @Views.CharacterModalView = new Smalruby.CharacterModalView
       el: $('#character-modal')
+    @Views.LoadModalView = new Smalruby.LoadModalView
+      el: $('#load-modal')
+
+    # FIXME: テスト用
+    @Views.LoadModalView.render()
 
     Smalruby.downloading = false
     window.onbeforeunload = (event) ->
