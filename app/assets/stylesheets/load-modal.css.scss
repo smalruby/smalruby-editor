@@ -21,6 +21,12 @@
         .list-programs {
             .thumbnail {
                 width: 200px;
+                cursor: pointer;
+
+                h1.icon {
+                    font-size: 64px;
+                    text-align: center;
+                }
 
                 img {
                     max-width: 80px;
@@ -29,6 +35,20 @@
 
                 blockquote {
                     margin: 0 0 0;
+                    word-break: break-all;
+                }
+            }
+            a.thumbnail {
+                color: black;
+                text-decoration: none;
+            }
+
+            a.thumbnail.active {
+                color: white;
+                background-color: #0088cc;
+
+                blockquote small {
+                    color: gainsboro;
                 }
             }
         }

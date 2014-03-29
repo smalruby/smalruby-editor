@@ -5,7 +5,7 @@ SmalrubyEditor::Application.routes.draw do
   match '/demo(/:filename)' => 'editor#demo',
         defaults: { filename: 'default' }, via: :get
 
-  resources :source_codes, only: [:create]
+  resources :source_codes, only: [:create, :index]
   post 'source_codes/check'
   delete 'source_codes/download'
   post 'source_codes/load'

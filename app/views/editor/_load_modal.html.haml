@@ -6,33 +6,19 @@
 
     .page-header
       %h3<
+        %i.icon-th-large
         いろいろなプログラム
     %ul.thumbnails{:id => "load-modal-demo-programs",
                    :class => "list-programs"}
-      %li
-        .thumbnail
-          %img{:src => "smalruby/assets/car2.png"}
-          %blockquote
-            %p
-              車のおいかけっこ
-            %small
-              default
-      %li
-        .thumbnail
-          %img{:src => "smalruby/assets/frog1.png"}
-          %blockquote
-            %p
-              ライトをぴかっとさせるでよ
-            %small
-              rgb_led_anode
 
     .page-header
       %h3<
+        %i.icon-search
         プログラムをさがす
     %ul.thumbnails{:class => "list-programs"}
       %li
-        .thumbnail{:style => "width: 200px;"}
-          %h1{:style => "font-size: 100px; text-align: center;"}
+        %a#load-modal-find-from-computer.thumbnail
+          %h1.icon
             %i.icon-folder-open-alt
           %blockquote
             %p

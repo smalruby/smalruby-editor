@@ -4,6 +4,37 @@ require 'nkf'
 class SourceCodesController < ApplicationController
   before_filter :check_whether_standalone, only: [:write, :run]
 
+  def index
+    res = {
+      localPrograms: [],
+      demoPrograms: [],
+    }
+    if standalone?
+      Pathname.glob(Pathname('~/*.rb.xml').expand_path).each do |path|
+        # TODO: XMLからタイトルを抽出する
+        # TODO: XMLからキャラクターの画像を抽出する
+        res[:localPrograms] << {
+          title: path.basename.to_s[0...-4],
+          filename: path.basename.to_s[0...-4],
+        }
+      end
+    end
+
+    # TODO: XMLから情報を抽出する
+    res[:demoPrograms] << {
+      title: '車のおいかけっこ',
+      filename: 'default',
+      imageUrl: '/smalruby/assets/car2.png',
+    }
+    res[:demoPrograms] << {
+      title: 'ライトをぴかっとさせるでよ',
+      filename: 'rgb_led_anode',
+      imageUrl: '/smalruby/assets/frog1.png',
+    }
+
+    render json: res
+  end
+
   def check
     render json: SourceCode.new(source_code_params).check_syntax
   end
