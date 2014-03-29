@@ -47,9 +47,6 @@ window.Smalruby =
     @Views.LoadModalView = new Smalruby.LoadModalView
       el: $('#load-modal')
 
-    # FIXME: テスト用
-    @Views.LoadModalView.render()
-
     Smalruby.downloading = false
     window.onbeforeunload = (event) ->
       if !Smalruby.downloading && window.changed
