@@ -34,7 +34,6 @@ Smalruby.LoadModalView = Backbone.View.extend
       dataType: 'json'
       success: (data, textStatus, jqXHR) -> dfr.resolve(data)
       error: dfr.reject
-
     dfr.promise()
       .then (data) =>
         for program in data.localPrograms
@@ -55,14 +54,31 @@ Smalruby.LoadModalView = Backbone.View.extend
   onOk: ->
     switch @type
       when 'local'
-        @$el.modal('hide')
+        $.ajax
+          url: '/source_codes/load_local'
+          type: 'POST'
+          data:
+            source_code:
+              filename: @program.filename
+          dataType: 'json'
+          success: (data, textStatus, jqXHR) ->
+            Smalruby.Views.MainMenuView.load(data.source_code)
+
       when 'demo'
-        @$el.modal('hide')
+        $.ajax
+          url: '/source_codes/load_demo'
+          type: 'POST'
+          data:
+            source_code:
+              filename: @program.filename
+          dataType: 'json'
+          success: (data, textStatus, jqXHR) ->
+            Smalruby.Views.MainMenuView.load(data.source_code)
+
       when 'find-from-computer'
         $('input#load-file[name="source_code[file]"]').click()
-        @$el.modal('hide')
-      else
-        @$el.modal('hide')
+
+    @$el.modal('hide')
 
   onLocalProgramClick: (e, program) ->
     @select(e.currentTarget, 'local', program)

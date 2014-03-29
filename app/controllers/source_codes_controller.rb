@@ -2,7 +2,7 @@
 require 'nkf'
 
 class SourceCodesController < ApplicationController
-  before_filter :check_whether_standalone, only: [:write, :run]
+  before_filter :check_whether_standalone, only: [:write, :run, :load_local]
 
   def index
     res = {
@@ -10,12 +10,13 @@ class SourceCodesController < ApplicationController
       demoPrograms: [],
     }
     if standalone?
-      Pathname.glob(Pathname('~/*.rb.xml').expand_path).each do |path|
+      local_programs.each do |path|
         # TODO: XMLからタイトルを抽出する
         # TODO: XMLからキャラクターの画像を抽出する
+        filename = rb_basename(path)
         res[:localPrograms] << {
-          title: path.basename.to_s[0...-4],
-          filename: path.basename.to_s[0...-4],
+          title: filename,
+          filename: filename,
         }
       end
     end
@@ -23,12 +24,12 @@ class SourceCodesController < ApplicationController
     # TODO: XMLから情報を抽出する
     res[:demoPrograms] << {
       title: '車のおいかけっこ',
-      filename: 'default',
+      filename: 'default.rb',
       imageUrl: '/smalruby/assets/car2.png',
     }
     res[:demoPrograms] << {
       title: 'ライトをぴかっとさせるでよ',
-      filename: 'rgb_led_anode',
+      filename: 'rgb_led_anode.rb',
       imageUrl: '/smalruby/assets/frog1.png',
     }
 
@@ -80,6 +81,22 @@ class SourceCodesController < ApplicationController
     end
 
     render json: { source_code: info }, content_type: request.format
+  end
+
+  def load_local
+    filename = source_code_params[:filename]
+    path = local_programs.find { |path|
+      rb_basename(path) == filename
+    }
+    load_local_file(path)
+  end
+
+  def load_demo
+    filename = source_code_params[:filename]
+    path = demo_programs.find { |path|
+      rb_basename(path) == filename
+    }
+    load_local_file(path)
   end
 
   def run
@@ -150,5 +167,37 @@ class SourceCodesController < ApplicationController
     source_code.destroy
 
     session[:source_code] = nil
+  end
+
+  def local_programs
+    Pathname.glob(Pathname('~/*.rb.xml').expand_path)
+  end
+
+  def demo_programs
+    Pathname.glob(Rails.root.join('demos/*.rb.xml'))
+  end
+
+  def rb_basename(path)
+    path = path.basename.to_s
+    path = path[0...-4] if /\.xml\z/ =~ path
+    path
+  end
+
+  def load_local_file(path)
+    if path
+      info = {
+        filename: path.basename.to_s,
+        type: MIME.check(path.to_s).try(:content_type) || 'text/plain',
+        data: NKF.nkf('-w', path.read),
+        size: path.size,
+      }
+    else
+      info = {
+        filename: source_code_params[:filename],
+        error: 'ありません',
+      }
+    end
+
+    render json: { source_code: info }, content_type: request.format
   end
 end

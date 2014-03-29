@@ -24,37 +24,8 @@ Smalruby.MainMenuView = Backbone.View.extend
 
     $('#file-form').fileupload
       dataType: 'json'
-      done: (e, data) ->
-        info = data.result.source_code
-        if info.error
-          window.errorMessage(info.filename + 'は' + info.error)
-        else
-          filename = info.filename
-          if filename.match(/\.xml$/)
-            unless window.blockMode
-              window.blockMode = true
-              $('#tabs a[href="#block-tab"]').tab('show')
-
-            filename = filename.replace(/(\.rb)?\.xml$/, '.rb')
-            Smalruby.blocklyLoading = true
-            Smalruby.loadXml(info.data)
-            info.data = Blockly.Ruby.workspaceToCode()
-          else
-            Smalruby.Collections.CharacterSet.reset()
-            Blockly.mainWorkspace.clear()
-
-            if window.blockMode
-              window.blockMode = false
-              $('#tabs a[href="#ruby-tab"]').tab('show')
-              window.textEditor.focus()
-
-          $('#filename').val(filename)
-          window.textEditor.getSession().getDocument().setValue(info.data)
-          window.textEditor.moveCursorTo(0, 0)
-          # TODO: window.changed -> Smalruby.Models.SourceCode.changed
-          window.changed = false
-          Smalruby.changedAfterTranslating = true
-          window.successMessage('ロードしました')
+      done: (e, data) =>
+        @load(data.result.source_code)
 
   onBlockMode: (e) ->
     e.preventDefault()
@@ -346,3 +317,34 @@ Smalruby.MainMenuView = Backbone.View.extend
       else
         canceled.call()
         $.Deferred().reject().promise()
+
+  load: (info) ->
+    if info.error
+      window.errorMessage(info.filename + 'は' + info.error)
+    else
+      filename = info.filename
+      if filename.match(/\.xml$/)
+        unless window.blockMode
+          window.blockMode = true
+          $('#tabs a[href="#block-tab"]').tab('show')
+
+        filename = filename.replace(/(\.rb)?\.xml$/, '.rb')
+        Smalruby.blocklyLoading = true
+        Smalruby.loadXml(info.data)
+        info.data = Blockly.Ruby.workspaceToCode()
+      else
+        Smalruby.Collections.CharacterSet.reset()
+        Blockly.mainWorkspace.clear()
+
+        if window.blockMode
+          window.blockMode = false
+          $('#tabs a[href="#ruby-tab"]').tab('show')
+          window.textEditor.focus()
+
+      $('#filename').val(filename)
+      window.textEditor.getSession().getDocument().setValue(info.data)
+      window.textEditor.moveCursorTo(0, 0)
+      # TODO: window.changed -> Smalruby.Models.SourceCode.changed
+      window.changed = false
+      Smalruby.changedAfterTranslating = true
+      window.successMessage('ロードしました')

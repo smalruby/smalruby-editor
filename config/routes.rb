@@ -9,6 +9,8 @@ SmalrubyEditor::Application.routes.draw do
   post 'source_codes/check'
   delete 'source_codes/download'
   post 'source_codes/load'
+  post 'source_codes/load_local'
+  post 'source_codes/load_demo'
   delete 'source_codes/write'
   post 'source_codes/run'
   post 'source_codes/to_blocks'
