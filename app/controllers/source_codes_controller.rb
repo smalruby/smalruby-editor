@@ -85,18 +85,18 @@ class SourceCodesController < ApplicationController
 
   def load_local
     filename = source_code_params[:filename]
-    path = local_programs.find { |path|
+    program_path = local_program_paths.find { |path|
       rb_basename(path) == filename
     }
-    load_local_file(path)
+    load_local_file(program_path)
   end
 
   def load_demo
     filename = source_code_params[:filename]
-    path = demo_programs.find { |path|
+    program_path = demo_program_paths.find { |path|
       rb_basename(path) == filename
     }
-    load_local_file(path)
+    load_local_file(program_path)
   end
 
   def run
@@ -169,11 +169,11 @@ class SourceCodesController < ApplicationController
     session[:source_code] = nil
   end
 
-  def local_programs
+  def local_program_paths
     Pathname.glob(Pathname('~/*.rb.xml').expand_path)
   end
 
-  def demo_programs
+  def demo_program_paths
     Pathname.glob(Rails.root.join('demos/*.rb.xml'))
   end
 
