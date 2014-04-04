@@ -10,7 +10,7 @@ class SourceCodesController < ApplicationController
       demoPrograms: [],
     }
     if standalone?
-      local_programs.each do |path|
+      local_program_paths.each do |path|
         # TODO: XMLからタイトルを抽出する
         # TODO: XMLからキャラクターの画像を抽出する
         filename = rb_basename(path)
