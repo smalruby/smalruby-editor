@@ -78,7 +78,7 @@ GEM
     dino (0.11.2)
       serialport
     docile (1.1.2)
-    dxruby (1.4.0)
+    dxruby (1.4.1)
     dxruby_sdl (0.0.6)
       rubysdl
     eco (1.0.0)
@@ -219,14 +219,14 @@ GEM
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
     slop (3.4.7)
-    smalruby (0.0.12)
+    smalruby (0.0.16)
       activesupport
-      dino
+      dino (~> 0.11.2)
       dxruby_sdl
       mime-types (~> 1.6)
-    smalruby (0.0.12-x86-mingw32)
+    smalruby (0.0.16-x86-mingw32)
       activesupport
-      dino
+      dino (~> 0.11.2)
       dxruby
       mime-types (~> 1.6)
     spork (1.0.0rc4)
@@ -309,7 +309,7 @@ DEPENDENCIES
   selenium-webdriver
   shared-mime-info
   shoulda-matchers
-  smalruby
+  smalruby (~> 0.0.16)
   spork-rails
   sqlite3
   teaspoon
