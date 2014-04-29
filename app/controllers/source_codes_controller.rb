@@ -24,12 +24,12 @@ class SourceCodesController < ApplicationController
     # TODO: XMLから情報を抽出する
     res[:demoPrograms] << {
       title: '車のおいかけっこ',
-      filename: 'default.rb',
+      filename: 'car_chase.rb',
       imageUrl: '/smalruby/assets/car2.png',
     }
     res[:demoPrograms] << {
       title: 'ライトをぴかっとさせるでよ',
-      filename: 'rgb_led_anode.rb',
+      filename: 'hardware_led.rb',
       imageUrl: '/smalruby/assets/frog1.png',
     }
 

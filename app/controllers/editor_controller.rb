@@ -4,6 +4,6 @@ class EditorController < ApplicationController
   end
 
   def demo
-    @filename = (File.basename(params[:filename]) || 'default') + '.rb.xml'
+    @filename = (File.basename(params[:filename]) || 'car_chase') + '.rb.xml'
   end
 end

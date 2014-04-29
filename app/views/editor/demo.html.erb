@@ -6,10 +6,8 @@
     data = $('<div>').html(data).text();
     Smalruby.loadXml(data);
 
-    <% if @filename != 'default.xml' %>
-    var filename = $('<div>').html('<%= escape_javascript(@filename.sub(/\.xml$/, '.rb')) %>').text();
+    var filename = $('<div>').html('<%= escape_javascript(@filename.sub(/\.rb\.xml$/, '.rb')) %>').text();
     $('#filename').val(filename)
-    <% end %>
 
     window.changed = false;
   });
