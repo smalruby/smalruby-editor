@@ -83,6 +83,10 @@ Smalruby.MainMenuView = Backbone.View.extend
 
     sourceCode = @getSourceCode()
 
+    filename = sourceCode.get('filename')
+    filename += '.xml' unless filename.match(/\.xml$/)
+    xmlSourceCode = new Smalruby.SourceCode({ filename: filename })
+
     @blockUI
       title:
         """
@@ -116,6 +120,10 @@ Smalruby.MainMenuView = Backbone.View.extend
                 msg += "、#{errorInfo.column}文字"
               window.errorMessage(msg + ": #{errorInfo.message}")
           $.Deferred().reject().promise()
+      .then ->
+        xmlSourceCode.save2()
+      .then ->
+        xmlSourceCode.write(true)
       .then ->
         sourceCode.run()
       .then (data) ->
