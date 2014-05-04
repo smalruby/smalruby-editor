@@ -79,7 +79,8 @@ GEM
       serialport
     docile (1.1.2)
     dxruby (1.4.1)
-    dxruby_sdl (0.0.6)
+    dxruby_sdl (0.0.7)
+      rsdl
       rubysdl
     eco (1.0.0)
       coffee-script
@@ -174,6 +175,7 @@ GEM
       json (~> 1.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rsdl (0.1.4)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -219,12 +221,12 @@ GEM
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
     slop (3.4.7)
-    smalruby (0.0.16)
+    smalruby (0.0.17)
       activesupport
       dino (~> 0.11.2)
-      dxruby_sdl
+      dxruby_sdl (~> 0.0.7)
       mime-types (~> 1.6)
-    smalruby (0.0.16-x86-mingw32)
+    smalruby (0.0.17-x86-mingw32)
       activesupport
       dino (~> 0.11.2)
       dxruby
@@ -309,7 +311,7 @@ DEPENDENCIES
   selenium-webdriver
   shared-mime-info
   shoulda-matchers
-  smalruby (~> 0.0.16)
+  smalruby (~> 0.0.17)
   spork-rails
   sqlite3
   teaspoon
