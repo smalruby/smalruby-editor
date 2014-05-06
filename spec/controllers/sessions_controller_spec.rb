@@ -9,23 +9,33 @@ describe SessionsController do
       }
     }
 
-    before do
-      xhr :post, :create, params, {}
+    context 'RAILS_ENVがstandaloneの場合', set_standalone_rails_env: true do
+      before do
+        xhr :post, :create, params, {}
+      end
+
+      describe 'レスポンスボディ' do
+        subject { response.body }
+
+        it { should eq('1102') }
+      end
+
+      describe 'session' do
+        subject { session }
+
+        describe '[:username]' do
+          subject { super()[:username] }
+
+          it { should eq(params[:username]) }
+        end
+      end
     end
 
-    describe 'レスポンスボディ' do
-      subject { response.body }
-
-      it { should eq('1102') }
-    end
-
-    describe 'session' do
-      subject { session }
-
-      describe '[:username]' do
-        subject { super()[:username] }
-
-        it { should eq(params[:username]) }
+    context 'RAILS_ENVがstandaloneではない場合' do
+      it do
+        expect {
+          xhr :post, :create, params, {}
+        }.to raise_exception
       end
     end
   end
@@ -37,17 +47,27 @@ describe SessionsController do
       }
     }
 
-    before do
-      xhr :delete, :destroy, {}, _session
+    context 'RAILS_ENVがstandaloneの場合', set_standalone_rails_env: true do
+      before do
+        xhr :delete, :destroy, {}, _session
+      end
+
+      describe 'session' do
+        subject { session }
+
+        describe '[:username]' do
+          subject { super()[:username] }
+
+          it { should be_nil }
+        end
+      end
     end
 
-    describe 'session' do
-      subject { session }
-
-      describe '[:username]' do
-        subject { super()[:username] }
-
-        it { should be_nil }
+    context 'RAILS_ENVがstandaloneではない場合' do
+      it do
+        expect {
+          xhr :post, :create, params, {}
+        }.to raise_exception
       end
     end
   end
