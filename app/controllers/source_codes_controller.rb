@@ -118,12 +118,6 @@ class SourceCodesController < ApplicationController
 
   private
 
-  def check_whether_standalone
-    unless standalone?
-      fail "#{self.class.name}##{action_name}はstandaloneモードのみの機能です"
-    end
-  end
-
   def source_code_params
     params.require(:source_code).permit(:data, :filename)
   end

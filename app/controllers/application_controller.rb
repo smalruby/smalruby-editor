@@ -21,4 +21,10 @@ class ApplicationController < ActionController::Base
       false
     end
   end
+
+  def check_whether_standalone
+    unless standalone?
+      fail "#{self.class.name}##{action_name}はstandaloneモードのみの機能です"
+    end
+  end
 end
