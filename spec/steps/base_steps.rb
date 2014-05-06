@@ -25,6 +25,10 @@ step ':name が表示されていること' do |name|
   expect(page).to have_selector(NAME_INFO[name][:selector])
 end
 
+step ':name が表示されていないこと' do |name|
+  expect(page).not_to have_selector(NAME_INFO[name][:selector])
+end
+
 step ':name にタブを切り替える' do |name|
   page.execute_script(<<-JS)
     $('#tabs a[href=\"#{NAME_INFO[name][:selector]}\"]').click()
@@ -36,8 +40,12 @@ step ':name タブを表示する' do |name|
   step %("#{name}タブ" にタブを切り替える)
 end
 
+step ':name に :value を指定する' do |name, value|
+  fill_in(NAME_INFO.key?(name) ? NAME_INFO[name][:id] : name, with: value)
+end
+
 step 'プログラムの名前に :filename を指定する' do |filename|
-  fill_in('filename', with: filename)
+  step %("プログラム名の入力欄" に "#{filename}" を指定する')
 end
 
 step 'サブメニューの :name をクリックする' do |name|
@@ -128,7 +136,7 @@ step ':name に :message を含むこと' do |name, message|
 end
 
 step ':name に :message を含まないこと' do |name, message|
-  expect(page.find(NAME_INFO[name][:selector])).to have_no_content(message)
+  expect(page.find(NAME_INFO[name][:selector])).not_to have_content(message)
 end
 
 step 'ページをリロードする' do

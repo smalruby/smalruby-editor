@@ -27,11 +27,24 @@
     id: 'filename',
   },
 
+  # メニュー/サブメニューのボタン
+  'メニュー' => {
+    selector: '#main-menu',
+  },
+  'サブメニュー' => {
+    selector: '#submenu',
+  },
+  'ログインボタン' => {
+    id: 'signin-button',
+  },
   'ダウンロードボタン' => {
     id: 'download-button',
   },
   '実行ボタン' => {
     id: 'run-button',
+  },
+  'サブメニューボタン' => {
+    id: 'submenu-button',
   },
   'ロードボタン' => {
     id: 'load-button',
@@ -45,9 +58,28 @@
   'リセットボタン' => {
     id: 'reset-button',
   },
+  'ログアウトボタン' => {
+    id: 'signout-button',
+  },
 
   'メッセージ' => {
     id: 'messages',
+  },
+
+  # ダイアログ
+  'ログインダイアログ' => {
+    selector: '#signin-modal',
+  },
+
+  # ログインダイアログ
+  'ログインダイアログの名前' => {
+    id: 'signin-modal-username',
+  },
+  'ログインダイアログのログインボタン' => {
+    id: 'signin-modal-ok-button',
+  },
+  'ログインダイアログのやめるボタン' => {
+    id: 'signin-modal-cancel-button',
   },
 }
 

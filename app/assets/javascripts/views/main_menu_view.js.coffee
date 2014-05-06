@@ -12,6 +12,9 @@ Smalruby.MainMenuView = Backbone.View.extend
     'click #save-button': 'onSave'
     'click #check-button': 'onCheck'
     'click #reset-button': 'onReset'
+    'click #signin-button': 'onSignin'
+    'click #signout-button': 'onSignout'
+    'click #username-button': 'onUsername'
 
   initialize: ->
     $('#filename').keypress (e) ->
@@ -264,6 +267,32 @@ Smalruby.MainMenuView = Backbone.View.extend
     e.preventDefault()
 
     location.reload()
+
+  onSignin: (e) ->
+    e.preventDefault()
+
+    Smalruby.Views.SigninModalView.render()
+
+  onSignout: (e) ->
+    e.preventDefault()
+
+    $.ajax({
+      url: '/signout'
+      type: 'DELETE'
+    })
+      .then(
+        (data) ->
+          $('#signin-button').show()
+          $('#signout-button').hide()
+          $('#username-label').text('')
+          $('#username-button').hide()
+          successMessage('ログアウトしました')
+        ->
+          errorMessage('ログアウトに失敗しました')
+      )
+
+  onUsername: (e) ->
+    e.preventDefault()
 
   getFilename: ->
     $.trim($('#filename').val())

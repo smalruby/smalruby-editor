@@ -5,6 +5,9 @@ SmalrubyEditor::Application.routes.draw do
   match '/demo(/:filename)' => 'editor#demo',
         defaults: { filename: 'car_chase' }, via: :get
 
+  resources :sessions, only: [:create, :destroy]
+  match '/signout', to: 'sessions#destroy', via: 'delete'
+
   resources :source_codes, only: [:create, :index]
   post 'source_codes/check'
   delete 'source_codes/download'

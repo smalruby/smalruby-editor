@@ -1,0 +1,17 @@
+#signin-modal{class: "modal hide fade", tabindex: "-1",
+              role: "dialog", :"aria-hidden" => "true"}
+  .modal-body
+    %form#signin-modal-form.form-horizontal
+      .control-group{for: "username"}
+        %label.control-label{for: "signin-modal-username"}<
+          名前
+        .controls
+          %input#signin-modal-username.input-large{name: "username", type: "text", placeholder: "名前、生徒番号、ニックネームなど"}
+
+  .modal-footer
+    %button#signin-modal-cancel-button.cancel-button{class: "btn", :"data-dismiss" => "modal", :"aria-hidden" => "true"}<
+      %i.icon-remove
+      やめる
+    %button#signin-modal-ok-button.ok-button{class: "btn btn-primary"}<
+      %i.icon-circle-blank
+      ログイン

@@ -27,7 +27,7 @@
       .btn-group
         %a#submenu-button{:class => "dropdown-toggle btn btn-primary", :"data-toggle" => "dropdown", :href => "#"}
           %i.icon-reorder
-        %ul.dropdown-menu{:class => "pull-right"}
+        %ul#submenu.dropdown-menu{:class => "pull-right"}
           %li
             - if standalone?
               - load_id = 'load-local-button'
@@ -53,6 +53,19 @@
               %h4
                 %i.icon-off
                 リセット
+          - if standalone?
+            %li
+              %a#signout-button{style: "display: none"}
+                %h4
+                  %i.icon-eject
+                  ログアウト
+      - if standalone?
+        %button#signin-button{:class => "btn btn-danger"}<
+          %i.icon-user
+          ログイン
+        %button#username-button{class: "btn btn-success", style: "display: none"}<
+          %i.icon-user
+          %span#username-label
 
 #messages
 
@@ -62,3 +75,5 @@
 
   #ruby-tab{:class => 'tab-pane modes-tab-pane'}
     #text-editor
+
+= render 'signin_modal'

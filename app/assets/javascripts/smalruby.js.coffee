@@ -28,6 +28,10 @@ window.Smalruby =
   Views: {}
   Routers: {}
   initialize: ->
+    $.ajaxSetup
+      headers:
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+
     # HACK: Underscoreのテンプレートの<%, %>はHamlと組み合わせたときに
     #   HTML要素の属性がHamlによってエスケープされてしまうため使いにく
     #   い。そこで、それぞれ{{, }}に変更する。
@@ -40,6 +44,8 @@ window.Smalruby =
     @Collections.CharacterSet = new Smalruby.CharacterSet()
 
     @Views.MainMenuView = new Smalruby.MainMenuView()
+    @Views.SigninModalView = new Smalruby.SigninModalView
+      el: $('#signin-modal')
     @Views.CharacterSelectorView = new Smalruby.CharacterSelectorView
       model: @Collections.CharacterSet
     @Views.CharacterModalView = new Smalruby.CharacterModalView
@@ -128,6 +134,15 @@ window.Smalruby =
       e.setAttribute('angle', c.get('angle'))
       xmlDom.insertBefore(e, blocklyDom)
     Blockly.Xml.domToPrettyText(xmlDom)
+
+  # テキスト入力欄のEnter(Return)キーを無視する
+  ignoreEnterKey: (el) ->
+    el.find('input[type=text]').keypress (e) ->
+      e = window.event if !e
+      if e.keyCode == 13
+        false
+      else
+        true
 
 $(document).ready ->
   Smalruby.initialize()
