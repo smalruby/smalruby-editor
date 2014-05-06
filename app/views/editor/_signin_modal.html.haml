@@ -1,6 +1,11 @@
 #signin-modal{class: "modal hide fade", tabindex: "-1",
               role: "dialog", :"aria-hidden" => "true"}
   .modal-body
+    %h4
+      %i.icon-info-sign
+      あなたの名前をいれて、
+      %br
+      ほかの人のプログラムとまざらないようにしよう♪
     %form#signin-modal-form.form-horizontal
       .control-group{for: "username"}
         %label.control-label{for: "signin-modal-username"}<

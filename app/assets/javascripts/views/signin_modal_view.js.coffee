@@ -5,9 +5,13 @@ Smalruby.SigninModalView = Backbone.View.extend
 
   initialize: ->
     Smalruby.ignoreEnterKey(@$el)
+    @$el.on 'shown', =>
+      @$el.find('#signin-modal-username')
+        .focus()
 
   render: ->
-    @$el.find('input[name=username]').val($('#username-label').text())
+    @$el.find('#signin-modal-username')
+      .val($('#username-label').text())
     @$el.modal('show')
 
   onOk: (e) ->
