@@ -16,48 +16,43 @@
 
   'ブロックタブ' => {
     id: 'block-tab',
-    selector: '#block-tab',
   },
   'Rubyタブ' => {
     id: 'ruby-tab',
-    selector: '#ruby-tab',
   },
   'テキストエディタ' => {
     id: 'text-editor',
-    selector: '#text-editor',
   },
   'プログラム名の入力欄' => {
     id: 'filename',
-    selector: '#filename',
   },
 
   'ダウンロードボタン' => {
     id: 'download-button',
-    selector: '#download-button',
   },
   '実行ボタン' => {
     id: 'run-button',
-    selector: '#run-button',
   },
   'ロードボタン' => {
     id: 'load-button',
-    selector: '#load-button',
   },
   'セーブボタン' => {
     id: 'save-button',
-    selector: '#save-button',
   },
   'チェックボタン' => {
     id: 'check-button',
-    selector: '#check-button',
   },
   'リセットボタン' => {
     id: 'reset-button',
-    selector: '#reset-button',
   },
 
   'メッセージ' => {
     id: 'messages',
-    selector: '#messages',
   },
 }
+
+::NAME_INFO.values.each do |value|
+  if value.key?(:id) && !value.key?(:selector)
+    value[:selector] = "##{value[:id]}"
+  end
+end
