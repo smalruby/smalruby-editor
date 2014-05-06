@@ -101,7 +101,12 @@ class SourceCodesController < ApplicationController
 
   def run
     source_code = SourceCode.new(source_code_params)
-    path = Pathname("~/#{source_code.filename}").expand_path
+    if session[:username]
+      s = "~/#{session[:username]}/#{source_code.filename}"
+    else
+      s = "~/#{source_code.filename}"
+    end
+    path = Pathname(s).expand_path
     render json: source_code.run(path)
   end
 
@@ -148,10 +153,16 @@ class SourceCodesController < ApplicationController
   end
 
   def write_source_code(source_code)
-    path = Pathname("~/#{source_code.filename}").expand_path.to_s
+    if session[:username]
+      s = "~/#{session[:username]}/#{source_code.filename}"
+    else
+      s = "~/#{source_code.filename}"
+    end
+    path = Pathname(s).expand_path.to_s
 
     fail 'すでに同じ名前のプログラムがあります' if File.exist?(path) && params[:force].blank?
 
+    FileUtils.mkdir_p(File.dirname(path))
     File.open(path, 'w') do |f|
       f.write(source_code.data)
     end
@@ -164,7 +175,13 @@ class SourceCodesController < ApplicationController
   end
 
   def local_program_paths
-    Pathname.glob(Pathname('~/*.rb.xml').expand_path)
+    if session[:username]
+      # TODO: session[:username]の/や\をエスケープする
+      s = "~/#{session[:username]}/*.rb.xml"
+    else
+      s = '~/*.rb.xml'
+    end
+    Pathname.glob(Pathname(s).expand_path)
   end
 
   def demo_program_paths
