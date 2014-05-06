@@ -45,7 +45,7 @@ step ':name に :value を指定する' do |name, value|
 end
 
 step 'プログラムの名前に :filename を指定する' do |filename|
-  step %("プログラム名の入力欄" に "#{filename}" を指定する')
+  step %("プログラム名の入力欄" に "#{filename}" を指定する)
 end
 
 step 'サブメニューの :name をクリックする' do |name|
