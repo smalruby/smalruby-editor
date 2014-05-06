@@ -236,3 +236,19 @@ step 'ホームディレクトリの :filename の内容が :program である�
   path = Pathname("~/#{filename}").expand_path
   expect(path.read).to eq(program)
 end
+
+step ':directory ディレクトリに :program という内容の :filename が存在する' do |directory, program, filename|
+  File.open(Pathname("#{directory}/#{filename}").expand_path, 'w') do |f|
+    f.write(program)
+  end
+end
+
+step ':directory ディレクトリに :filename が存在すること' do |directory, filename|
+  path = Pathname("#{directory}/#{filename}").expand_path
+  expect(path).to be_exist
+end
+
+step ':directory ディレクトリの :filename の内容が :program であること' do |directory, filename, program|
+  path = Pathname("#{directory}/#{filename}").expand_path
+  expect(path.read).to eq(program)
+end
