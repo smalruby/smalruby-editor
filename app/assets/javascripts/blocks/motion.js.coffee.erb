@@ -270,7 +270,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   style = @getFieldValue('STYLE')
-  "#{Blockly.Ruby.rn({ dropSelf: false })}rotation_style = :#{style}\n"
+  Blockly.Ruby.characterSetVariable_('rotation_style', ":#{style}")
 
 # 変数:x座標
 # 変数:y座標
