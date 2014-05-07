@@ -22,6 +22,9 @@ window.errorMessage = (msg, selector = '#messages') ->
   html.fadeIn('slow')
   return
 
+window.clearMessages = (selector = '#messages') ->
+  $(selector).empty()
+
 window.Smalruby =
   Models: {}
   Collections: {}

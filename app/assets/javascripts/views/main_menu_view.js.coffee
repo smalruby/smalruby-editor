@@ -90,6 +90,8 @@ Smalruby.MainMenuView = Backbone.View.extend
     filename += '.xml' unless filename.match(/\.xml$/)
     xmlSourceCode = new Smalruby.SourceCode({ filename: filename })
 
+    clearMessages()
+
     @blockUI
       title:
         """
@@ -147,6 +149,8 @@ Smalruby.MainMenuView = Backbone.View.extend
 
     sourceCode = @getSourceCode()
 
+    clearMessages()
+
     @blockUI
       title:
         """
@@ -202,6 +206,8 @@ Smalruby.MainMenuView = Backbone.View.extend
     else
       sourceCode = @getSourceCode()
 
+    clearMessages()
+
     @blockUI
       title:
         """
@@ -232,7 +238,7 @@ Smalruby.MainMenuView = Backbone.View.extend
   onCheck: (e) ->
     e.preventDefault()
 
-    # TODO: 既存のシンタックスに関するエラーメッセージをcloseしておく
+    clearMessages()
 
     sourceCode = @getSourceCode()
 
@@ -359,6 +365,8 @@ Smalruby.MainMenuView = Backbone.View.extend
     if info.error
       window.errorMessage(info.filename + 'は' + info.error)
     else
+      clearMessages()
+
       filename = info.filename
       if filename.match(/\.xml$/)
         unless window.blockMode
