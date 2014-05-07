@@ -1,5 +1,9 @@
 # encoding: utf-8
 
+step 'セッションをクリアする' do
+  Capybara.reset_sessions!
+end
+
 step ':name にアクセスする' do |name|
   visit NAME_INFO[name][:path]
 

@@ -55,17 +55,32 @@
                 リセット
           - if standalone?
             %li
-              %a#signout-button{style: "display: none"}
-                %h4
-                  %i.icon-eject
-                  ログアウト
+              - if session[:username]
+                %a#signout-button
+                  %h4
+                    %i.icon-eject
+                    ログアウト
+              - else
+                %a#signout-button{style: "display: none"}
+                  %h4
+                    %i.icon-eject
+                    ログアウト
       - if standalone?
-        %button#signin-button{:class => "btn btn-danger"}<
-          %i.icon-user
-          ログイン
-        %button#username-button{class: "btn btn-success", style: "display: none"}<
-          %i.icon-user
-          %span#username-label
+        - if session[:username]
+          %button#signin-button{class: "btn btn-danger", style: "display: none"}<
+            %i.icon-user
+            ログイン
+          %button#username-button{class: "btn btn-success"}<
+            %i.icon-user
+            %span#username-label<
+              = session[:username]
+        - else
+          %button#signin-button{class: "btn btn-danger"}<
+            %i.icon-user
+            ログイン
+          %button#username-button{class: "btn btn-success", style: "display: none"}<
+            %i.icon-user
+            %span#username-label
 
 #messages
 
