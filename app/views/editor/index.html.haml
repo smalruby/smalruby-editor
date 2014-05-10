@@ -24,19 +24,18 @@
           %i.icon-download-alt
           ダウンロード
 
+      - if standalone?
+        - load_id = 'load-local-button'
+      - else
+        - load_id = 'load-button'
+      %button{:id => "#{load_id}",:class => "btn btn-primary"}<
+        %i.icon-folder-open
+        ロード
+
       .btn-group
         %a#submenu-button{:class => "dropdown-toggle btn btn-primary", :"data-toggle" => "dropdown", :href => "#"}
           %i.icon-reorder
         %ul#submenu.dropdown-menu{:class => "pull-right"}
-          %li
-            - if standalone?
-              - load_id = 'load-local-button'
-            - else
-              - load_id = 'load-button'
-            %a{:id => "#{load_id}"}
-              %h4
-                %i.icon-folder-open
-                ロード
           - if standalone?
             %li
               %a#save-button
