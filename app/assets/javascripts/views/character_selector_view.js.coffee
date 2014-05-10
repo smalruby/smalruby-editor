@@ -49,7 +49,7 @@ Smalruby.CharacterSelectorView = Backbone.View.extend({
       if character.get('using')
         removeButton.hide()
 
-      rotate = "rotate(#{character.get('angle') * -1}deg)"
+      rotate = "rotate(#{character.get('angle')}deg)"
       img = html.find('img')
       img.css
         '-moz-transform': rotate
