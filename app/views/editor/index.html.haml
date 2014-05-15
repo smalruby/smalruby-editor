@@ -24,46 +24,77 @@
           %i.icon-download-alt
           ダウンロード
 
-      - if standalone?
-        - load_id = 'load-local-button'
-      - else
-        - load_id = 'load-button'
-      %button{:id => "#{load_id}",:class => "btn btn-primary"}<
-        %i.icon-folder-open
-        ロード
+      - if raspberrypi?
+        - if standalone?
+          - load_id = 'load-local-button'
+        - else
+          - load_id = 'load-button'
+        %button.btn{id: "#{load_id}", class: "btn btn-primary"}<
+          %i.icon-folder-open
+          ロード
+        - if standalone?
+          %button#save-button.btn{class: "btn-primary"}<
+            %i.icon-hdd
+            セーブ
+        %button#check-button.btn{class: "btn-primary"}<
+          %i.icon-check
+          チェック
+        %button#reset-button.btn{class: "btn-primary"}<
+          %i.icon-off
+          リセット
+        - if standalone?
+          - if session[:username]
+            %button#signout-button.btn{class: "btn-primary"}<
+              %i.icon-eject
+              ログアウト
+          - else
+            %button#signout-button.btn{class: "btn-primary", style: "display: none"}<
+              %i.icon-eject
+              ログアウト
 
-      .btn-group
-        %a#submenu-button{:class => "dropdown-toggle btn btn-primary", :"data-toggle" => "dropdown", :href => "#"}
-          %i.icon-reorder
-        %ul#submenu.dropdown-menu{:class => "pull-right"}
-          - if standalone?
+      - else
+        .btn-group
+          %a#submenu-button{:class => "dropdown-toggle btn btn-primary", :"data-toggle" => "dropdown", :href => "#"}
+            %i.icon-reorder
+          %ul#submenu.dropdown-menu{:class => "pull-right"}
             %li
-              %a#save-button
-                %h4
-                  %i.icon-hdd
-                  セーブ
-          %li
-            %a#check-button
-              %h4
-                %i.icon-check
-                チェック
-          %li
-            %a#reset-button
-              %h4
-                %i.icon-off
-                リセット
-          - if standalone?
-            %li
-              - if session[:username]
-                %a#signout-button
-                  %h4
-                    %i.icon-eject
-                    ログアウト
+              - if standalone?
+                - load_id = 'load-local-button'
               - else
-                %a#signout-button{style: "display: none"}
+                - load_id = 'load-button'
+              %a{:id => "#{load_id}"}
+                %h4
+                  %i.icon-folder-open
+                  ロード
+            - if standalone?
+              %li
+                %a#save-button
                   %h4
-                    %i.icon-eject
-                    ログアウト
+                    %i.icon-hdd
+                    セーブ
+            %li
+              %a#check-button
+                %h4
+                  %i.icon-check
+                  チェック
+            %li
+              %a#reset-button
+                %h4
+                  %i.icon-off
+                  リセット
+            - if standalone?
+              %li
+                - if session[:username]
+                  %a#signout-button
+                    %h4
+                      %i.icon-eject
+                      ログアウト
+                - else
+                  %a#signout-button{style: "display: none"}
+                    %h4
+                      %i.icon-eject
+                      ログアウト
+
       - if standalone?
         - if session[:username]
           %button#signin-button{class: "btn btn-danger", style: "display: none"}<

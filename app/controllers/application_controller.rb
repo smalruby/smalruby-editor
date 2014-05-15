@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :standalone?
+  helper_method :standalone?, :raspberrypi?
 
   private
 
@@ -19,6 +19,17 @@ class ApplicationController < ActionController::Base
       true
     else
       false
+    end
+  end
+
+  # Raspberry Piかどうかを返す
+  def raspberrypi?
+    if Rails.env != 'test' &&
+        (ENV['SMALRUBY_EDITOR_RASPBERRYPI_MODE'] ||
+         File.exist?(Rails.root.join('tmp', 'raspberrypi')))
+      true
+    else
+      RbConfig::CONFIG['arch'] == 'armv6l-linux-eabihf'
     end
   end
 
