@@ -24,11 +24,11 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   Blockly.Ruby.characterMethodCall_('move', "#{arg}")
 
 # 時計回りに(　)度回す
-# 半時計回りに(　)度回す
+# 反時計回りに(　)度回す
 <%
   [
     ['right', '', ''],
-    ['left', '半', '-'],
+    ['left', '反', '-'],
   ].each do |suffix, label_prefix, sign|
     n = "#{category}_rotate_#{suffix}"
 %>
