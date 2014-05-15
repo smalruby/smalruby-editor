@@ -44,6 +44,17 @@ window.Smalruby =
       interpolate: /{{=([\s\S]+?)}}/
     })
 
+    # HACK: 一度開いたジャンルを2回クリックしても閉じないように修正
+    Blockly.Toolbox.TreeNode.prototype.onMouseDown = (e) ->
+      if @hasChildren() && @isUserCollapsible_
+        @toggle()
+        @select()
+      else if @isSelected()
+        #@getTree().setSelectedItem(null)
+      else
+        @select()
+      @updateRow()
+
     @Collections.CharacterSet = new Smalruby.CharacterSet()
 
     @Views.MainMenuView = new Smalruby.MainMenuView()
