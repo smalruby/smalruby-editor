@@ -80,6 +80,10 @@ Smalruby.Character = Backbone.Model.extend({
     'cat2.png'
     'cat3.png'
     'frog1.png'
+    'ryu1.png'
+    'ryu2.png'
+    'taichi1.png'
+    'taichi2.png'
   ]
 
   costumeToNamePrefix: (costume) ->
