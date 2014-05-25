@@ -167,14 +167,14 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
   "until #{cond}\n" + branch + 'end\n'
 
-# 1フレーム待つ
+# ほんの少し待つ
 <% n = "#{category}_await" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField('1フレーム待つ')
+      .appendField('ほんの少し待つ')
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
