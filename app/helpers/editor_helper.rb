@@ -16,6 +16,7 @@ module EditorHelper
   def toolbox_key_field(name = 'KEY', value = 'K_SPACE')
     %(<field name="#{h name}">#{h value}</field>).html_safe
   end
+
   # ツールボックスのブロックに対して、数値型の入力のブロックを設定する
   #
   # @param [String] name 入力値の名前
