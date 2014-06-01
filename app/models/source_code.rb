@@ -16,6 +16,26 @@ class SourceCode < ActiveRecord::Base
   validate :validate_filename
   validates :data, presence: true, allow_blank: true
 
+  MAX_REMIX_COUNT = 1000
+
+  # リミックス用のファイル名を生成する
+  def self.make_remix_filename(home_dir, filename)
+    home_dir = Pathname(home_dir).expand_path
+    filename = filename.dup
+    ext = filename.slice!(/\.rb(\.xml)?$/)
+    filename.slice!(/(_remix(\d+)?)+$/)
+    basename = "#{filename}_remix"
+    MAX_REMIX_COUNT.times do |i|
+      suffix = (i == 0 ? '' : sprintf("%02d", i + 1))
+      remix_name = "#{basename}#{suffix}"
+      if !home_dir.join("#{remix_name}.rb").exist? &&
+          !home_dir.join("#{remix_name}.rb.xml").exist?
+        return "#{remix_name}#{ext}"
+      end
+    end
+    fail "reach max remix count...: #{filename}"
+  end
+
   # シンタックスをチェックする
   def check_syntax
     _, stderr_str, status = *open3_capture3_ruby_c

@@ -2,6 +2,7 @@
 Smalruby.LoadModalView = Backbone.View.extend
   events:
     'click #load-modal-ok-button': 'onOk'
+    'click #load-modal-remix-button': 'onRemix'
 
   initialize: ->
     @$el.find('#load-modal-find-from-computer').click (e) =>
@@ -11,6 +12,7 @@ Smalruby.LoadModalView = Backbone.View.extend
   render: ->
     @type = null
     @program = null
+    @setRemix(false)
     @unselect()
 
     elLocalPrograms = @$el.find('#load-modal-local-programs')
@@ -60,6 +62,7 @@ Smalruby.LoadModalView = Backbone.View.extend
           data:
             source_code:
               filename: @program.filename
+              remix: @remix
           dataType: 'json'
           success: (data, textStatus, jqXHR) ->
             Smalruby.Views.MainMenuView.load(data.source_code)
@@ -71,6 +74,7 @@ Smalruby.LoadModalView = Backbone.View.extend
           data:
             source_code:
               filename: @program.filename
+              remix: @remix
           dataType: 'json'
           success: (data, textStatus, jqXHR) ->
             Smalruby.Views.MainMenuView.load(data.source_code)
@@ -79,6 +83,18 @@ Smalruby.LoadModalView = Backbone.View.extend
         $('input#load-file[name="source_code[file]"]').click()
 
     @$el.modal('hide')
+
+  onRemix: ->
+    @setRemix(!@remix)
+
+  setRemix: (remix) ->
+    @remix = remix
+    e = $('#load-modal-remix-button')
+    buttonClass = 'btn-success'
+    if @remix
+      e.addClass(buttonClass)
+    else
+      e.removeClass(buttonClass)
 
   onLocalProgramClick: (e, program) ->
     @select(e.currentTarget, 'local', program)

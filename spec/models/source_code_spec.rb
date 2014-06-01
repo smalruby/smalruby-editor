@@ -13,6 +13,29 @@ describe SourceCode, 'Rubyのソースコードを表現するモデル' do
     end
   end
 
+  describe '.make_remix_filename', 'リミックス用のファイル名を生成する' do
+    subject {
+      home_dir = Rails.root.join('spec/fixtures/files')
+      SourceCode.make_remix_filename(home_dir.to_s, filename)
+    }
+
+    {
+      '01.rb' => '01_remix03.rb',
+      '01.rb.xml' => '01_remix03.rb.xml',
+      '01_remix.rb' => '01_remix03.rb',
+      '01_remix02.rb' => '01_remix03.rb',
+      '01_remix03.rb' => '01_remix03.rb',
+      '02.rb' => '02_remix.rb',
+      '02.rb.xml' => '02_remix.rb.xml',
+    }.each do |_filename, _expected|
+      describe _filename do
+        let(:filename) { _filename }
+
+        it { should eq(_expected) }
+      end
+    end
+  end
+
   describe '#check_syntax', 'シンタックスをチェックする' do
     let(:source_code) {
       SourceCode.new(data: data)

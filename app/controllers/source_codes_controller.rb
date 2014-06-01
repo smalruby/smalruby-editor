@@ -88,7 +88,7 @@ class SourceCodesController < ApplicationController
     program_path = local_program_paths.find { |path|
       rb_basename(path) == filename
     }
-    load_local_file(program_path)
+    load_local_file(program_path, source_code_params[:remix])
   end
 
   def load_demo
@@ -96,7 +96,7 @@ class SourceCodesController < ApplicationController
     program_path = demo_program_paths.find { |path|
       rb_basename(path) == filename
     }
-    load_local_file(program_path)
+    load_local_file(program_path, source_code_params[:remix])
   end
 
   def run
@@ -124,7 +124,7 @@ class SourceCodesController < ApplicationController
   private
 
   def source_code_params
-    params.require(:source_code).permit(:data, :filename)
+    params.require(:source_code).permit(:data, :filename, :remix)
   end
 
   def get_file_info(file)
@@ -194,10 +194,16 @@ class SourceCodesController < ApplicationController
     path
   end
 
-  def load_local_file(path)
+  def load_local_file(path, remix)
     if path
+      if remix == 'true'
+        filename = SourceCode.make_remix_filename("~/#{session[:username]}",
+                                                  path.basename.to_s)
+      else
+        filename = path.basename.to_s
+      end
       info = {
-        filename: path.basename.to_s,
+        filename: filename,
         type: MIME.check(path.to_s).try(:content_type) || 'text/plain',
         data: NKF.nkf('-w', path.read),
         size: path.size,
