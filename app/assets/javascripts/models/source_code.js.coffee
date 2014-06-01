@@ -21,7 +21,7 @@ Smalruby.SourceCode = Backbone.Model.extend
       if window.blockMode
         data = Blockly.Ruby.workspaceToCode()
       else
-        data =window.textEditor.getSession().getDocument().getValue()
+        data = window.textEditor.getSession().getDocument().getValue()
 
     @set('data', data)
 
