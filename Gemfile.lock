@@ -221,12 +221,12 @@ GEM
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
     slop (3.4.7)
-    smalruby (0.0.22)
+    smalruby (0.0.23)
       activesupport
       dino (~> 0.11.2)
       dxruby_sdl (~> 0.0.7)
       mime-types (~> 1.6)
-    smalruby (0.0.22-x86-mingw32)
+    smalruby (0.0.23-x86-mingw32)
       activesupport
       dino (~> 0.11.2)
       dxruby
@@ -311,7 +311,7 @@ DEPENDENCIES
   selenium-webdriver
   shared-mime-info
   shoulda-matchers
-  smalruby (~> 0.0.22)
+  smalruby (~> 0.0.23)
   spork-rails
   sqlite3
   teaspoon
