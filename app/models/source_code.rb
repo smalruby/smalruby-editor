@@ -26,7 +26,7 @@ class SourceCode < ActiveRecord::Base
     filename.slice!(/(_remix(\d+)?)+$/)
     basename = "#{filename}_remix"
     MAX_REMIX_COUNT.times do |i|
-      suffix = (i == 0 ? '' : sprintf("%02d", i + 1))
+      suffix = (i == 0 ? '' : sprintf('%02d', i + 1))
       remix_name = "#{basename}#{suffix}"
       if !home_dir.join("#{remix_name}.rb").exist? &&
           !home_dir.join("#{remix_name}.rb.xml").exist?
