@@ -4,3 +4,48 @@
   category = 'pen'
   color = 160
 %>
+
+# ペンを下ろす
+# ペンを上げる
+# <%
+  [
+    ['down_pen', 'ペンを下ろす'],
+    ['up_pen', 'ペンを上げる'],
+  ].each do |suffix, label|
+    n = "#{category}_#{suffix}"
+%>
+
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
+      .appendField('<%= label %>')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  Blockly.Ruby.characterMethodCall_('<%= suffix %>')
+<% end %>
+
+# ペンの色を[カラー]にする
+<% n = "#{category}_set_pen_color" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
+      .appendField('ペンの色を')
+      .appendField(new Blockly.FieldColour('#ff0000'), 'COLOUR')
+      .appendField('にする')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  c = @getFieldValue('COLOUR')
+  red = parseInt(c[1..2], 16)
+  green = parseInt(c[3..4], 16)
+  blue = parseInt(c[5..6], 16)
+  Blockly.Ruby.characterSetVariable_('pen_color', "[#{red}, #{green}, #{blue}]")

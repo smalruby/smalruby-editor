@@ -134,6 +134,17 @@
     -# 変数:ボリューム
     -#%block{:type => "#{category}_volume"}
 
+  - category = 'pen'
+  %category{:name => 'ペン'}
+    -# ペンを下ろす
+    %block{:type => "#{category}_down_pen"}
+
+    -# ペンを上げる
+    %block{:type => "#{category}_up_pen"}
+
+    -# ペンの色を[カラー]にする
+    %block{:type => "#{category}_set_pen_color"}
+
   - category = 'events'
   %category{:name => '～のとき'}
     -# まずは
