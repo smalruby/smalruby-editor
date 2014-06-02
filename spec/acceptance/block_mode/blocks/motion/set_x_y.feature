@@ -50,8 +50,7 @@
     require "smalruby"
 
     car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
-    car1.x = 200
-    car1.y = 100
+    car1.position = [200, 100]
 
     """
 
@@ -88,8 +87,7 @@
     car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
 
     car1.on(:start) do
-      self.x = 200
-      self.y = 100
+      self.position = [200, 100]
     end
 
     """
