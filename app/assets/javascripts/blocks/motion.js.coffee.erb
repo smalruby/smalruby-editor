@@ -119,8 +119,7 @@ Blockly.Blocks['<%= n %>'] =
 Blockly.Ruby['<%= n %>'] = (block) ->
   x = Blockly.Ruby.valueToCode(@, 'X', Blockly.Ruby.ORDER_NONE) || '0'
   y = Blockly.Ruby.valueToCode(@, 'Y', Blockly.Ruby.ORDER_NONE) || '0'
-  Blockly.Ruby.characterSetVariable_('x', x) +
-    Blockly.Ruby.characterSetVariable_('y', y)
+  Blockly.Ruby.characterSetVariable_('position', "[#{x}, #{y}]")
 
 # マウスポインターへ行く
 <% n = "#{category}_go_to_mouse" %>
