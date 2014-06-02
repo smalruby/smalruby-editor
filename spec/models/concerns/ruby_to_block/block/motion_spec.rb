@@ -8,8 +8,7 @@ describe RubyToBlock::Block, '移動・回転ジャンル', to_blocks: true do
   parts = <<-EOS
 car1.on(:start) do
   move(10)
-  self.x = 0
-  self.y = 0
+  self.position = [0, 0]
   self.x += 10
   self.x = 0
   self.y += 10
@@ -21,8 +20,7 @@ car1.on(:start) do
   end
 end
 car1.move(10)
-car1.x = 0
-car1.y = 0
+car1.position = [0, 0]
 car1.x += 10
 car1.x = 0
 car1.y += 10
@@ -195,8 +193,7 @@ car1.y = 0
 
   parts = <<-EOS
 car1.move(10)
-car1.x = 0
-car1.y = 0
+car1.position = [0, 0]
 car1.x += 10
   EOS
   describe compact_source_code(parts), character_new_data: true do
