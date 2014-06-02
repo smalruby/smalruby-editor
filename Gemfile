@@ -73,7 +73,7 @@ group :development, :test do
   gem 'rubocop'
   gem 'rspec-rails'
   gem 'teaspoon'
-  gem 'smalruby', '~> 0.0.23', require: false
+  gem 'smalruby', '~> 0.0.24', require: false
 end
 
 group :test do
