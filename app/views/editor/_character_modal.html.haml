@@ -21,27 +21,36 @@
             %label.control-label{:for => 'character_name'}<
               名前
             .controls
-              %input#character_name{:name => 'character[name]', :type => 'text', :placeholder => 'car1やball1など', :class => 'input-medium'}
+              %input#character_name{:name => 'character[name]', :type => 'text', :placeholder => 'car1やball1など', :class => 'input-large'}
           .control-group
             %label.control-label{:for => 'character_x'}<
               X座標
             .controls
-              %input#character_x{:name => 'character[x]', :type => 'range', :min => '0', :max => '639', :class => 'input-medium'}
+              %input#character_x{:name => 'character[x]', :type => 'range', :min => '0', :max => '639', :class => 'input-large'}
               %span#character_x_value{:class => 'character_value'}
                 300
           .control-group
             %label.control-label{:for => 'character_y'}<
               Y座標
             .controls
-              %input#character_y{:name => 'character[y]', :type => 'range', :min => '0', :max => '439', :class => 'input-medium'}
+              %input#character_y{:name => 'character[y]', :type => 'range', :min => '0', :max => '439', :class => 'input-large'}
               %span#character_y_value{:class => 'character_value'}
                 200
           .control-group
             %label.control-label{:for => 'character_angle'}<
               向き
             .controls
-              %input#character_angle{:name => 'character[angle]', :type => 'range', :min => '0', :max => '359', :class => 'input-medium'}
-              %span#character_angle_value{:class => 'character_value'}
+              #character_rotation_style.btn-group
+                %button#character_rotation_style_free.btn{type: "button", class: "btn-small", value: "free"}<
+                  %i.icon-repeat
+                %button#character_rotation_style_left_right.btn{type: "button", class: "btn-small", value: "left_right"}<
+                  %i.icon-resize-horizontal
+                %button#character_rotation_style_none.btn{type: "button", class: "btn-small", value: "none"}<
+                  %i.icon-arrow-right
+              %input#character_angle{:name => 'character[angle]', :type => 'range', :min => '0', :max => '359', :class => 'input-small', style: "margin-left: 4px;"}
+              %span#character_angle_vector{:class => 'character_value'}
+                →
+              %span#character_angle_value{:class => 'character_value', style: "margin-left: 4px;"}
                 100°
 
   .modal-footer

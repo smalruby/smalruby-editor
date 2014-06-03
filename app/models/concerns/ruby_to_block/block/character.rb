@@ -4,7 +4,7 @@ module RubyToBlock
     # ソースコードに含まれるキャラクターを表現するクラス
     class Character < Base
       # rubocop:disable LineLength
-      blocknize '^\s*(\S+)\s*=\s*Character\.new\(costume:\s*"(\s*[^"]+\s*)"\s*,\s*x:\s*(\s*\d+\s*)\s*,\s*y:\s*(\s*\d+\s*)\s*,\s*angle:\s*(\s*\d+\s*)\)\s*$',
+      blocknize '^\s*(\S+)\s*=\s*Character\.new\(costume:\s*"(\s*[^"]+\s*)"\s*,\s*x:\s*(\s*\d+\s*)\s*,\s*y:\s*(\s*\d+\s*)\s*,\s*angle:\s*(\s*\d+\s*)(?:,\s*rotation_style:\s*\s*:(free|left_right|none)\s*)?\)\s*$',
                 statement: true
       # rubocop:enable LineLength
 
@@ -13,12 +13,14 @@ module RubyToBlock
       attr_accessor :x
       attr_accessor :y
       attr_accessor :angle
+      attr_accessor :rotation_style
 
       def self.process_match_data(md, context)
         md2 = regexp.match(md[type])
         name = md2[1]
         context[:characters][name] = new(name: name, costumes: [md2[2]],
-                                         x: md2[3], y: md2[4], angle: md2[5])
+                                         x: md2[3], y: md2[4], angle: md2[5],
+                                         rotation_style: md2[6] || 'free')
 
         true
       end
@@ -29,13 +31,19 @@ module RubyToBlock
         @x = options[:x]
         @y = options[:y]
         @angle = options[:angle]
+        @rotation_style = options[:rotation_style]
       end
 
       def to_xml(parent)
-        parent.add_element('character',
-                           'name' => @name,
-                           'x' => @x, 'y' => @y, 'angle' => @angle,
-                           'costumes' => @costumes.join(','))
+        attrs = {
+          'name' => @name,
+          'x' => @x,
+          'y' => @y,
+          'angle' => @angle,
+          'costumes' => @costumes.join(',')
+        }
+        attrs['rotationStyle'] = @rotation_style if @rotation_style != 'free'
+        parent.add_element('character', attrs)
       end
     end
   end

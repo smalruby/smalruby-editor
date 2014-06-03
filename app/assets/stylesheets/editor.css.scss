@@ -290,14 +290,18 @@ $left-pane-width: $character-size + $margin * 2;
                         margin-bottom: 8px;
 
                         .control-label {
-                            width: 100px;
+                            width: 50px;
                         }
 
                         .controls {
-                            margin-left: 100px + $modal-body-margin;
+                            margin-left: 50px + $modal-body-margin;
 
                             input[type=range] {
                                 padding: 0;
+                            }
+
+                            span#character_angle_vector {
+                                display: inline-block;
                             }
                         }
                     }

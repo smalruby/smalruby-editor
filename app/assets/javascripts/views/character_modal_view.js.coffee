@@ -4,6 +4,9 @@ Smalruby.CharacterModalView = Backbone.View.extend
 
   events:
     'click #character-modal-costume-selector a': 'onSelectCostume'
+    'click #character_rotation_style_free': 'onRotationStyleFree'
+    'click #character_rotation_style_left_right': 'onRotationStyleLeftRight'
+    'click #character_rotation_style_none': 'onRotationStyleNone'
     'click #character-modal-ok-button': 'onOk'
 
   previewZoomLevel: 0.5
@@ -57,6 +60,7 @@ Smalruby.CharacterModalView = Backbone.View.extend
     @listenTo(@model, 'change:y', @onChangeY)
     @listenTo(@model, 'change:angle', @onChangeAngle)
     @listenTo(@model, 'change:costumes', @onChangeCostumes)
+    @listenTo(@model, 'change:rotationStyle', @onChangeRotationStyle)
     @listenTo(@model, 'change', @onChange)
 
     @callAllOnChangeAttributes_()
@@ -85,6 +89,7 @@ Smalruby.CharacterModalView = Backbone.View.extend
     @onChangeY(@model, @model.get('y'))
     @onChangeAngle(@model, @model.get('angle'))
     @onChangeCostumes(@model, @model.get('costumes'))
+    @onChangeRotationStyle(@model, @model.get('rotationStyle'))
 
   onChangeName: (model, value, options) ->
     @$el.find('input[name="character[name]"]').val(value)
@@ -103,10 +108,12 @@ Smalruby.CharacterModalView = Backbone.View.extend
     @$el.find('input[name="character[angle]"]').val(value)
     $('#character_angle_value').text("#{value}°")
     rotate = "rotate(#{value}deg)"
-    $('#character-modal-character').css
+    $('#character_angle_vector').css
       '-moz-transform': rotate
       '-webkit-transform': rotate
       transform: rotate
+
+    @model.rotateImage('#character-modal-character')
 
   onChangeCostumes: (model, value, options) ->
     img = $('<img>').attr
@@ -122,6 +129,11 @@ Smalruby.CharacterModalView = Backbone.View.extend
         height: "#{thumb.height() / 2}px"
     else
       @readImageSizeflag = true
+
+  onChangeRotationStyle: (model, value, options) ->
+    $('#character_rotation_style button.btn').removeClass('btn-primary')
+    $("#character_rotation_style_#{value}").addClass('btn-primary')
+    @onChangeAngle(@model, @model.get('angle'))
 
   onChange: (model, options) ->
     return unless @target
@@ -156,6 +168,15 @@ Smalruby.CharacterModalView = Backbone.View.extend
           attrs['name'] = Smalruby.Collections.CharacterSet.uniqueName(costume)
 
     @model.set(attrs)
+
+  onRotationStyleFree: ->
+    @model.set({ rotationStyle: 'free' })
+
+  onRotationStyleLeftRight: ->
+    @model.set({ rotationStyle: 'left_right' })
+
+  onRotationStyleNone: ->
+    @model.set({ rotationStyle: 'none' })
 
   onOk: ->
     @$el.modal('hide')

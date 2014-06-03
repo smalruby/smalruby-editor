@@ -41,7 +41,9 @@
       .attributes
         X: {{- get('x') }} Y: {{- get('y') }}
         %br
-        向き: {{- get('angle') }}°
+        向き:
+        %i{class: "{{- rotationStyleIconName() }}"}
+        {{- get('angle') }}°
 
       %a.add-block-button
         %i.icon-folder-close-alt

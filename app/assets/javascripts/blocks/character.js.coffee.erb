@@ -65,8 +65,15 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   c = block.character
+  switch c.get('rotationStyle')
+    when 'left_right'
+      rotationStyle = ', rotation_style: :left_right'
+    when 'none'
+      rotationStyle = ', rotation_style: :none'
+    else
+      rotationStyle = ''
   Blockly.Ruby.definitions_["character_#{c.get('name')}"] =
-    "#{c.get('name')} = Character.new(costume: #{Blockly.Ruby.quote_(c.costume())}, x: #{c.get('x')}, y: #{c.get('y')}, angle: #{c.get('angle')})"
+    "#{c.get('name')} = Character.new(costume: #{Blockly.Ruby.quote_(c.costume())}, x: #{c.get('x')}, y: #{c.get('y')}, angle: #{c.get('angle')}#{rotationStyle})"
   Blockly.Ruby.cs_().push(c)
   try
     targetBlock = block.getInputTargetBlock('DO')

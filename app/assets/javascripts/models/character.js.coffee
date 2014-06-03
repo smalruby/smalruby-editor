@@ -6,6 +6,7 @@ Smalruby.Character = Backbone.Model.extend({
     x: 0
     y: 0
     angle: 0
+    rotationStyle: 'free'
     visible: true
     using: false
 
@@ -64,6 +65,32 @@ Smalruby.Character = Backbone.Model.extend({
     i = 0 if i >= @get('costumes').length
     @set({ 'costumeIndex': i })
     i
+
+  rotationStyleIconName: ->
+    switch @get('rotationStyle')
+      when 'free'
+        'icon-repeat'
+      when 'left_right'
+        'icon-resize-horizontal'
+      when 'none'
+        'icon-arrow-right'
+
+  rotateImage: (selector) ->
+    angle = @get('angle')
+    switch @get('rotationStyle')
+      when 'free'
+        transformValue = "rotate(#{angle}deg) scaleX(1)"
+      when 'left_right'
+        if angle < 90 || angle >= 270
+          transformValue = "rotate(0deg) scaleX(1)"
+        else
+          transformValue = "rotate(0deg) scaleX(-1)"
+      when 'none'
+        transformValue = "rotate(0deg) scaleX(1)"
+    $(selector).css
+      '-moz-transform': transformValue
+      '-webkit-transform': transformValue
+      transform: transformValue
 }, {
   PRESET_COSTUMES: [
     'car1.png'

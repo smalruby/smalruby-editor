@@ -5,7 +5,7 @@ Smalruby.CharacterSelectorView = Backbone.View.extend({
   initialize: ->
     @klass = Smalruby.CharacterSelectorView
 
-    @listenTo(@model, name, @render) for name in ['add', 'remove', 'reset', 'change']
+    @listenTo(@model, name, @onChange) for name in ['add', 'remove', 'reset', 'change']
 
     @templateText = $('#character-selector-template').text()
 
@@ -49,15 +49,15 @@ Smalruby.CharacterSelectorView = Backbone.View.extend({
       if character.get('using')
         removeButton.hide()
 
-      rotate = "rotate(#{character.get('angle')}deg)"
       img = html.find('img')
-      img.css
-        '-moz-transform': rotate
-        '-webkit-transform': rotate
-        transform: rotate
+      character.rotateImage(img)
       img.on 'dragstart', (e) ->
         e.preventDefault()
 
+  onChange: ->
+    Smalruby.changedAfterTranslating = true
+    window.changed = true
+    @render()
 
   addBlock_: (character) ->
     newBlock = new Blockly.Block(Blockly.mainWorkspace, 'character_new')
