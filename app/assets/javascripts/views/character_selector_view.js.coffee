@@ -55,8 +55,9 @@ Smalruby.CharacterSelectorView = Backbone.View.extend({
         e.preventDefault()
 
   onChange: ->
-    Smalruby.changedAfterTranslating = true
-    window.changed = true
+    unless Smalruby.blocklyLoading
+      Smalruby.changedAfterTranslating = true
+      window.changed = true
     @render()
 
   addBlock_: (character) ->
