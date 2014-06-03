@@ -235,11 +235,11 @@ $left-pane-width: $character-size + $margin * 2;
 
     $attributes-height: 160px;
 
-    $left-pane-width: $preview-width;
+    $left-pane-width: $preview-width + 2px;
     $right-pane-width: $character-size * 3 + $modal-body-margin;
 
     $modal-width: $left-pane-width + $right-pane-width + $modal-margin * 2;
-    $modal-height: $preview-height + $attributes-height + $modal-margin * 2;
+    $modal-height: $preview-height + 2px + $attributes-height + $modal-margin * 2;
 
     width: $modal-width;
     height: $modal-height;
@@ -259,7 +259,8 @@ $left-pane-width: $character-size + $margin * 2;
 
                 width: $preview-width;
                 height: $preview-height;
-                background-color: black;
+                background-color: white;
+                border: 1px solid gray;
                 overflow: hidden;
 
                 #character-modal-character {
