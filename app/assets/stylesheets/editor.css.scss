@@ -168,6 +168,11 @@ $left-pane-width: $character-size + $margin * 2;
                                 img, div {
                                     margin: -$border-size;
                                 }
+
+                                img {
+                                  max-width: $character-size;
+                                  max-height: $character-size;
+                                }
                             }
 
                             a.character:hover {
