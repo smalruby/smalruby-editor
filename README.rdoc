@@ -11,9 +11,22 @@ The smalruby-editor is a visual programming editor that can create a Ruby script
 * DEMO: http://smalruby.herokuapp.com/demo/
 * DEMO(Arduino): http://smalruby.herokuapp.com/demo/rgb_led_anode/
 
-The smalruby-editor is a part of the Smalruby Project.
+The smalruby-editor is a part of the Smalruby (http://smalruby.jp) Project.
 
 The Smalruby(smɔ́ːrúːbi) Project will provide a Ruby learning environment for middle school students from the upper grades of elementary school. The goal of this project is to achieve software and community sites such as the {Scratch}[http://scratch.mit.edu/] in Ruby. The Scratch has experience as educational programming environment can be used in elementary school. This project consists of the following elements.
+
+== Installation (for User)
+
+requirements:
+
+* Windows or UNIX like OS (Mac OS X, Linux, etc...)
+* Ruby 2.0.0-p353 or higher.
+* dxruby_sdl (only Mac OS X and Linux): https://github.com/takaokouji/dxruby_sdl/
+
+execute below commands.
+
+  gem install smalruby-editor
+  smalruby-editor
 
 == Installation (for Developer)
 
@@ -32,6 +45,7 @@ execute below commands.
   rake db:create
   rake db:migrate
   rake
+  touch tmp/standalone
   rails server
 
 access <tt>localhost:3000</tt> with your web browser.
