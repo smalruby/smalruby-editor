@@ -22,6 +22,7 @@ requirements:
 * Windows or UNIX like OS (Mac OS X, Linux, etc...)
 * Ruby 2.0.0-p353 or higher.
 * dxruby_sdl (only Mac OS X and Linux): https://github.com/takaokouji/dxruby_sdl/
+* rsdl (only Mac OS X): http://www.kumaryu.net/proj/ruby-rsdl/
 
 execute below commands.
 
