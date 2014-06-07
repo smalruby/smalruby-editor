@@ -4,6 +4,7 @@ require 'tempfile'
 require 'open3'
 require 'digest/sha2'
 require 'bundler'
+require 'smalruby_editor'
 silence_warnings do
   require_relative 'concerns/ruby_to_block'
 end
@@ -41,6 +42,8 @@ class SourceCode < ActiveRecord::Base
     _, stderr_str, status = *open3_capture3_ruby_c
     return [] if status.success?
 
+    logger.error("check failed: #{ruby_cmd} #{path}\n  #{stderr_str.join('\n  ')}\n")
+
     stderr_str.lines.each.with_object([]) { |line, res|
       if (md = /^.*:(\d+): (.*)$/.match(line))
         res << { row: md[1].to_i, column: 0, message: md[2] }
@@ -54,6 +57,8 @@ class SourceCode < ActiveRecord::Base
   def run(path)
     _, stderr_str, status = *open3_capture3_run_program(path)
     return [] if status.success?
+
+    logger.error("ruby command failed: #{ruby_cmd} #{path}\n  #{stderr_str.join('\n  ')}\n")
 
     parse_ruby_error_messages(stderr_str)
   end
@@ -72,13 +77,15 @@ class SourceCode < ActiveRecord::Base
   end
 
   def ruby_cmd
-    path = Pathname('rsdl').expand_path(RbConfig::CONFIG['bindir'])
-    if path.exist?
-      path
-    else
-      Pathname(RbConfig::CONFIG['RUBY_INSTALL_NAME'])
-        .expand_path(RbConfig::CONFIG['bindir'])
+    if SmalrubyEditor.osx?
+      dirs = [RbConfig::CONFIG['bindir']] + ENV['PATH'].split(';')
+      dirs.each do |dir|
+        path = Pathname('rsdl').expand_path(dir)
+        return path if path.exist?
+      end
     end
+    Pathname(RbConfig::CONFIG['RUBY_INSTALL_NAME'])
+      .expand_path(RbConfig::CONFIG['bindir'])
   end
 
   def open3_capture3_ruby_c

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'smalruby_editor/version'
 
 module SmalrubyEditor
@@ -11,6 +12,30 @@ module SmalrubyEditor
     home_dir
   end
   module_function :create_home_directory
+
+  # Raspberry Piかどうかを返す
+  def raspberrypi?
+    if Rails.env != 'test' &&
+        (ENV['SMALRUBY_EDITOR_RASPBERRYPI_MODE'] ||
+         File.exist?(Rails.root.join('tmp', 'raspberrypi')))
+      true
+    else
+      RbConfig::CONFIG['arch'] == 'armv6l-linux-eabihf'
+    end
+  end
+  module_function :raspberrypi?
+
+  # Mac OS Xかどうかを返す
+  def osx?
+    if Rails.env != 'test' &&
+        (ENV['SMALRUBY_EDITOR_OSX_MODE'] ||
+         File.exist?(Rails.root.join('tmp', 'osx')))
+      true
+    else
+      /darwin/ =~ RbConfig::CONFIG['arch']
+    end
+  end
+  module_function :osx?
 
   class << self
     private

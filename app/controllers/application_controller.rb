@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+require 'smalruby_editor'
+
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -24,13 +27,7 @@ class ApplicationController < ActionController::Base
 
   # Raspberry Piかどうかを返す
   def raspberrypi?
-    if Rails.env != 'test' &&
-        (ENV['SMALRUBY_EDITOR_RASPBERRYPI_MODE'] ||
-         File.exist?(Rails.root.join('tmp', 'raspberrypi')))
-      true
-    else
-      RbConfig::CONFIG['arch'] == 'armv6l-linux-eabihf'
-    end
+    SmalrubyEditor.raspberrypi?
   end
 
   def check_whether_standalone
