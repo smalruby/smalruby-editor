@@ -62,5 +62,17 @@ describe SmalrubyEditor do
         SmalrubyEditor.create_home_directory
       end
     end
+
+    context 'database.ymlが存在する場合', create_home_directory: true do
+      before(:all) do
+        database_yml_path = @home_dir.join('config', 'database.yml')
+        FileUtils.mkdir_p(database_yml_path.dirname)
+        database_yml_path.open('w') do |f|
+          f.write('exist YAML')
+        end
+
+        SmalrubyEditor.create_home_directory(@home_dir)
+      end
+    end
   end
 end

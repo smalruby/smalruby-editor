@@ -61,10 +61,8 @@ standalone:
     def create_database_yml(home_dir)
       database_yml_path = home_dir.join('config', 'database.yml')
       db_path = home_dir.join('db', 'standalone.sqlite3')
-      unless File.exist?(database_yml_path)
-        File.open(database_yml_path, 'w') do |f|
-          f.write(DATABASE_YML_TEMPLATE.gsub(/%db_path%/, db_path.to_s))
-        end
+      File.open(database_yml_path, 'w') do |f|
+        f.write(DATABASE_YML_TEMPLATE.gsub(/%db_path%/, db_path.to_s))
       end
     end
   end
