@@ -84,6 +84,21 @@ end
 Rails::Server.new.tap do |server|
   require APP_PATH
   Dir.chdir(Rails.application.root)
+  if (pid_path = Pathname(server.default_options[:pid])).exist?
+    if SmalrubyEditor.windows?
+      pid = pid_path.read.to_i
+      require 'csv'
+      s = `tasklist /FI "IMAGENAME eq ruby.exe" /FO csv`
+      s.force_encoding('CP932')
+      csv = CSV.parse(s)
+      csv.shift # ヘッダを除去
+      pids = csv.map { |row| row[1].to_i }
+      if pids.include?(pid)
+        Process.kill('KILL', pid)
+      end
+      pid_path.unlink
+    end
+  end
   server.start
 end
 # rubocop:enable all

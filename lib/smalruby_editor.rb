@@ -37,6 +37,18 @@ module SmalrubyEditor
   end
   module_function :osx?
 
+  # Windowsかどうかを返す
+  def windows?
+    if Rails.env != 'test' &&
+        (ENV['SMALRUBY_EDITOR_WINDOWS_MODE'] ||
+         File.exist?(Rails.root.join('tmp', 'windows')))
+      true
+    else
+      /windows|mingw|cygwin/i.match(RbConfig::CONFIG['arch'])
+    end
+  end
+  module_function :windows?
+
   class << self
     private
 
