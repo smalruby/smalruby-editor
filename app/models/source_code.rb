@@ -42,8 +42,6 @@ class SourceCode < ActiveRecord::Base
     _, stderr_str, status = *open3_capture3_ruby_c
     return [] if status.success?
 
-    logger.error("check failed:\n  #{stderr_str.join('\n  ')}\n")
-
     stderr_str.lines.each.with_object([]) { |line, res|
       if (md = /^.*:(\d+): (.*)$/.match(line))
         res << { row: md[1].to_i, column: 0, message: md[2] }
@@ -57,9 +55,6 @@ class SourceCode < ActiveRecord::Base
   def run(path)
     _, stderr_str, status = *open3_capture3_run_program(path)
     return [] if status.success?
-
-    logger.error("ruby command failed: #{ruby_cmd} #{path}\n" +
-                 "  #{stderr_str.join('\n  ')}\n")
 
     parse_ruby_error_messages(stderr_str)
   end
