@@ -131,7 +131,7 @@ window.Smalruby =
           x: parseInt(xmlChild.getAttribute('x'), 10)
           y: parseInt(xmlChild.getAttribute('y'), 10)
           angle: parseInt(xmlChild.getAttribute('angle'), 10)
-          rotationStyle: xmlChild.getAttribute('rotationStyle') || 'free'
+          rotationStyle: xmlChild.getAttribute('rotation_style') || 'free'
         chars.push(c)
       i++
     Smalruby.Collections.CharacterSet.reset(chars)
@@ -149,7 +149,7 @@ window.Smalruby =
       e.setAttribute('angle', c.get('angle'))
       rotationStyle = c.get('rotationStyle')
       if rotationStyle != 'free'
-        e.setAttribute('rotationStyle', rotationStyle)
+        e.setAttribute('rotation_style', rotationStyle)
       xmlDom.insertBefore(e, blocklyDom)
     Blockly.Xml.domToPrettyText(xmlDom)
 
