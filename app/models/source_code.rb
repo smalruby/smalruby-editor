@@ -42,8 +42,7 @@ class SourceCode < ActiveRecord::Base
     _, stderr_str, status = *open3_capture3_ruby_c
     return [] if status.success?
 
-    logger.error("check failed: #{ruby_cmd} #{path}\n" +
-                 "  #{stderr_str.join('\n  ')}\n")
+    logger.error("check failed:\n  #{stderr_str.join('\n  ')}\n")
 
     stderr_str.lines.each.with_object([]) { |line, res|
       if (md = /^.*:(\d+): (.*)$/.match(line))
