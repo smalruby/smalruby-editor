@@ -29,6 +29,8 @@ acDropdown = [
   ['カソード', 'cathode']
 ]
 
+twoWDPinDropdown = (["D#{n}", "D#{n}"] for n in [2..10])
+
 # ハードウェアを準備する
 <% n = "#{category}_init_hardware" %>
 Blockly.Blocks['<%= n %>'] =
@@ -241,12 +243,13 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   Blockly.Ruby.characterMethodCall_("servo(#{Blockly.Ruby.quote_(pin)}).position = #{pos}")
 
 # 「車」サブジャンル
+<% subcategory = 'two_wheel_drive_car' %>
 
-# 「2WD車[▼ピン]を進める」ブロック
-# 「2WD車[▼ピン]をバックさせる」ブロック
-# 「2WD車[▼ピン]を左に曲げる」ブロック
-# 「2WD車[▼ピン]を右に曲げる」ブロック
-# 「2WD車[▼ピン]を止める」ブロック
+# 2WD車[▼ピン]を進める
+# 2WD車[▼ピン]をバックさせる
+# 2WD車[▼ピン]を左に曲げる
+# 2WD車[▼ピン]を右に曲げる
+# 2WD車[▼ピン]を止める
 <%
   [
     ['forward', '進める'],
@@ -255,7 +258,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
     ['turn_right', '右に曲げる'],
     ['stop', '止める'],
   ].each do |method, label|
-    n = "#{category}_two_wheel_drive_car_#{method}"
+    n = "#{category}_#{subcategory}_#{method}"
 %>
 
 Blockly.Blocks['<%= n %>'] =
@@ -266,7 +269,7 @@ Blockly.Blocks['<%= n %>'] =
     @setColour(<%= color %>)
     @appendDummyInput()
       .appendField('2WD車')
-      .appendField(new Blockly.FieldDropdown(dropdown), 'PIN')
+      .appendField(new Blockly.FieldDropdown(twoWDPinDropdown), 'PIN')
       .appendField('を<%= label %>')
     @setInputsInline(true)
     @setPreviousStatement(true)
@@ -278,6 +281,55 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 
   Blockly.Ruby.characterMethodCall_("two_wheel_drive_car(#{Blockly.Ruby.quote_(pin)}).<%= method %>")
 <% end %>
+
+# 2WD車[▼ピン]を（　）秒[▼コマンド]
+<% n = "#{category}_#{subcategory}_run" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
+      .appendField('2WD車')
+      .appendField(new Blockly.FieldDropdown(twoWDPinDropdown), 'PIN')
+      .appendField('を')
+    @appendValueInput('SEC')
+      .setCheck('Number')
+    @appendDummyInput()
+      .appendField('秒')
+    @appendValueInput('COMMAND').setCheck('String')
+    @setInputsInline(true)
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  pin = @getFieldValue('PIN')
+  sec = Blockly.Ruby.valueToCode(@, 'SEC', Blockly.Ruby.ORDER_NONE) || 0
+  command = Blockly.Ruby.valueToCode(@, 'COMMAND', Blockly.Ruby.ORDER_NONE) || Blockly.Ruby.quote_('stop')
+
+  Blockly.Ruby.characterMethodCall_("two_wheel_drive_car(#{Blockly.Ruby.quote_(pin)}).run(command: #{command}, sec: #{sec})")
+
+# [▼コマンド]
+<% n = "#{category}_#{subcategory}_commands" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    commands = [
+      ['進める', 'forward'],
+      ['バックさせる', 'backward'],
+      ['左に曲げる', 'turn_left'],
+      ['右に曲げる', 'turn_right'],
+      ['止める', 'stop'],
+    ]
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
+      .appendField(new Blockly.FieldDropdown(commands), 'COMMAND')
+    @setOutput(true, 'String')
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  code = Blockly.Ruby.quote_(@getFieldValue('COMMAND'))
+  [code, Blockly.Ruby.ORDER_ATOMIC]
 
 # 「ボタン」サブジャンル
 

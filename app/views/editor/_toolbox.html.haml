@@ -341,87 +341,100 @@
     %block{:type => "#{category}_p"}
 
   - category = 'hardware'
-  %category{:name => 'アクチュエータ'}
+  %category{:name => 'ハードウェア'}
     %category{:name => '準備'}
       -# ハードウェアを準備する
       %block{:type => "#{category}_init_hardware"}
 
-    %category{:name => 'LED'}
-      -# LED[▼ピン]をオンにする
-      %block{:type => "#{category}_led_on"}
+    %category{:name => 'アクチュエータ'}
+      %category{:name => 'LED'}
+        -# LED[▼ピン]をオンにする
+        %block{:type => "#{category}_led_on"}
 
-      -# LED[▼ピン]をオフにする
-      %block{:type => "#{category}_led_off"}
+        -# LED[▼ピン]をオフにする
+        %block{:type => "#{category}_led_off"}
 
-    %category{:name => 'RGB LED'}
-      -# RGB LED[▼アノード]コモン[▼ピン]を[カラー]にする
-      %block{:type => "#{category}_rgb_led_on"}
+        -# RGB LED[▼アノード]コモン[▼ピン]を[カラー]にする
+        -#%block{:type => "#{category}_rgb_led_on"}
 
-      -# RGB LED[▼アノード]コモン[▼ピン]をオフにする
-      %block{:type => "#{category}_rgb_led_off"}
+        -# RGB LED[▼アノード]コモン[▼ピン]をオフにする
+        -#%block{:type => "#{category}_rgb_led_off"}
 
-    -#%category{:name => '7セグディスプレイ'}
-    -#  -# 7セグディスプレイに[▼0-9]を表示する
-    -#  %block{:type => "#{category}_seven_segment_display_show"}
-    -#
-    -#  -# 7セグディスプレイをオフにする
-    -#  %block{:type => "#{category}_seven_segment_display_off"}
+        -# 7セグディスプレイに[▼0-9]を表示する
+        -#%block{:type => "#{category}_seven_segment_display_show"}
 
-    -#%category{:name => 'LCD'}
-    -#  -# LCDに(　)を表示する
-    -#  %block{:type => "#{category}_lcd_puts"}
-    -#    = toolbox_text_value('TEXT', 'Hello')
-    -#
-    -#  -# LCDをクリアする
-    -#  %block{:type => "#{category}_lcd_clear"}
+        -# 7セグディスプレイをオフにする
+        -#%block{:type => "#{category}_seven_segment_display_off"}
 
-    -#%category{:name => 'サーボ'}
-    -#  -# サーボ[▼ピン]を(　)度(5～180)にする
-    -#  %block{:type => "#{category}_servo_set_position"}
-    -#    = toolbox_number_value('POS', 90)
+      -#%category{:name => 'LCD'}
+        -# LCDに(　)を表示する
+        %block{:type => "#{category}_lcd_puts"}
+          = toolbox_text_value('TEXT', 'Hello')
 
-    %category{:name => '車'}
-      -# 「2WD車[▼ピン]を進める」ブロック
-      %block{:type => "#{category}_two_wheel_drive_car_forward"}
-        %field{:name => 'PIN'}<
-          D6
+        -# LCDをクリアする
+        %block{:type => "#{category}_lcd_clear"}
 
-      -# 「2WD車[▼ピン]をバックさせる」ブロック
-      %block{:type => "#{category}_two_wheel_drive_car_backward"}
-        %field{:name => 'PIN'}<
-          D6
+      -#%category{:name => 'サーボ'}
+        -# サーボ[▼ピン]を(　)度(5～180)にする
+        %block{:type => "#{category}_servo_set_position"}
+          = toolbox_number_value('POS', 90)
 
-      -# 「2WD車[▼ピン]を左に曲げる」ブロック
-      %block{:type => "#{category}_two_wheel_drive_car_turn_left"}
-        %field{:name => 'PIN'}<
-          D6
+      - subcategory = 'two_wheel_drive_car'
+      %category{:name => '車'}
+        -# 2WD車[▼ピン]を（　）秒[▼コマンド]
+        %block{:type => "#{category}_#{subcategory}_run"}
+          %field{:name => 'PIN'}<
+            D6
+          = toolbox_number_value('SEC', 1)
+          %value{:name => 'COMMAND'}
+            %block{:type => "#{category}_#{subcategory}_commands"}
 
-      -# 「2WD車[▼ピン]を右に曲げる」ブロック
-      %block{:type => "#{category}_two_wheel_drive_car_turn_right"}
-        %field{:name => 'PIN'}<
-          D6
+        -# [▼コマンド]
+        %block{:type => "#{category}_#{subcategory}_commands"}
+          %field{:name => 'COMMAND'}<
+            forward
 
-      -# 「2WD車[▼ピン]を止める」ブロック
-      %block{:type => "#{category}_two_wheel_drive_car_stop"}
-        %field{:name => 'PIN'}<
-          D6
+        -# 2WD車[▼ピン]を進める
+        %block{:type => "#{category}_#{subcategory}_forward"}
+          %field{:name => 'PIN'}<
+            D6
+
+        -# 2WD車[▼ピン]をバックさせる
+        %block{:type => "#{category}_#{subcategory}_backward"}
+          %field{:name => 'PIN'}<
+            D6
+
+        -# 2WD車[▼ピン]を左に曲げる
+        %block{:type => "#{category}_#{subcategory}_turn_left"}
+          %field{:name => 'PIN'}<
+            D6
+
+        -# 2WD車[▼ピン]を右に曲げる
+        %block{:type => "#{category}_#{subcategory}_turn_right"}
+          %field{:name => 'PIN'}<
+            D6
+
+        -# 2WD車[▼ピン]を止める
+        %block{:type => "#{category}_#{subcategory}_stop"}
+          %field{:name => 'PIN'}<
+            D6
+
+    %category{:name => 'センサー'}
+      -# センサー[▼PIN]
+      %block{:type => "#{category}_sensor_value"}
+
+      -# センサー[▼PIN]が変化したとき
+      %block{:type => "#{category}_on_sensor_change"}
 
     -#%category{:name => 'ボタン'}
-    -#  -# 条件:ボタン[▼]を押している
-    -#  %block{:type => "#{category}_button_down"}
-    -#
-    -#  -# 条件:ボタン[▼]を離している
-    -#  %block{:type => "#{category}_button_up"}
-    -#
-    -#  -# ボタン[▼]を押したとき
-    -#  %block{:type => "#{category}_on_button_down"}
-    -#
-    -#  -# ボタン[▼]を離したとき
-    -#  %block{:type => "#{category}_on_button_up"}
+      -# 条件:ボタン[▼]を押している
+      %block{:type => "#{category}_button_down"}
 
-  %category{:name => 'センサー'}
-    -# センサー[▼PIN]
-    %block{:type => "#{category}_sensor_value"}
+      -# 条件:ボタン[▼]を離している
+      %block{:type => "#{category}_button_up"}
 
-    -# センサー[▼PIN]が変化したとき
-    %block{:type => "#{category}_on_sensor_change"}
+      -# ボタン[▼]を押したとき
+      %block{:type => "#{category}_on_button_down"}
+
+      -# ボタン[▼]を離したとき
+      %block{:type => "#{category}_on_button_up"}
