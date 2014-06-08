@@ -3,7 +3,7 @@ module RubyToBlock
   module Block
     class HardwareTwoWheelDriveCar < CharacterMethodCall
       # rubocop:disable LineLength
-      blocknize '^\s*' + CHAR_RE + 'two_wheel_drive_car\("(D(?:[2-9]|10))"\).(forward|backward|turn_left|turn_right|stop)\s*$',
+      blocknize '^\s*' + CHAR_RE + 'two_wheel_drive_car\("(D(?:[2-9]|10))"\)\.(forward|backward|turn_left|turn_right|stop)\s*$',
                 statement: true
       # rubocop:enable LineLength
 
