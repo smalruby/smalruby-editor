@@ -9,10 +9,9 @@ module RubyToBlock
 
       def self.process_match_data(md, context)
         md2 = regexp.match(md[type])
-        block =
-          add_character_method_call_block(context, md2[1],
-                                          new(fields: { PIN: md2[2] }),
-                                          SEC: md2[4], COMMAND: md2[3])
+        add_character_method_call_block(context, md2[1],
+                                        new(fields: { PIN: md2[2] }),
+                                        SEC: md2[4], COMMAND: md2[3])
         true
       end
     end
