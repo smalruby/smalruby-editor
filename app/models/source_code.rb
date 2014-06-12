@@ -74,14 +74,11 @@ class SourceCode < ActiveRecord::Base
 
   def ruby_cmd
     if SmalrubyEditor.osx?
-      dirs = [RbConfig::CONFIG['bindir']] + ENV['PATH'].split(';')
-      dirs.each do |dir|
-        path = Pathname('rsdl').expand_path(dir)
-        return path if path.exist?
-      end
+      Pathname(Gem.bin_path('rsdl', 'rsdl'))
+    else
+      Pathname(RbConfig::CONFIG['RUBY_INSTALL_NAME'])
+        .expand_path(RbConfig::CONFIG['bindir'])
     end
-    Pathname(RbConfig::CONFIG['RUBY_INSTALL_NAME'])
-      .expand_path(RbConfig::CONFIG['bindir'])
   end
 
   def open3_capture3_ruby_c
