@@ -257,6 +257,7 @@ $left-pane-width: $character-size + $margin * 2;
 
         #character-modal-left-pane {
             width: $left-pane-width;
+            height: $modal-height - $modal-body-margin * 2;
             overflow: hidden;
 
             #character-modal-preview {
@@ -295,11 +296,11 @@ $left-pane-width: $character-size + $margin * 2;
                         margin-bottom: 8px;
 
                         .control-label {
-                            width: 50px;
+                            width: 40px;
                         }
 
                         .controls {
-                            margin-left: 50px + $modal-body-margin;
+                            margin-left: 40px + 5px;
 
                             input[type=range] {
                                 padding: 0;
@@ -315,6 +316,8 @@ $left-pane-width: $character-size + $margin * 2;
         }
 
         #character-modal-right-pane {
+            height: $modal-height - $modal-body-margin * 2;
+
             overflow: hidden;
 
             #character-modal-costume-selector {
