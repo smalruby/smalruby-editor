@@ -2,7 +2,7 @@
 module RubyToBlock
   module Block
     class End < Base
-      blocknize '^\s*end$', statement: true
+      blocknize '^\s*end\s*$', statement: true
 
       def self.process_match_data(md, context)
         ends_num = 1

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 module RubyToBlock
   module Block
-    class MotionPointTowardsCharacter < CharacterMethodCall
-      blocknize '^\s*' + CHAR_RE + 'point_towards\(' + CHAR_NAME_RE + '\)\s*$',
+    class MotionGoToCharacter < CharacterMethodCall
+      blocknize '^\s*' + CHAR_RE + 'go_to\(' + CHAR_NAME_RE + '\)\s*$',
                 statement: true
 
       def self.process_match_data(md, context)

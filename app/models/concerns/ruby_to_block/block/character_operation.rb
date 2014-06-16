@@ -5,7 +5,8 @@ module RubyToBlock
     module CharacterOperation
       extend ActiveSupport::Concern
 
-      CHAR_RE = '(?:(\S+)\.)?'
+      CHAR_NAME_RE = '([a-z]\S*)'
+      CHAR_RE = '(?:' + CHAR_NAME_RE + '\.)?'
 
       attr_accessor :character
 
