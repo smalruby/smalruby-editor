@@ -122,3 +122,7 @@
     #text-editor
 
 = render 'signin_modal'
+
+- if raspberrypi?
+  %script{type: "text/javascript"}
+    $(function() { $('div[id=":5"]').hide(); });
