@@ -42,7 +42,7 @@ module RubyToBlock
           'angle' => @angle,
           'costumes' => @costumes.join(',')
         }
-        attrs['rotationStyle'] = @rotation_style if @rotation_style != 'free'
+        attrs['rotation_style'] = @rotation_style if @rotation_style != 'free'
         parent.add_element('character', attrs)
       end
     end
