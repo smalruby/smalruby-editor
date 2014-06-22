@@ -17,6 +17,8 @@ The Smalruby(smɔ́ːrúːbi) Project will provide a Ruby learning environment f
 
 == Installation (for User)
 
+Windows(only Japanese): https://github.com/smalruby/smalruby-installer-for-windows/wiki
+
 requirements:
 
 * Windows or UNIX like OS (Mac OS X, Linux, etc...)
