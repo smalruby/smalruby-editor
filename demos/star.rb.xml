@@ -1,0 +1,113 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <character x="142" y="164" name="cat1" costumes="cat1.png" angle="0"></character>
+  <block type="character_new" x="49" y="4">
+    <field name="NAME">cat1</field>
+    <statement name="DO">
+      <block type="events_on_start">
+        <statement name="DO">
+          <block type="pen_set_pen_color">
+            <field name="COLOUR">#3333ff</field>
+          </block>
+        </statement>
+        <next>
+          <block type="events_on_click">
+            <statement name="DO">
+              <block type="pen_down_pen">
+                <next>
+                  <block type="motion_set_angle" inline="true">
+                    <value name="ANGLE">
+                      <block type="math_number">
+                        <field name="NUM">0</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="control_times" inline="true">
+                        <value name="COUNT">
+                          <block type="math_number">
+                            <field name="NUM">5</field>
+                          </block>
+                        </value>
+                        <statement name="DO">
+                          <block type="control_times" inline="true">
+                            <value name="COUNT">
+                              <block type="math_number">
+                                <field name="NUM">22</field>
+                              </block>
+                            </value>
+                            <statement name="DO">
+                              <block type="motion_move" inline="true">
+                                <value name="STEP">
+                                  <block type="math_number">
+                                    <field name="NUM">10</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="control_await"></block>
+                                </next>
+                              </block>
+                            </statement>
+                            <next>
+                              <block type="motion_rotate_right" inline="true">
+                                <value name="ANGLE">
+                                  <block type="math_number">
+                                    <field name="NUM">144</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                        <next>
+                          <block type="motion_rotate_left" inline="true">
+                            <value name="ANGLE">
+                              <block type="math_number">
+                                <field name="NUM">71.5</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="control_times" inline="true">
+                                <value name="COUNT">
+                                  <block type="math_number">
+                                    <field name="NUM">370</field>
+                                  </block>
+                                </value>
+                                <statement name="DO">
+                                  <block type="motion_move" inline="true">
+                                    <value name="STEP">
+                                      <block type="math_number">
+                                        <field name="NUM">2.01</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="motion_rotate_right" inline="true">
+                                        <value name="ANGLE">
+                                          <block type="math_number">
+                                            <field name="NUM">1</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="control_await"></block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </statement>
+                                <next>
+                                  <block type="looks_hide"></block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>
