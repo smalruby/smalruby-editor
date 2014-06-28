@@ -32,6 +32,11 @@ class SourceCodesController < ApplicationController
       filename: 'hardware_led.rb',
       imageUrl: '/smalruby/assets/frog1.png',
     }
+    res[:demoPrograms] << {
+      title: 'クリックスターだにゃ～',
+      filename: 'star.rb',
+      imageUrl: '/smalruby/assets/cat1.png',
+    }
 
     render json: res
   end
