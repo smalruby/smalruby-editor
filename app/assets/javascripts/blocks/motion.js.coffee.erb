@@ -247,6 +247,28 @@ Blockly.Blocks['<%= n %>'] =
 Blockly.Ruby['<%= n %>'] = (block) ->
   Blockly.Ruby.characterMethodCall_('turn')
 
+# [▼水平(X)]方向に跳ね返る
+<% n = "#{category}_turn_xy" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    dropdown = [
+      ['水平(X)', 'x'],
+      ['垂直(Y)', 'y'],
+    ]
+
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput()
+      .appendField(new Blockly.FieldDropdown(dropdown), 'XY')
+      .appendField('方向に跳ね返る')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  xy = @getFieldValue('XY')
+  Blockly.Ruby.characterMethodCall_("turn_#{xy}")
+
 # 回転方法を[▼]にする
 <% n = "#{category}_set_rotation_style" %>
 Blockly.Blocks['<%= n %>'] =
