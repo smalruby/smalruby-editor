@@ -28,14 +28,19 @@ class SourceCodesController < ApplicationController
       imageUrl: '/smalruby/assets/car2.png',
     }
     res[:demoPrograms] << {
-      title: 'ライトをぴかっとさせるでよ',
-      filename: 'hardware_led.rb',
-      imageUrl: '/smalruby/assets/frog1.png',
-    }
-    res[:demoPrograms] << {
       title: 'クリックスターだにゃ～',
       filename: 'star.rb',
       imageUrl: '/smalruby/assets/cat1.png',
+    }
+    res[:demoPrograms] << {
+      title: 'ピンポンゲーム',
+      filename: 'pong.rb',
+      imageUrl: '/smalruby/assets/cat2.png',
+    }
+    res[:demoPrograms] << {
+      title: 'ライトをぴかっとさせるでよ',
+      filename: 'hardware_led.rb',
+      imageUrl: '/smalruby/assets/frog1.png',
     }
 
     render json: res
