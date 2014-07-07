@@ -31,4 +31,4 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 Blockly.Ruby['<%= n %>'] = (block) ->
   val = Blockly.Ruby.valueToCode(block, 'VALUE', Blockly.Ruby.ORDER_NONE) || '0'
   name = Blockly.Ruby.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)
-  name + ' = ' + val + '\n';
+  name + ' = ' + val + '\n'
