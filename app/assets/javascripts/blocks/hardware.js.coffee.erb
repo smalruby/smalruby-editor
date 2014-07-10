@@ -5,6 +5,7 @@
   colors = {
     motion: 208,
     looks: 270,
+    events: 33,
     sensing: 190,
     etc: 340,
   }
@@ -377,7 +378,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
-    @setColour(<%= colors[:sensing] %>)
+    @setColour(<%= colors[:events] %>)
     @appendDummyInput()
       .appendField('ボタン')
       .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
@@ -425,7 +426,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
-    @setColour(<%= colors[:sensing] %>)
+    @setColour(<%= colors[:events] %>)
     @appendDummyInput()
       .appendField('センサー')
       .appendField(new Blockly.FieldDropdown(aiPinDropdown), 'PIN')

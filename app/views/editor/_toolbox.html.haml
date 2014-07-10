@@ -229,7 +229,7 @@
     %category{:name => '変数', :custom => 'VARIABLE'}
 
   - category = 'events'
-  %category{:name => '～のとき（イベント）'}
+  %category{:name => 'イベント（～のとき）'}
     -# まずは
     %block{:type => "#{category}_on_start"}
 
@@ -242,6 +242,16 @@
 
     -# [▼キャラクター]にぶつかったとき
     %block{:type => "#{category}_on_hit"}
+
+    - category = 'hardware'
+    -# センサー[▼PIN]が変化したとき
+    %block{:type => "#{category}_on_sensor_change"}
+
+    -# ボタン[▼]を押したとき
+    -#%block{:type => "#{category}_on_button_down"}
+
+    -# ボタン[▼]を離したとき
+    -#%block{:type => "#{category}_on_button_up"}
 
   - category = 'control'
   %category{:name => '制御'}
@@ -327,20 +337,11 @@
     -# センサー[▼PIN]
     %block{:type => "#{category}_sensor_value"}
 
-    -# センサー[▼PIN]が変化したとき
-    %block{:type => "#{category}_on_sensor_change"}
-
     -# 条件:ボタン[▼]を押している
     -#%block{:type => "#{category}_button_down"}
 
     -# 条件:ボタン[▼]を離している
     -#%block{:type => "#{category}_button_up"}
-
-    -# ボタン[▼]を押したとき
-    -#%block{:type => "#{category}_on_button_down"}
-
-    -# ボタン[▼]を離したとき
-    -#%block{:type => "#{category}_on_button_up"}
 
   - category = 'operators'
   %category{:name => '演算'}
