@@ -4,6 +4,31 @@ require 'nkf'
 class SourceCodesController < ApplicationController
   before_filter :check_whether_standalone, only: [:write, :run, :load_local]
 
+  # デモプログラム
+  DEMO_PROGRAMS =
+    [
+     {
+       title: '車のおいかけっこ',
+       filename: 'car_chase.rb',
+       imageUrl: '/smalruby/assets/car2.png',
+     },
+     {
+       title: 'クリックスターだにゃ～',
+       filename: 'star.rb',
+       imageUrl: '/smalruby/assets/cat1.png',
+     },
+     {
+       title: 'ピンポンゲーム',
+       filename: 'pong.rb',
+       imageUrl: '/smalruby/assets/cat2.png',
+     },
+     {
+       title: 'ライトをぴかっとさせるでよ',
+       filename: 'hardware_led.rb',
+       imageUrl: '/smalruby/assets/frog1.png',
+     },
+    ]
+
   def index
     res = {
       localPrograms: [],
@@ -22,26 +47,7 @@ class SourceCodesController < ApplicationController
     end
 
     # TODO: XMLから情報を抽出する
-    res[:demoPrograms] << {
-      title: '車のおいかけっこ',
-      filename: 'car_chase.rb',
-      imageUrl: '/smalruby/assets/car2.png',
-    }
-    res[:demoPrograms] << {
-      title: 'クリックスターだにゃ～',
-      filename: 'star.rb',
-      imageUrl: '/smalruby/assets/cat1.png',
-    }
-    res[:demoPrograms] << {
-      title: 'ピンポンゲーム',
-      filename: 'pong.rb',
-      imageUrl: '/smalruby/assets/cat2.png',
-    }
-    res[:demoPrograms] << {
-      title: 'ライトをぴかっとさせるでよ',
-      filename: 'hardware_led.rb',
-      imageUrl: '/smalruby/assets/frog1.png',
-    }
+    res[:demoPrograms] = DEMO_PROGRAMS
 
     render json: res
   end

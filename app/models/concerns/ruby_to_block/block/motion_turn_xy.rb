@@ -6,7 +6,8 @@ module RubyToBlock
 
       def self.process_match_data(md, context)
         md2 = regexp.match(md[type])
-        add_character_method_call_block(context, md2[1], new(fields: { XY: md2[2] }))
+        add_character_method_call_block(context, md2[1],
+                                        new(fields: { XY: md2[2] }))
         true
       end
     end
