@@ -84,11 +84,6 @@
 
     - category = 'hardware'
     %category{:name => 'アクチュエータ'}
-      -#- subcategory = 'servo'
-      -# サーボ[▼ピン]を(　)度(5～180)にする
-      -#%block{:type => "#{category}_#{subcategory}_set_position"}
-        = toolbox_number_value('POS', 90)
-
       - subcategory = 'two_wheel_drive_car'
       -# 2WD車[▼ピン]を（　）秒[▼コマンド]
       %block{:type => "#{category}_#{subcategory}_run"}
@@ -127,6 +122,11 @@
       %block{:type => "#{category}_#{subcategory}_stop"}
         %field{:name => 'PIN'}<
           D6
+
+      - subcategory = 'servo'
+      -# サーボ[▼ピン]を(　)度(5～180)にする
+      %block{:type => "#{category}_#{subcategory}_set_position"}
+        = toolbox_number_value('POS', 90)
 
   - category = 'looks'
   %category{:name => '見た目'}
@@ -179,12 +179,12 @@
     -# LED[▼ピン]をオフにする
     %block{:type => "#{category}_#{subcategory}_off"}
 
-    -#- subcategory = 'rgb_led'
+    - subcategory = 'rgb_led'
     -# RGB LED[▼アノード]コモン[▼ピン]を[カラー]にする
-    -#%block{:type => "#{category}_#{subcategory}_on"}
+    %block{:type => "#{category}_#{subcategory}_on"}
 
     -# RGB LED[▼アノード]コモン[▼ピン]をオフにする
-    -#%block{:type => "#{category}_#{subcategory}_off"}
+    %block{:type => "#{category}_#{subcategory}_off"}
 
     -#- subcategory = 'seven_segment_display'
     -# 7セグディスプレイに[▼0-9]を表示する
@@ -248,10 +248,10 @@
     %block{:type => "#{category}_on_sensor_change"}
 
     -# ボタン[▼]を押したとき
-    -#%block{:type => "#{category}_on_button_down"}
+    %block{:type => "#{category}_on_button_down"}
 
     -# ボタン[▼]を離したとき
-    -#%block{:type => "#{category}_on_button_up"}
+    %block{:type => "#{category}_on_button_up"}
 
   - category = 'control'
   %category{:name => '制御'}
@@ -331,17 +331,17 @@
     %block{:type => "#{category}_time_now"}
 
     -# 変数:2000年からの日数
-    -#%block{:type => "#{category}_days_since_2000"}
+    %block{:type => "#{category}_days_since_2000"}
 
     - category = 'hardware'
     -# センサー[▼PIN]
     %block{:type => "#{category}_sensor_value"}
 
     -# 条件:ボタン[▼]を押している
-    -#%block{:type => "#{category}_button_down"}
+    %block{:type => "#{category}_button_down"}
 
     -# 条件:ボタン[▼]を離している
-    -#%block{:type => "#{category}_button_up"}
+    %block{:type => "#{category}_button_up"}
 
   - category = 'operators'
   %category{:name => '演算'}
