@@ -14,3 +14,15 @@ Blockly.Names.prototype.safeName_ = function(name) {
   }
   return name;
 };
+
+var originalBlocksMathNumberInit = Blockly.Blocks['math_number'].init;
+Blockly.Blocks['math_number'].init = function() {
+  originalBlocksMathNumberInit.call(this);
+  this.setColour(100);
+};
+
+var originalBlocksTextInit = Blockly.Blocks['text'].init;
+Blockly.Blocks['text'].init = function() {
+  originalBlocksTextInit.call(this);
+  this.setColour(100);
+};

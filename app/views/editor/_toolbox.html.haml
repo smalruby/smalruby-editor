@@ -1,85 +1,132 @@
 %xml{:id => 'toolbox', :style => 'display: none'}
   - category = 'motion'
-  %category{:name => '移動'}
-    -# (　)歩動かす
-    %block{:type => "#{category}_move"}
-      = toolbox_number_value('STEP', 10)
+  %category{:name => '動き'}
+    %category{:name => '移動'}
+      -# (　)歩動かす
+      %block{:type => "#{category}_move"}
+        = toolbox_number_value('STEP', 10)
 
-    -# x座標を(　)、y座標を(　)にする
-    %block{:type => "#{category}_set_x_y"}
-      = toolbox_number_value('X')
-      = toolbox_number_value('Y')
+      -# x座標を(　)、y座標を(　)にする
+      %block{:type => "#{category}_set_x_y"}
+        = toolbox_number_value('X')
+        = toolbox_number_value('Y')
 
-    -# マウスポインターへ行く
-    %block{:type => "#{category}_go_to_mouse"}
+      -# マウスポインターへ行く
+      %block{:type => "#{category}_go_to_mouse"}
 
-    -# [▼]へ行く
-    %block{:type => "#{category}_go_to_character"}
+      -# [▼]へ行く
+      %block{:type => "#{category}_go_to_character"}
 
-    -# (　)秒でx座標を(　)、y座標を(　)に変える
-    -#%block{:type => "#{category}_glide_to_x_y"}
-    -#  = toolbox_number_value('SEC', 1)
-    -#  = toolbox_number_value('X')
-    -#  = toolbox_number_value('Y')
+      -# (　)秒でx座標を(　)、y座標を(　)に変える
+      -#%block{:type => "#{category}_glide_to_x_y"}
+      -#  = toolbox_number_value('SEC', 1)
+      -#  = toolbox_number_value('X')
+      -#  = toolbox_number_value('Y')
 
-    -# x座標を(　)ずつ変える
-    %block{:type => "#{category}_change_x_by"}
-      = toolbox_number_value('X', 10)
+      -# x座標を(　)ずつ変える
+      %block{:type => "#{category}_change_x_by"}
+        = toolbox_number_value('X', 10)
 
-    -# x座標を(　)にする
-    %block{:type => "#{category}_set_x"}
-      = toolbox_number_value('X', 0)
+      -# x座標を(　)にする
+      %block{:type => "#{category}_set_x"}
+        = toolbox_number_value('X', 0)
 
-    -# y座標を(　)ずつ変える
-    %block{:type => "#{category}_change_y_by"}
-      = toolbox_number_value('Y', 10)
+      -# y座標を(　)ずつ変える
+      %block{:type => "#{category}_change_y_by"}
+        = toolbox_number_value('Y', 10)
 
-    -# y座標を(　)にする
-    %block{:type => "#{category}_set_y"}
-      = toolbox_number_value('Y', 0)
+      -# y座標を(　)にする
+      %block{:type => "#{category}_set_y"}
+        = toolbox_number_value('Y', 0)
 
-    -# 変数:x座標
-    %block{:type => "#{category}_self_x"}
+      -# 変数:x座標
+      %block{:type => "#{category}_self_x"}
 
-    -# 変数:y座標
-    %block{:type => "#{category}_self_y"}
+      -# 変数:y座標
+      %block{:type => "#{category}_self_y"}
 
-  %category{:name => '回転'}
-    -# もし端に着いたら、跳ね返る
-    %block{:type => "#{category}_turn_if_reach_wall"}
+    %category{:name => '回転'}
+      -# もし端に着いたら、跳ね返る
+      %block{:type => "#{category}_turn_if_reach_wall"}
 
-    -# 条件:端に着いた
-    %block{:type => "#{category}_reach_wall"}
+      -# 条件:端に着いた
+      %block{:type => "#{category}_reach_wall"}
 
-    -# 跳ね返る
-    %block{:type => "#{category}_turn"}
+      -# 跳ね返る
+      %block{:type => "#{category}_turn"}
 
-    -# [▼水平(X)]方向に跳ね返る
-    %block{:type => "#{category}_turn_xy"}
+      -# [▼水平(X)]方向に跳ね返る
+      %block{:type => "#{category}_turn_xy"}
 
-    -# 時計回りに(　)度回す
-    %block{:type => "#{category}_rotate_right"}
-      = toolbox_number_value('ANGLE', 15)
+      -# 時計回りに(　)度回す
+      %block{:type => "#{category}_rotate_right"}
+        = toolbox_number_value('ANGLE', 15)
 
-    -# 反時計回りに(　)度回す
-    %block{:type => "#{category}_rotate_left"}
-      = toolbox_number_value('ANGLE', 15)
+      -# 反時計回りに(　)度回す
+      %block{:type => "#{category}_rotate_left"}
+        = toolbox_number_value('ANGLE', 15)
 
-    -# (　)度に向ける
-    %block{:type => "#{category}_set_angle"}
-      = toolbox_number_value('ANGLE', 90)
+      -# (　)度に向ける
+      %block{:type => "#{category}_set_angle"}
+        = toolbox_number_value('ANGLE', 90)
 
-    -# マウスポインターへ向ける
-    %block{:type => "#{category}_point_towards_mouse"}
+      -# マウスポインターへ向ける
+      %block{:type => "#{category}_point_towards_mouse"}
 
-    -# [▼]へ向ける
-    %block{:type => "#{category}_point_towards_character"}
+      -# [▼]へ向ける
+      %block{:type => "#{category}_point_towards_character"}
 
-    -# 回転方法を[▼]にする
-    %block{:type => "#{category}_set_rotation_style"}
+      -# 回転方法を[▼]にする
+      %block{:type => "#{category}_set_rotation_style"}
 
-    -# 変数:向き
-    %block{:type => "#{category}_self_angle"}
+      -# 変数:向き
+      %block{:type => "#{category}_self_angle"}
+
+    - category = 'hardware'
+    %category{:name => 'アクチュエータ'}
+      -#- subcategory = 'servo'
+      -# サーボ[▼ピン]を(　)度(5～180)にする
+      -#%block{:type => "#{category}_#{subcategory}_set_position"}
+        = toolbox_number_value('POS', 90)
+
+      - subcategory = 'two_wheel_drive_car'
+      -# 2WD車[▼ピン]を（　）秒[▼コマンド]
+      %block{:type => "#{category}_#{subcategory}_run"}
+        %field{:name => 'PIN'}<
+          D6
+        = toolbox_number_value('SEC', 1)
+        %value{:name => 'COMMAND'}
+          %block{:type => "#{category}_#{subcategory}_commands"}
+
+      -# [▼コマンド]
+      %block{:type => "#{category}_#{subcategory}_commands"}
+        %field{:name => 'COMMAND'}<
+          forward
+
+      -# 2WD車[▼ピン]を進める
+      %block{:type => "#{category}_#{subcategory}_forward"}
+        %field{:name => 'PIN'}<
+          D6
+
+      -# 2WD車[▼ピン]をバックさせる
+      %block{:type => "#{category}_#{subcategory}_backward"}
+        %field{:name => 'PIN'}<
+          D6
+
+      -# 2WD車[▼ピン]を左に曲げる
+      %block{:type => "#{category}_#{subcategory}_turn_left"}
+        %field{:name => 'PIN'}<
+          D6
+
+      -# 2WD車[▼ピン]を右に曲げる
+      %block{:type => "#{category}_#{subcategory}_turn_right"}
+        %field{:name => 'PIN'}<
+          D6
+
+      -# 2WD車[▼ピン]を止める
+      %block{:type => "#{category}_#{subcategory}_stop"}
+        %field{:name => 'PIN'}<
+          D6
 
   - category = 'looks'
   %category{:name => '見た目'}
@@ -124,6 +171,36 @@
     -# [▼プリセット画像]
     -#%block{:type => "#{category}_preset_images"}
 
+    - category = 'hardware'
+    - subcategory = 'led'
+    -# LED[▼ピン]をオンにする
+    %block{:type => "#{category}_#{subcategory}_on"}
+
+    -# LED[▼ピン]をオフにする
+    %block{:type => "#{category}_#{subcategory}_off"}
+
+    -#- subcategory = 'rgb_led'
+    -# RGB LED[▼アノード]コモン[▼ピン]を[カラー]にする
+    -#%block{:type => "#{category}_#{subcategory}_on"}
+
+    -# RGB LED[▼アノード]コモン[▼ピン]をオフにする
+    -#%block{:type => "#{category}_#{subcategory}_off"}
+
+    -#- subcategory = 'seven_segment_display'
+    -# 7セグディスプレイに[▼0-9]を表示する
+    -#%block{:type => "#{category}_#{subcategory}_show"}
+
+    -# 7セグディスプレイをオフにする
+    -#%block{:type => "#{category}_#{subcategory}_off"}
+
+    -#- subcategory = 'lcd'
+    -# LCDに(　)を表示する
+    -#%block{:type => "#{category}_#{subcategory}_puts"}
+      = toolbox_text_value('TEXT', 'Hello')
+
+    -# LCDをクリアする
+    -#%block{:type => "#{category}_#{subcategory}_clear"}
+
   - category = 'sound'
   %category{:name => '音'}
     -# [▼プリセット音声]の音を鳴らす
@@ -148,8 +225,11 @@
     -# ペンの色を[カラー]にする
     %block{:type => "#{category}_set_pen_color"}
 
+  %category{:name => 'データ'}
+    %category{:name => '変数', :custom => 'VARIABLE'}
+
   - category = 'events'
-  %category{:name => '～のとき'}
+  %category{:name => 'イベント（～のとき）'}
     -# まずは
     %block{:type => "#{category}_on_start"}
 
@@ -163,44 +243,55 @@
     -# [▼キャラクター]にぶつかったとき
     %block{:type => "#{category}_on_hit"}
 
+    - category = 'hardware'
+    -# センサー[▼PIN]が変化したとき
+    %block{:type => "#{category}_on_sensor_change"}
+
+    -# ボタン[▼]を押したとき
+    -#%block{:type => "#{category}_on_button_down"}
+
+    -# ボタン[▼]を離したとき
+    -#%block{:type => "#{category}_on_button_up"}
+
   - category = 'control'
-  %category{:name => '繰り返し'}
-    -# ずっと
-    %block{:type => "#{category}_loop"}
+  %category{:name => '制御'}
+    %category{:name => '繰り返し'}
+      -# ずっと
+      %block{:type => "#{category}_loop"}
 
-    -# (　)回繰り返す
-    %block{:type => "#{category}_times"}
-      = toolbox_number_value('COUNT', 10)
+      -# (　)回繰り返す
+      %block{:type => "#{category}_times"}
+        = toolbox_number_value('COUNT', 10)
 
-    -# <　>まで繰り返す
-    %block{:type => "#{category}_until"}
+      -# <　>まで繰り返す
+      %block{:type => "#{category}_until"}
 
-    -# 繰り返しから脱出する
-    %block{:type => "#{category}_break"}
+      -# 繰り返しから脱出する
+      %block{:type => "#{category}_break"}
 
-    -# 次の繰り返しにジャンプする
-    %block{:type => "#{category}_next"}
+      -# 次の繰り返しにジャンプする
+      %block{:type => "#{category}_next"}
 
-    -# 現在の繰り返しをやり直す
-    %block{:type => "#{category}_redo"}
+      -# 現在の繰り返しをやり直す
+      %block{:type => "#{category}_redo"}
 
-  %category{:name => '待つ'}
-    -# (　)秒待つ
-    %block{:type => "#{category}_sleep"}
-      = toolbox_number_value('SEC', 1)
+    %category{:name => '待つ'}
+      -# (　)秒待つ
+      %block{:type => "#{category}_sleep"}
+        = toolbox_number_value('SEC', 1)
 
-    -# <　>まで待つ
-    %block{:type => "#{category}_await_until"}
+      -# <　>まで待つ
+      %block{:type => "#{category}_await_until"}
 
-    -# ほんの少し待つ
-    %block{:type => "#{category}_await"}
+      -# ほんの少し待つ
+      %block{:type => "#{category}_await"}
 
-  %category{:name => 'もし～なら'}
-    -# もし<　>なら
-    %block{:type => "#{category}_if"}
+    %category{:name => 'もし～なら'}
+      -# もし<　>なら
+      %block{:type => "#{category}_if"}
 
-    -# もし<　>なら～でなければ
-    %block{:type => "#{category}_if_else"}
+      -# もし<　>なら～でなければ
+      %block{:type => "#{category}_if_else"}
 
   - category = 'sensing'
   %category{:name => '調べる'}
@@ -242,202 +333,118 @@
     -# 変数:2000年からの日数
     -#%block{:type => "#{category}_days_since_2000"}
 
+    - category = 'hardware'
+    -# センサー[▼PIN]
+    %block{:type => "#{category}_sensor_value"}
+
+    -# 条件:ボタン[▼]を押している
+    -#%block{:type => "#{category}_button_down"}
+
+    -# 条件:ボタン[▼]を離している
+    -#%block{:type => "#{category}_button_up"}
+
   - category = 'operators'
-  %category{:name => '計算'}
-    -# 変数:(　) + (　)
-    %block{:type => "#{category}_add"}
+  %category{:name => '演算'}
+    %category{:name => '計算'}
+      -# 変数:(　) + (　)
+      %block{:type => "#{category}_add"}
 
-    -# 変数:(　) - (　)
-    %block{:type => "#{category}_minus"}
+      -# 変数:(　) - (　)
+      %block{:type => "#{category}_minus"}
 
-    -# 変数:(　) * (　)
-    %block{:type => "#{category}_multiply"}
+      -# 変数:(　) * (　)
+      %block{:type => "#{category}_multiply"}
 
-    -# 変数:(　) / (　)
-    %block{:type => "#{category}_divide"}
+      -# 変数:(　) / (　)
+      %block{:type => "#{category}_divide"}
 
-    -# 変数:(　)から(　)までの乱数
-    %block{:type => "#{category}_rand"}
-      = toolbox_number_value('A', 1)
-      = toolbox_number_value('B', 10)
+      -# 変数:(　)から(　)までの乱数
+      %block{:type => "#{category}_rand"}
+        = toolbox_number_value('A', 1)
+        = toolbox_number_value('B', 10)
 
-    -# 変数:(　)を(　)で割った余り
-    %block{:type => "#{category}_modulo"}
-      = toolbox_number_value('A', 5)
-      = toolbox_number_value('B', 2)
+      -# 変数:(　)を(　)で割った余り
+      %block{:type => "#{category}_modulo"}
+        = toolbox_number_value('A', 5)
+        = toolbox_number_value('B', 2)
 
-    -# 変数:(　)を丸める
-    %block{:type => "#{category}_round"}
-      = toolbox_number_value('A', 0.5)
+      -# 変数:(　)を丸める
+      %block{:type => "#{category}_round"}
+        = toolbox_number_value('A', 0.5)
 
-    -# 変数:(　)の[▼数学関数]
-    %block{:type => "#{category}_math_method"}
-      = toolbox_number_value('NUM', 9)
-      %field{:name => 'METHOD'}<
-        Math.sqrt(%num%)
+      -# 変数:(　)の[▼数学関数]
+      %block{:type => "#{category}_math_method"}
+        = toolbox_number_value('NUM', 9)
+        %field{:name => 'METHOD'}<
+          Math.sqrt(%num%)
 
-    -# 数値
-    %block{:type => 'math_number'}
-      %field{:name => 'NUM'}<
-        0
+      -# 数値
+      %block{:type => 'math_number'}
+        %field{:name => 'NUM'}<
+          0
 
-  %category{:name => '文字'}
-    -# 変数:(　)の(　)番目
-    %block{:type => "#{category}_index_of"}
-      = toolbox_text_value('A', 'あいうえお')
-      = toolbox_number_value('INDEX', 1)
+    %category{:name => '文字'}
+      -# 変数:(　)の(　)番目
+      %block{:type => "#{category}_index_of"}
+        = toolbox_text_value('A', 'あいうえお')
+        = toolbox_number_value('INDEX', 1)
 
-    -# 変数:(　)の長さ
-    %block{:type => "#{category}_length"}
-      = toolbox_text_value('A', 'あいうえお')
+      -# 変数:(　)の長さ
+      %block{:type => "#{category}_length"}
+        = toolbox_text_value('A', 'あいうえお')
 
-    -# テキスト
-    %block{:type => 'text'}
-      %field{:name => 'TEXT'}<
-        文章
+      -# テキスト
+      %block{:type => 'text'}
+        %field{:name => 'TEXT'}<
+          文章
 
-  %category{:name => '条件'}
-    -# 条件:(　) < (　)
-    %block{:type => "#{category}_compare_gt"}
+    %category{:name => '条件'}
+      -# 条件:(　) < (　)
+      %block{:type => "#{category}_compare_gt"}
 
-    -# 条件:(　) <= (　)
-    %block{:type => "#{category}_compare_gte"}
+      -# 条件:(　) <= (　)
+      %block{:type => "#{category}_compare_gte"}
 
-    -# 条件:(　) = (　)
-    %block{:type => "#{category}_compare_eq"}
+      -# 条件:(　) = (　)
+      %block{:type => "#{category}_compare_eq"}
 
-    -# 条件:(　) >= (　)
-    %block{:type => "#{category}_compare_lte"}
+      -# 条件:(　) >= (　)
+      %block{:type => "#{category}_compare_lte"}
 
-    -# 条件:(　) > (　)
-    %block{:type => "#{category}_compare_lt"}
+      -# 条件:(　) > (　)
+      %block{:type => "#{category}_compare_lt"}
 
-    -# 条件:<　> かつ <　>
-    %block{:type => "#{category}_and"}
+      -# 条件:<　> かつ <　>
+      %block{:type => "#{category}_and"}
 
-    -# 条件:<　> または <　>
-    %block{:type => "#{category}_or"}
+      -# 条件:<　> または <　>
+      %block{:type => "#{category}_or"}
 
-    -# 条件:<　> ではない
-    %block{:type => "#{category}_negate"}
+      -# 条件:<　> ではない
+      %block{:type => "#{category}_negate"}
 
-    -# 条件:真
-    %block{:type => "#{category}_true"}
+      -# 条件:真
+      %block{:type => "#{category}_true"}
 
-    -# 条件:偽
-    %block{:type => "#{category}_false"}
+      -# 条件:偽
+      %block{:type => "#{category}_false"}
 
-  %category{:name => '変数', :custom => 'VARIABLE'}
+  %category{:name => 'その他'}
+    - category = 'ruby'
+    %category{:name => 'Ruby'}
+      -# 文
+      %block{:type => "#{category}_statement"}
 
-  - category = 'ruby'
-  %category{:name => 'Ruby'}
-    -# 文
-    %block{:type => "#{category}_statement"}
+      -# 式
+      %block{:type => "#{category}_expression"}
 
-    -# 式
-    %block{:type => "#{category}_expression"}
+      -# コメント
+      %block{:type => "#{category}_comment"}
 
-    -# コメント
-    %block{:type => "#{category}_comment"}
+      -# p
+      %block{:type => "#{category}_p"}
 
-    -# p
-    %block{:type => "#{category}_p"}
-
-  - category = 'hardware'
-  %category{:name => 'ハードウェア'}
-    %category{:name => '準備'}
+    - category = 'hardware'
+    %category{:name => 'ハードウェア'}
       -# ハードウェアを準備する
       %block{:type => "#{category}_init_hardware"}
-
-    %category{:name => 'アクチュエータ'}
-      %category{:name => 'LED'}
-        -# LED[▼ピン]をオンにする
-        %block{:type => "#{category}_led_on"}
-
-        -# LED[▼ピン]をオフにする
-        %block{:type => "#{category}_led_off"}
-
-        -# RGB LED[▼アノード]コモン[▼ピン]を[カラー]にする
-        -#%block{:type => "#{category}_rgb_led_on"}
-
-        -# RGB LED[▼アノード]コモン[▼ピン]をオフにする
-        -#%block{:type => "#{category}_rgb_led_off"}
-
-        -# 7セグディスプレイに[▼0-9]を表示する
-        -#%block{:type => "#{category}_seven_segment_display_show"}
-
-        -# 7セグディスプレイをオフにする
-        -#%block{:type => "#{category}_seven_segment_display_off"}
-
-      -#%category{:name => 'LCD'}
-        -# LCDに(　)を表示する
-        %block{:type => "#{category}_lcd_puts"}
-          = toolbox_text_value('TEXT', 'Hello')
-
-        -# LCDをクリアする
-        %block{:type => "#{category}_lcd_clear"}
-
-      -#%category{:name => 'サーボ'}
-        -# サーボ[▼ピン]を(　)度(5～180)にする
-        %block{:type => "#{category}_servo_set_position"}
-          = toolbox_number_value('POS', 90)
-
-      - subcategory = 'two_wheel_drive_car'
-      %category{:name => '車'}
-        -# 2WD車[▼ピン]を（　）秒[▼コマンド]
-        %block{:type => "#{category}_#{subcategory}_run"}
-          %field{:name => 'PIN'}<
-            D6
-          = toolbox_number_value('SEC', 1)
-          %value{:name => 'COMMAND'}
-            %block{:type => "#{category}_#{subcategory}_commands"}
-
-        -# [▼コマンド]
-        %block{:type => "#{category}_#{subcategory}_commands"}
-          %field{:name => 'COMMAND'}<
-            forward
-
-        -# 2WD車[▼ピン]を進める
-        %block{:type => "#{category}_#{subcategory}_forward"}
-          %field{:name => 'PIN'}<
-            D6
-
-        -# 2WD車[▼ピン]をバックさせる
-        %block{:type => "#{category}_#{subcategory}_backward"}
-          %field{:name => 'PIN'}<
-            D6
-
-        -# 2WD車[▼ピン]を左に曲げる
-        %block{:type => "#{category}_#{subcategory}_turn_left"}
-          %field{:name => 'PIN'}<
-            D6
-
-        -# 2WD車[▼ピン]を右に曲げる
-        %block{:type => "#{category}_#{subcategory}_turn_right"}
-          %field{:name => 'PIN'}<
-            D6
-
-        -# 2WD車[▼ピン]を止める
-        %block{:type => "#{category}_#{subcategory}_stop"}
-          %field{:name => 'PIN'}<
-            D6
-
-    %category{:name => 'センサー'}
-      -# センサー[▼PIN]
-      %block{:type => "#{category}_sensor_value"}
-
-      -# センサー[▼PIN]が変化したとき
-      %block{:type => "#{category}_on_sensor_change"}
-
-    -#%category{:name => 'ボタン'}
-      -# 条件:ボタン[▼]を押している
-      %block{:type => "#{category}_button_down"}
-
-      -# 条件:ボタン[▼]を離している
-      %block{:type => "#{category}_button_up"}
-
-      -# ボタン[▼]を押したとき
-      %block{:type => "#{category}_on_button_down"}
-
-      -# ボタン[▼]を離したとき
-      %block{:type => "#{category}_on_button_up"}
