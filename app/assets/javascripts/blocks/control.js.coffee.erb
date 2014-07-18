@@ -62,7 +62,10 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  '<%= suffix %>\n'
+  if Blockly.Ruby.receiver() == 'main'
+    ''
+  else
+    '<%= suffix %>\n'
 <% end %>
 
 # もし<　>なら
