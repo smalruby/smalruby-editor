@@ -1,0 +1,15 @@
+#reset-modal{class: "#{modal_css_class}", tabindex: "-1",
+             role: "dialog", :"aria-hidden" => "true"}
+  .modal-header
+    %h3
+      本当にリセットしますか？
+  .modal-body
+    %p
+      作成中のプログラムが消えてしまうよ！
+  .modal-footer
+    %button#reset-modal-cancel-button.btn{:"data-dismiss" => "modal", :"aria-hidden" => "true"}<
+      %i.icon-remove
+      やめる
+    %button#reset-modal-ok-button.btn{class: "btn-primary"}<
+      %i.icon-off
+      リセット

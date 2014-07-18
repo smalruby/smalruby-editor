@@ -70,6 +70,9 @@
   'ログインダイアログ' => {
     selector: '#signin-modal',
   },
+  'リセット確認ダイアログ' => {
+    id: 'reset-modal',
+  },
 
   # ログインダイアログ
   'ログインダイアログの名前' => {
@@ -80,6 +83,14 @@
   },
   'ログインダイアログのやめるボタン' => {
     id: 'signin-modal-cancel-button',
+  },
+
+  # リセット確認ダイアログ
+  'リセット確認ダイアログのリセットボタン' => {
+    id: 'reset-modal-ok-button',
+  },
+  'リセット確認ダイアログのやめるボタン' => {
+    id: 'reset-modal-cancel-button',
   },
 }
 

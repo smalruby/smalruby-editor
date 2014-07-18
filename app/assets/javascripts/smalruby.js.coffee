@@ -66,6 +66,8 @@ window.Smalruby =
       el: $('#character-modal')
     @Views.LoadModalView = new Smalruby.LoadModalView
       el: $('#load-modal')
+    @Views.ResetModalView = new Smalruby.ResetModalView
+      el: $('#reset-modal')
 
     Smalruby.downloading = false
     window.onbeforeunload = (event) ->
@@ -161,6 +163,16 @@ window.Smalruby =
         false
       else
         true
+
+  # リセットする
+  reset: ->
+    @blocklyLoading = true
+    Blockly.mainWorkspace.clear()
+    @Collections.CharacterSet.reset()
+    $('#filename').val('')
+    window.textEditor.getSession().getDocument().setValue('')
+    window.textEditor.moveCursorTo(0, 0)
+    window.changed = false
 
 $(document).ready ->
   Smalruby.initialize()

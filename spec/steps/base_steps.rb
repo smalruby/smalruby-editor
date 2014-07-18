@@ -138,6 +138,10 @@ step 'JavaScriptによるアニメーションが終わるまで待つ' do
   sleep 1
 end
 
+step 'JavaScriptによる処理が終わるまで待つ' do
+  step 'JavaScriptによるアニメーションが終わるまで待つ'
+end
+
 step ':name は :value であること' do |name, value|
   expect(page.evaluate_script(<<-JS)).to eq(value)
     $('#{NAME_INFO[name][:selector]}').val()

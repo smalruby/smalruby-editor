@@ -272,7 +272,11 @@ Smalruby.MainMenuView = Backbone.View.extend
   onReset: (e) ->
     e.preventDefault()
 
-    location.reload()
+    if window.changed
+      Smalruby.Views.ResetModalView.render()
+    else
+      Smalruby.reset()
+    true
 
   onSignin: (e) ->
     e.preventDefault()
