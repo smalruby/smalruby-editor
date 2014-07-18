@@ -129,6 +129,15 @@ step 'JavaScriptによるリクエストが終わるまで待つ' do
   end
 end
 
+step 'JavaScriptによるアニメーションが終わるまで待つ' do
+  start_time = Time.now
+  until page.evaluate_script('jQuery(":animated").length == 0') ||
+      (start_time + 5.seconds) < Time.now
+    sleep 1
+  end
+  sleep 1
+end
+
 step ':name は :value であること' do |name, value|
   expect(page.evaluate_script(<<-JS)).to eq(value)
     $('#{NAME_INFO[name][:selector]}').val()
