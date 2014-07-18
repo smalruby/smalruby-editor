@@ -10,6 +10,9 @@ task :build do
 end
 
 task :release do
+  # HACK: Windowsの設定を入れられないため、Gemfile.lockをコミットできない
+  sh 'git checkout Gemfile.lock'
+
   ENV['GEM_PLATFORM'] = 'linux'
   Rake::Task['gem:release'].invoke
 
