@@ -141,8 +141,12 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  cond = Blockly.Ruby.valueToCode(@, 'COND', Blockly.Ruby.ORDER_CONDITIONAL) || 'true'
-  "await until #{cond}\n"
+  if Blockly.Ruby.receiver() == 'main'
+    ''
+  else
+    await = Blockly.Ruby.characterMethodCallInput_('await')[0]
+    cond = Blockly.Ruby.valueToCode(@, 'COND', Blockly.Ruby.ORDER_CONDITIONAL) || 'true'
+    "#{await} until #{cond}\n"
 
 # <　>まで繰り返す
 <% n = "#{category}_until" %>
@@ -180,4 +184,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  'await\n'
+  if Blockly.Ruby.receiver() == 'main'
+    ''
+  else
+    Blockly.Ruby.characterMethodCall_('await')

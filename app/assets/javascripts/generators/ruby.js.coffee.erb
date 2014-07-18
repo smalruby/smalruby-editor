@@ -108,7 +108,7 @@ Blockly.Ruby.characterMethodCallInput_ = (method, args, options = {}) ->
 
 Blockly.Ruby.characterSetVariable_ = (name, val, operator = '=') ->
   if @c_()
-    "#{@rn_({ dropSelf: false})}#{name} #{operator} #{val}\n"
+    "#{@rn_({ dropSelf: false })}#{name} #{operator} #{val}\n"
   else
     ''
 
