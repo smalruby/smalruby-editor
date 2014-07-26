@@ -362,7 +362,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   pin = @getFieldValue('PIN')
-  ["button(#{pin}).<%= method %>?", Blockly.Ruby.ORDER_ATOMIC]
+  Blockly.Ruby.characterMethodCallInput_("button(#{Blockly.Ruby.quote_(pin)}).<%= method %>?")
 <% end %>
 
 # ボタン[▼]を押したとき

@@ -248,10 +248,10 @@
     %block{:type => "#{category}_on_sensor_change"}
 
     -# ボタン[▼]を押したとき
-    -#%block{:type => "#{category}_on_button_down"}
+    %block{:type => "#{category}_on_button_down"}
 
     -# ボタン[▼]を離したとき
-    -#%block{:type => "#{category}_on_button_up"}
+    %block{:type => "#{category}_on_button_up"}
 
   - category = 'control'
   %category{:name => '制御'}
@@ -338,10 +338,10 @@
     %block{:type => "#{category}_sensor_value"}
 
     -# 条件:ボタン[▼]を押している
-    -#%block{:type => "#{category}_button_down"}
+    %block{:type => "#{category}_button_down"}
 
     -# 条件:ボタン[▼]を離している
-    -#%block{:type => "#{category}_button_up"}
+    %block{:type => "#{category}_button_up"}
 
   - category = 'operators'
   %category{:name => '演算'}
