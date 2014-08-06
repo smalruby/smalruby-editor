@@ -248,7 +248,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   pos = Blockly.Ruby.valueToCode(@, 'POS', Blockly.Ruby.ORDER_FUNCTION_CALL) || '5'
   Blockly.Ruby.characterMethodCall_("servo(#{Blockly.Ruby.quote_(pin)}).position = #{pos}")
 
-# 「車」サブジャンル
+# 「2WD車」サブジャンル
 <% subcategory = 'two_wheel_drive_car' %>
 
 # 2WD車[▼ピン]を進める
@@ -336,6 +336,80 @@ Blockly.Blocks['<%= n %>'] =
 Blockly.Ruby['<%= n %>'] = (block) ->
   code = Blockly.Ruby.quote_(@getFieldValue('COMMAND'))
   [code, Blockly.Ruby.ORDER_ATOMIC]
+
+
+# 「（モータードライバ{で,の}）モータ」サブジャンル
+<% subcategory = 'motor_driver' %>
+
+# (モータードライバ[▼ピン]で)モーターを[▼正転させる]
+<% n = "#{category}_#{subcategory}" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    methodDropdown = [
+      ['正転させる', 'forward'],
+      ['逆転させる', 'backward'],
+      ['止める', 'stop'],
+    ]
+
+    @setHelpUrl('')
+    @setColour(<%= colors[:motion] %>)
+    @appendDummyInput()
+      .appendField('(モータードライバ')
+      .appendField(new Blockly.FieldDropdown(pwmPinDropdown), 'PIN')
+      .appendField('で)モーターを')
+      .appendField(new Blockly.FieldDropdown(methodDropdown), 'METHOD')
+    @setInputsInline(true)
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  pin = @getFieldValue('PIN')
+  method = @getFieldValue('METHOD')
+
+  Blockly.Ruby.characterMethodCall_("motor_driver(#{Blockly.Ruby.quote_(pin)}).#{method}")
+
+# (モータードライバ[▼ピン]の)モーターの速度を<速度の割合>%にする
+<% n = "#{category}_#{subcategory}_set_speed" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @setHelpUrl('')
+    @setColour(<%= colors[:motion] %>)
+    @appendDummyInput()
+      .appendField('(モータードライバ')
+      .appendField(new Blockly.FieldDropdown(pwmPinDropdown), 'PIN')
+      .appendField('の)モーターの速度を')
+    @interpolateMsg('%1%にする',
+                     ['SPEED', ['Number'], Blockly.ALIGN_RIGHT],
+                     Blockly.ALIGN_RIGHT)
+    @setInputsInline(true)
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  pin = @getFieldValue('PIN')
+  speed = Blockly.Ruby.valueToCode(@, 'SPEED', Blockly.Ruby.ORDER_NONE) || '100'
+  Blockly.Ruby.characterMethodCallInput_("motor_driver(#{Blockly.Ruby.quote_(pin)}).speed")
+  Blockly.Ruby.characterMethodCall_("motor_driver(#{Blockly.Ruby.quote_(pin)}).speed = #{speed}")
+
+# (モータードライバ[▼ピン]の)モーターの速度(%)
+<% n = "#{category}_#{subcategory}_speed" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @setHelpUrl('')
+    @setColour(<%= colors[:sensing] %>)
+    @appendDummyInput()
+      .appendField('(モータードライバ')
+      .appendField(new Blockly.FieldDropdown(pwmPinDropdown), 'PIN')
+      .appendField('の)モーターの速度(%)')
+    @setOutput(true, 'Number')
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  pin = @getFieldValue('PIN')
+  Blockly.Ruby.characterMethodCallInput_("motor_driver(#{Blockly.Ruby.quote_(pin)}).speed")
+
 
 # 「ボタン」サブジャンル
 

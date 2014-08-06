@@ -128,6 +128,18 @@
         %field{:name => 'PIN'}<
           D6
 
+      - subcategory = 'motor_driver'
+      -# (モータードライバ[▼ピン]で)モーターを[▼正転させる]
+      %block{:type => "#{category}_#{subcategory}"}
+        %field{:name => 'PIN'}<
+          D6
+        %field{:name => 'METHOD'}<
+          forward
+
+      -# (モータードライバ[▼ピン]の)モーターの速度を<速度の割合>%にする
+      %block{:type => "#{category}_#{subcategory}_set_speed"}
+        = toolbox_number_value('SPEED', 100)
+
   - category = 'looks'
   %category{:name => '見た目'}
     -# [　]と(　)秒言う
@@ -342,6 +354,9 @@
 
     -# 条件:ボタン[▼]を離している
     -#%block{:type => "#{category}_button_up"}
+
+    -# (モータードライバ[▼ピン]の)モーターの速度(%)
+    %block{:type => "#{category}_motor_driver_speed"}
 
   - category = 'operators'
   %category{:name => '演算'}
