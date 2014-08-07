@@ -102,7 +102,7 @@ end
                     <next>
                       <block type="control_if" inline="true">
                         <value name="COND">
-                          <block type="motion_reach_wall" />
+                          <block type="sensing_reach_wall" />
                         </value>
                         <statement name="THEN">
                           <block type="motion_turn" />
@@ -305,7 +305,7 @@ end
                     <next>
                       <block type="control_if" inline="true">
                         <value name="COND">
-                          <block type="motion_reach_wall" />
+                          <block type="sensing_reach_wall" />
                         </value>
                         <statement name="THEN">
                           <block type="motion_turn" />
