@@ -6,7 +6,7 @@ module SmalrubyEditor
   COLORS = {
     character: 198,
     control: 43,
-    data: 29,
+    data: 330,
     etc: 340,
     events: 33,
     looks: 270,
