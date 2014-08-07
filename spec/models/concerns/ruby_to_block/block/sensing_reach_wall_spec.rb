@@ -4,7 +4,7 @@ require_relative 'shared/block_examples'
 
 # rubocop:disable EmptyLines, LineLength
 
-describe RubyToBlock::Block::MotionReachWall, to_blocks: true do
+describe RubyToBlock::Block::SensingReachWall, to_blocks: true do
   parts = <<-EOS
 if reach_wall?
 
@@ -18,7 +18,7 @@ end
       should eq_block_xml(<<-XML)
           <block type="control_if" inline="true">
             <value name="COND">
-              <block type="motion_reach_wall" />
+              <block type="sensing_reach_wall" />
             </value>
           </block>
       XML

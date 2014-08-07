@@ -2,7 +2,8 @@
 
 <%
   category = 'events'
-  color = 33
+  require 'smalruby_editor'
+  color = SmalrubyEditor::COLORS[category.to_sym]
 %>
 
 # まずは

@@ -2,7 +2,8 @@
 
 <%
   category = 'sensing'
-  color = 190
+  require 'smalruby_editor'
+  color = SmalrubyEditor::COLORS[category.to_sym]
 %>
 
 # 調べるの環境設定
@@ -26,6 +27,23 @@ window.SmalrubyEditor.Sensing =
     ['中ボタン', 'M_MBUTTON'],
     ['右ボタン', 'M_RBUTTON'],
   ]
+
+# 条件:端に触れた
+<% n = "#{category}_reach_wall" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput().appendField('端に触れた')
+    @setOutput(true, 'Boolean')
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  Blockly.Ruby.characterMethodCallInput_('reach_wall?')
+
+# HACK: 後方互換性のため、motion_reach_wallとして複製する
+Blockly.Blocks['motion_reach_wall'] = Blockly.Blocks['<%= n %>']
+Blockly.Ruby['motion_reach_wall'] = Blockly.Ruby['<%= n %>']
 
 # 条件:キーボードの[▼キー]が[▼押された]
 <% n = "#{category}_input_key_push_or_down" %>

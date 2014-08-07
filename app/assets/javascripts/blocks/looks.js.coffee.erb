@@ -2,7 +2,8 @@
 
 <%
   category = 'looks'
-  color = 270
+  require 'smalruby_editor'
+  color = SmalrubyEditor::COLORS[category.to_sym]
 %>
 
 # [　]と(　)秒言う

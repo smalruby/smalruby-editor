@@ -1,13 +1,13 @@
 # encoding: utf-8
 # language: ja
 @javascript
-機能: motion_reach_wall - 「条件:端に触れた」ブロック (後方互換性)
+機能: sensing_reach_wall - 「条件:端に触れた」ブロック
   シナリオ: ブロックのみ配置する
     前提 "ブロック" タブを表示する
 
     もし 次のブロックを配置する:
     """
-    %block{:type => "motion_reach_wall", :x => "0", :y => "0"}
+    %block{:type => "sensing_reach_wall", :x => "0", :y => "0"}
     """
     かつ ブロックからソースコードを生成する
 
@@ -20,7 +20,7 @@
     """
     %block{:type => "control_if", :x => "0", :y => "0", :inline => "true"}
       %value{:name => "COND"}
-        %block{:type => "motion_reach_wall"}
+        %block{:type => "sensing_reach_wall"}
     """
     かつ ブロックからソースコードを生成する
 
@@ -48,7 +48,7 @@
       %statement{:name => "DO"}
         %block{:type => "control_if", :x => "0", :y => "0", :inline => "true"}
           %value{:name => "COND"}
-            %block{:type => "motion_reach_wall"}
+            %block{:type => "sensing_reach_wall"}
     """
     かつ ブロックからソースコードを生成する
 
@@ -79,7 +79,7 @@
           %statement{:name => "DO"}
             %block{:type => "control_if", :x => "0", :y => "0", :inline => "true"}
               %value{:name => "COND"}
-                %block{:type => "motion_reach_wall"}
+                %block{:type => "sensing_reach_wall"}
     """
     かつ ブロックからソースコードを生成する
 

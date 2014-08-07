@@ -2,7 +2,8 @@
 
 <%
   category = 'operators'
-  color = 100
+  require 'smalruby_editor'
+  color = SmalrubyEditor::COLORS[category.to_sym]
 %>
 
 # 変数:(　) + (　)

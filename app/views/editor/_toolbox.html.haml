@@ -49,9 +49,6 @@
       -# もし端に着いたら、跳ね返る
       %block{:type => "#{category}_turn_if_reach_wall"}
 
-      -# 条件:端に着いた
-      %block{:type => "#{category}_reach_wall"}
-
       -# 跳ね返る
       %block{:type => "#{category}_turn"}
 
@@ -307,6 +304,9 @@
 
   - category = 'sensing'
   %category{:name => '調べる'}
+    -# 条件:端に触れた
+    %block{:type => "#{category}_reach_wall"}
+
     -# 条件:キーボードの[▼キー]が[▼押された]
     %block{:type => "#{category}_input_key_push_or_down"}
       = toolbox_key_field

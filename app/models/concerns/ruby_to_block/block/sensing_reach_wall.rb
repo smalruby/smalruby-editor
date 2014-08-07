@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 module RubyToBlock
   module Block
-    class MotionReachWall < Value
+    class SensingReachWall < Value
       include CharacterOperation
 
       blocknize '^\s*' + CHAR_RE + 'reach_wall\?\s*$',

@@ -2,7 +2,8 @@
 
 <%
   category = 'sound'
-  color = 300
+  require 'smalruby_editor'
+  color = SmalrubyEditor::COLORS[category.to_sym]
 %>
 
 # [▼プリセット音声]

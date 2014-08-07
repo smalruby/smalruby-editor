@@ -2,7 +2,8 @@
 
 <%
   category = 'ruby'
-  color = 340
+  require 'smalruby_editor'
+  color = SmalrubyEditor::COLORS[category.to_sym]
 %>
 
 # 文

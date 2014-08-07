@@ -23,30 +23,33 @@
     }.join
   end
 
-  hues = %w(
-    208
-    208
-    208
-    208
-    270
-    300
-    160
-    330
-    330
-    33
-    43
-    43
-    43
-    43
-    190
-    100
-    100
-    100
-    100
-    340
-    340
-    340
-  ).map(&:to_i)
+  require 'smalruby_editor'
+  colors = SmalrubyEditor::COLORS
+
+  hues = [
+    colors[:motion],
+    colors[:motion],
+    colors[:motion],
+    colors[:motion],
+    colors[:looks],
+    colors[:sound],
+    colors[:pen],
+    colors[:data],
+    colors[:data],
+    colors[:events],
+    colors[:control],
+    colors[:control],
+    colors[:control],
+    colors[:control],
+    colors[:sensing],
+    colors[:operators],
+    colors[:operators],
+    colors[:operators],
+    colors[:operators],
+    colors[:etc],
+    colors[:etc],
+    colors[:etc],
+  ]
 
   colors = hues.map { |h|
     [hsv_to_rgb(h, 100, 80), hsv_to_rgb(h, 100, 100)]

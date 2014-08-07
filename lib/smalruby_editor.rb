@@ -2,6 +2,22 @@
 require 'smalruby_editor/version'
 
 module SmalrubyEditor
+  # ジャンルのカラー
+  COLORS = {
+    character: 198,
+    control: 43,
+    data: 29,
+    etc: 340,
+    events: 33,
+    looks: 270,
+    motion: 208,
+    operators: 100,
+    pen: 160,
+    ruby: 340,
+    sensing: 190,
+    sound: 300,
+  }
+
   def create_home_directory(home_dir = nil)
     if home_dir.blank?
       path = ENV['SMALRUBY_EDITOR_HOME'] || '~/.smalruby-editor'

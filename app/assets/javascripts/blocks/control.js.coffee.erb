@@ -2,7 +2,8 @@
 
 <%
   category = 'control'
-  color = 43
+  require 'smalruby_editor'
+  color = SmalrubyEditor::COLORS[category.to_sym]
 %>
 
 # (　)秒待つ
