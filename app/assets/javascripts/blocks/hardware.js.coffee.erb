@@ -408,69 +408,50 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 
 # 「ボタン」サブジャンル
 
-# 条件:ボタン[▼]を押している
-# 条件:ボタン[▼]を離している
-<%
-  [
-    ['down', '押している'],
-    ['up', '離している'],
-  ].each do |method, label|
-    n = "#{category}_button_#{method}"
-%>
-
+# 条件:ボタン[▼PIN]が[▼押された]
+<% n = "#{category}_button_down_or_up" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
+    douDropdown = window.SmalrubyEditor.Sensing.DownOrUpDropdown
+
     @setHelpUrl('')
     @setColour(<%= colors[:sensing] %>)
     @appendDummyInput()
       .appendField('ボタン')
       .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
-      .appendField('を<%= label %>')
+      .appendField('が')
+      .appendField(new Blockly.FieldDropdown(douDropdown), 'DOU')
     @setOutput(true, 'Boolean')
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   pin = @getFieldValue('PIN')
-  ["button(#{pin}).<%= method %>?", Blockly.Ruby.ORDER_ATOMIC]
-<% end %>
+  dou = @getFieldValue('DOU')
+  Blockly.Ruby.characterMethodCallInput_("button(#{Blockly.Ruby.quote_(pin)}).#{dou}?")
 
-# ボタン[▼]を押したとき
-# ボタン[▼]を離したとき
-<%
-  [
-    ['down', '押した'],
-    ['up', '離した'],
-  ].each do |name, label|
-    n = "#{category}_on_button_#{name}"
-%>
-
+# ボタン[▼PIN]が[▼押された]とき
+<% n = "#{category}_on_button_down_or_up" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
+    douDropdown = window.SmalrubyEditor.Sensing.DownOrUpDropdown
+
     @setHelpUrl('')
     @setColour(<%= colors[:events] %>)
     @appendDummyInput()
       .appendField('ボタン')
       .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
-      .appendField('を<%= label %>とき')
+      .appendField('が')
+      .appendField(new Blockly.FieldDropdown(douDropdown), 'DOU')
+      .appendField('とき')
     @appendStatementInput('DO')
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  if (var0 = Blockly.Ruby.receiverName())
-    pin = @getFieldValue('PIN')
-    branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
-    """
-
-
-    #{var0}.on(:button_<%= name %>, #{pin}) do
-    #{branch}end
-
-    """
-  else
-    ''
-<% end %>
+  pin = @getFieldValue('PIN')
+  dou = @getFieldValue('DOU')
+  Blockly.Ruby.characterEvent_(block, 'DO', "button_#{dou}", Blockly.Ruby.quote_(pin))
 
 # 「センサー」サブジャンル
 

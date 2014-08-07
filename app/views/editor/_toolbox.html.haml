@@ -256,11 +256,8 @@
     -# センサー[▼PIN]が変化したとき
     %block{:type => "#{category}_on_sensor_change"}
 
-    -# ボタン[▼]を押したとき
-    -#%block{:type => "#{category}_on_button_down"}
-
-    -# ボタン[▼]を離したとき
-    -#%block{:type => "#{category}_on_button_up"}
+    -# ボタン[▼PIN]が[▼押された]とき
+    %block{:type => "#{category}_on_button_down_or_up"}
 
   - category = 'control'
   %category{:name => '制御'}
@@ -351,11 +348,8 @@
       -# センサー[▼PIN]
       %block{:type => "#{category}_sensor_value"}
 
-      -# 条件:ボタン[▼]を押している
-      -#%block{:type => "#{category}_button_down"}
-
-      -# 条件:ボタン[▼]を離している
-      -#%block{:type => "#{category}_button_up"}
+      -# 条件:ボタン[▼PIN]が[▼押された]
+      %block{:type => "#{category}_button_down_or_up"}
 
       -# (モータードライバ[▼ピン]の)モーターの速度(%)
       %block{:type => "#{category}_motor_driver_speed"}
