@@ -1,6 +1,6 @@
 <xml xmlns="http://www.w3.org/1999/xhtml">
   <character name="car1" costumes="car2.png" angle="0" y="0" x="0" />
-  <character name="car2" costumes="car3.png" angle="0" y="415" x="0" />
+  <character name="car2" costumes="car4.png" angle="0" y="415" x="0" />
   <block type="ruby_comment" y="25" x="34">
     <field name="COMMENT">逃げる車</field>
     <next>
