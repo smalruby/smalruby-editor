@@ -288,4 +288,78 @@ car1.motor_driver("D3").stop
       XML
     end
   end
+
+  parts = <<-EOS
+require "smalruby"
+
+init_hardware
+car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
+
+car1.on(:button_down, "D3") do
+  p(button("D3").up?)
+  p(button("D3").down?)
+end
+p(car1.button("D3").up?)
+p(car1.button("D3").down?)
+  EOS
+  describe compact_source_code(parts) do
+    _parts = parts
+    let(:data) { _parts }
+
+    it '結果が正しいこと' do
+      should eq_block_xml(<<-XML)
+  <character name="car1" x="0" y="0" angle="0" costumes="car1.png" />
+  <block type="hardware_init_hardware" />
+  <block type="character_new">
+    <field name="NAME">car1</field>
+    <statement name="DO">
+      <block type="hardware_on_button_down_or_up">
+        <field name="PIN">D3</field>
+        <field name="DOU">down</field>
+        <statement name="DO">
+          <block type="ruby_p" inline="true">
+            <value name="ARG">
+              <block type="hardware_button_down_or_up">
+                <field name="PIN">D3</field>
+                <field name="DOU">up</field>
+              </block>
+            </value>
+            <next>
+              <block type="ruby_p" inline="true">
+                <value name="ARG">
+                  <block type="hardware_button_down_or_up">
+                    <field name="PIN">D3</field>
+                    <field name="DOU">down</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="ruby_p" inline="true">
+            <value name="ARG">
+              <block type="hardware_button_down_or_up">
+                <field name="PIN">D3</field>
+                <field name="DOU">up</field>
+              </block>
+            </value>
+            <next>
+              <block type="ruby_p" inline="true">
+                <value name="ARG">
+                  <block type="hardware_button_down_or_up">
+                    <field name="PIN">D3</field>
+                    <field name="DOU">down</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+      XML
+    end
+  end
 end
