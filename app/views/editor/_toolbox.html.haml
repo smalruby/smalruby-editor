@@ -82,15 +82,14 @@
     - category = 'hardware'
     %category{:name => 'アクチュエータ'}
       -#- subcategory = 'servo'
-      -# サーボ[▼ピン]を(　)度(5～180)にする
+      -# サーボ[▼PIN]を(　)度(5～180)にする
       -#%block{:type => "#{category}_#{subcategory}_set_position"}
         = toolbox_number_value('POS', 90)
 
       - subcategory = 'two_wheel_drive_car'
-      -# 2WD車[▼ピン]を（　）秒[▼コマンド]
+      -# 2WD車[▼PIN]を（　）秒[▼コマンド]
       %block{:type => "#{category}_#{subcategory}_run"}
-        %field{:name => 'PIN'}<
-          D6
+        = toolbox_pin_field('D5')
         = toolbox_number_value('SEC', 1)
         %value{:name => 'COMMAND'}
           %block{:type => "#{category}_#{subcategory}_commands"}
@@ -100,41 +99,41 @@
         %field{:name => 'COMMAND'}<
           forward
 
-      -# 2WD車[▼ピン]を進める
+      -# 2WD車[▼PIN]を進める
       %block{:type => "#{category}_#{subcategory}_forward"}
-        %field{:name => 'PIN'}<
-          D6
+        = toolbox_pin_field('D5')
 
-      -# 2WD車[▼ピン]をバックさせる
+      -# 2WD車[▼PIN]をバックさせる
       %block{:type => "#{category}_#{subcategory}_backward"}
-        %field{:name => 'PIN'}<
-          D6
+        = toolbox_pin_field('D5')
 
-      -# 2WD車[▼ピン]を左に曲げる
+      -# 2WD車[▼PIN]を左に曲げる
       %block{:type => "#{category}_#{subcategory}_turn_left"}
-        %field{:name => 'PIN'}<
-          D6
+        = toolbox_pin_field('D5')
 
-      -# 2WD車[▼ピン]を右に曲げる
+      -# 2WD車[▼PIN]を右に曲げる
       %block{:type => "#{category}_#{subcategory}_turn_right"}
-        %field{:name => 'PIN'}<
-          D6
+        = toolbox_pin_field('D5')
 
-      -# 2WD車[▼ピン]を止める
+      -# 2WD車[▼PIN]を止める
       %block{:type => "#{category}_#{subcategory}_stop"}
-        %field{:name => 'PIN'}<
-          D6
+        = toolbox_pin_field('D5')
+
+      -# 2WD車[▼PIN]の[▼LOR]の速度を<SPEED>%にする
+      %block{:type => "#{category}_#{subcategory}_set_speed"}
+        = toolbox_pin_field('D5')
+        = toolbox_number_value('SPEED', 100)
 
       - subcategory = 'motor_driver'
-      -# (モータードライバ[▼ピン]で)モーターを[▼正転させる]
+      -# (モータードライバ[▼PIN]で)モーターを[▼正転させる]
       %block{:type => "#{category}_#{subcategory}"}
-        %field{:name => 'PIN'}<
-          D6
+        = toolbox_pin_field('D6')
         %field{:name => 'METHOD'}<
           forward
 
-      -# (モータードライバ[▼ピン]の)モーターの速度を<速度の割合>%にする
+      -# (モータードライバ[▼PIN]の)モーターの速度を<SPEED>%にする
       %block{:type => "#{category}_#{subcategory}_set_speed"}
+        = toolbox_pin_field('D6')
         = toolbox_number_value('SPEED', 100)
 
   - category = 'looks'
@@ -182,17 +181,17 @@
 
     - category = 'hardware'
     - subcategory = 'led'
-    -# LED[▼ピン]をオンにする
+    -# LED[▼PIN]をオンにする
     %block{:type => "#{category}_#{subcategory}_on"}
 
-    -# LED[▼ピン]をオフにする
+    -# LED[▼PIN]をオフにする
     %block{:type => "#{category}_#{subcategory}_off"}
 
     -#- subcategory = 'rgb_led'
-    -# RGB LED[▼アノード]コモン[▼ピン]を[カラー]にする
+    -# RGB LED[▼アノード]コモン[▼PIN]を[カラー]にする
     -#%block{:type => "#{category}_#{subcategory}_on"}
 
-    -# RGB LED[▼アノード]コモン[▼ピン]をオフにする
+    -# RGB LED[▼アノード]コモン[▼PIN]をオフにする
     -#%block{:type => "#{category}_#{subcategory}_off"}
 
     -#- subcategory = 'seven_segment_display'
@@ -347,12 +346,19 @@
     %category{:name => 'ハードウェア'}
       -# センサー[▼PIN]
       %block{:type => "#{category}_sensor_value"}
+        = toolbox_pin_field('A0')
 
       -# 条件:ボタン[▼PIN]が[▼押された]
       %block{:type => "#{category}_button_down_or_up"}
+        = toolbox_pin_field('D3')
 
-      -# (モータードライバ[▼ピン]の)モーターの速度(%)
+      -# 2WD車[▼PIN]の[▼LOR]の速度%
+      %block{:type => "#{category}_two_wheel_drive_car_speed"}
+        = toolbox_pin_field('D5')
+
+      -# (モータードライバ[▼PIN]の)モーターの速度(%)
       %block{:type => "#{category}_motor_driver_speed"}
+        = toolbox_pin_field('D6')
 
   - category = 'operators'
   %category{:name => '演算'}

@@ -1,10 +1,12 @@
 module RubyToBlock
   module Block
-    class HardwareMotorDriverSpeed < Value
+    class HardwareTwoWheelDriveCarSpeed < Value
       include CharacterOperation
+      include HardwareOperation
 
       blocknize '^\s*' + CHAR_RE +
-                'motor_driver\("(D(?:3|5|6|9|10|11))"\)\.speed\s*$',
+                'two_wheel_drive_car\(' + TWO_WHEEL_DRIVE_CAR_PIN_RE + '\)\.' +
+                LOR_RE + '_speed\s*$',
                 value: true
 
       def self.process_match_data(md, context)
@@ -13,7 +15,7 @@ module RubyToBlock
         character = get_character(context, md2[1])
         return false if context.receiver && context.receiver != character
 
-        block = new(fields: { PIN: md2[2] })
+        block = new(fields: { PIN: md2[2], LOR: md2[3] })
         context.add_value(block)
         block.character = character
 

@@ -47,6 +47,26 @@ describe EditorHelper do
     end
   end
 
+  describe '#toolbox_pin_field' do
+    subject { toolbox_pin_field(value, name) }
+
+    let(:name) { 'PIN' }
+    let(:value) { 'D5' }
+
+    it { should be_html_safe }
+    it { should include(%(<field name="#{h name}">#{h value}</field>)) }
+
+    context '名前にタグを含む場合', name_include_html: true do
+      it { should include(%(<field name="#{h name}">#{h value}</field>)) }
+    end
+
+    context '名前を省略した場合' do
+      subject { toolbox_pin_field(value) }
+
+      it { should include(%(<field name="PIN">#{h value}</field>)) }
+    end
+  end
+
   describe '#toolbox_number_value' do
     subject { toolbox_number_value(name, value) }
 

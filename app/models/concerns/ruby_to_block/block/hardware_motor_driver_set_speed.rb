@@ -2,11 +2,11 @@
 module RubyToBlock
   module Block
     class HardwareMotorDriverSetSpeed < CharacterMethodCall
-      # rubocop:disable LineLength
+      include HardwareOperation
+
       blocknize '^\s*' + CHAR_RE +
-                'motor_driver\("(D(?:3|5|6|9|10|11))"\)\.speed\s*=\s*(\S+)\s*$',
+                'motor_driver\(' + PWM_PIN_RE + '\)\.speed\s*=\s*(\S+)\s*$',
                 statement: true, inline: true
-      # rubocop:enable LineLength
 
       def self.process_match_data(md, context)
         md2 = regexp.match(md[type])

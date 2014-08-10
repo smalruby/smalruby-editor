@@ -268,14 +268,106 @@ car1.motor_driver("D3").stop
             <next>
               <block type="ruby_p" inline="true">
                 <value name="ARG">
-                  <block type="ruby_expression">
-                    <field name="EXP">car1.motor_driver(&quot;D3&quot;).speed</field>
+                  <block type="hardware_motor_driver_speed">
+                    <field name="PIN">D3</field>
                   </block>
                 </value>
                 <next>
                   <block type="hardware_motor_driver">
                     <field name="PIN">D3</field>
                     <field name="METHOD">stop</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+      XML
+    end
+  end
+
+  parts = <<-EOS
+require "smalruby"
+
+init_hardware
+car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
+
+car1.on(:start) do
+  two_wheel_drive_car("D5").left_speed = 50
+  p(two_wheel_drive_car("D5").left_speed)
+  two_wheel_drive_car("D5").forward
+  two_wheel_drive_car("D5").backward
+end
+car1.two_wheel_drive_car("D5").right_speed = 50
+p(car1.two_wheel_drive_car("D5").right_speed)
+car1.two_wheel_drive_car("D5").stop
+  EOS
+  describe compact_source_code(parts) do
+    _parts = parts
+    let(:data) { _parts }
+
+    it '結果が正しいこと' do
+      should eq_block_xml(<<-XML)
+  <character name="car1" x="0" y="0" angle="0" costumes="car1.png" />
+  <block type="hardware_init_hardware" />
+  <block type="character_new">
+    <field name="NAME">car1</field>
+    <statement name="DO">
+      <block type="events_on_start">
+        <statement name="DO">
+          <block type="hardware_two_wheel_drive_car_set_speed" inline="true">
+            <field name="PIN">D5</field>
+            <field name="LOR">left</field>
+            <value name="SPEED">
+              <block type="math_number">
+                <field name="NUM">50</field>
+              </block>
+            </value>
+            <next>
+              <block type="ruby_p" inline="true">
+                <value name="ARG">
+                  <block type="hardware_two_wheel_drive_car_speed">
+                    <field name="PIN">D5</field>
+                    <field name="LOR">left</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="hardware_two_wheel_drive_car_forward">
+                    <field name="PIN">D5</field>
+                    <next>
+                      <block type="hardware_two_wheel_drive_car_backward">
+                        <field name="PIN">D5</field>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="hardware_two_wheel_drive_car_set_speed" inline="true">
+            <field name="PIN">D5</field>
+            <field name="LOR">right</field>
+            <value name="SPEED">
+              <block type="math_number">
+                <field name="NUM">50</field>
+              </block>
+            </value>
+            <next>
+              <block type="ruby_p" inline="true">
+                <value name="ARG">
+                  <block type="hardware_two_wheel_drive_car_speed">
+                    <field name="PIN">D5</field>
+                    <field name="LOR">right</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="hardware_two_wheel_drive_car_stop">
+                    <field name="PIN">D5</field>
                   </block>
                 </next>
               </block>
