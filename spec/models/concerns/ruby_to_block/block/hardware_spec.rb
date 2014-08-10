@@ -390,9 +390,11 @@ car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
 car1.on(:button_down, "D3") do
   p(button("D3").up?)
   p(button("D3").down?)
+  button("D3").not_use_pullup
 end
 p(car1.button("D3").up?)
 p(car1.button("D3").down?)
+car1.button("D3").not_use_pullup
   EOS
   describe compact_source_code(parts) do
     _parts = parts
@@ -424,6 +426,11 @@ p(car1.button("D3").down?)
                     <field name="DOU">down</field>
                   </block>
                 </value>
+                <next>
+                  <block type="hardware_button_not_use_pullup">
+                    <field name="PIN">D3</field>
+                  </block>
+                </next>
               </block>
             </next>
           </block>
@@ -444,6 +451,11 @@ p(car1.button("D3").down?)
                     <field name="DOU">down</field>
                   </block>
                 </value>
+                <next>
+                  <block type="hardware_button_not_use_pullup">
+                    <field name="PIN">D3</field>
+                  </block>
+                </next>
               </block>
             </next>
           </block>

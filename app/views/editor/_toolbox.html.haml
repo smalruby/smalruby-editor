@@ -465,3 +465,7 @@
     %category{:name => 'ハードウェア'}
       -# ハードウェアを準備する
       %block{:type => "#{category}_init_hardware"}
+
+      -# ボタン[▼PIN]のプルアップ抵抗を使わない
+      %block{:type => "#{category}_button_not_use_pullup"}
+        = toolbox_pin_field('D3')

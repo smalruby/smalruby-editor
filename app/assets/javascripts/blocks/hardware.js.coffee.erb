@@ -502,6 +502,24 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   dou = @getFieldValue('DOU')
   Blockly.Ruby.characterEvent_(block, 'DO', "button_#{dou}", Blockly.Ruby.quote_(pin))
 
+# ボタン[▼PIN]のプルアップ抵抗を使わない
+<% n = "#{category}_button_not_use_pullup" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @setHelpUrl('')
+    @setColour(<%= colors[:etc] %>)
+    @appendDummyInput()
+      .appendField('ボタン')
+      .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
+      .appendField('のプルアップ抵抗を使わない')
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  pin = @getFieldValue('PIN')
+  Blockly.Ruby.characterMethodCall_("button(#{Blockly.Ruby.quote_(pin)}).not_use_pullup")
+
 # 「センサー」サブジャンル
 
 # センサー[▼PIN]
