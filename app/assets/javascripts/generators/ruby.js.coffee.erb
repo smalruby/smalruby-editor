@@ -159,12 +159,20 @@ Blockly.Ruby.finish = (code) ->
 Blockly.Ruby.scrubNakedValue = (line) ->
   line + '\n'
 
+Blockly.Ruby.escapeChars_ =
+  '"': '\\"'
+
 Blockly.Ruby.quote_ = (string) ->
-  # TODO: 実装すること
-  # stringに"を含んでいたら、aから順番にstringに含まれるか試して、含ま
-  # れていない文字を使って%Qa...aとしようかな。でも生成したソースコード
-  # の可読性が下がりますね。
-  '\"' + string + '\"'
+  # copy and modified goog.string.quote:
+  # http://docs.closure-library.googlecode.com/git/namespace_goog_string.html
+  s = String(string)
+  sb = ['"']
+  for i in [0...s.length]
+    do (i) ->
+      ch = s.charAt(i)
+      sb[i + 1] = Blockly.Ruby.escapeChars_[ch] || ch
+  sb.push('"')
+  sb.join('')
 
 Blockly.Ruby.scrub_ = (block, code) ->
   if code == null
