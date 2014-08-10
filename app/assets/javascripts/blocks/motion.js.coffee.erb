@@ -98,7 +98,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  char = @getFieldValue('CHAR')
+  char = @getCharacterFieldValue()
   Blockly.Ruby.characterMethodCall_('point_towards', char)
 
 # x座標を(　)、y座標を(　)にする
@@ -151,7 +151,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  char = @getFieldValue('CHAR')
+  char = @getCharacterFieldValue()
   Blockly.Ruby.characterMethodCall_("go_to(#{char})")
 
 # (　)秒でx座標を(　)、y座標を(　)に変える

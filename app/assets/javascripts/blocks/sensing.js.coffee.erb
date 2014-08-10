@@ -126,7 +126,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  char = @getFieldValue('CHAR')
+  char = @getCharacterFieldValue()
   Blockly.Ruby.characterMethodCallInput_('hit?', char)
 
 # [　]と聞いて待つ
@@ -214,7 +214,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  char = @getFieldValue('CHAR')
+  char = @getCharacterFieldValue()
   property = @getFieldValue('PROPERTY')
   c = Smalruby.Collections.CharacterSet.findWhere({ name: char })
   Blockly.Ruby.characterMethodCallInput_(property, null, { object: c })

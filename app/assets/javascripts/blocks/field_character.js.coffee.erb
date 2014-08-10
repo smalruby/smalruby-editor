@@ -106,3 +106,12 @@ Smalruby.FieldCharacter.NullCharacter =
   off: -> $.noop
   link: -> $.noop
   unlink: -> $.noop
+
+Blockly.Block.prototype.getCharacterFieldValue = (name = 'CHAR') ->
+  char = @getFieldValue(name)
+
+  if Blockly.Ruby.c()
+    c = Smalruby.Collections.CharacterSet.findWhere({ name: char })
+    Blockly.Ruby.defineCharacter(c)
+
+  char
