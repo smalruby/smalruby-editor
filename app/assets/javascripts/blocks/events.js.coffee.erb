@@ -6,7 +6,7 @@
   color = SmalrubyEditor::COLORS[category.to_sym]
 %>
 
-# まずは
+# 実行ボタンがクリックされたとき
 <% n = "#{category}_on_start" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
