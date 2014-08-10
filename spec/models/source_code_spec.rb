@@ -75,4 +75,57 @@ describe SourceCode, 'Rubyのソースコードを表現するモデル' do
 
     it { should eq(Digest::SHA256.hexdigest(data)) }
   end
+
+  describe '#summary', 'プログラムの概要を取得する' do
+    describe 'XML形式'do
+      let(:xml_path) { rb_path + '.xml' }
+      let(:data) { Rails.root.join(xml_path).read }
+      let(:source_code) {
+        SourceCode.new(filename: File.basename(xml_path), data: data)
+      }
+
+      subject { source_code.summary }
+
+      {
+        car_chase: {
+          title: '車のおいかけっこ',
+          filename: 'car_chase.rb',
+          imageUrl: '/smalruby/assets/car2.png',
+        },
+        star: {
+          title: 'クリックスターだにゃ～',
+          filename: 'star.rb',
+          imageUrl: '/smalruby/assets/cat1.png',
+        },
+        pong: {
+          title: 'ピンポンゲーム',
+          filename: 'pong.rb',
+          imageUrl: '/smalruby/assets/cat2.png',
+        },
+        hardware_led: {
+          title: 'ライトをぴかっとさせるでよ',
+          filename: 'hardware_led.rb',
+          imageUrl: '/smalruby/assets/frog1.png',
+        },
+        adjust_2wd_car: {
+          title: '2WD車の左右のモーターを調整する',
+          filename: 'adjust_2wd_car.rb',
+          imageUrl: '/smalruby/assets/car2.png',
+        },
+      }.each do |name, summary|
+        _rb_path = "demos/#{name}.rb"
+        context "'#{_rb_path + '.xml'}'" do
+          let(:rb_path) { _rb_path }
+
+          summary.each do |key, value|
+            describe key do
+              subject { super()[key] }
+
+              it { should eq(value) }
+            end
+          end
+        end
+      end
+    end
+  end
 end

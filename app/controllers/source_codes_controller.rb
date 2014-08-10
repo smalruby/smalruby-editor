@@ -4,50 +4,21 @@ require 'nkf'
 class SourceCodesController < ApplicationController
   before_filter :check_whether_standalone, only: [:write, :run, :load_local]
 
-  # デモプログラム
-  DEMO_PROGRAMS =
-    [
-     {
-       title: '車のおいかけっこ',
-       filename: 'car_chase.rb',
-       imageUrl: '/smalruby/assets/car2.png',
-     },
-     {
-       title: 'クリックスターだにゃ～',
-       filename: 'star.rb',
-       imageUrl: '/smalruby/assets/cat1.png',
-     },
-     {
-       title: 'ピンポンゲーム',
-       filename: 'pong.rb',
-       imageUrl: '/smalruby/assets/cat2.png',
-     },
-     {
-       title: 'ライトをぴかっとさせるでよ',
-       filename: 'hardware_led.rb',
-       imageUrl: '/smalruby/assets/frog1.png',
-     },
-    ]
-
   def index
     res = {
       localPrograms: [],
       demoPrograms: [],
     }
     if standalone?
-      local_program_paths.each do |path|
-        # TODO: XMLからタイトルを抽出する
-        # TODO: XMLからキャラクターの画像を抽出する
-        filename = rb_basename(path)
-        res[:localPrograms] << {
-          title: filename,
-          filename: filename,
-        }
-      end
+      res[:localPrograms] = local_program_paths.map { |path|
+        SourceCode.new(filename: path.basename.to_s, data: path.read).summary
+      }
     end
 
-    # TODO: XMLから情報を抽出する
-    res[:demoPrograms] = DEMO_PROGRAMS
+    res[:demoPrograms] = Pathname.glob(Rails.root.join('demos/*.rb.xml')).map {
+      |path|
+      SourceCode.new(filename: path.basename.to_s, data: path.read).summary
+    }
 
     render json: res
   end

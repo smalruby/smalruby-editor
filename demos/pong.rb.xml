@@ -1,11 +1,14 @@
 <xml xmlns="http://www.w3.org/1999/xhtml">
-  <character name="cat1" angle="0" costumes="cat2.png" y="0" x="0" rotation_style="left_right" />
-  <character name="frog1" angle="180" costumes="frog1.png" y="0" x="544" rotation_style="left_right" />
-  <character name="ball1" angle="225" costumes="ball6.png" y="184" x="304" rotation_style="left_right" />
-  <block type="variables_set" y="-180" x="-25" inline="false">
+  <character x="0" y="0" name="cat1" costumes="cat2.png" angle="0" rotation_style="left_right"></character>
+  <character x="544" y="0" name="frog1" costumes="frog1.png" angle="180" rotation_style="left_right"></character>
+  <character x="304" y="184" name="ball1" costumes="ball6.png" angle="225" rotation_style="left_right"></character>
+  <block type="ruby_comment" x="-24" y="-222">
+    <field name="COMMENT">ピンポンゲーム</field>
+  </block>
+  <block type="variables_set" inline="false" x="-25" y="-180">
     <field name="VAR">プレイ中</field>
     <value name="VALUE">
-      <block type="operators_true" />
+      <block type="operators_true"></block>
     </value>
     <next>
       <block type="variables_set" inline="false">
@@ -18,7 +21,7 @@
       </block>
     </next>
   </block>
-  <block type="character_new" y="-102" x="-19">
+  <block type="character_new" x="-19" y="-102">
     <field name="NAME">cat1</field>
     <statement name="DO">
       <block type="events_on_start">
@@ -68,7 +71,7 @@
       </block>
     </statement>
   </block>
-  <block type="character_new" y="-100" x="591">
+  <block type="character_new" x="591" y="-100">
     <field name="NAME">ball1</field>
     <statement name="DO">
       <block type="events_on_start">
@@ -120,7 +123,7 @@
                               <block type="variables_set" inline="false">
                                 <field name="VAR">プレイ中</field>
                                 <value name="VALUE">
-                                  <block type="operators_false" />
+                                  <block type="operators_false"></block>
                                 </value>
                               </block>
                             </next>
@@ -154,7 +157,7 @@
                                   <block type="variables_set" inline="false">
                                     <field name="VAR">プレイ中</field>
                                     <value name="VALUE">
-                                      <block type="operators_false" />
+                                      <block type="operators_false"></block>
                                     </value>
                                   </block>
                                 </next>
@@ -170,12 +173,12 @@
                                       </block>
                                     </value>
                                     <value name="B">
-                                      <block type="operators_false" />
+                                      <block type="operators_false"></block>
                                     </value>
                                   </block>
                                 </value>
                                 <statement name="THEN">
-                                  <block type="control_break" />
+                                  <block type="control_break"></block>
                                 </statement>
                               </block>
                             </next>
@@ -306,7 +309,7 @@
       </block>
     </statement>
   </block>
-  <block type="character_new" y="271" x="-15">
+  <block type="character_new" x="-15" y="271">
     <field name="NAME">frog1</field>
     <statement name="DO">
       <block type="events_on_start">
@@ -322,12 +325,12 @@
                       </block>
                     </value>
                     <value name="B">
-                      <block type="operators_false" />
+                      <block type="operators_false"></block>
                     </value>
                   </block>
                 </value>
                 <statement name="THEN">
-                  <block type="control_break" />
+                  <block type="control_break"></block>
                 </statement>
                 <next>
                   <block type="control_if_else" inline="true">

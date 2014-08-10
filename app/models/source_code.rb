@@ -4,6 +4,7 @@ require 'tempfile'
 require 'open3'
 require 'digest/sha2'
 require 'bundler'
+require 'nokogiri'
 require 'smalruby_editor'
 silence_warnings do
   require_relative 'concerns/ruby_to_block'
@@ -62,6 +63,26 @@ class SourceCode < ActiveRecord::Base
   # ハッシュ値を計算する
   def digest
     Digest::SHA256.hexdigest(data)
+  end
+
+  # ソースコードの概要を取得する
+  def summary
+    res = {}
+    if /\.xml\z/ =~ filename
+      res[:filename] = filename.sub(/\.xml\z/, '')
+
+      doc = Nokogiri::HTML.parse(data)
+      if (attr = doc.xpath('//character[1]/@costumes').first)
+        res[:imageUrl] = "/smalruby/assets/#{attr.value}"
+      end
+      text = doc.xpath('//block[@type="ruby_comment"][1]' +
+                       '/field[@name="COMMENT"]/text()').first
+      res[:title] = text.to_s if text
+    else
+      res[:filename] = filename
+    end
+    res[:title] = filename unless res[:title]
+    res
   end
 
   private

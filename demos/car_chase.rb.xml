@@ -1,7 +1,10 @@
 <xml xmlns="http://www.w3.org/1999/xhtml">
-  <character name="car1" costumes="car2.png" angle="0" y="0" x="0" />
-  <character name="car2" costumes="car4.png" angle="0" y="415" x="0" />
-  <block type="ruby_comment" y="25" x="34">
+  <character name="car1" x="0" y="0" costumes="car2.png" angle="0" />
+  <character name="car2" x="0" y="415" costumes="car4.png" angle="0" />
+  <block type="ruby_comment" x="53" y="45">
+    <field name="COMMENT">車のおいかけっこ</field>
+  </block>
+  <block type="ruby_comment" x="55" y="100">
     <field name="COMMENT">逃げる車</field>
     <next>
       <block type="character_new">
@@ -66,7 +69,7 @@
       </block>
     </next>
   </block>
-  <block type="ruby_comment" y="23" x="480">
+  <block type="ruby_comment" x="454" y="99">
     <field name="COMMENT">追いかける車</field>
     <next>
       <block type="character_new">

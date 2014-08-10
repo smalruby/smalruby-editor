@@ -13,6 +13,8 @@
 
     car1 = Character.new(costume: "car2.png", x: 0, y: 0, angle: 0)
     car2 = Character.new(costume: "car4.png", x: 0, y: 415, angle: 0)
+    # 車のおいかけっこ
+
     # 逃げる車
 
     car1.on(:start) do

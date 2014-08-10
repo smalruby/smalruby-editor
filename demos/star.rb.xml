@@ -1,5 +1,8 @@
 <xml xmlns="http://www.w3.org/1999/xhtml">
   <character x="142" y="164" name="cat1" costumes="cat1.png" angle="0"></character>
+  <block type="ruby_comment" x="49" y="-43">
+    <field name="COMMENT">クリックスターだにゃ～</field>
+  </block>
   <block type="character_new" x="49" y="4">
     <field name="NAME">cat1</field>
     <statement name="DO">
