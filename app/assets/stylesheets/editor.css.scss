@@ -13,7 +13,11 @@ $left-pane-width: $character-size + $margin * 2;
 #messages {
     position: absolute;
     right: 20px;
-    z-index: 9999;
+    z-index: 999;
+    max-height: 80%;
+    overflow: auto;
+    bottom: 20px;
+    width: 25%;
 }
 
 .left-pane {
