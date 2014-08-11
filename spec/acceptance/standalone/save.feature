@@ -43,3 +43,54 @@
     ならば 確認メッセージ "前に01.rbという名前でセーブしているけど本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！" を表示すること
     かつ "メッセージ" に "セーブをキャンセルしました" を含むこと
     かつ ホームディレクトリの "01.rb" の内容が "puts 'Hello, World!'" であること
+
+  シナリオテンプレート: ブロックモードでセーブボタンを押してローカルマシンにプログラムを保存できる
+    前提 "ブロック" タブを表示する
+    かつ 次のキャラクターを追加する:
+      | name | costumes |   x |   y | angle |
+      | car1 | car4.png  | 300 | 200 |    90 |
+    かつ 次のブロックを配置する:
+      """
+      %block{:type => "character_new", :x => "0", :y => "0"}
+        %field{:name => "NAME"}<
+          car1
+        %statement{:name => "DO"}
+          %block{:type => "motion_move", :x => "0", :y => "0"}
+            %value{:name => "STEP"}
+              %block{:type => "math_number"}
+                %field{:name => "NUM"}<
+                  10
+      """
+    かつ プログラムの名前に "<プログラムの名前>" を指定する
+
+    もし サブメニューの "セーブボタン" をクリックする
+    かつ JavaScriptによるリクエストが終わるまで待つ
+
+    ならば "メッセージ" に "セーブしました" を含むこと
+    かつ ホームディレクトリに "<保存したファイルの名前>" が存在すること
+    かつ ホームディレクトリの "<保存したファイルの名前>" が次の内容であること:
+      """
+      <xml>
+        <character x="300" y="200" name="car1" costumes="car4.png" angle="90"></character>
+        <block type="character_new" x="0" y="0">
+          <field name="NAME">car1</field>
+          <statement name="DO">
+            <block type="motion_move" inline="true">
+              <value name="STEP">
+                <block type="math_number">
+                  <field name="NUM">10</field>
+                </block>
+              </value>
+            </block>
+          </statement>
+        </block>
+      </xml>
+      """
+
+    例:
+      | プログラムの名前 | 保存したファイルの名前 |
+      | 01.rb            | 01.rb.xml              |
+      | 01.xml           | 01.rb.xml              |
+      | 01.rb.xml        | 01.rb.xml              |
+      | 01               | 01.rb.xml              |
+

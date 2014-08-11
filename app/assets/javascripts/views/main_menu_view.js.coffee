@@ -86,9 +86,8 @@ Smalruby.MainMenuView = Backbone.View.extend
 
     sourceCode = @getSourceCode()
 
-    filename = sourceCode.get('filename')
-    filename += '.xml' unless filename.match(/\.xml$/)
-    xmlSourceCode = new Smalruby.SourceCode({ filename: filename })
+    xmlSourceCode =
+      new Smalruby.SourceCode({ filename: sourceCode.getRbxmlFilename() })
 
     clearMessages()
 
@@ -200,11 +199,10 @@ Smalruby.MainMenuView = Backbone.View.extend
       $('#filename').focus()
       return
 
+    sourceCode = @getSourceCode()
     if window.blockMode
-      filename += '.xml' unless filename.match(/\.xml$/)
-      sourceCode = new Smalruby.SourceCode({ filename: filename })
-    else
-      sourceCode = @getSourceCode()
+      sourceCode =
+        new Smalruby.SourceCode({ filename: sourceCode.getRbxmlFilename() })
 
     clearMessages()
 

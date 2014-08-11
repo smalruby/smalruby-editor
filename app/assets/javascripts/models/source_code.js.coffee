@@ -15,15 +15,28 @@ Smalruby.SourceCode = Backbone.Model.extend
           filename = '1.rb'
       @set('filename', filename)
 
-    if @get('filename').match(/\.xml$/)
-      data = Smalruby.dumpXml()
-    else
-      if window.blockMode
-        data = Blockly.Ruby.workspaceToCode()
+    unless @get('data')
+      if @get('filename').match(/\.xml$/)
+        data = Smalruby.dumpXml()
       else
-        data = window.textEditor.getSession().getDocument().getValue()
+        if window.blockMode
+          data = Blockly.Ruby.workspaceToCode()
+        else
+          data = window.textEditor.getSession().getDocument().getValue()
 
-    @set('data', data)
+      @set('data', data)
+
+  getRbxmlFilename: ->
+    filename = @get('filename')
+    if filename.match(/\.rb\.xml$/)
+      filename
+    else
+      if filename.match(/\.rb$/)
+        filename + '.xml'
+      else if filename.match(/\.xml$/)
+        filename.replace(/\.xml$/, '.rb.xml')
+      else
+        filename + '.rb.xml'
 
   run: ->
     @post_('run')
