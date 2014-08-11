@@ -300,6 +300,7 @@ DEPENDENCIES
   json_spec
   launchy
   mysql2
+  nokogiri
   poltergeist
   rails (= 4.0.3)
   rails_12factor

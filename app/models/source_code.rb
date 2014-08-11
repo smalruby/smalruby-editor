@@ -4,7 +4,6 @@ require 'tempfile'
 require 'open3'
 require 'digest/sha2'
 require 'bundler'
-require 'nokogiri'
 require 'smalruby_editor'
 silence_warnings do
   require_relative 'concerns/ruby_to_block'

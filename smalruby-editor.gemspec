@@ -68,6 +68,7 @@ Gem::Specification.new do |spec|
      ['launchy'],
      ['mime-types', '~> 1.16'],
      ['haml-rails'],
+     ['nokogiri'],
      ['smalruby', '~> 0.0.28'],
     ]
   runtime_dependencies << ['therubyracer'] unless is_windows
