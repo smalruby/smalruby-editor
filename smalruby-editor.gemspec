@@ -69,7 +69,7 @@ Gem::Specification.new do |spec|
      ['mime-types', '~> 1.16'],
      ['haml-rails'],
      ['nokogiri'],
-     ['smalruby', '~> 0.0.28'],
+     ['smalruby', '~> 0.0.30'],
     ]
   runtime_dependencies << ['therubyracer'] unless is_windows
   runtime_dependencies.each do |args|
