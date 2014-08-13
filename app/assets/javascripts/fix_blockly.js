@@ -26,3 +26,29 @@ Blockly.Blocks['text'].init = function() {
   originalBlocksTextInit.call(this);
   this.setColour(100);
 };
+
+// HACK: fix could not play sound on IE11
+Blockly.loadAudio_ = function(filenames, name) {
+  if (!window['Audio'] || !filenames.length) {
+    // No browser support for Audio.
+    return;
+  }
+  var sound;
+  var audioTest = new window['Audio']();
+  for (var i = 0; i < filenames.length; i++) {
+    var filename = filenames[i];
+    var ext = filename.match(/\.(\w+)$/);
+    if (ext && audioTest.canPlayType('audio/' + ext[1])) {
+      // Found an audio format we can play.
+      sound = new window['Audio'](Blockly.pathToBlockly + filename);
+      break;
+    }
+  }
+  // To force the browser to load the sound, play it, but at nearly zero volume.
+  if (sound && sound.play) {
+    sound.volume = 0.01;
+    sound.play();
+    sound.pause(); // added
+    Blockly.SOUNDS_[name] = sound;
+  }
+};
