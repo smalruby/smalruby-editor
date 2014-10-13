@@ -6,6 +6,10 @@ $margin: 20px;
 $character-size: 32px * 5;
 $left-pane-width: $character-size + $margin * 2;
 
+html {
+    -ms-touch-action: manipulation;
+}
+
 .dropdown-menu > li > a {
     cursor: default;
 }
