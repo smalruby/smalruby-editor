@@ -23,7 +23,6 @@
 //= require jquery-fileupload/basic
 //= require blockly/blockly_compressed
 //= require blockly/blocks_compressed
-//= require blockly/msg/js/ja
 //= require fix_blockly.js
 //= require underscore
 //= require backbone

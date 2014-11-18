@@ -20,4 +20,66 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  common:
+    "ok": "OK"
+    cancel: "Cancel"
+
+  editor:
+    index:
+      block: "Block"
+      msg_input_program_name: "Input your program name(ex:01.rb)"
+      run: "Run"
+      download: "Download"
+      load: "Load"
+      save: "Save"
+      check: "Check"
+      reset: "Reset"
+      logout: "Logout"
+      login: "Login"
+
+    block_tab:
+      character: "Character"
+      new_character: "New Character"
+      direction_parameter: "Dir:"
+      stage: "Stage"
+
+
+    toolbox:
+      motion: "Motion"
+      motion_move: "Move"
+      motion_rotate: "Rotate"
+      motion_actuator: "Actuator"
+      looks: "Looks"
+      sound: "Sound"
+      pen: "Pen"
+      data: "Data"
+      data_variables: "Variables"
+      events: "Events"
+      control: "Control"
+      control_loop: "Loop"
+      control_wait: "Wait"
+      control_if: "If-Then"
+      sensing: "Sensing"
+      sensing_general: "General"
+      sensing_hardware: "Hardware"
+      operators: "Operators"
+      operators_calculate: "Calculate"
+      operators_string: "String"
+      operators_condition: "Condition"
+      etc: "More Blocks"
+      etc_ruby: "Ruby"
+      etc_hardware: "Hardware"
+      hello: "Hello!"
+
+    character_modal:
+      name: "Name"
+      x_position: "X"
+      y_position: "Y"
+      msg_input_name: "car1 and ball1 etc..."
+      direction: "Dir"
+
+    load_modal:
+      preset_programs: "Preset programs"
+      find_program: "Find program"
+      computer: "From this computer..."
+      remix: "Remix"

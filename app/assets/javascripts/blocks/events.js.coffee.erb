@@ -3,6 +3,7 @@
 <%
   category = 'events'
   require 'smalruby_editor'
+  require 'smalruby_editor/blockly_message_helper'
   color = SmalrubyEditor::COLORS[category.to_sym]
 %>
 
@@ -13,7 +14,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField('実行ボタンがクリックされたとき')
+      .appendField(<%= bm('.on_start') %>)
     @appendStatementInput('DO')
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -32,11 +33,11 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField('キーボードの')
+      .appendField(<%= bm('.on_key_push_or_down_prefix') %>)
       .appendField(new Blockly.FieldDropdown(keyDropdown), 'KEY')
-      .appendField('が')
+      .appendField(<%= bm('.on_key_push_or_down_middle') %>)
       .appendField(new Blockly.FieldDropdown(podDropdown), 'POD')
-      .appendField('とき')
+      .appendField(<%= bm('.on_key_push_or_down_suffix') %>)
     @appendStatementInput('DO')
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -54,7 +55,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField('キャラクターがクリックされたとき')
+      .appendField(<%= bm('.on_click') %>)
     @appendStatementInput('DO')
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -70,8 +71,9 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
+      .appendField(<%= bm('.on_hit_prefix') %>)
       .appendField(new Smalruby.FieldCharacter(), 'CHAR')
-      .appendField('にぶつかったとき')
+      .appendField(<%= bm('.on_hit_suffix') %>)
     @appendStatementInput('DO')
     @setPreviousStatement(true)
     @setNextStatement(true)

@@ -19,26 +19,26 @@
         %form#character-modal-form{:class => 'form-horizontal'}
           .control-group{:for => "character[name]"}
             %label.control-label{:for => 'character_name'}<
-              名前
+              = t('.name')
             .controls
-              %input#character_name{:name => 'character[name]', :type => 'text', :placeholder => 'car1やball1など', :class => 'input-large'}
+              %input#character_name{:name => 'character[name]', :type => 'text', :placeholder => t('.msg_input_name'), :class => 'input-large'}
           .control-group
             %label.control-label{:for => 'character_x'}<
-              X座標
+              = t('.x_position')
             .controls
               %input#character_x{:name => 'character[x]', :type => 'range', :min => '0', :max => '639', :class => 'input-large'}
               %span#character_x_value{:class => 'character_value'}
                 300
           .control-group
             %label.control-label{:for => 'character_y'}<
-              Y座標
+              = t('.y_position')
             .controls
               %input#character_y{:name => 'character[y]', :type => 'range', :min => '0', :max => '439', :class => 'input-large'}
               %span#character_y_value{:class => 'character_value'}
                 200
           .control-group
             %label.control-label{:for => 'character_angle'}<
-              向き
+              = t('.direction')
             .controls
               #character_rotation_style.btn-group
                 %button#character_rotation_style_free.btn{type: "button", class: "btn-small", value: "free"}<
@@ -56,7 +56,7 @@
   .modal-footer
     %button.btn{:'data-dismiss' => 'modal', :'aria-hidden' => 'true'}<
       %i.icon-remove
-      やめる
+      = t('common.cancel')
     %button#character-modal-ok-button{:class => 'btn btn-primary'}<
       %i.icon-circle-blank
-      決めた！
+      = t('common.ok')

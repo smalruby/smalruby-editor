@@ -3,6 +3,7 @@
 <%
   category = 'hardware'
   require 'smalruby_editor'
+  require 'smalruby_editor/blockly_message_helper'
   colors = SmalrubyEditor::COLORS
 %>
 
@@ -69,7 +70,7 @@ Blockly.Blocks['<%= n %>'] =
     @appendDummyInput()
       .appendField('LED')
       .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
-      .appendField('を<%= label %>にする')
+      .appendField(<%= bm(".led_#{method}") %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')

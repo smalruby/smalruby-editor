@@ -1,0 +1,28 @@
+ja:
+  editor:
+    index:
+      block: "ブロック"
+      msg_input_program_name: "プログラムの名前を入れてね（例：01.rb）"
+      run: "実行"
+      download: "ダウンロード"
+      load: "ロード"
+      save: "セーブ"
+      check: "チェック"
+      reset: "リセット"
+      logout: "ログアウト"
+      login: "ログイン"
+
+    block_tab:
+      character: "キャラクター"
+      new_character: "新しいキャラクター"
+      direction_parameter: "向き:"
+      stage: "ステージ"
+
+    character_modal:
+      name: "名前"
+      x_position: "X座標"
+      y_position: "Y座標"
+      msg_input_name: "car1やball1など"
+      direction: "向き"
+      "ok": "決めた！"
+      cancel: "やめる"

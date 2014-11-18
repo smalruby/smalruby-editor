@@ -3,6 +3,7 @@
 <%
   category = 'sound'
   require 'smalruby_editor'
+  require 'smalruby_editor/blockly_message_helper'
   color = SmalrubyEditor::COLORS[category.to_sym]
 %>
 
@@ -11,14 +12,14 @@
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     sounds = [
-      ['ピアノのド', 'piano_do.wav'],
-      ['ピアノのレ', 'piano_re.wav'],
-      ['ピアノのミ', 'piano_mi.wav'],
-      ['ピアノのファ', 'piano_fa.wav'],
-      ['ピアノのソ', 'piano_so.wav'],
-      ['ピアノのラ', 'piano_ra.wav'],
-      ['ピアノのシ', 'piano_si.wav'],
-      ['ピアノの高いド', 'piano_do_2.wav'],
+      [<%= bm('.preset_sounds_piano_do') %>, 'piano_do.wav'],
+      [<%= bm('.preset_sounds_piano_re') %>, 'piano_re.wav'],
+      [<%= bm('.preset_sounds_piano_mi') %>, 'piano_mi.wav'],
+      [<%= bm('.preset_sounds_piano_fa') %>, 'piano_fa.wav'],
+      [<%= bm('.preset_sounds_piano_so') %>, 'piano_so.wav'],
+      [<%= bm('.preset_sounds_piano_ra') %>, 'piano_ra.wav'],
+      [<%= bm('.preset_sounds_piano_si') %>, 'piano_si.wav'],
+      [<%= bm('.preset_sounds_piano_do_2') %>, 'piano_do_2.wav'],
     ]
     @setHelpUrl('')
     @setColour(<%= color %>)
@@ -36,8 +37,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendValueInput('NAME').setCheck('String')
-    @appendDummyInput().appendField('の音を鳴らす')
+    @interpolateMsg(<%= bm('.play') %>,
+                    ['NAME', ['String'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
     @setNextStatement(true)

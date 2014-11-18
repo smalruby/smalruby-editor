@@ -7,14 +7,14 @@
     .page-header
       %h3<
         %i.icon-th-large
-        いろいろなプログラム
+        = t('.preset_programs')
     %ul.thumbnails{:id => "load-modal-demo-programs",
                    :class => "list-programs"}
 
     .page-header
       %h3<
         %i.icon-search
-        プログラムをさがす
+        = t('.find_program')
     %ul.thumbnails{:class => "list-programs"}
       %li
         %a#load-modal-find-from-computer.thumbnail
@@ -22,7 +22,7 @@
             %i.icon-folder-open-alt
           %blockquote
             %p
-              このコンピュータ
+              = t('.computer')
             %small
               Computer
 
@@ -30,10 +30,10 @@
     .pull-left
       %button#load-modal-remix-button.btn<
         %i.icon-refresh
-        リミックス
+        = t('.remix')
     %button.btn{:"data-dismiss" => "modal", :"aria-hidden" => "true"}<
       %i.icon-remove
-      やめる
+      = t('common.cancel')
     %button#load-modal-ok-button{:class => "btn btn-primary"}<
       %i.icon-circle-blank
-      決めた！
+      = t('common.ok')

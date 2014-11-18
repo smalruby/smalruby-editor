@@ -3,6 +3,7 @@
 <%
   category = 'looks'
   require 'smalruby_editor'
+  require 'smalruby_editor/blockly_message_helper'
   color = SmalrubyEditor::COLORS[category.to_sym]
 %>
 
@@ -23,9 +24,9 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @interpolateMsg('%1と%2秒<%= label_suffix %>',
-                     ['TEXT', null, Blockly.ALIGN_RIGHT],
-                     ['SEC', ['Number'], Blockly.ALIGN_RIGHT],
-                     Blockly.ALIGN_RIGHT)
+                    ['TEXT', null, Blockly.ALIGN_RIGHT],
+                    ['SEC', ['Number'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -41,9 +42,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('%1と<%= label_suffix %>',
-                     ['TEXT', null, Blockly.ALIGN_RIGHT],
-                     Blockly.ALIGN_RIGHT)
+    @interpolateMsg(<%= bm(".#{method}") %>,
+                    ['TEXT', null, Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -58,9 +59,9 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 # 隠す
 <%
   [
-    ['show', '表示する', 'true'],
-    ['hide', '隠す', 'false'],
-  ].each do |suffix, label, val|
+    ['show', 'true'],
+    ['hide', 'false'],
+  ].each do |suffix, val|
     n = "#{category}_#{suffix}"
 %>
 
@@ -68,7 +69,7 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput().appendField('<%= label %>')
+    @appendDummyInput().appendField(<%= bm(".#{suffix}") %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -83,7 +84,7 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput().appendField('消滅する')
+    @appendDummyInput().appendField(<%= bm('.vanish') %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')

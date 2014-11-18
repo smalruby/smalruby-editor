@@ -3,6 +3,7 @@
 <%
   category = 'ruby'
   require 'smalruby_editor'
+  require 'smalruby_editor/blockly_message_helper'
   color = SmalrubyEditor::COLORS[category.to_sym]
 %>
 
@@ -13,7 +14,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField('文')
+      .appendField(<%= bm('.statement') %>)
       .appendField(new Blockly.FieldTextInput(''), 'STATEMENT')
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -30,7 +31,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField('式')
+      .appendField(<%= bm('.expression') %>)
       .appendField(new Blockly.FieldTextInput(''), 'EXP')
     @setOutput(true, null)
     @setTooltip('')
@@ -46,7 +47,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField('コメント')
+      .appendField(<%= bm('.comment') %>)
       .appendField(new Blockly.FieldTextInput(''), 'COMMENT')
     @setPreviousStatement(true)
     @setNextStatement(true)

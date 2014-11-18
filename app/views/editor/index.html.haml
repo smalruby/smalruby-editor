@@ -4,7 +4,7 @@
       %li.active
         %a#block-mode-button{:href => "#block-tab"}<
           %i.icon-folder-close
-          ブロック
+          =t('.block')
       %li
         %a#ruby-mode-button{:href => "#ruby-tab"}<
           %i.icon-pencil
@@ -12,17 +12,17 @@
 
     = form_tag(source_codes_load_path, id: "file-form", class: "navbar-form pull-right", method: "post", multipart: true) do
       %input#load-file{:type => 'file', :name => 'source_code[file]', :style => 'display: none'}
-      %input#filename{:type => 'text', :class => 'span4', :placeholder => 'プログラムの名前を入れてね（例：01.rb）'}
+      %input#filename{:type => 'text', :class => 'span4', :placeholder => t('.msg_input_program_name')}
       = link_to '', source_codes_download_path, id: 'download-link', style: 'display: none', 'data-method' => 'delete'
 
       - if standalone?
         %button#run-button{:class => "btn btn-success"}<
           %i.icon-flag
-          実行
+          = t('.run')
       - else
         %button#download-button{:class => "btn btn-primary"}<
           %i.icon-download-alt
-          ダウンロード
+          = t('.download')
 
       - if raspberrypi?
         - if standalone?
@@ -31,26 +31,26 @@
           - load_id = 'load-button'
         %button.btn{id: "#{load_id}", class: "btn btn-primary"}<
           %i.icon-folder-open
-          ロード
+          = t('.load')
         - if standalone?
           %button#save-button.btn{class: "btn-primary"}<
             %i.icon-hdd
-            セーブ
+            = t('.save')
         %button#check-button.btn{class: "btn-primary"}<
           %i.icon-check
-          チェック
+          = t('.check')
         %button#reset-button.btn{class: "btn-primary"}<
           %i.icon-off
-          リセット
+          = t('Reset')
         - if standalone?
           - if session[:username]
             %button#signout-button.btn{class: "btn-primary"}<
               %i.icon-eject
-              ログアウト
+              = t('logout')
           - else
             %button#signout-button.btn{class: "btn-primary", style: "display: none"}<
               %i.icon-eject
-              ログアウト
+              = t('logout')
 
       - else
         .btn-group
@@ -65,41 +65,41 @@
               %a{:id => "#{load_id}"}
                 %h4
                   %i.icon-folder-open
-                  ロード
+                  = t('.load')
             - if standalone?
               %li
                 %a#save-button
                   %h4
                     %i.icon-hdd
-                    セーブ
+                    = t('.save')
             %li
               %a#check-button
                 %h4
                   %i.icon-check
-                  チェック
+                  = t('.check')
             %li
               %a#reset-button
                 %h4
                   %i.icon-off
-                  リセット
+                  = t('.reset')
             - if standalone?
               %li
                 - if session[:username]
                   %a#signout-button
                     %h4
                       %i.icon-eject
-                      ログアウト
+                      = t('.logout')
                 - else
                   %a#signout-button{style: "display: none"}
                     %h4
                       %i.icon-eject
-                      ログアウト
+                      = t('.logout')
 
       - if standalone?
         - if session[:username]
           %button#signin-button{class: "btn btn-danger", style: "display: none"}<
             %i.icon-user
-            ログイン
+            = t('.login')
           %button#username-button{class: "btn btn-success"}<
             %i.icon-user
             %span#username-label<
@@ -107,7 +107,7 @@
         - else
           %button#signin-button{class: "btn btn-danger"}<
             %i.icon-user
-            ログイン
+            = t('.login')
           %button#username-button{class: "btn btn-success", style: "display: none"}<
             %i.icon-user
             %span#username-label

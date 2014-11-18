@@ -9,7 +9,15 @@ class ApplicationController < ActionController::Base
 
   helper_method :standalone?, :raspberrypi?
 
+  before_filter :set_locale
+
   private
+
+  # ロケールの設定
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
+    Rails.application.routes.default_url_options[:locale]= I18n.locale
+  end
 
   # スタンドアローンモードかどうかを返す
   def standalone?

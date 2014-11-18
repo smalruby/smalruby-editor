@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 SmalrubyEditor::Application.routes.draw do
-  root 'editor#index'
+  scope '(:locale)', locale: /en|ja/ do
+    root to: 'editor#index'
+  end
 
   match '/demo(/:filename)' => 'editor#demo',
         defaults: { filename: 'car_chase' }, via: :get

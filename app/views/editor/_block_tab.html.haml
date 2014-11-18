@@ -8,10 +8,10 @@
     %ul.nav{:class => 'nav-pills'}
       %li.active
         %a{:href => '#character-selector-tab', :'data-toggle' => 'tab'}<
-          キャラクター
+          = t('.character')
       -#%li
         -#%a{:href => '#scene-selector-tab', :'data-toggle' => 'tab'}<
-          -#ステージ
+          -#= t('.stage')
 
     #selectors-tab-content{:class => 'tab-content'}
       #character-selector-tab{:class => 'tab-pane active selector-tab'}
@@ -20,7 +20,7 @@
           %a#add-character-button{:class => 'character'}
             %i.icon-plus-sign-alt
             %br
-            新しいキャラクター
+            = t('.new_character')
 
       #scene-selector-tab{:class => 'tab-pane selector-tab'}
         .item
@@ -40,7 +40,7 @@
       .attributes
         X: {{- get('x') }} Y: {{- get('y') }}
         %br
-        向き:
+        = t('.direction_parameter')
         %i{class: "{{- rotationStyleIconName() }}"}
         {{- get('angle') }}°
 

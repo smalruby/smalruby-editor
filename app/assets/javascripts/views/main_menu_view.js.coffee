@@ -95,22 +95,18 @@ Smalruby.MainMenuView = Backbone.View.extend
       title:
         """
         <i class="icon-play"></i>
-        プログラムの実行中
+        #{Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_BLOCKUI_TITLE}
         """
-      message: 'プログラムの画面に切り替えてください。'
-      notice:
-        """
-        プログラムをセーブ・チェックしてから実行するよ♪<br>
-        Escキーを押すとプログラムが終わります。
-        """
+      message: Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_BLOCKUI_MESSAGE
+      notice: Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_BLOCKUI_NOTICE
 
-    errorMsg = 'プログラムを実行できませんでした'
+    errorMsg = Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_ERROR_CANT_RUN
     sourceCode.save2()
       .then (data) ->
         sourceCode.write()
       .then (data) =>
         @confirmOverwrite_.call @, data, sourceCode, ->
-          errorMsg = 'プログラムの実行をキャンセルしました'
+          errorMsg = Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_ERROR_CANCEL_TO_RUN
       .then ->
         Smalruby.savedFilename = sourceCode.get('filename')
         window.changed = false
@@ -119,9 +115,9 @@ Smalruby.MainMenuView = Backbone.View.extend
         if data.length > 0
           for errorInfo in data
             do (errorInfo) ->
-              msg = "#{errorInfo.row}行"
+              msg = "#{errorInfo.row}#{Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LINES}"
               if errorInfo.column > 0
-                msg += "、#{errorInfo.column}文字"
+                msg += "#{Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_COMMA}#{errorInfo.column}#{Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LETTERS}"
               window.errorMessage(msg + ": #{errorInfo.message}")
           $.Deferred().reject().promise()
       .then ->
@@ -134,9 +130,9 @@ Smalruby.MainMenuView = Backbone.View.extend
         if data.length > 0
           for errorInfo in data
             do (errorInfo) ->
-              msg = "#{errorInfo.row}行"
+              msg = "#{errorInfo.row}#{Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LINES}"
               if errorInfo.column > 0
-                msg += "、#{errorInfo.column}文字"
+                msg += "#{Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_COMMA}#{errorInfo.column}#{Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LETTERS}"
               errorMessage(msg + ": #{errorInfo.message}")
           $.Deferred().reject().promise()
       .then(@unblockUI, @unblockUI)

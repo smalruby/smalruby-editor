@@ -3,6 +3,7 @@
 <%
   category = 'control'
   require 'smalruby_editor'
+  require 'smalruby_editor/blockly_message_helper'
   color = SmalrubyEditor::COLORS[category.to_sym]
 %>
 
@@ -12,7 +13,7 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('%1秒待つ',
+    @interpolateMsg(<%= bm('.sleep') %>,
                     ['SEC', ['Number'], Blockly.ALIGN_RIGHT],
                     Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
@@ -30,9 +31,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput().appendField('ずっと')
+    @appendDummyInput().appendField(<%= bm('.loop') %>)
     @appendStatementInput('DO')
-    @appendDummyInput().appendField('を繰り返す')
+    @appendDummyInput().appendField(<%= bm('.loop_end') %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -45,11 +46,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
     'loop do\n' + branch + 'end\n'
 
 <%
-  [
-    ['break', '繰り返しから脱出する'],
-    ['next', '次の繰り返しにジャンプする'],
-    ['redo', '現在の繰り返しをやり直す'],
-  ].each do |suffix, label|
+  %w(break next redo).each do |suffix|
     n = "#{category}_#{suffix}"
 %>
 
@@ -57,7 +54,7 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput().appendField('<%= label %>')
+    @appendDummyInput().appendField(<%= bm(".#{suffix}") %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -75,8 +72,8 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendValueInput('COND').setCheck('Boolean').appendField('もし')
-    @appendDummyInput().appendField('ならば')
+    @appendValueInput('COND').setCheck('Boolean').appendField(<%= bm('.if') %>)
+    @appendDummyInput().appendField(<%= bm('.then') %>)
     @appendStatementInput('THEN')
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -94,10 +91,10 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendValueInput('COND').setCheck('Boolean').appendField('もし')
-    @appendDummyInput().appendField('ならば')
+    @appendValueInput('COND').setCheck('Boolean').appendField(<%= bm('.if') %>)
+    @appendDummyInput().appendField(<%= bm('.then') %>)
     @appendStatementInput('THEN')
-    @appendDummyInput().appendField('でなければ')
+    @appendDummyInput().appendField(<%= bm('.else') %>)
     @appendStatementInput('ELSE')
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -116,7 +113,7 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('%1回繰り返す',
+    @interpolateMsg(<%= bm('.times') %>,
                      ['COUNT', ['Number'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
     @appendStatementInput('DO')
@@ -136,7 +133,7 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('%1まで待つ',
+    @interpolateMsg(<%= bm('.await_until') %>,
                      ['COND', ['Boolean'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
@@ -158,12 +155,12 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('%1まで',
+    @interpolateMsg(<%= bm('.until') %>,
                      ['COND', ['Boolean'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
     @appendStatementInput('DO')
     @appendDummyInput()
-      .appendField('を繰り返す')
+      .appendField(<%= bm('.loop_end') %>)
       .setAlign(Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
@@ -182,7 +179,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField('ほんの少し待つ')
+      .appendField(<%= bm('.await') %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')

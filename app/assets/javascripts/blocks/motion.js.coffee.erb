@@ -3,6 +3,7 @@
 <%
   category = 'motion'
   require 'smalruby_editor'
+  require 'smalruby_editor/blockly_message_helper'
   color = SmalrubyEditor::COLORS[category.to_sym]
 %>
 
@@ -12,9 +13,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('%1歩動かす',
-                     ['STEP', ['Number'], Blockly.ALIGN_RIGHT],
-                     Blockly.ALIGN_RIGHT)
+    @interpolateMsg(<%= bm('.move') %>,
+                    ['STEP', ['Number'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -28,9 +29,9 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 # 反時計回りに(　)度回す
 <%
   [
-    ['right', '', ''],
-    ['left', '反', '-'],
-  ].each do |suffix, label_prefix, sign|
+    ['right', ''],
+    ['left', '-'],
+  ].each do |suffix, sign|
     n = "#{category}_rotate_#{suffix}"
 %>
 
@@ -38,9 +39,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('<%= label_prefix %>時計回りに%1度回す',
-                     ['ANGLE', ['Number'], Blockly.ALIGN_RIGHT],
-                     Blockly.ALIGN_RIGHT)
+    @interpolateMsg(<%= bm(".turn_#{suffix}_degrees") %>,
+                    ['ANGLE', ['Number'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -57,9 +58,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('%1度に向ける',
-                     ['ANGLE', ['Number'], Blockly.ALIGN_RIGHT],
-                     Blockly.ALIGN_RIGHT)
+    @interpolateMsg(<%= bm('.point_in_direction') %>,
+                    ['ANGLE', ['Number'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -76,7 +77,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField('マウスポインターへ向ける')
+      .appendField(<%= bm('.point_towards_mouse') %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -92,7 +93,7 @@ Blockly.Blocks['<%= n %>'] =
     @setColour(<%= color %>)
     @appendDummyInput()
       .appendField(new Smalruby.FieldCharacter(), 'CHAR')
-      .appendField('へ向ける')
+      .appendField(<%= bm('.point_towards_character') %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -107,11 +108,11 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput().appendField('X座標を')
+    @appendDummyInput().appendField(<%= bm('.set_x_y_x') %>)
     @appendValueInput('X').setCheck('Number')
-    @appendDummyInput().appendField('、Y座標を')
+    @appendDummyInput().appendField(<%= bm('.set_x_y_y') %>)
     @appendValueInput('Y').setCheck('Number')
-    @appendDummyInput().appendField('にする')
+    @appendDummyInput().appendField(<%= bm('.set_x_y_suffix') %>)
     @setInputsInline(true)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -129,7 +130,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField('マウスポインターへ行く')
+      .appendField(<%= bm('.go_to_mouse') %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -144,8 +145,9 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
+      .appendField(<%= bm('.go_to_character_prefix') %>)
       .appendField(new Smalruby.FieldCharacter(), 'CHAR')
-      .appendField('へ行く')
+      .appendField(<%= bm('.go_to_character_suffix') %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -161,10 +163,10 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @interpolateMsg('%1秒でx座標を%2、y座標を%3に変える',
-                     ['SEC', ['Number'], Blockly.ALIGN_RIGHT],
-                     ['X', ['Number'], Blockly.ALIGN_RIGHT],
-                     ['Y', ['Number'], Blockly.ALIGN_RIGHT],
-                     Blockly.ALIGN_RIGHT)
+                    ['SEC', ['Number'], Blockly.ALIGN_RIGHT],
+                    ['X', ['Number'], Blockly.ALIGN_RIGHT],
+                    ['Y', ['Number'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -182,11 +184,11 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 # y座標を(　)にする
 <%
   [
-    ['change_x_by', 'X', 'ずつ変える', '+='],
-    ['set_x', 'X', 'にする', '='],
-    ['change_y_by', 'Y', 'ずつ変える', '+='],
-    ['set_y', 'Y', 'にする', '='],
-  ].each do |suffix, name, label_suffix, operator|
+    ['change_x_by', 'X', '+='],
+    ['set_x', 'X', '='],
+    ['change_y_by', 'Y', '+='],
+    ['set_y', 'Y', '='],
+  ].each do |suffix, name, operator|
     n = "#{category}_#{suffix}"
 %>
 
@@ -194,9 +196,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('<%= name.downcase %>座標を%1<%= label_suffix %>',
-                     ['<%= name %>', ['Number'], Blockly.ALIGN_RIGHT],
-                     Blockly.ALIGN_RIGHT)
+    @interpolateMsg(<%= bm(".#{suffix}") %>,
+                    ['<%= name %>', ['Number'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -213,7 +215,7 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput().appendField('もし端に着いたら、跳ね返る')
+    @appendDummyInput().appendField(<%= bm('.turn_if_reach_wall') %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -227,7 +229,7 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput().appendField('跳ね返る')
+    @appendDummyInput().appendField(<%= bm('.turn') %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -240,15 +242,16 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     dropdown = [
-      ['水平(X)', 'x'],
-      ['垂直(Y)', 'y'],
+      [<%= bm('.turn_xy_x') %>, 'x'],
+      [<%= bm('.turn_xy_y') %>, 'y'],
     ]
 
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
+      .appendField(<%= bm('.turn_xy_prefix') %>)
       .appendField(new Blockly.FieldDropdown(dropdown), 'XY')
-      .appendField('方向に跳ね返る')
+      .appendField(<%= bm('.turn_xy_suffix') %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -262,17 +265,17 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     dropdown = [
-      ['左右のみ', 'left_right'],
-      ['回転しない', 'none'],
-      ['自由に回転', 'free'],
+      [<%= bm('.set_rotation_style_left_right') %>, 'left_right'],
+      [<%= bm('.set_rotation_style_none') %>, 'none'],
+      [<%= bm('.set_rotation_style_free') %>, 'free'],
     ]
 
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField('回転方法を')
+      .appendField(<%= bm('.set_rotation_style_prefix') %>)
       .appendField(new Blockly.FieldDropdown(dropdown), 'STYLE')
-      .appendField('にする')
+      .appendField(<%= bm('.set_rotation_style_suffix') %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -285,11 +288,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 # 変数:y座標
 # 変数:向き
 <%
-  [
-    ['x', 'x座標'],
-    ['y', 'y座標'],
-    ['angle', '向き'],
-  ].each do |method, label|
+  %w(x y angle).each do |method|
     n = "#{category}_self_#{method}"
 %>
 
@@ -297,7 +296,7 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput().appendField('<%= label %>')
+    @appendDummyInput().appendField(<%= bm(".self_#{method}") %>)
     @setOutput(true, 'Number')
     @setTooltip('')
 

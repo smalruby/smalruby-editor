@@ -1,7 +1,7 @@
 %xml{:id => 'toolbox', :style => 'display: none'}
   - category = 'motion'
-  %category{:name => '動き'}
-    %category{:name => '移動'}
+  %category{:name => t('.motion')}
+    %category{:name => t('.motion_move')}
       -# (　)歩動かす
       %block{:type => "#{category}_move"}
         = toolbox_number_value('STEP', 10)
@@ -45,7 +45,7 @@
       -# 変数:y座標
       %block{:type => "#{category}_self_y"}
 
-    %category{:name => '回転'}
+    %category{:name => t('.motion_rotate')}
       -# もし端に着いたら、跳ね返る
       %block{:type => "#{category}_turn_if_reach_wall"}
 
@@ -80,7 +80,7 @@
       %block{:type => "#{category}_self_angle"}
 
     - category = 'hardware'
-    %category{:name => 'アクチュエータ'}
+    %category{:name => t('.motion_actuator')}
       -#- subcategory = 'servo'
       -# サーボ[▼PIN]を(　)度(5～180)にする
       -#%block{:type => "#{category}_#{subcategory}_set_position"}
@@ -137,7 +137,7 @@
         = toolbox_number_value('SPEED', 100)
 
   - category = 'looks'
-  %category{:name => '見た目'}
+  %category{:name => t('.looks')}
     -# [　]と(　)秒言う
     -#%block{:type => "#{category}_say_second"}
     -#  = toolbox_text_value('TEXT', 'こんにちは！')
@@ -145,7 +145,7 @@
 
     -# [　]と言う
     %block{:type => "#{category}_say"}
-      = toolbox_text_value('TEXT', 'こんにちは！')
+      = toolbox_text_value('TEXT', t('.hello'))
 
     -# [　]と(　)秒考える
     -#%block{:type => "#{category}_think_second"}
@@ -210,7 +210,7 @@
     -#%block{:type => "#{category}_#{subcategory}_clear"}
 
   - category = 'sound'
-  %category{:name => '音'}
+  %category{:name => t('.sound')}
     -# [▼プリセット音声]の音を鳴らす
     %block{:type => "#{category}_play"}
       %value{:name => 'NAME'}
@@ -223,7 +223,7 @@
     -#%block{:type => "#{category}_volume"}
 
   - category = 'pen'
-  %category{:name => 'ペン'}
+  %category{:name => t('.pen')}
     -# ペンを下ろす
     %block{:type => "#{category}_down_pen"}
 
@@ -233,11 +233,11 @@
     -# ペンの色を[カラー]にする
     %block{:type => "#{category}_set_pen_color"}
 
-  %category{:name => 'データ'}
-    %category{:name => '変数', :custom => 'VARIABLE'}
+  %category{:name => t('.data')}
+    %category{:name => t('.data_variables'), :custom => 'VARIABLE'}
 
   - category = 'events'
-  %category{:name => 'イベント（～のとき）'}
+  %category{:name => t('.events')}
     -# まずは
     %block{:type => "#{category}_on_start"}
 
@@ -259,8 +259,8 @@
     %block{:type => "#{category}_on_button_down_or_up"}
 
   - category = 'control'
-  %category{:name => '制御'}
-    %category{:name => '繰り返し'}
+  %category{:name => t('.control')}
+    %category{:name => t('.control_loop')}
       -# ずっと
       %block{:type => "#{category}_loop"}
 
@@ -280,7 +280,7 @@
       -# 現在の繰り返しをやり直す
       %block{:type => "#{category}_redo"}
 
-    %category{:name => '待つ'}
+    %category{:name => t('.control_wait')}
       -# (　)秒待つ
       %block{:type => "#{category}_sleep"}
         = toolbox_number_value('SEC', 1)
@@ -291,7 +291,7 @@
       -# ほんの少し待つ
       %block{:type => "#{category}_await"}
 
-    %category{:name => 'もし～なら'}
+    %category{:name => t('.control_if')}
       -# もし<　>なら
       %block{:type => "#{category}_if"}
 
@@ -299,8 +299,8 @@
       %block{:type => "#{category}_if_else"}
 
   - category = 'sensing'
-  %category{:name => '調べる'}
-    %category{:name => '一般'}
+  %category{:name => t('.sensing')}
+    %category{:name => t('.sensing_general')}
       -# 条件:端に触れた
       %block{:type => "#{category}_reach_wall"}
 
@@ -343,7 +343,7 @@
       -#%block{:type => "#{category}_days_since_2000"}
 
     - category = 'hardware'
-    %category{:name => 'ハードウェア'}
+    %category{:name => t('.sensing_hardware')}
       -# センサー[▼PIN]
       %block{:type => "#{category}_sensor_value"}
         = toolbox_pin_field('A0')
@@ -361,8 +361,8 @@
         = toolbox_pin_field('D6')
 
   - category = 'operators'
-  %category{:name => '演算'}
-    %category{:name => '計算'}
+  %category{:name => t('.operators')}
+    %category{:name => t('.operators_calculate')}
       -# 変数:(　) + (　)
       %block{:type => "#{category}_add"}
 
@@ -400,7 +400,7 @@
         %field{:name => 'NUM'}<
           0
 
-    %category{:name => '文字'}
+    %category{:name => t('.operators_string')}
       -# 変数:(　)の(　)番目
       %block{:type => "#{category}_index_of"}
         = toolbox_text_value('A', 'あいうえお')
@@ -415,7 +415,7 @@
         %field{:name => 'TEXT'}<
           文章
 
-    %category{:name => '条件'}
+    %category{:name => t('.operators_condition')}
       -# 条件:(　) < (　)
       %block{:type => "#{category}_compare_gt"}
 
@@ -446,9 +446,9 @@
       -# 条件:偽
       %block{:type => "#{category}_false"}
 
-  %category{:name => 'その他'}
+  %category{:name => t('.etc')}
     - category = 'ruby'
-    %category{:name => 'Ruby'}
+    %category{:name => t('.etc_ruby')}
       -# 文
       %block{:type => "#{category}_statement"}
 
@@ -462,7 +462,7 @@
       %block{:type => "#{category}_p"}
 
     - category = 'hardware'
-    %category{:name => 'ハードウェア'}
+    %category{:name => t('.etc_hardware')}
       -# ハードウェアを準備する
       %block{:type => "#{category}_init_hardware"}
 

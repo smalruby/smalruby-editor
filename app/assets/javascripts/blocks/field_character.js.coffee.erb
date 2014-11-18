@@ -1,3 +1,8 @@
+<%
+  require 'smalruby_editor'
+  require 'smalruby_editor/blockly_message_helper'
+%>
+
 'use strict'
 
 goog.provide('Smalruby.FieldCharacter')
@@ -101,7 +106,7 @@ Smalruby.FieldCharacter.dropdownChange = (value) ->
 
 Smalruby.FieldCharacter.NullCharacter =
   get: (name) ->
-    'キャラクターなし'
+    <%= bm('.no_character') %>
   on: -> $.noop
   off: -> $.noop
   link: -> $.noop
