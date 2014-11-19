@@ -13,9 +13,15 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # http://www.xyzpub.com/en/ruby-on-rails/3.2/i18n_mehrsprachige_rails_applikation.html
+  def extract_locale_from_accept_language_header
+    request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+  end
+
   # ロケールの設定
   def set_locale
-    I18n.locale = params[:locale] || I18n.default_locale
+    I18n.locale = params[:locale] ||
+      extract_locale_from_accept_language_header || I18n.default_locale
     Rails.application.routes.default_url_options[:locale]= I18n.locale
   end
 
