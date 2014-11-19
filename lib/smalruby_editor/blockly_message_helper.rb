@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-require 'smalruby_editor/version'
 
 module SmalrubyEditor
   # app/assets以下のJavaScriptからBlocklyのメッセージを扱いやすくするた
