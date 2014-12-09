@@ -174,5 +174,13 @@ window.Smalruby =
     window.textEditor.moveCursorTo(0, 0)
     window.changed = false
 
+  # 国際化したメッセージを取得する
+  bm: (name) ->
+    msg = Blockly.Msg[name]
+    if (typeof msg) == 'string'
+      msg
+    else
+      name
+
 $(document).ready ->
   Smalruby.initialize()

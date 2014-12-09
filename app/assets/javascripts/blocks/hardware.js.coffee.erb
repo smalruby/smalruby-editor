@@ -7,36 +7,45 @@
   colors = SmalrubyEditor::COLORS
 %>
 
-# ハードウェアの環境設定
-window.SmalrubyEditor.Hardware =
-  Type: 'Arduino' # 種別
-  DioPins: [2..13] # デジタルIOピン
-  PwmPins: [3, 5, 6, 9, 10, 11] # デジタルIOピンのうちPWMに対応しているピン
-  AiPins: [0..5] # アナログ入力ピン
+dioPinDropdown = null
+pwmPinDropdown = null
+rgbLedPinDropdown = null
+aiPinDropdown = null
+acDropdown = null
+lorPinDropdown = null
+twoWDPinDropdown = null
 
-dioPinDropdown =
-  (["D#{n}", "D#{n}"] for n in window.SmalrubyEditor.Hardware.DioPins)
+$(document).ready ->
+  # ハードウェアの環境設定
+  window.SmalrubyEditor.Hardware =
+    Type: 'Arduino' # 種別
+    DioPins: [2..13] # デジタルIOピン
+    PwmPins: [3, 5, 6, 9, 10, 11] # デジタルIOピンのうちPWMに対応しているピン
+    AiPins: [0..5] # アナログ入力ピン
 
-pwmPinDropdown =
-  (["D#{n}", "D#{n}"] for n in window.SmalrubyEditor.Hardware.PwmPins)
+  dioPinDropdown =
+    (["D#{n}", "D#{n}"] for n in window.SmalrubyEditor.Hardware.DioPins)
 
-rgbLedPinDropdown =
-  (["D#{n}", "D#{n}"] for n in [3, 9])
+  pwmPinDropdown =
+    (["D#{n}", "D#{n}"] for n in window.SmalrubyEditor.Hardware.PwmPins)
 
-aiPinDropdown =
-  (["A#{n}", "A#{n}"] for n in window.SmalrubyEditor.Hardware.AiPins)
+  rgbLedPinDropdown =
+    (["D#{n}", "D#{n}"] for n in [3, 9])
 
-acDropdown = [
-  ['アノード', 'anode']
-  ['カソード', 'cathode']
-]
+  aiPinDropdown =
+    (["A#{n}", "A#{n}"] for n in window.SmalrubyEditor.Hardware.AiPins)
 
-lorPinDropdown = [
-  ['左', 'left'],
-  ['右', 'right'],
-]
+  acDropdown = [
+    [<%= bm('.anode') %>, 'anode']
+    [<%= bm('.cathode') %>, 'cathode']
+  ]
 
-twoWDPinDropdown = (["D#{n}", "D#{n}"] for n in [2..10])
+  lorPinDropdown = [
+    [<%= bm('.left') %>, 'left'],
+    [<%= bm('.right') %>, 'right'],
+  ]
+
+  twoWDPinDropdown = (["D#{n}", "D#{n}"] for n in [2..10])
 
 # ハードウェアを準備する
 <% n = "#{category}_init_hardware" %>
@@ -44,7 +53,7 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= colors[:etc] %>)
-    @appendDummyInput().appendField('ハードウェアを準備する')
+    @appendDummyInput().appendField(<%= bm('.init_hardware') %>)
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
@@ -56,10 +65,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 # LED[▼PIN]をオンにする
 # LED[▼PIN]をオフにする
 <%
-  [
-    ['on', 'オン'],
-    ['off', 'オフ'],
-  ].each do |method, label|
+  %w(on off).each do |method|
     n = "#{category}_led_#{method}"
 %>
 
@@ -91,13 +97,13 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:looks] %>)
     @appendDummyInput()
-      .appendField('RGB LED')
+      .appendField(<%= bm('.rgb_led_on_1') %>)
       .appendField(new Blockly.FieldDropdown(acDropdown), 'AC')
-      .appendField('コモン')
+      .appendField(<%= bm('.rgb_led_on_2') %>)
       .appendField(new Blockly.FieldDropdown(rgbLedPinDropdown), 'PIN')
-      .appendField('を')
+      .appendField(<%= bm('.rgb_led_on_3') %>)
       .appendField(new Blockly.FieldColour('#ff0000'), 'COLOUR')
-      .appendField('にする')
+      .appendField(<%= bm('.rgb_led_on_4') %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -119,11 +125,11 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:looks] %>)
     @appendDummyInput()
-      .appendField('RGB LED')
+      .appendField(<%= bm('.rgb_led_off_1') %>)
       .appendField(new Blockly.FieldDropdown(acDropdown), 'AC')
-      .appendField('コモン')
+      .appendField(<%= bm('.rgb_led_off_2') %>)
       .appendField(new Blockly.FieldDropdown(rgbLedPinDropdown), 'PIN')
-      .appendField('をオフにする')
+      .appendField(<%= bm('.rgb_led_off_3') %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -144,16 +150,16 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:looks] %>)
     @appendDummyInput()
-      .appendField('7セグディスプレイに')
+      .appendField(<%= bm('.seven_segment_display_show_1') %>)
       .appendField(new Blockly.FieldDropdown(dropdown), 'NUM')
-      .appendField('を表示する')
+      .appendField(<%= bm('.seven_segment_display_show_2') %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   num = parseInt(@getFieldValue('NUM'))
-  "seven_segment_display.show(#{num})\n"
+  Blockly.Ruby.characterMethodCall_("seven_segment_display.show(#{num})")
 
 # 7セグディスプレイをオフにする
 <% n = "#{category}_seven_segment_display_off" %>
@@ -162,13 +168,13 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:looks] %>)
     @appendDummyInput()
-      .appendField('7セグディスプレイをオフにする')
+      .appendField(<%= bm('.seven_segment_display_off') %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  "seven_segment_display.off\n"
+  Blockly.Ruby.characterMethodCall_("seven_segment_display.off")
 
 # 「LCD」サブジャンル
 
@@ -178,11 +184,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= colors[:looks] %>)
-    @appendValueInput('TEXT')
-      .appendField('LCDに')
-      .setCheck('String')
-    @appendDummyInput()
-      .appendField('を表示する')
+    @interpolateMsg(<%= bm('.lcd_puts') %>,
+                    ['TEXT', ['String'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -190,7 +194,7 @@ Blockly.Blocks['<%= n %>'] =
 
 Blockly.Ruby['<%= n %>'] = (block) ->
   text = Blockly.Ruby.valueToCode(@, 'TEXT', Blockly.Ruby.ORDER_NONE) || ''
-  "lcd.puts(#{text})\n"
+  Blockly.Ruby.characterMethodCall_("lcd.puts(#{text})")
 
 # LCDをクリアする
 <% n = "#{category}_lcd_clear" %>
@@ -199,28 +203,13 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:looks] %>)
     @appendDummyInput()
-      .appendField('LCDをクリアする')
+      .appendField(<%= bm('.lcd_clear') %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  "lcd.clear\n"
-
-# 7セグディスプレイをオフにする
-<% n = "#{category}_seven_segment_display_off" %>
-Blockly.Blocks['<%= n %>'] =
-  init: ()->
-    @setHelpUrl('')
-    @setColour(<%= colors[:looks] %>)
-    @appendDummyInput()
-      .appendField('7セグディスプレイをオフにする')
-    @setPreviousStatement(true)
-    @setNextStatement(true)
-    @setTooltip('')
-
-Blockly.Ruby['<%= n %>'] = (block) ->
-  "seven_segment_display.off\n"
+  Blockly.Ruby.characterMethodCall_('lcd.clear')
 
 # 「サーボ」サブジャンル
 
@@ -231,13 +220,12 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
     @appendDummyInput()
-      .appendField('サーボ')
+      .appendField(<%= bm('.servo_set_position_1') %>)
       .appendField(new Blockly.FieldDropdown(pwmPinDropdown), 'PIN')
-      .appendField('を')
-    @appendValueInput('POS')
-      .setCheck('Number')
-    @appendDummyInput()
-      .appendField('度(5～180)にする')
+      .appendField(<%= bm('.servo_set_position_2') %>)
+    @interpolateMsg(<%= bm('.servo_set_position_3') %>,
+                    ['POS', ['Number'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
     @setNextStatement(true)

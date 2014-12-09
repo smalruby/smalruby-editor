@@ -12,7 +12,7 @@ module SmalrubyEditor
           .gsub(/\..*\z/, '')
         name = (prefix + name).gsub(%r"[/.]", '_')
       end
-      "Blockly.Msg.#{name.upcase}"
+      "Smalruby.bm('#{name.upcase}')"
     end
   end
 end

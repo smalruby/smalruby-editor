@@ -1,4 +1,8 @@
 ja:
+  common:
+    "ok": "決めた！"
+    cancel: "やめる"
+
   editor:
     index:
       block: "ブロック"
@@ -18,11 +22,42 @@ ja:
       direction_parameter: "向き:"
       stage: "ステージ"
 
+    toolbox:
+      motion: "動き"
+      motion_move: "移動"
+      motion_rotate: "回転"
+      motion_actuator: "アクチュエータ"
+      looks: "見た目"
+      sound: "音"
+      pen: "ペン"
+      data: "データ"
+      data_variables: "変数"
+      events: "イベント（〜のとき）"
+      control: "制御"
+      control_loop: "繰り返し"
+      control_wait: "待つ"
+      control_if: "もし～なら"
+      sensing: "調べる"
+      sensing_general: "いろいろ"
+      sensing_hardware: "ハードウェア"
+      operators: "演算"
+      operators_calculate: "計算"
+      operators_string: "文字列"
+      operators_condition: "条件"
+      etc: "その他"
+      etc_ruby: "Ruby"
+      etc_hardware: "ハードウェア"
+      hello: "こんにちは！"
+
     character_modal:
       name: "名前"
       x_position: "X座標"
       y_position: "Y座標"
       msg_input_name: "car1やball1など"
       direction: "向き"
-      "ok": "決めた！"
-      cancel: "やめる"
+
+    load_modal:
+      preset_programs: "いろいろなプログラム"
+      find_program: "プログラムをさがす"
+      computer: "このコンピュータ"
+      remix: "リミックス"

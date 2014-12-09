@@ -52,9 +52,6 @@ Blockly.Msg.BLOCKS_MOTION_SELF_X = 'x position';
 Blockly.Msg.BLOCKS_MOTION_SELF_Y = 'y position';
 Blockly.Msg.BLOCKS_MOTION_SELF_ANGLE = 'direction';
 
-// blocks/control.js.coffee.erb
-Blockly.Msg.BLOCKS_ = '';
-
 // blocks/events.js.coffee.erb
 Blockly.Msg.BLOCKS_EVENTS_ON_START = 'when Run clicked';
 Blockly.Msg.BLOCKS_EVENTS_ON_KEY_PUSH_OR_DOWN_PREFIX = 'when ';
@@ -142,6 +139,8 @@ Blockly.Msg.BLOCKS_SOUND_PLAY = 'play sound %1';
 // blocks/looks.js.coffee.erb
 Blockly.Msg.BLOCKS_LOOKS_SAY = 'say %1';
 Blockly.Msg.BLOCKS_LOOKS_THINK = 'think %1';
+Blockly.Msg.BLOCKS_LOOKS_SAY_WITH_SECOND = 'say %1 for %2 secs';
+Blockly.Msg.BLOCKS_LOOKS_THINK_WITH_SECOND = 'think %1 for %2 secs';
 Blockly.Msg.BLOCKS_LOOKS_SHOW = 'show';
 Blockly.Msg.BLOCKS_LOOKS_HIDE = 'hide';
 Blockly.Msg.BLOCKS_LOOKS_VANISH = 'vanish';
@@ -149,3 +148,40 @@ Blockly.Msg.BLOCKS_LOOKS_VANISH = 'vanish';
 // blocks/hardware.js.coffee.erb
 Blockly.Msg.BLOCKS_HARDWARE_LED_ON = ' on';
 Blockly.Msg.BLOCKS_HARDWARE_LED_OFF = ' off';
+Blockly.Msg.BLOCKS_HARDWARE_ANODE = 'anode';
+Blockly.Msg.BLOCKS_HARDWARE_CATHODE = 'cathode';
+Blockly.Msg.BLOCKS_HARDWARE_LEFT = 'left';
+Blockly.Msg.BLOCKS_HARDWARE_RIGHT = 'right';
+Blockly.Msg.BLOCKS_HARDWARE_INIT_HARDWARE = 'setup hardware';
+Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_ON_1 = 'set RGB LED ';
+Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_ON_2 = ' common ';
+Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_ON_3 = ' color to ';
+Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_ON_4 = '';
+Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_OFF_1 = 'RGB LED ';
+Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_OFF_2 = ' common ';
+Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_OFF_3 = ' off';
+Blockly.Msg.BLOCKS_HARDWARE_SEVEN_SEGMENT_DISPLAY_SHOW_1 = '7 segment display show ';
+Blockly.Msg.BLOCKS_HARDWARE_SEVEN_SEGMENT_DISPLAY_SHOW_2 = '';
+Blockly.Msg.BLOCKS_HARDWARE_SEVEN_SEGMENT_DISPLAY_OFF = 'turn off 7 segment display';
+Blockly.Msg.BLOCKS_HARDWARE_LCD_PUTS = 'display %1 on the LCD';
+Blockly.Msg.BLOCKS_HARDWARE_LCD_CLEAR = 'clear LCD';
+Blockly.Msg.BLOCKS_HARDWARE_SERVO_SET_POSITION_1 = 'servo motor ';
+Blockly.Msg.BLOCKS_HARDWARE_SERVO_SET_POSITION_2 = '';
+Blockly.Msg.BLOCKS_HARDWARE_SERVO_SET_POSITION_3 = 'set %1 degree (5-180)';
+
+// blocks/operators.js.coffee.erb
+Blockly.Msg.BLOCKS_OPERATORS_ADD = '%1 + %2';
+Blockly.Msg.BLOCKS_OPERATORS_MINUS = '%1 - %2';
+Blockly.Msg.BLOCKS_OPERATORS_MULTIPLY = '%1 * %2';
+Blockly.Msg.BLOCKS_OPERATORS_DIVIDE = '%1 / %2';
+Blockly.Msg.BLOCKS_OPERATORS_COMPARE_LT = '%1 < %2';
+Blockly.Msg.BLOCKS_OPERATORS_COMPARE_LTE = '%1 <= %2';
+Blockly.Msg.BLOCKS_OPERATORS_COMPARE_EQ = '%1 = %2';
+Blockly.Msg.BLOCKS_OPERATORS_COMPARE_GTE = '%1 >= %2';
+Blockly.Msg.BLOCKS_OPERATORS_COMPARE_GT = '%1 > %2';
+Blockly.Msg.BLOCKS_OPERATORS_RAND = 'pick random %1 to %2';
+Blockly.Msg.BLOCKS_OPERATORS_AND = '%1 and %2';
+Blockly.Msg.BLOCKS_OPERATORS_OR = '%1 or %2';
+Blockly.Msg.BLOCKS_OPERATORS_NOT = 'not %1';
+Blockly.Msg.BLOCKS_OPERATORS_TRUE = 'true';
+Blockly.Msg.BLOCKS_OPERATORS_FALSE = 'false';

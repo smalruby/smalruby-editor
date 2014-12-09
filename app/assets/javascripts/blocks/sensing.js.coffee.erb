@@ -7,8 +7,8 @@
   color = SmalrubyEditor::COLORS[category.to_sym]
 %>
 
-# 調べるの環境設定
 $(document).ready ->
+  # 調べるの環境設定
   window.SmalrubyEditor.Sensing =
     KeyDropdown: [
       [<%= bm('.k_up') %>, 'K_UP'],

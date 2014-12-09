@@ -3,6 +3,7 @@
 <%
   category = 'operators'
   require 'smalruby_editor'
+  require 'smalruby_editor/blockly_message_helper'
   color = SmalrubyEditor::COLORS[category.to_sym]
 %>
 
@@ -12,11 +13,11 @@
 # 変数:(　) / (　)
 <%
   [
-    ['add', '＋', 'ADDITIVE', '+', '0', '0'],
-    ['minus', 'ー', 'ADDITIVE', '-', '0', '0'],
-    ['multiply', '×', 'MULTIPLICATIVE', '*', '0', '0'],
-    ['divide', '÷', 'MULTIPLICATIVE', '/', '0', '1'],
-  ].each do |suffix, operator_label, order_suffix, operator, default_a, default_b|
+    ['add', 'ADDITIVE', '+', '0', '0'],
+    ['minus', 'ADDITIVE', '-', '0', '0'],
+    ['multiply', 'MULTIPLICATIVE', '*', '0', '0'],
+    ['divide', 'MULTIPLICATIVE', '/', '0', '1'],
+  ].each do |suffix, order_suffix, operator, default_a, default_b|
     n = "#{category}_#{suffix}"
 %>
 
@@ -24,7 +25,7 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('%1<%= operator_label %>%2',
+    @interpolateMsg(<%= bm(".#{suffix}") %>,
                     ['A', null, Blockly.ALIGN_RIGHT],
                     ['B', null, Blockly.ALIGN_RIGHT],
                     Blockly.ALIGN_RIGHT)
@@ -46,12 +47,12 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 # 条件:(　) > (　)
 <%
   [
-    ['compare_lt', '＜', '<', 'RELATIONAL'],
-    ['compare_lte', '≦', '<=', 'RELATIONAL'],
-    ['compare_eq', '＝', '==', 'EQUALS'],
-    ['compare_gte', '≧', '>=', 'RELATIONAL'],
-    ['compare_gt', '＞', '>', 'RELATIONAL'],
-  ].each do |suffix, operator_label, operator, order_suffix|
+    ['compare_lt', '<', 'RELATIONAL'],
+    ['compare_lte', '<=', 'RELATIONAL'],
+    ['compare_eq', '==', 'EQUALS'],
+    ['compare_gte', '>=', 'RELATIONAL'],
+    ['compare_gt', '>', 'RELATIONAL'],
+  ].each do |suffix, operator, order_suffix|
     n = "#{category}_#{suffix}"
 %>
 
@@ -59,7 +60,7 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('%1<%= operator_label %>%2',
+    @interpolateMsg(<%= bm(".#{suffix}") %>,
                      ['A', null, Blockly.ALIGN_RIGHT],
                      ['B', null, Blockly.ALIGN_RIGHT],
                     Blockly.ALIGN_RIGHT)
@@ -80,7 +81,7 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('%1から%2までの乱数',
+    @interpolateMsg(<%= bm('.rand')%>,
                      ['A', ['Number'], Blockly.ALIGN_RIGHT],
                      ['B', ['Number'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
@@ -97,9 +98,9 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 # 条件:<　> または <　>
 <%
   [
-    ['and', 'かつ', '&&'],
-    ['or', 'または', '||'],
-  ].each do |suffix, label, operator|
+    ['and', '&&'],
+    ['or', '||'],
+  ].each do |suffix, operator|
     n = "#{category}_#{suffix}"
 %>
 
@@ -107,7 +108,7 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('%1<%= label %>%2',
+    @interpolateMsg(<%= bm(".#{suffix}") %>,
                      ['A', ['Boolean'], Blockly.ALIGN_RIGHT],
                      ['B', ['Boolean'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
@@ -128,7 +129,7 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('%1ではない',
+    @interpolateMsg(<%= bm('.not') %>,
                      ['A', ['Boolean'], Blockly.ALIGN_RIGHT],
                      Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
@@ -256,10 +257,7 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 # 条件:真
 # 条件:偽
 <%
-  [
-    ['true', '真'],
-    ['false', '偽'],
-  ].each do |val, label|
+  %w(true false).each do |val|
     n = "#{category}_#{val}"
 %>
 
@@ -268,7 +266,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField('<%= label %>')
+      .appendField(<%= bm(".#{val}")%>)
     @setInputsInline(true)
     @setOutput(true, 'Boolean')
     @setTooltip('')

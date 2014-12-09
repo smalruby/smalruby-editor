@@ -12,10 +12,7 @@
 # [　]と(　)秒考える
 # [　]と考える
 <%
-  [
-    ['say', '言う'],
-    ['think', '考える'],
-  ].each do |method, label_suffix|
+  %w(say think).each do |method|
 %>
 
 <% n = "#{category}_#{method}_second" %>
@@ -23,7 +20,7 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('%1と%2秒<%= label_suffix %>',
+    @interpolateMsg(<%= bm(".#{method}_with_second") %>,
                     ['TEXT', null, Blockly.ALIGN_RIGHT],
                     ['SEC', ['Number'], Blockly.ALIGN_RIGHT],
                     Blockly.ALIGN_RIGHT)

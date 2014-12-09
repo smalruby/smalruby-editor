@@ -81,9 +81,9 @@
 
     - category = 'hardware'
     %category{:name => t('.motion_actuator')}
-      -#- subcategory = 'servo'
+      - subcategory = 'servo'
       -# サーボ[▼PIN]を(　)度(5～180)にする
-      -#%block{:type => "#{category}_#{subcategory}_set_position"}
+      %block{:type => "#{category}_#{subcategory}_set_position"}
         = toolbox_number_value('POS', 90)
 
       - subcategory = 'two_wheel_drive_car'
@@ -187,27 +187,27 @@
     -# LED[▼PIN]をオフにする
     %block{:type => "#{category}_#{subcategory}_off"}
 
-    -#- subcategory = 'rgb_led'
+    - subcategory = 'rgb_led'
     -# RGB LED[▼アノード]コモン[▼PIN]を[カラー]にする
-    -#%block{:type => "#{category}_#{subcategory}_on"}
+    %block{:type => "#{category}_#{subcategory}_on"}
 
     -# RGB LED[▼アノード]コモン[▼PIN]をオフにする
-    -#%block{:type => "#{category}_#{subcategory}_off"}
+    %block{:type => "#{category}_#{subcategory}_off"}
 
-    -#- subcategory = 'seven_segment_display'
+    - subcategory = 'seven_segment_display'
     -# 7セグディスプレイに[▼0-9]を表示する
-    -#%block{:type => "#{category}_#{subcategory}_show"}
+    %block{:type => "#{category}_#{subcategory}_show"}
 
     -# 7セグディスプレイをオフにする
-    -#%block{:type => "#{category}_#{subcategory}_off"}
+    %block{:type => "#{category}_#{subcategory}_off"}
 
-    -#- subcategory = 'lcd'
+    - subcategory = 'lcd'
     -# LCDに(　)を表示する
-    -#%block{:type => "#{category}_#{subcategory}_puts"}
+    %block{:type => "#{category}_#{subcategory}_puts"}
       = toolbox_text_value('TEXT', 'Hello')
 
     -# LCDをクリアする
-    -#%block{:type => "#{category}_#{subcategory}_clear"}
+    %block{:type => "#{category}_#{subcategory}_clear"}
 
   - category = 'sound'
   %category{:name => t('.sound')}
