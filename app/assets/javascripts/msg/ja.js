@@ -171,7 +171,7 @@ Blockly.Msg.BLOCKS_HARDWARE_SERVO_SET_POSITION_3 = '%1度(5～180)にする';
 
 // blocks/operators.js.coffee.erb
 Blockly.Msg.BLOCKS_OPERATORS_ADD = '%1＋%2';
-blockly.Msg.BLOCKS_OPERATORS_MINUS = '%1ー%2';
+Blockly.Msg.BLOCKS_OPERATORS_MINUS = '%1ー%2';
 Blockly.Msg.BLOCKS_OPERATORS_MULTIPLY = '%1×%2';
 Blockly.Msg.BLOCKS_OPERATORS_DIVIDE = '%1÷%2';
 Blockly.Msg.BLOCKS_OPERATORS_COMPARE_LT = '%1＜%2';
