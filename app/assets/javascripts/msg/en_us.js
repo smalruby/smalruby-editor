@@ -146,28 +146,33 @@ Blockly.Msg.BLOCKS_LOOKS_HIDE = 'hide';
 Blockly.Msg.BLOCKS_LOOKS_VANISH = 'vanish';
 
 // blocks/hardware.js.coffee.erb
-Blockly.Msg.BLOCKS_HARDWARE_LED_ON = ' on';
-Blockly.Msg.BLOCKS_HARDWARE_LED_OFF = ' off';
+Blockly.Msg.BLOCKS_HARDWARE_LED_ON = 'turn on LED %1';
+Blockly.Msg.BLOCKS_HARDWARE_LED_OFF = 'turn off LED %1';
 Blockly.Msg.BLOCKS_HARDWARE_ANODE = 'anode';
 Blockly.Msg.BLOCKS_HARDWARE_CATHODE = 'cathode';
 Blockly.Msg.BLOCKS_HARDWARE_LEFT = 'left';
 Blockly.Msg.BLOCKS_HARDWARE_RIGHT = 'right';
 Blockly.Msg.BLOCKS_HARDWARE_INIT_HARDWARE = 'setup hardware';
-Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_ON_1 = 'set RGB LED ';
-Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_ON_2 = ' common ';
-Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_ON_3 = ' color to ';
-Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_ON_4 = '';
-Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_OFF_1 = 'RGB LED ';
-Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_OFF_2 = ' common ';
-Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_OFF_3 = ' off';
-Blockly.Msg.BLOCKS_HARDWARE_SEVEN_SEGMENT_DISPLAY_SHOW_1 = '7 segment display show ';
-Blockly.Msg.BLOCKS_HARDWARE_SEVEN_SEGMENT_DISPLAY_SHOW_2 = '';
+Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_ON = 'set RGB LED %1 common %2 color to %3';
+Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_OFF = 'turn off RGB LED %1 common %2';
+Blockly.Msg.BLOCKS_HARDWARE_SEVEN_SEGMENT_DISPLAY_SHOW = 'show 7 segment display %1';
 Blockly.Msg.BLOCKS_HARDWARE_SEVEN_SEGMENT_DISPLAY_OFF = 'turn off 7 segment display';
 Blockly.Msg.BLOCKS_HARDWARE_LCD_PUTS = 'display %1 on the LCD';
 Blockly.Msg.BLOCKS_HARDWARE_LCD_CLEAR = 'clear LCD';
-Blockly.Msg.BLOCKS_HARDWARE_SERVO_SET_POSITION_1 = 'servo motor ';
-Blockly.Msg.BLOCKS_HARDWARE_SERVO_SET_POSITION_2 = '';
-Blockly.Msg.BLOCKS_HARDWARE_SERVO_SET_POSITION_3 = 'set %1 degree (5-180)';
+Blockly.Msg.BLOCKS_HARDWARE_SERVO_SET_POSITION = 'servo motor %1 set %2 degree (5-180)';
+Blockly.Msg.BLOCKS_HARDWARE_TWO_WHEEL_DRIVE_CAR_FORWARD = 'forward 2WD car %1';
+Blockly.Msg.BLOCKS_HARDWARE_TWO_WHEEL_DRIVE_CAR_BACKWARD = 'backward 2WD car %1';
+Blockly.Msg.BLOCKS_HARDWARE_TWO_WHEEL_DRIVE_CAR_TURN_LEFT = 'turn left 2WD car %1';
+Blockly.Msg.BLOCKS_HARDWARE_TWO_WHEEL_DRIVE_CAR_TURN_RIGHT = 'turn right 2WD car %1';
+Blockly.Msg.BLOCKS_HARDWARE_TWO_WHEEL_DRIVE_CAR_STOP = 'stop 2WD car %1';
+Blockly.Msg.BLOCKS_HARDWARE_TWO_WHEEL_DRIVE_CAR_RUN = '%1 2WD car %2 %3 secs';
+Blockly.Msg.BLOCKS_HARDWARE_TWO_WHEEL_DRIVE_CAR_COMMANDS_FORWARD = 'forward';
+Blockly.Msg.BLOCKS_HARDWARE_TWO_WHEEL_DRIVE_CAR_COMMANDS_BACKWARD = 'backward';
+Blockly.Msg.BLOCKS_HARDWARE_TWO_WHEEL_DRIVE_CAR_COMMANDS_TURN_LEFT = 'turn left';
+Blockly.Msg.BLOCKS_HARDWARE_TWO_WHEEL_DRIVE_CAR_COMMANDS_TURN_RIGHT = 'turn right';
+Blockly.Msg.BLOCKS_HARDWARE_TWO_WHEEL_DRIVE_CAR_COMMANDS_STOP = 'stop';
+Blockly.Msg.BLOCKS_HARDWARE_TWO_WHEEL_DRIVE_CAR_SET_SPEED = "set 2WD car %1 's %2 motor speed to %3 %";
+Blockly.Msg.BLOCKS_HARDWARE_TWO_WHEEL_DRIVE_CAR_SPEED = "2WD car %1 's %2 motor speed (%)";
 
 // blocks/operators.js.coffee.erb
 Blockly.Msg.BLOCKS_OPERATORS_ADD = '%1 + %2';

@@ -45,7 +45,7 @@ $(document).ready ->
     [<%= bm('.right') %>, 'right'],
   ]
 
-  twoWDPinDropdown = (["D#{n}", "D#{n}"] for n in [2..10])
+  twoWDPinDropdown = (["D#{n}", "D#{n}"] for n in [5, 6])
 
 # ハードウェアを準備する
 <% n = "#{category}_init_hardware" %>
@@ -73,10 +73,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= colors[:looks] %>)
-    @appendDummyInput()
-      .appendField('LED')
-      .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
-      .appendField(<%= bm(".led_#{method}") %>)
+    @interpolateMsg(<%= bm(".led_#{method}") %>,
+                    ['PIN', ['Dropdown', dioPinDropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -96,14 +95,11 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= colors[:looks] %>)
-    @appendDummyInput()
-      .appendField(<%= bm('.rgb_led_on_1') %>)
-      .appendField(new Blockly.FieldDropdown(acDropdown), 'AC')
-      .appendField(<%= bm('.rgb_led_on_2') %>)
-      .appendField(new Blockly.FieldDropdown(rgbLedPinDropdown), 'PIN')
-      .appendField(<%= bm('.rgb_led_on_3') %>)
-      .appendField(new Blockly.FieldColour('#ff0000'), 'COLOUR')
-      .appendField(<%= bm('.rgb_led_on_4') %>)
+    @interpolateMsg(<%= bm('.rgb_led_on') %>,
+                    ['AC', ['Dropdown', acDropdown], Blockly.ALIGN_RIGHT],
+                    ['PIN', ['Dropdown', rgbLedPinDropdown], Blockly.ALIGN_RIGHT],
+                    ['COLOUR', ['Colour', '#ff0000'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -124,12 +120,10 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= colors[:looks] %>)
-    @appendDummyInput()
-      .appendField(<%= bm('.rgb_led_off_1') %>)
-      .appendField(new Blockly.FieldDropdown(acDropdown), 'AC')
-      .appendField(<%= bm('.rgb_led_off_2') %>)
-      .appendField(new Blockly.FieldDropdown(rgbLedPinDropdown), 'PIN')
-      .appendField(<%= bm('.rgb_led_off_3') %>)
+    @interpolateMsg(<%= bm('.rgb_led_off') %>,
+                    ['AC', ['Dropdown', acDropdown], Blockly.ALIGN_RIGHT],
+                    ['PIN', ['Dropdown', rgbLedPinDropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -149,10 +143,9 @@ Blockly.Blocks['<%= n %>'] =
 
     @setHelpUrl('')
     @setColour(<%= colors[:looks] %>)
-    @appendDummyInput()
-      .appendField(<%= bm('.seven_segment_display_show_1') %>)
-      .appendField(new Blockly.FieldDropdown(dropdown), 'NUM')
-      .appendField(<%= bm('.seven_segment_display_show_2') %>)
+    @interpolateMsg(<%= bm('.seven_segment_display_show') %>,
+                    ['NUM', ['Dropdown', dropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -219,11 +212,8 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
-    @appendDummyInput()
-      .appendField(<%= bm('.servo_set_position_1') %>)
-      .appendField(new Blockly.FieldDropdown(pwmPinDropdown), 'PIN')
-      .appendField(<%= bm('.servo_set_position_2') %>)
-    @interpolateMsg(<%= bm('.servo_set_position_3') %>,
+    @interpolateMsg(<%= bm('.servo_set_position') %>,
+                    ['PIN', ['Dropdown', pwmPinDropdown], Blockly.ALIGN_RIGHT],
                     ['POS', ['Number'], Blockly.ALIGN_RIGHT],
                     Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
@@ -246,26 +236,17 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 # 2WD車[▼PIN]を右に曲げる
 # 2WD車[▼PIN]を止める
 <%
-  [
-    ['forward', '進める'],
-    ['backward', 'バックさせる'],
-    ['turn_left', '左に曲げる'],
-    ['turn_right', '右に曲げる'],
-    ['stop', '止める'],
-  ].each do |method, label|
+  %w(forward backward turn_left turn_right stop).each do |method|
     n = "#{category}_#{subcategory}_#{method}"
 %>
 
 Blockly.Blocks['<%= n %>'] =
   init: ()->
-    dropdown = (["D#{n}", "D#{n}"] for n in [2..10])
-
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
-    @appendDummyInput()
-      .appendField('2WD車')
-      .appendField(new Blockly.FieldDropdown(twoWDPinDropdown), 'PIN')
-      .appendField('を<%= label %>')
+    @interpolateMsg(<%= bm(".#{subcategory}_#{method}") %>,
+                    ['PIN', ['Dropdown', twoWDPinDropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -283,15 +264,11 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
-    @appendDummyInput()
-      .appendField('2WD車')
-      .appendField(new Blockly.FieldDropdown(twoWDPinDropdown), 'PIN')
-      .appendField('を')
-    @appendValueInput('SEC')
-      .setCheck('Number')
-    @appendDummyInput()
-      .appendField('秒')
-    @appendValueInput('COMMAND').setCheck('String')
+    @interpolateMsg(<%= bm(".#{subcategory}_run") %>,
+                    ['COMMAND', ['String'], Blockly.ALIGN_RIGHT],
+                    ['PIN', ['Dropdown', twoWDPinDropdown], Blockly.ALIGN_RIGHT],
+                    ['SEC', ['Number'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -309,11 +286,11 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     commands = [
-      ['進める', 'forward'],
-      ['バックさせる', 'backward'],
-      ['左に曲げる', 'turn_left'],
-      ['右に曲げる', 'turn_right'],
-      ['止める', 'stop'],
+      [<%= bm(".#{subcategory}_commands_forward") %>, 'forward'],
+      [<%= bm(".#{subcategory}_commands_backward") %>, 'backward'],
+      [<%= bm(".#{subcategory}_commands_turn_left") %>, 'turn_left'],
+      [<%= bm(".#{subcategory}_commands_turn_right") %>, 'turn_right'],
+      [<%= bm(".#{subcategory}_commands_stop") %>, 'stop'],
     ]
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
@@ -332,15 +309,11 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
-    @appendDummyInput()
-      .appendField('2WD車')
-      .appendField(new Blockly.FieldDropdown(pwmPinDropdown), 'PIN')
-      .appendField('の')
-      .appendField(new Blockly.FieldDropdown(lorPinDropdown), 'LOR')
-      .appendField('の速度を')
-    @interpolateMsg('%1%にする',
-                     ['SPEED', ['Number'], Blockly.ALIGN_RIGHT],
-                     Blockly.ALIGN_RIGHT)
+    @interpolateMsg(<%= bm(".#{subcategory}_set_speed") %>,
+                    ['PIN', ['Dropdown', pwmPinDropdown], Blockly.ALIGN_RIGHT],
+                    ['LOR', ['Dropdown', lorPinDropdown], Blockly.ALIGN_RIGHT],
+                    ['SPEED', ['Number'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -358,12 +331,10 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= colors[:sensing] %>)
-    @appendDummyInput()
-      .appendField('2WD車')
-      .appendField(new Blockly.FieldDropdown(pwmPinDropdown), 'PIN')
-      .appendField('の')
-      .appendField(new Blockly.FieldDropdown(lorPinDropdown), 'LOR')
-      .appendField('の速度(%)')
+    @interpolateMsg(<%= bm(".#{subcategory}_speed") %>,
+                    ['PIN', ['Dropdown', pwmPinDropdown], Blockly.ALIGN_RIGHT],
+                    ['LOR', ['Dropdown', lorPinDropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setOutput(true, 'Number')
     @setTooltip('')
 
