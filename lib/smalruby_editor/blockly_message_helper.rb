@@ -6,11 +6,11 @@ module SmalrubyEditor
   module BlocklyMessageHelper
     def bm(name)
       if /\A\./ =~ name
-        caller()[0] =~ /(.*?):(\d+)/
-        filename, linenum = $1, $2
+        md = /(.*?):(?:\d+)/.match(caller[0])
+        filename = md[1]
         prefix = filename.slice(%r"app/assets/javascripts/(.*)$", 1)
           .gsub(/\..*\z/, '')
-        name = (prefix + name).gsub(%r"[/.]", '_')
+        name = (prefix + name).gsub(/[\/.]/, '_')
       end
       "Smalruby.bm('#{name.upcase}')"
     end
