@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   # http://www.xyzpub.com/en/ruby-on-rails/3.2/i18n_mehrsprachige_rails_applikation.html
   # # rubocop:enable LineLength
   def extract_locale_from_accept_language_header
-    request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+    request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first rescue nil
   end
 
   # ロケールの設定
