@@ -64,8 +64,13 @@ SmalrubyEditor::Application.configure do
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets
   # folder are already added.
-  config.assets.precompile +=
-    %w( blockly/msg/js/en_us.js blockly/msg/js/ja.js msg/en_us.js msg/ja.js )
+  config.assets.precompile += %w(
+    blockly/msg/js/en_us.js
+    msg/en_us.js
+
+    blockly/msg/js/ja.js
+    msg/ja.js
+  )
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate
