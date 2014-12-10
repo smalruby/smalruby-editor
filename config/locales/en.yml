@@ -48,6 +48,8 @@ en:
       etc_ruby: "Ruby"
       etc_hardware: "Hardware"
       hello: "Hello!"
+      world: "world"
+      text: "text"
 
     character_modal:
       name: "Name"

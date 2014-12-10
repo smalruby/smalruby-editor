@@ -9,10 +9,7 @@
 # ペンを下ろす
 # ペンを上げる
 # <%
-  [
-    ['down_pen', 'ペンを下ろす'],
-    ['up_pen', 'ペンを上げる'],
-  ].each do |suffix, label|
+  %w(down_pen up_pen).each do |suffix|
     n = "#{category}_#{suffix}"
 %>
 
@@ -21,7 +18,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField('<%= label %>')
+      .appendField(<%= bm(".#{suffix}") %>)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -36,10 +33,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput()
-      .appendField('ペンの色を')
-      .appendField(new Blockly.FieldColour('#ff0000'), 'COLOUR')
-      .appendField('にする')
+    @interpolateMsg(<%= bm('.set_pen_color') %>,
+                    ['COLOUR', ['Colour', '#ff0000'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')

@@ -48,6 +48,8 @@ ja:
       etc_ruby: "Ruby"
       etc_hardware: "ハードウェア"
       hello: "こんにちは！"
+      world: "あいうえお"
+      text: "文章"
 
     character_modal:
       name: "名前"

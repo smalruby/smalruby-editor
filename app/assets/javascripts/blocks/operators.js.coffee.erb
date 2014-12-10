@@ -147,10 +147,10 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('%1の%2番目',
-                     ['A', null, Blockly.ALIGN_RIGHT],
-                     ['INDEX', ['Number'], Blockly.ALIGN_RIGHT],
-                     Blockly.ALIGN_RIGHT)
+    @interpolateMsg(<%= bm('.index_of') %>,
+                    ['A', null, Blockly.ALIGN_RIGHT],
+                    ['INDEX', ['Number'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setOutput(true, null)
     @setTooltip('')
@@ -166,9 +166,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('%1の長さ',
-                     ['A', null, Blockly.ALIGN_RIGHT],
-                     Blockly.ALIGN_RIGHT)
+    @interpolateMsg(<%= bm('.length') %>,
+                    ['A', null, Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setOutput(true, null)
     @setTooltip('')
@@ -184,10 +184,10 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('%1を%2で割った余り',
-                     ['A', ['Number'], Blockly.ALIGN_RIGHT],
-                     ['B', ['Number'], Blockly.ALIGN_RIGHT],
-                     Blockly.ALIGN_RIGHT)
+    @interpolateMsg(<%= bm('.modulo') %>,
+                    ['A', ['Number'], Blockly.ALIGN_RIGHT],
+                    ['B', ['Number'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setOutput(true, 'Number')
     @setTooltip('')
@@ -204,9 +204,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('%1を丸める',
-                     ['A', ['Number'], Blockly.ALIGN_RIGHT],
-                     Blockly.ALIGN_RIGHT)
+    @interpolateMsg(<%= bm('.round') %>,
+                    ['A', ['Number'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setOutput(true, 'Number')
     @setTooltip('')
@@ -221,29 +221,28 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     dropdown = [
-      ['絶対値', '%num%.abs'],
-      ['切り上げ', '%num%.floor'],
-      ['切り下げ', '%num%.ceil'],
-      ['平方根', 'Math.sqrt(%num%)'],
-      ['sin', 'Math.sin(%num%)'],
-      ['cos', 'Math.cos(%num%)'],
-      ['tan', 'Math.tan(%num%)'],
-      ['asin', 'Math.asin(%num%)'],
-      ['acos', 'Math.acos(%num%)'],
-      ['atan', 'Math.atan(%num%)'],
-      ['log', 'Math.log(%num%)'],
-      ['log10', 'Math.log10(%num%)'],
-      ['e^', 'Math::E ** %num%'],
-      ['10^', '10 ** %num%'],
+      [<%= bm('.math_method_abs') %>, '%num%.abs'],
+      [<%= bm('.math_method_floor') %>, '%num%.floor'],
+      [<%= bm('.math_method_ceil') %>, '%num%.ceil'],
+      [<%= bm('.math_method_sqrt') %>, 'Math.sqrt(%num%)'],
+      [<%= bm('.math_method_sin') %>, 'Math.sin(%num%)'],
+      [<%= bm('.math_method_cos') %>, 'Math.cos(%num%)'],
+      [<%= bm('.math_method_tan') %>, 'Math.tan(%num%)'],
+      [<%= bm('.math_method_asin') %>, 'Math.asin(%num%)'],
+      [<%= bm('.math_method_acos') %>, 'Math.acos(%num%)'],
+      [<%= bm('.math_method_atan') %>, 'Math.atan(%num%)'],
+      [<%= bm('.math_method_ln') %>, 'Math.log(%num%)'],
+      [<%= bm('.math_method_log') %>, 'Math.log10(%num%)'],
+      [<%= bm('.math_method_e_square') %>, 'Math::E ** %num%'],
+      [<%= bm('.math_method_10_square') %>, '10 ** %num%'],
     ]
 
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendValueInput('NUM')
-      .setCheck('Number')
-    @appendDummyInput()
-      .appendField('の')
-      .appendField(new Blockly.FieldDropdown(dropdown), 'METHOD')
+    @interpolateMsg(<%= bm('.math_method') %>,
+                    ['NUM', ['Number'], Blockly.ALIGN_RIGHT],
+                    ['METHOD', ['Dropdown', dropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setOutput(true, 'Number')
     @setTooltip('')

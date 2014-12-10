@@ -403,17 +403,17 @@
     %category{:name => t('.operators_string')}
       -# 変数:(　)の(　)番目
       %block{:type => "#{category}_index_of"}
-        = toolbox_text_value('A', 'あいうえお')
+        = toolbox_text_value('A', t('.world'))
         = toolbox_number_value('INDEX', 1)
 
       -# 変数:(　)の長さ
       %block{:type => "#{category}_length"}
-        = toolbox_text_value('A', 'あいうえお')
+        = toolbox_text_value('A', t('.world'))
 
       -# テキスト
       %block{:type => 'text'}
         %field{:name => 'TEXT'}<
-          文章
+          = t('.text')
 
     %category{:name => t('.operators_condition')}
       -# 条件:(　) < (　)
