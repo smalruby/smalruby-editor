@@ -5,6 +5,7 @@ step 'セッションをクリアする' do
 end
 
 step ':name にアクセスする' do |name|
+  page.driver.headers = { 'Accept-Language' => 'ja' }
   visit NAME_INFO[name][:path]
 
   if poltergeist?
