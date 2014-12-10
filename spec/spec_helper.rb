@@ -136,6 +136,10 @@ Spork.prefork do
     config.after :each do
       DatabaseRewinder.clean
     end
+
+    config.before(:each, javascript: true) do
+      Capybara.current_session.driver.headers = { 'Accept-Language' => 'ja' }
+    end
   end
 end
 
