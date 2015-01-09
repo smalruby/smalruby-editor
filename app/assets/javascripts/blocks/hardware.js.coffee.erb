@@ -351,18 +351,17 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 Blockly.Blocks['<%= n %>'] =
   init: ()->
     methodDropdown = [
-      ['正転させる', 'forward'],
-      ['逆転させる', 'backward'],
-      ['止める', 'stop'],
+      [<%= bm(".#{subcategory}_forward") %>, 'forward'],
+      [<%= bm(".#{subcategory}_backward") %>, 'backward'],
+      [<%= bm(".#{subcategory}_stop") %>, 'stop'],
     ]
 
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
-    @appendDummyInput()
-      .appendField('(モータードライバ')
-      .appendField(new Blockly.FieldDropdown(pwmPinDropdown), 'PIN')
-      .appendField('で)モーターを')
-      .appendField(new Blockly.FieldDropdown(methodDropdown), 'METHOD')
+    @interpolateMsg(<%= bm(".#{subcategory}") %>,
+                    ['PIN', ['Dropdown', pwmPinDropdown], Blockly.ALIGN_RIGHT],
+                    ['METHOD', ['Dropdown', methodDropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -380,13 +379,10 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
-    @appendDummyInput()
-      .appendField('(モータードライバ')
-      .appendField(new Blockly.FieldDropdown(pwmPinDropdown), 'PIN')
-      .appendField('の)モーターの速度を')
-    @interpolateMsg('%1%にする',
-                     ['SPEED', ['Number'], Blockly.ALIGN_RIGHT],
-                     Blockly.ALIGN_RIGHT)
+    @interpolateMsg(<%= bm(".#{subcategory}_set_speed") %>,
+                    ['PIN', ['Dropdown', pwmPinDropdown], Blockly.ALIGN_RIGHT],
+                    ['SPEED', ['Number'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -403,10 +399,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= colors[:sensing] %>)
-    @appendDummyInput()
-      .appendField('(モータードライバ')
-      .appendField(new Blockly.FieldDropdown(pwmPinDropdown), 'PIN')
-      .appendField('の)モーターの速度(%)')
+    @interpolateMsg(<%= bm(".#{subcategory}_speed") %>,
+                    ['PIN', ['Dropdown', pwmPinDropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setOutput(true, 'Number')
     @setTooltip('')
 
@@ -425,11 +420,10 @@ Blockly.Blocks['<%= n %>'] =
 
     @setHelpUrl('')
     @setColour(<%= colors[:sensing] %>)
-    @appendDummyInput()
-      .appendField('ボタン')
-      .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
-      .appendField('が')
-      .appendField(new Blockly.FieldDropdown(douDropdown), 'DOU')
+    @interpolateMsg(<%= bm(".button_down_or_up") %>,
+                    ['PIN', ['Dropdown', dioPinDropdown], Blockly.ALIGN_RIGHT],
+                    ['DOU', ['Dropdown', douDropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setOutput(true, 'Boolean')
     @setTooltip('')
 
@@ -446,12 +440,10 @@ Blockly.Blocks['<%= n %>'] =
 
     @setHelpUrl('')
     @setColour(<%= colors[:events] %>)
-    @appendDummyInput()
-      .appendField('ボタン')
-      .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
-      .appendField('が')
-      .appendField(new Blockly.FieldDropdown(douDropdown), 'DOU')
-      .appendField('とき')
+    @interpolateMsg(<%= bm('.on_button_down_or_up') %>,
+                    ['PIN', ['Dropdown', dioPinDropdown], Blockly.ALIGN_RIGHT],
+                    ['DOU', ['Dropdown', douDropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @appendStatementInput('DO')
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -468,10 +460,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= colors[:etc] %>)
-    @appendDummyInput()
-      .appendField('ボタン')
-      .appendField(new Blockly.FieldDropdown(dioPinDropdown), 'PIN')
-      .appendField('のプルアップ抵抗を使わない')
+    @interpolateMsg(<%= bm('.button_not_use_pullup') %>,
+                    ['PIN', ['Dropdown', dioPinDropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -488,9 +479,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= colors[:sensing] %>)
-    @appendDummyInput()
-      .appendField('センサー')
-      .appendField(new Blockly.FieldDropdown(aiPinDropdown), 'PIN')
+    @interpolateMsg(<%= bm('.sensor_value') %>,
+                    ['PIN', ['Dropdown', aiPinDropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setOutput(true, 'Number')
     @setTooltip('')
 
@@ -504,10 +495,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= colors[:events] %>)
-    @appendDummyInput()
-      .appendField('センサー')
-      .appendField(new Blockly.FieldDropdown(aiPinDropdown), 'PIN')
-      .appendField('が変化したとき')
+    @interpolateMsg(<%= bm('.on_sensor_change') %>,
+                    ['PIN', ['Dropdown', aiPinDropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @appendStatementInput('DO')
     @setPreviousStatement(true)
     @setNextStatement(true)
