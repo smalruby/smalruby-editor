@@ -13,12 +13,19 @@ Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LINES = '行';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LETTERS = '文字';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_COMMA = '、';
 
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_BLOCK_MODE_BLOCKUI_TITLE = 'プログラムの変換中';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_BLOCK_MODE_BLOCKUI_MESSAGE = 'プログラムをブロックに変換しています。';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_BLOCK_MODE_ERROR = 'ブロックへの変換に失敗しました';
 
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_BLOCKUI_TITLE = 'プログラムの実行中';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_BLOCKUI_MESSAGE = 'プログラムの画面に切り替えてください。';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_BLOCKUI_NOTICE = 'プログラムをセーブ・チェックしてから実行するよ♪<br>Escキーを押すとプログラムが終わります。';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_ERROR_CANT_RUN = 'プログラムを実行できませんでした';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_ERROR_CANCEL_TO_RUN = 'プログラムの実行をキャンセルしました';
+
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_DOWNLOAD_BLOCKUI_TITLE = 'プログラムのダウンロード中';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_DOWNLOAD_BLOCKUI_MESSAGE = 'プログラムをダウンロードしています。';
+
 
 // blocks/motion.js.coffee.erb
 Blockly.Msg.BLOCKS_MOTION_MOVE = '%1歩動かす';

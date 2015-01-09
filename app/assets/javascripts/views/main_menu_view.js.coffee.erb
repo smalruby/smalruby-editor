@@ -1,3 +1,8 @@
+<%
+  require 'smalruby_editor'
+  require 'smalruby_editor/blockly_message_helper'
+%>
+
 # ナビゲーションメニューを表現するビュー
 Smalruby.MainMenuView = Backbone.View.extend
   el: '#main-menu'
@@ -44,9 +49,9 @@ Smalruby.MainMenuView = Backbone.View.extend
       title:
         """
         <i class="icon-filter"></i>
-        プログラムの変換中
+        #{<%= bm('.block_mode_blockui_title') %>}
         """
-      message: 'プログラムをブロックに変換しています。'
+      message: <%= bm('.block_mode_blockui_message') %>
 
     sourceCode = new Smalruby.SourceCode()
     sourceCode.toBlocks()
@@ -61,7 +66,7 @@ Smalruby.MainMenuView = Backbone.View.extend
           Smalruby.changedAfterTranslating = false
       .then(@unblockUI, @unblockUI)
       .fail ->
-        window.errorMessage('ブロックへの変換に失敗しました')
+        window.errorMessage(<%= bm('.block_mode_error') %>)
 
   onRubyMode: (e) ->
     e.preventDefault()
@@ -95,18 +100,18 @@ Smalruby.MainMenuView = Backbone.View.extend
       title:
         """
         <i class="icon-play"></i>
-        #{Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_BLOCKUI_TITLE}
+        #{<%= bm('.run_blockui_title') %>}
         """
-      message: Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_BLOCKUI_MESSAGE
-      notice: Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_BLOCKUI_NOTICE
+      message: <%= bm('.run_blockui_message') %>
+      notice: <%= bm('.run_blockui_notice') %>
 
-    errorMsg = Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_ERROR_CANT_RUN
+    errorMsg = <%= bm('.run_error_cant_run') %>
     sourceCode.save2()
       .then (data) ->
         sourceCode.write()
       .then (data) =>
         @confirmOverwrite_.call @, data, sourceCode, ->
-          errorMsg = Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_ERROR_CANCEL_TO_RUN
+          errorMsg = <%= bm('.run_error_cancel_to_run') %>
       .then ->
         Smalruby.savedFilename = sourceCode.get('filename')
         window.changed = false
@@ -115,9 +120,9 @@ Smalruby.MainMenuView = Backbone.View.extend
         if data.length > 0
           for errorInfo in data
             do (errorInfo) ->
-              msg = "#{errorInfo.row}#{Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LINES}"
+              msg = "#{errorInfo.row}#{<%= bm('.common_lines') %>}"
               if errorInfo.column > 0
-                msg += "#{Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_COMMA}#{errorInfo.column}#{Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LETTERS}"
+                msg += "#{<%= bm('.common_comma') %>}#{errorInfo.column}#{<%= bm('.common_letters') %>}"
               window.errorMessage(msg + ": #{errorInfo.message}")
           $.Deferred().reject().promise()
       .then ->
@@ -130,9 +135,9 @@ Smalruby.MainMenuView = Backbone.View.extend
         if data.length > 0
           for errorInfo in data
             do (errorInfo) ->
-              msg = "#{errorInfo.row}#{Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LINES}"
+              msg = "#{errorInfo.row}#{<%= bm('.common_lines') %>}"
               if errorInfo.column > 0
-                msg += "#{Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_COMMA}#{errorInfo.column}#{Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LETTERS}"
+                msg += "#{<%= bm('.common_comma') %>}#{errorInfo.column}#{<%= bm('.common_letters') %>}"
               errorMessage(msg + ": #{errorInfo.message}")
           $.Deferred().reject().promise()
       .then(@unblockUI, @unblockUI)
@@ -149,9 +154,9 @@ Smalruby.MainMenuView = Backbone.View.extend
     @blockUI
       title:
         """
-        プログラムのダウンロード中
+        #{<%= bm('.download_blockui_title') %>}
         """
-      message: 'プログラムをダウンロードしています。'
+      message: <%= bm('.download_blockui_message') %>
       notice:
         """
         ダウンロードしたプログラムは、<br>

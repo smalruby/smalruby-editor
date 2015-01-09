@@ -14,11 +14,19 @@ Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LETTERS = ' Letters';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_COMMA = ', ';
 
 
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_BLOCK_MODE_BLOCKUI_TITLE = 'Converting Program';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_BLOCK_MODE_BLOCKUI_MESSAGE = 'Converting your program to instruction blocks.';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_BLOCK_MODE_ERROR = "Can't convert your program to instruction blocks.";
+
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_BLOCKUI_TITLE = 'Running';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_BLOCKUI_MESSAGE = "Please switch your program's window.";
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_BLOCKUI_NOTICE = 'Running your program after save & check it.<br>Press ESC key to quit.';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_ERROR_CANT_RUN = "Can't run your program.";
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_ERROR_CANCEL_TO_RUN = "Cancel to run your program.";
+
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_DOWNLOAD_BLOCKUI_TITLE = 'Downloading';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_DOWNLOAD_BLOCKUI_MESSAGE = "Downloading your program.";
+
 
 // blocks/motion.js.coffee.erb
 Blockly.Msg.BLOCKS_MOTION_MOVE = 'move %1 steps';
