@@ -190,6 +190,7 @@ Blockly.Msg.BLOCKS_HARDWARE_MOTOR_DRIVER_SET_SPEED = '(モータードライバ%
 Blockly.Msg.BLOCKS_HARDWARE_MOTOR_DRIVER_SPEED = '(モータードライバ%1の)モーターの速度(%)';
 Blockly.Msg.BLOCKS_HARDWARE_BUTTON_DOWN_OR_UP = 'ボタン%1が%2';
 Blockly.Msg.BLOCKS_HARDWARE_ON_BUTTON_DOWN_OR_UP = 'ボタン%1が%2とき';
+Blockly.Msg.BLOCKS_HARDWARE_BUTTON_NOT_USE_PULLUP = 'ボタン%1のプルアップ抵抗を使わない';
 Blockly.Msg.BLOCKS_HARDWARE_SENSOR_VALUE = 'センサー%1';
 Blockly.Msg.BLOCKS_HARDWARE_ON_SENSOR_CHANGE = 'センサー%1が変化したとき';
 
