@@ -71,6 +71,8 @@ end
 
 group :development do
   gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'spring-commands-teaspoon'
 end
 
 group :development, :test do
