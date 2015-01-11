@@ -73,6 +73,9 @@ group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-commands-teaspoon'
+  gem 'guard-rspec', require: false
+  gem 'guard-livereload', require: false
+  gem 'terminal-notifier-guard', require: false
 end
 
 group :development, :test do
@@ -81,8 +84,6 @@ group :development, :test do
   gem 'rubocop'
   gem 'rspec-rails'
   gem 'teaspoon'
-  gem 'guard-rspec', require: false
-  gem 'terminal-notifier-guard'
   gem 'smalruby', '~> 0.0.32', require: false
 end
 
