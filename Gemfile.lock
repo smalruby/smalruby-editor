@@ -237,6 +237,7 @@ GEM
     spork-rails (4.0.0)
       rails (>= 3.0.0, < 5)
       spork (>= 1.0rc0)
+    spring (1.2.0)
     sprockets (2.10.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -313,6 +314,7 @@ DEPENDENCIES
   shoulda-matchers
   smalruby (~> 0.0.32)
   spork-rails
+  spring
   sqlite3
   teaspoon
   turbolinks

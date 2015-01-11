@@ -69,6 +69,10 @@ group :production do
   gem 'unicorn', platforms: :ruby
 end
 
+group :development do
+  gem 'spring'
+end
+
 group :development, :test do
   gem 'sqlite3'
   gem 'commands'

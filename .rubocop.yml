@@ -30,3 +30,7 @@ MethodLength:
 # デフォルトの100は短すぎる。なんとなく250行とした。
 ClassLength:
   Max: 250
+
+# LoadErrorなど、rescueブロックを空にすることはよくあるため。
+HandleExceptions:
+  Enabled: false
