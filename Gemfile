@@ -81,6 +81,8 @@ group :development, :test do
   gem 'rubocop'
   gem 'rspec-rails'
   gem 'teaspoon'
+  gem 'guard-rspec', require: false
+  gem 'terminal-notifier-guard'
   gem 'smalruby', '~> 0.0.32', require: false
 end
 
