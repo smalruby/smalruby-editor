@@ -122,6 +122,9 @@ GEM
     guard-rspec (4.2.8)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
+    guard-rubocop (1.0.2)
+      guard (~> 2.0)
+      rubocop (~> 0.10)
     haml (4.0.5)
       tilt
     haml-rails (0.5.3)
@@ -332,6 +335,7 @@ DEPENDENCIES
   flatstrap-sass
   guard-livereload
   guard-rspec
+  guard-rubocop
   haml-rails
   jbuilder (~> 2.0)
   jquery-fileupload-rails!

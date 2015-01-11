@@ -75,6 +75,7 @@ group :development do
   gem 'spring-commands-teaspoon'
   gem 'guard-rspec', require: false
   gem 'guard-livereload', require: false
+  gem 'guard-rubocop', require: false
   gem 'terminal-notifier-guard', require: false
 end
 
