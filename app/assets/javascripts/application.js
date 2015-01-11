@@ -15,7 +15,6 @@
 //= require jquery.ui.draggable
 //= require jquery.ui.droppable
 //= require jquery.blockUI
-//= require turbolinks
 //= require ace/ace
 //= require ace/theme-clouds.js
 //= require ace/mode-ruby.js

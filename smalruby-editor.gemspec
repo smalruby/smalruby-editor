@@ -61,7 +61,6 @@ Gem::Specification.new do |spec|
      ['sass-rails', '~> 4.0.0'],
      ['uglifier', '>= 1.3.0'],
      ['coffee-rails', '~> 4.0.0'],
-     ['turbolinks'],
      ['jbuilder', '~> 2.0'],
      ['flatstrap-sass'],
      ['shared-mime-info'],
