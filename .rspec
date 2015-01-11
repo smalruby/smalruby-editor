@@ -1,4 +1,3 @@
 --color
 --format documentation
---drb
 -r turnip/rspec

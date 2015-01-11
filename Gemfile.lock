@@ -231,12 +231,6 @@ GEM
       dino (~> 0.11.2)
       dxruby (= 1.4.0)
       mime-types (~> 1.6)
-    spork (1.0.0rc4)
-    spork (1.0.0rc4-x86-mingw32)
-      win32-process
-    spork-rails (4.0.0)
-      rails (>= 3.0.0, < 5)
-      spork (>= 1.0rc0)
     spring (1.2.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -317,7 +311,6 @@ DEPENDENCIES
   shared-mime-info
   shoulda-matchers
   smalruby (~> 0.0.32)
-  spork-rails
   spring
   spring-commands-rspec
   spring-commands-teaspoon
