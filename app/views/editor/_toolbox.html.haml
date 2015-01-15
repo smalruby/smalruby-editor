@@ -40,10 +40,12 @@
         = toolbox_number_value('Y', 0)
 
       -# 変数:x座標
-      %block{:type => "#{category}_self_x"}
+      - if !raspberrypi?
+        %block{:type => "#{category}_self_x"}
 
       -# 変数:y座標
-      %block{:type => "#{category}_self_y"}
+      - if !raspberrypi?
+        %block{:type => "#{category}_self_y"}
 
     %category{:name => t('.motion_rotate')}
       -# もし端に着いたら、跳ね返る
@@ -77,64 +79,66 @@
       %block{:type => "#{category}_set_rotation_style"}
 
       -# 変数:向き
-      %block{:type => "#{category}_self_angle"}
+      - if !raspberrypi?
+        %block{:type => "#{category}_self_angle"}
 
-    - category = 'hardware'
-    %category{:name => t('.motion_actuator')}
-      - subcategory = 'servo'
-      -# サーボ[▼PIN]を(　)度(5～180)にする
-      %block{:type => "#{category}_#{subcategory}_set_position"}
-        = toolbox_number_value('POS', 90)
+    - if !raspberrypi?
+      - category = 'hardware'
+      %category{:name => t('.motion_actuator')}
+        - subcategory = 'servo'
+        -# サーボ[▼PIN]を(　)度(5～180)にする
+        %block{:type => "#{category}_#{subcategory}_set_position"}
+          = toolbox_number_value('POS', 90)
 
-      - subcategory = 'two_wheel_drive_car'
-      -# 2WD車[▼PIN]を（　）秒[▼コマンド]
-      %block{:type => "#{category}_#{subcategory}_run"}
-        = toolbox_pin_field('D5')
-        = toolbox_number_value('SEC', 1)
-        %value{:name => 'COMMAND'}
-          %block{:type => "#{category}_#{subcategory}_commands"}
+        - subcategory = 'two_wheel_drive_car'
+        -# 2WD車[▼PIN]を（　）秒[▼コマンド]
+        %block{:type => "#{category}_#{subcategory}_run"}
+          = toolbox_pin_field('D5')
+          = toolbox_number_value('SEC', 1)
+          %value{:name => 'COMMAND'}
+            %block{:type => "#{category}_#{subcategory}_commands"}
 
-      -# [▼コマンド]
-      %block{:type => "#{category}_#{subcategory}_commands"}
-        %field{:name => 'COMMAND'}<
-          forward
+        -# [▼コマンド]
+        %block{:type => "#{category}_#{subcategory}_commands"}
+          %field{:name => 'COMMAND'}<
+            forward
 
-      -# 2WD車[▼PIN]を進める
-      %block{:type => "#{category}_#{subcategory}_forward"}
-        = toolbox_pin_field('D5')
+        -# 2WD車[▼PIN]を進める
+        %block{:type => "#{category}_#{subcategory}_forward"}
+          = toolbox_pin_field('D5')
 
-      -# 2WD車[▼PIN]をバックさせる
-      %block{:type => "#{category}_#{subcategory}_backward"}
-        = toolbox_pin_field('D5')
+        -# 2WD車[▼PIN]をバックさせる
+        %block{:type => "#{category}_#{subcategory}_backward"}
+          = toolbox_pin_field('D5')
 
-      -# 2WD車[▼PIN]を左に曲げる
-      %block{:type => "#{category}_#{subcategory}_turn_left"}
-        = toolbox_pin_field('D5')
+        -# 2WD車[▼PIN]を左に曲げる
+        %block{:type => "#{category}_#{subcategory}_turn_left"}
+          = toolbox_pin_field('D5')
 
-      -# 2WD車[▼PIN]を右に曲げる
-      %block{:type => "#{category}_#{subcategory}_turn_right"}
-        = toolbox_pin_field('D5')
+        -# 2WD車[▼PIN]を右に曲げる
+        %block{:type => "#{category}_#{subcategory}_turn_right"}
+          = toolbox_pin_field('D5')
 
-      -# 2WD車[▼PIN]を止める
-      %block{:type => "#{category}_#{subcategory}_stop"}
-        = toolbox_pin_field('D5')
+        -# 2WD車[▼PIN]を止める
+        %block{:type => "#{category}_#{subcategory}_stop"}
+          = toolbox_pin_field('D5')
 
-      -# 2WD車[▼PIN]の[▼LOR]の速度を<SPEED>%にする
-      %block{:type => "#{category}_#{subcategory}_set_speed"}
-        = toolbox_pin_field('D5')
-        = toolbox_number_value('SPEED', 100)
+        -# 2WD車[▼PIN]の[▼LOR]の速度を<SPEED>%にする
+        %block{:type => "#{category}_#{subcategory}_set_speed"}
+          = toolbox_pin_field('D5')
+          = toolbox_number_value('SPEED', 100)
 
-      - subcategory = 'motor_driver'
-      -# (モータードライバ[▼PIN]で)モーターを[▼正転させる]
-      %block{:type => "#{category}_#{subcategory}"}
-        = toolbox_pin_field('D6')
-        %field{:name => 'METHOD'}<
-          forward
+        - subcategory = 'motor_driver'
+        -# (モータードライバ[▼PIN]で)モーターを[▼正転させる]
+        %block{:type => "#{category}_#{subcategory}"}
+          = toolbox_pin_field('D6')
+          %field{:name => 'METHOD'}<
+            forward
 
-      -# (モータードライバ[▼PIN]の)モーターの速度を<SPEED>%にする
-      %block{:type => "#{category}_#{subcategory}_set_speed"}
-        = toolbox_pin_field('D6')
-        = toolbox_number_value('SPEED', 100)
+        -# (モータードライバ[▼PIN]の)モーターの速度を<SPEED>%にする
+        %block{:type => "#{category}_#{subcategory}_set_speed"}
+          = toolbox_pin_field('D6')
+          = toolbox_number_value('SPEED', 100)
 
   - category = 'looks'
   %category{:name => t('.looks')}
@@ -179,35 +183,36 @@
     -# [▼プリセット画像]
     -#%block{:type => "#{category}_preset_images"}
 
-    - category = 'hardware'
-    - subcategory = 'led'
-    -# LED[▼PIN]をオンにする
-    %block{:type => "#{category}_#{subcategory}_on"}
+    - if !raspberrypi?
+      - category = 'hardware'
+      - subcategory = 'led'
+      -# LED[▼PIN]をオンにする
+      %block{:type => "#{category}_#{subcategory}_on"}
 
-    -# LED[▼PIN]をオフにする
-    %block{:type => "#{category}_#{subcategory}_off"}
+      -# LED[▼PIN]をオフにする
+      %block{:type => "#{category}_#{subcategory}_off"}
 
-    - subcategory = 'rgb_led'
-    -# RGB LED[▼アノード]コモン[▼PIN]を[カラー]にする
-    %block{:type => "#{category}_#{subcategory}_on"}
+      - subcategory = 'rgb_led'
+      -# RGB LED[▼アノード]コモン[▼PIN]を[カラー]にする
+      %block{:type => "#{category}_#{subcategory}_on"}
 
-    -# RGB LED[▼アノード]コモン[▼PIN]をオフにする
-    %block{:type => "#{category}_#{subcategory}_off"}
+      -# RGB LED[▼アノード]コモン[▼PIN]をオフにする
+      %block{:type => "#{category}_#{subcategory}_off"}
 
-    - subcategory = 'seven_segment_display'
-    -# 7セグディスプレイに[▼0-9]を表示する
-    %block{:type => "#{category}_#{subcategory}_show"}
+      - subcategory = 'seven_segment_display'
+      -# 7セグディスプレイに[▼0-9]を表示する
+      %block{:type => "#{category}_#{subcategory}_show"}
 
-    -# 7セグディスプレイをオフにする
-    %block{:type => "#{category}_#{subcategory}_off"}
+      -# 7セグディスプレイをオフにする
+      %block{:type => "#{category}_#{subcategory}_off"}
 
-    - subcategory = 'lcd'
-    -# LCDに(　)を表示する
-    %block{:type => "#{category}_#{subcategory}_puts"}
-      = toolbox_text_value('TEXT', 'Hello')
+      - subcategory = 'lcd'
+      -# LCDに(　)を表示する
+      %block{:type => "#{category}_#{subcategory}_puts"}
+        = toolbox_text_value('TEXT', 'Hello')
 
-    -# LCDをクリアする
-    %block{:type => "#{category}_#{subcategory}_clear"}
+      -# LCDをクリアする
+      %block{:type => "#{category}_#{subcategory}_clear"}
 
   - category = 'sound'
   %category{:name => t('.sound')}
@@ -224,14 +229,15 @@
 
   - category = 'pen'
   %category{:name => t('.pen')}
-    -# ペンを下ろす
-    %block{:type => "#{category}_down_pen"}
+    - if !raspberrypi?
+      -# ペンを下ろす
+      %block{:type => "#{category}_down_pen"}
 
-    -# ペンを上げる
-    %block{:type => "#{category}_up_pen"}
+      -# ペンを上げる
+      %block{:type => "#{category}_up_pen"}
 
-    -# ペンの色を[カラー]にする
-    %block{:type => "#{category}_set_pen_color"}
+      -# ペンの色を[カラー]にする
+      %block{:type => "#{category}_set_pen_color"}
 
   %category{:name => t('.data')}
     %category{:name => t('.data_variables'), :custom => 'VARIABLE'}
@@ -251,12 +257,13 @@
     -# [▼キャラクター]にぶつかったとき
     %block{:type => "#{category}_on_hit"}
 
-    - category = 'hardware'
-    -# センサー[▼PIN]が変化したとき
-    %block{:type => "#{category}_on_sensor_change"}
+    - if !raspberrypi?
+      - category = 'hardware'
+      -# センサー[▼PIN]が変化したとき
+      %block{:type => "#{category}_on_sensor_change"}
 
-    -# ボタン[▼PIN]が[▼押された]とき
-    %block{:type => "#{category}_on_button_down_or_up"}
+      -# ボタン[▼PIN]が[▼押された]とき
+      %block{:type => "#{category}_on_button_down_or_up"}
 
   - category = 'control'
   %category{:name => t('.control')}
@@ -336,29 +343,31 @@
       -# 変数:[▼キャラクター]の[▼プロパティ]
       %block{:type => "#{category}_character_property"}
 
-      -# 変数:現在の[▼時]
-      %block{:type => "#{category}_time_now"}
+      - if !raspberrypi?
+        -# 変数:現在の[▼時]
+        %block{:type => "#{category}_time_now"}
 
-      -# 変数:2000年からの日数
-      -#%block{:type => "#{category}_days_since_2000"}
+        -# 変数:2000年からの日数
+        %block{:type => "#{category}_days_since_2000"}
 
-    - category = 'hardware'
-    %category{:name => t('.sensing_hardware')}
-      -# センサー[▼PIN]
-      %block{:type => "#{category}_sensor_value"}
-        = toolbox_pin_field('A0')
+    - if !raspberrypi?
+      - category = 'hardware'
+      %category{:name => t('.sensing_hardware')}
+        -# センサー[▼PIN]
+        %block{:type => "#{category}_sensor_value"}
+          = toolbox_pin_field('A0')
 
-      -# 条件:ボタン[▼PIN]が[▼押された]
-      %block{:type => "#{category}_button_down_or_up"}
-        = toolbox_pin_field('D3')
+        -# 条件:ボタン[▼PIN]が[▼押された]
+        %block{:type => "#{category}_button_down_or_up"}
+          = toolbox_pin_field('D3')
 
-      -# 2WD車[▼PIN]の[▼LOR]の速度%
-      %block{:type => "#{category}_two_wheel_drive_car_speed"}
-        = toolbox_pin_field('D5')
+        -# 2WD車[▼PIN]の[▼LOR]の速度%
+        %block{:type => "#{category}_two_wheel_drive_car_speed"}
+          = toolbox_pin_field('D5')
 
-      -# (モータードライバ[▼PIN]の)モーターの速度(%)
-      %block{:type => "#{category}_motor_driver_speed"}
-        = toolbox_pin_field('D6')
+        -# (モータードライバ[▼PIN]の)モーターの速度(%)
+        %block{:type => "#{category}_motor_driver_speed"}
+          = toolbox_pin_field('D6')
 
   - category = 'operators'
   %category{:name => t('.operators')}
@@ -385,15 +394,16 @@
         = toolbox_number_value('A', 5)
         = toolbox_number_value('B', 2)
 
-      -# 変数:(　)を丸める
-      %block{:type => "#{category}_round"}
-        = toolbox_number_value('A', 0.5)
+      - if !raspberrypi?
+        -# 変数:(　)を丸める
+        %block{:type => "#{category}_round"}
+          = toolbox_number_value('A', 0.5)
 
-      -# 変数:(　)の[▼数学関数]
-      %block{:type => "#{category}_math_method"}
-        = toolbox_number_value('NUM', 9)
-        %field{:name => 'METHOD'}<
-          Math.sqrt(%num%)
+        -# 変数:(　)の[▼数学関数]
+        %block{:type => "#{category}_math_method"}
+          = toolbox_number_value('NUM', 9)
+          %field{:name => 'METHOD'}<
+            Math.sqrt(%num%)
 
       -# 数値
       %block{:type => 'math_number'}
@@ -447,25 +457,26 @@
       %block{:type => "#{category}_false"}
 
   %category{:name => t('.etc')}
-    - category = 'ruby'
-    %category{:name => t('.etc_ruby')}
-      -# 文
-      %block{:type => "#{category}_statement"}
+    - if !raspberrypi?
+      - category = 'ruby'
+      %category{:name => t('.etc_ruby')}
+        -# 文
+        %block{:type => "#{category}_statement"}
 
-      -# 式
-      %block{:type => "#{category}_expression"}
+        -# 式
+        %block{:type => "#{category}_expression"}
 
-      -# コメント
-      %block{:type => "#{category}_comment"}
+        -# コメント
+        %block{:type => "#{category}_comment"}
 
-      -# p
-      %block{:type => "#{category}_p"}
+        -# p
+        %block{:type => "#{category}_p"}
 
-    - category = 'hardware'
-    %category{:name => t('.etc_hardware')}
-      -# ハードウェアを準備する
-      %block{:type => "#{category}_init_hardware"}
+      - category = 'hardware'
+      %category{:name => t('.etc_hardware')}
+        -# ハードウェアを準備する
+        %block{:type => "#{category}_init_hardware"}
 
-      -# ボタン[▼PIN]のプルアップ抵抗を使わない
-      %block{:type => "#{category}_button_not_use_pullup"}
-        = toolbox_pin_field('D3')
+        -# ボタン[▼PIN]のプルアップ抵抗を使わない
+        %block{:type => "#{category}_button_not_use_pullup"}
+          = toolbox_pin_field('D3')
