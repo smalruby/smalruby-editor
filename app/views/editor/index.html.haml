@@ -41,16 +41,16 @@
           = t('.check')
         %button#reset-button.btn{class: "btn-primary"}<
           %i.icon-off
-          = t('Reset')
+          = t('.reset')
         - if standalone?
           - if session[:username]
             %button#signout-button.btn{class: "btn-primary"}<
               %i.icon-eject
-              = t('logout')
+              = t('.logout')
           - else
             %button#signout-button.btn{class: "btn-primary", style: "display: none"}<
               %i.icon-eject
-              = t('logout')
+              = t('.logout')
 
       - else
         .btn-group
