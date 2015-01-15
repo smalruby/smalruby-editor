@@ -28,28 +28,14 @@
 
   hues = [
     colors[:motion],
-    colors[:motion],
-    colors[:motion],
-    colors[:motion],
     colors[:looks],
     colors[:sound],
     colors[:pen],
     colors[:data],
-    colors[:data],
     colors[:events],
     colors[:control],
-    colors[:control],
-    colors[:control],
-    colors[:control],
-    colors[:sensing],
-    colors[:sensing],
     colors[:sensing],
     colors[:operators],
-    colors[:operators],
-    colors[:operators],
-    colors[:operators],
-    colors[:etc],
-    colors[:etc],
     colors[:etc],
   ]
 
@@ -57,11 +43,10 @@
     [hsv_to_rgb(h, 100, 80), hsv_to_rgb(h, 100, 100)]
   }
 
-  ids = (0..9).to_a + ('a'..'z').to_a
   colors.each.with_index(1) do |(color, active_color), index|
 %>
 
-#\:<%= ids[index] %> {
+div[aria-level="1"][aria-posinset="<%= index %>"] {
     .blocklyTreeRow {
         margin-bottom: 1px;
         padding-top: 1px;
