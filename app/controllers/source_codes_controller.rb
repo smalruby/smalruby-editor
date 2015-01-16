@@ -9,16 +9,21 @@ class SourceCodesController < ApplicationController
       localPrograms: [],
       demoPrograms: [],
     }
+
+    select_and_get_summary = proc { |path|
+      s = SourceCode.new(filename: path.basename.to_s, data: path.read)
+      next if raspberrypi? && s.include_block?(/^(hardware_|pen_)/)
+      s.summary
+    }
+
     if standalone?
-      res[:localPrograms] = local_program_paths.map { |path|
-        SourceCode.new(filename: path.basename.to_s, data: path.read).summary
-      }
+      res[:localPrograms] =
+        local_program_paths.map(&select_and_get_summary).compact
     end
 
-    res[:demoPrograms] = Pathname.glob(Rails.root.join('demos/*.rb.xml')).map {
-      |path|
-      SourceCode.new(filename: path.basename.to_s, data: path.read).summary
-    }
+    demo_program_paths = Pathname.glob(Rails.root.join('demos/*.rb.xml'))
+    res[:demoPrograms] =
+      demo_program_paths.map(&select_and_get_summary).compact
 
     render json: res
   end

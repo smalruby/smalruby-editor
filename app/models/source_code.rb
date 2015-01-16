@@ -67,7 +67,7 @@ class SourceCode < ActiveRecord::Base
   # ソースコードの概要を取得する
   def summary
     res = {}
-    if /\.xml\z/ =~ filename
+    if xml?
       res[:filename] = filename.sub(/\.xml\z/, '')
 
       doc = Nokogiri::HTML.parse(data)
@@ -84,7 +84,40 @@ class SourceCode < ActiveRecord::Base
     res
   end
 
+  # 指定した命令ブロックを含んでいるかどうかを返す
+  #
+  # @param [String|Regexp] type 命令ブロックの種類
+  # @return [Boolean] 命令ブロックを含む場合はtrue、そうでない場合はfalse
+  def include_block?(type)
+    if xml?
+      doc = Nokogiri::HTML.parse(data)
+      if type.is_a?(Regexp)
+        doc.xpath(%(//block[matches(@type, '#{type.source}')]),
+                  MatchesXPathFunction.new).length > 0
+      else
+        doc.xpath(%(//block[@type="#{type}"])).length > 0
+      end
+    else
+      false
+    end
+  end
+
+  # ソースコードの種別がXML形式かどうかを返す
+  def xml?
+    !!(/\.xml\z/ =~ filename)
+  end
+
   private
+
+  class MatchesXPathFunction
+    def matches(node_set, regex)
+      node_set.select { |node|
+        node.value =~ /#{regex}/
+      }
+    end
+  end
+
+  private_constant :MatchesXPathFunction
 
   def validate_filename
     if File.basename(filename) != filename

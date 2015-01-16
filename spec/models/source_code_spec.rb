@@ -77,7 +77,7 @@ describe SourceCode, 'Rubyのソースコードを表現するモデル' do
   end
 
   describe '#summary', 'プログラムの概要を取得する' do
-    describe 'XML形式'do
+    describe 'XML形式' do
       let(:xml_path) { rb_path + '.xml' }
       let(:data) { Rails.root.join(xml_path).read }
       let(:source_code) {
@@ -126,6 +126,93 @@ describe SourceCode, 'Rubyのソースコードを表現するモデル' do
           end
         end
       end
+    end
+  end
+
+  describe '#include_block?' do
+    describe 'XML形式' do
+      let(:data) { Rails.root.join(xml_path).read }
+      let(:source_code) {
+        SourceCode.new(filename: File.basename(xml_path), data: data)
+      }
+
+      subject { source_code.include_block?(type) }
+
+      context 'ソースコードにハードウェア関連ブロックを含む場合' do
+        let(:xml_path) { 'demos/adjust_2wd_car.rb.xml' }
+
+        context '引数にhardware_init_hardwareを指定する' do
+          let(:type) { 'hardware_init_hardware' }
+
+          it { should be_true }
+        end
+
+        context '引数にハードウェア関連ブロックを指定する' do
+          let(:type) { /^hardware_/ }
+
+          it { should be_true }
+        end
+
+        context '引数にpen_down_penを指定する' do
+          let(:type) { 'pen_down_pen' }
+
+          it { should be_false }
+        end
+
+        context '引数にペン関連ブロックを指定する' do
+          let(:type) { /^pen_/ }
+
+          it { should be_false }
+        end
+      end
+
+      context 'ソースコードにハードウェア関連ブロックを含まない場合' do
+        let(:xml_path) { 'demos/star.rb.xml' }
+
+        context '引数にhardware_init_hardwareを指定する' do
+          let(:type) { 'hardware_init_hardware' }
+
+          it { should be_false }
+        end
+
+        context '引数にハードウェア関連ブロックを指定する' do
+          let(:type) { /^hardware_/ }
+
+          it { should be_false }
+        end
+
+        context '引数にpen_down_penを指定する' do
+          let(:type) { 'pen_down_pen' }
+
+          it { should be_true }
+        end
+
+        context '引数にペン関連ブロックを指定する' do
+          let(:type) { /^pen_/ }
+
+          it { should be_true }
+        end
+      end
+    end
+  end
+
+  describe '#xml?' do
+    let(:source_code) {
+      SourceCode.new(filename: File.basename(path))
+    }
+
+    subject { source_code.xml? }
+
+    context 'a' do
+      let(:path) { 'car1.rb' }
+
+      it { should be_false }
+    end
+
+    context 'b' do
+      let(:path) { 'car1.rb.xml' }
+
+      it { should be_true }
     end
   end
 end
