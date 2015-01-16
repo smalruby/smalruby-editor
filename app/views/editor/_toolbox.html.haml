@@ -281,11 +281,12 @@
       -# 繰り返しから脱出する
       %block{:type => "#{category}_break"}
 
-      -# 次の繰り返しにジャンプする
-      %block{:type => "#{category}_next"}
+      - if !raspberrypi?
+        -# 次の繰り返しにジャンプする
+        %block{:type => "#{category}_next"}
 
-      -# 現在の繰り返しをやり直す
-      %block{:type => "#{category}_redo"}
+        -# 現在の繰り返しをやり直す
+        %block{:type => "#{category}_redo"}
 
     %category{:name => t('.control_wait')}
       -# (　)秒待つ
@@ -390,11 +391,11 @@
         = toolbox_number_value('B', 10)
 
       -# 変数:(　)を(　)で割った余り
-      %block{:type => "#{category}_modulo"}
-        = toolbox_number_value('A', 5)
-        = toolbox_number_value('B', 2)
-
       - if !raspberrypi?
+        %block{:type => "#{category}_modulo"}
+          = toolbox_number_value('A', 5)
+          = toolbox_number_value('B', 2)
+
         -# 変数:(　)を丸める
         %block{:type => "#{category}_round"}
           = toolbox_number_value('A', 0.5)
