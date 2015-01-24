@@ -188,10 +188,7 @@ Blockly.Msg.BLOCKS_HARDWARE_MOTOR_DRIVER = "%2 (motor driver %1's) motor";
 Blockly.Msg.BLOCKS_HARDWARE_MOTOR_DRIVER_SET_SPEED = "set (motor driver %1's) motor speed to %2 %";
 Blockly.Msg.BLOCKS_HARDWARE_MOTOR_DRIVER_SPEED = "(motor driver %1's) motor speed (%)";
 Blockly.Msg.BLOCKS_HARDWARE_BUTTON_DOWN_OR_UP = 'button %1 %2';
-Blockly.Msg.BLOCKS_HARDWARE_ON_BUTTON_DOWN_OR_UP = 'when button %1 %2';
-Blockly.Msg.BLOCKS_HARDWARE_BUTTON_NOT_USE_PULLUP = "don't use button %1's pull-up resistor";
 Blockly.Msg.BLOCKS_HARDWARE_SENSOR_VALUE = 'sensor %1 value';
-Blockly.Msg.BLOCKS_HARDWARE_ON_SENSOR_CHANGE = 'when sensor %1 value changed';
 
 
 // blocks/operators.js.coffee.erb

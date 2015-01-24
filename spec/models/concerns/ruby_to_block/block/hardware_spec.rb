@@ -20,7 +20,7 @@ car1.led("D4").off
 car1.rgb_led_cathode("D9").off
 car1.two_wheel_drive_car("D6").backward
 
-car1.on(:sensor_change, "A0") do
+car1.on(:start) do
   if sensor("A0").value < 200
     two_wheel_drive_car("D6").turn_left
     two_wheel_drive_car("D6").turn_right
@@ -73,8 +73,7 @@ end
                   <block type="hardware_two_wheel_drive_car_backward">
                     <field name="PIN">D6</field>
                     <next>
-                      <block type="hardware_on_sensor_change">
-                        <field name="PIN">A0</field>
+                      <block type="events_on_start">
                         <statement name="DO">
                           <block type="control_if" inline="true">
                             <value name="COND">
@@ -387,14 +386,12 @@ require "smalruby"
 init_hardware
 car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
 
-car1.on(:button_down, "D3") do
+car1.on(:start) do
   p(button("D3").up?)
   p(button("D3").down?)
-  button("D3").not_use_pullup
 end
 p(car1.button("D3").up?)
 p(car1.button("D3").down?)
-car1.button("D3").not_use_pullup
   EOS
   describe compact_source_code(parts) do
     _parts = parts
@@ -407,9 +404,7 @@ car1.button("D3").not_use_pullup
   <block type="character_new">
     <field name="NAME">car1</field>
     <statement name="DO">
-      <block type="hardware_on_button_down_or_up">
-        <field name="PIN">D3</field>
-        <field name="DOU">down</field>
+      <block type="events_on_start">
         <statement name="DO">
           <block type="ruby_p" inline="true">
             <value name="ARG">
@@ -426,11 +421,6 @@ car1.button("D3").not_use_pullup
                     <field name="DOU">down</field>
                   </block>
                 </value>
-                <next>
-                  <block type="hardware_button_not_use_pullup">
-                    <field name="PIN">D3</field>
-                  </block>
-                </next>
               </block>
             </next>
           </block>
@@ -451,11 +441,6 @@ car1.button("D3").not_use_pullup
                     <field name="DOU">down</field>
                   </block>
                 </value>
-                <next>
-                  <block type="hardware_button_not_use_pullup">
-                    <field name="PIN">D3</field>
-                  </block>
-                </next>
               </block>
             </next>
           </block>

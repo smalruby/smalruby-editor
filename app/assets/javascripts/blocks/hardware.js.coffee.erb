@@ -432,45 +432,6 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   dou = @getFieldValue('DOU')
   Blockly.Ruby.characterMethodCallInput_("button(#{Blockly.Ruby.quote_(pin)}).#{dou}?")
 
-# ボタン[▼PIN]が[▼押された]とき
-<% n = "#{category}_on_button_down_or_up" %>
-Blockly.Blocks['<%= n %>'] =
-  init: ()->
-    douDropdown = window.SmalrubyEditor.Sensing.DownOrUpDropdown
-
-    @setHelpUrl('')
-    @setColour(<%= colors[:events] %>)
-    @interpolateMsg(<%= bm('.on_button_down_or_up') %>,
-                    ['PIN', ['Dropdown', dioPinDropdown], Blockly.ALIGN_RIGHT],
-                    ['DOU', ['Dropdown', douDropdown], Blockly.ALIGN_RIGHT],
-                    Blockly.ALIGN_RIGHT)
-    @appendStatementInput('DO')
-    @setPreviousStatement(true)
-    @setNextStatement(true)
-    @setTooltip('')
-
-Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = @getFieldValue('PIN')
-  dou = @getFieldValue('DOU')
-  Blockly.Ruby.characterEvent_(block, 'DO', "button_#{dou}", Blockly.Ruby.quote_(pin))
-
-# ボタン[▼PIN]のプルアップ抵抗を使わない
-<% n = "#{category}_button_not_use_pullup" %>
-Blockly.Blocks['<%= n %>'] =
-  init: ()->
-    @setHelpUrl('')
-    @setColour(<%= colors[:etc] %>)
-    @interpolateMsg(<%= bm('.button_not_use_pullup') %>,
-                    ['PIN', ['Dropdown', dioPinDropdown], Blockly.ALIGN_RIGHT],
-                    Blockly.ALIGN_RIGHT)
-    @setPreviousStatement(true)
-    @setNextStatement(true)
-    @setTooltip('')
-
-Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = @getFieldValue('PIN')
-  Blockly.Ruby.characterMethodCall_("button(#{Blockly.Ruby.quote_(pin)}).not_use_pullup")
-
 # 「センサー」サブジャンル
 
 # センサー[▼PIN]
@@ -488,21 +449,3 @@ Blockly.Blocks['<%= n %>'] =
 Blockly.Ruby['<%= n %>'] = (block) ->
   pin = @getFieldValue('PIN')
   Blockly.Ruby.characterMethodCallInput_("sensor(#{Blockly.Ruby.quote_(pin)}).value")
-
-# センサー[▼PIN]が変化したとき
-<% n = "#{category}_on_sensor_change" %>
-Blockly.Blocks['<%= n %>'] =
-  init: ()->
-    @setHelpUrl('')
-    @setColour(<%= colors[:events] %>)
-    @interpolateMsg(<%= bm('.on_sensor_change') %>,
-                    ['PIN', ['Dropdown', aiPinDropdown], Blockly.ALIGN_RIGHT],
-                    Blockly.ALIGN_RIGHT)
-    @appendStatementInput('DO')
-    @setPreviousStatement(true)
-    @setNextStatement(true)
-    @setTooltip('')
-
-Blockly.Ruby['<%= n %>'] = (block) ->
-  pin = @getFieldValue('PIN')
-  Blockly.Ruby.characterEvent_(block, 'DO', 'sensor_change', Blockly.Ruby.quote_(pin))

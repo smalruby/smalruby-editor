@@ -257,14 +257,6 @@
     -# [▼キャラクター]にぶつかったとき
     %block{:type => "#{category}_on_hit"}
 
-    - if !raspberrypi?
-      - category = 'hardware'
-      -# センサー[▼PIN]が変化したとき
-      %block{:type => "#{category}_on_sensor_change"}
-
-      -# ボタン[▼PIN]が[▼押された]とき
-      %block{:type => "#{category}_on_button_down_or_up"}
-
   - category = 'control'
   %category{:name => t('.control')}
     %category{:name => t('.control_loop')}
@@ -477,7 +469,3 @@
       %category{:name => t('.etc_hardware')}
         -# ハードウェアを準備する
         %block{:type => "#{category}_init_hardware"}
-
-        -# ボタン[▼PIN]のプルアップ抵抗を使わない
-        %block{:type => "#{category}_button_not_use_pullup"}
-          = toolbox_pin_field('D3')
