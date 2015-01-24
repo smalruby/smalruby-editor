@@ -32,10 +32,11 @@ module EditorHelper
   # @param [Numeric] value 数値
   # @return [String] XML
   def toolbox_number_value(name, value = 0)
+    value = value.to_i unless value.is_a?(Numeric)
     <<-XML.strip_heredoc.html_safe
       <value name="#{h name}">
         <block type="math_number">
-          <field name="NUM">#{h value.to_i}</field>
+          <field name="NUM">#{h value}</field>
         </block>
       </value>
     XML

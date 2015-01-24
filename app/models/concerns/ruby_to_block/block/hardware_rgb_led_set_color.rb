@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 module RubyToBlock
   module Block
-    class HardwareRgbLedOn < CharacterMethodCall
+    class HardwareRgbLedSetColor < CharacterMethodCall
       # rubocop:disable LineLength
-      blocknize '^\s*' + CHAR_RE + 'rgb_led_(anode|cathode)\("(D[39])"\).on\(color:\s*\[(\d+),\s*(\d+),\s*(\d+)\]\)\s*$',
+      blocknize '^\s*' + CHAR_RE + 'rgb_led_(anode|cathode)\("(D[39])"\).color\s*=\s*\[(\d+),\s*(\d+),\s*(\d+)\]\s*$',
                 statement: true
       # rubocop:enable LineLength
 

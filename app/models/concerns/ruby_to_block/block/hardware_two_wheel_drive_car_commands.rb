@@ -2,7 +2,9 @@
 module RubyToBlock
   module Block
     class HardwareTwoWheelDriveCarCommands < Value
-      blocknize '^\s*"(forward|backward|turn_left|turn_right|stop)"\s*$',
+      include HardwareOperation
+
+      blocknize '^\s*"' + ACTION_RE + '"\s*$',
                 value: true, priority: 1
 
       def self.process_match_data(md, context)

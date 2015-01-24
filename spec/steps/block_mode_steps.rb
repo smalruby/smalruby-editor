@@ -50,6 +50,14 @@ step '次のキャラクターを追加する:' do |table|
   end
 end
 
+step 'キャラクターcar1を追加する' do
+  table = Turnip::Table.new([
+                             %w(name costumes x y angle),
+                             %w(car1 car1.png 0 0 0),
+                            ])
+  step '次のキャラクターを追加する:', table
+end
+
 step '次のXMLと同等のブロックが配置されていること:' do |xml|
   expect(page.evaluate_script('Smalruby.dumpXml()')).to eq(xml)
 end

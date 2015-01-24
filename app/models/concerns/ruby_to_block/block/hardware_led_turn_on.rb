@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 module RubyToBlock
   module Block
-    class HardwareLedOn < CharacterMethodCall
-      blocknize '^\s*' + CHAR_RE + 'led\("(D(?:[2-9]|1[0-3]))"\).on\s*$',
+    class HardwareLedTurnOn < CharacterMethodCall
+      blocknize '^\s*' + CHAR_RE + 'led\("(D(?:[2-9]|1[0-3]))"\).turn_on\s*$',
                 statement: true
 
       def self.process_match_data(md, context)

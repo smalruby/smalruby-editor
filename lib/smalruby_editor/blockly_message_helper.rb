@@ -10,8 +10,9 @@ module SmalrubyEditor
         filename = md[1]
         prefix = filename.slice(%r"app/assets/javascripts/(.*)$", 1)
           .gsub(/\..*\z/, '')
-        name = (prefix + name).gsub(/[\/.]/, '_')
+        name = prefix + name
       end
+      name = name.gsub(/[\/.]/, '_')
       "Smalruby.bm('#{name.upcase}')"
     end
   end

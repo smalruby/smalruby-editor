@@ -140,6 +140,19 @@
           = toolbox_pin_field('D6')
           = toolbox_number_value('SPEED', 100)
 
+        - subcategory = 'smalrubot_v3'
+        %block{type: "#{category}_#{subcategory}_action"}
+          %field{name: 'ACTION'}<
+            forward
+
+        %block{type: "#{category}_#{subcategory}_action_with_sec"}
+          %field{name: 'ACTION'}<
+            forward
+          = toolbox_number_value('SEC', 0.5)
+
+        %block{type: "#{category}_#{subcategory}_motor_set_speed"}
+          = toolbox_number_value('SPEED', 100)
+
   - category = 'looks'
   %category{:name => t('.looks')}
     -# [　]と(　)秒言う
@@ -187,17 +200,17 @@
       - category = 'hardware'
       - subcategory = 'led'
       -# LED[▼PIN]をオンにする
-      %block{:type => "#{category}_#{subcategory}_on"}
+      %block{:type => "#{category}_#{subcategory}_turn_on"}
 
       -# LED[▼PIN]をオフにする
-      %block{:type => "#{category}_#{subcategory}_off"}
+      %block{:type => "#{category}_#{subcategory}_turn_off"}
 
       - subcategory = 'rgb_led'
       -# RGB LED[▼アノード]コモン[▼PIN]を[カラー]にする
-      %block{:type => "#{category}_#{subcategory}_on"}
+      %block{:type => "#{category}_#{subcategory}_set_color"}
 
       -# RGB LED[▼アノード]コモン[▼PIN]をオフにする
-      %block{:type => "#{category}_#{subcategory}_off"}
+      %block{:type => "#{category}_#{subcategory}_turn_off"}
 
       - subcategory = 'seven_segment_display'
       -# 7セグディスプレイに[▼0-9]を表示する
@@ -213,6 +226,13 @@
 
       -# LCDをクリアする
       %block{:type => "#{category}_#{subcategory}_clear"}
+
+      - subcategory = 'smalrubot_v3'
+      %block{type: "#{category}_#{subcategory}_led_turn_on_or_off"}
+        %field{name: 'COLOUR'}<
+          red
+        %field{name: 'OOO'}<
+          turn_on
 
   - category = 'sound'
   %category{:name => t('.sound')}
@@ -351,7 +371,7 @@
           = toolbox_pin_field('A0')
 
         -# 条件:ボタン[▼PIN]が[▼押された]
-        %block{:type => "#{category}_button_down_or_up"}
+        %block{:type => "#{category}_button_pressed_or_released"}
           = toolbox_pin_field('D3')
 
         -# 2WD車[▼PIN]の[▼LOR]の速度%
@@ -361,6 +381,11 @@
         -# (モータードライバ[▼PIN]の)モーターの速度(%)
         %block{:type => "#{category}_motor_driver_speed"}
           = toolbox_pin_field('D6')
+
+        - subcategory = 'smalrubot_v3'
+        %block{type: "#{category}_#{subcategory}_touch_sensor_pressed_or_released"}
+        %block{type: "#{category}_#{subcategory}_light_sensor_value"}
+        %block{type: "#{category}_#{subcategory}_motor_speed"}
 
   - category = 'operators'
   %category{:name => t('.operators')}

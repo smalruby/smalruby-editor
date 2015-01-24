@@ -8,6 +8,21 @@ goog.require('Blockly.Msg');
  * to message files.
  */
 
+// common
+Blockly.Msg.COMMON_TURN_ON = 'オンにする';
+Blockly.Msg.COMMON_TURN_OFF = 'オフにする';
+Blockly.Msg.COMMON_FORWARD = '進める';
+Blockly.Msg.COMMON_BACKWARD = 'バックさせる';
+Blockly.Msg.COMMON_TURN_LEFT = '左に曲げる';
+Blockly.Msg.COMMON_TURN_RIGHT = '右に曲げる';
+Blockly.Msg.COMMON_STOP = '止める';
+
+
+// colour name
+Blockly.Msg.COLOUR_RED = '赤色';
+Blockly.Msg.COLOUR_GREEN = '緑色';
+
+
 // views/main_menu_view.js.coffee
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LINES = '行';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LETTERS = '文字';
@@ -74,13 +89,16 @@ Blockly.Msg.BLOCKS_SENSING_K_DOWN = '↓';
 Blockly.Msg.BLOCKS_SENSING_K_LEFT = '←';
 Blockly.Msg.BLOCKS_SENSING_K_RIGHT = '→';
 Blockly.Msg.BLOCKS_SENSING_K_SPACE = 'スペース';
-Blockly.Msg.BLOCKS_SENSING_PUSH = '押された';
-Blockly.Msg.BLOCKS_SENSING_HOLD_DOWN = '押され続けている';
-Blockly.Msg.BLOCKS_SENSING_DOWN = Blockly.Msg.BLOCKS_SENSING_PUSH;
+Blockly.Msg.BLOCKS_SENSING_PRESSED = '押された';
+Blockly.Msg.BLOCKS_SENSING_PUSH = Blockly.Msg.BLOCKS_SENSING_PRESSED;
+Blockly.Msg.BLOCKS_SENSING_UP = Blockly.Msg.BLOCKS_SENSING_PRESSED;
+Blockly.Msg.BLOCKS_SENSING_HOLD_PRESSED = '押され続けている';
+Blockly.Msg.BLOCKS_SENSING_HOLD_DOWN = Blockly.Msg.BLOCKS_SENSING_HOLD_PRESSED;
 Blockly.Msg.BLOCKS_SENSING_M_LBUTTON = '左ボタン';
 Blockly.Msg.BLOCKS_SENSING_M_MBUTTON = '中ボタン';
 Blockly.Msg.BLOCKS_SENSING_M_RBUTTON = '右ボタン';
-Blockly.Msg.BLOCKS_SENSING_UP = '離された';
+Blockly.Msg.BLOCKS_SENSING_RELEASED = '離された';
+Blockly.Msg.BLOCKS_SENSING_UP = Blockly.Msg.BLOCKS_SENSING_RELEASED;
 Blockly.Msg.BLOCKS_SENSING_REACH_WALL = '端に触れた';
 Blockly.Msg.BLOCKS_SENSING_INPUT_KEY_PUSH_OR_DOWN_PREFIX = 'キーボードの';
 Blockly.Msg.BLOCKS_SENSING_INPUT_KEY_PUSH_OR_DOWN_MIDDLE = 'が';
@@ -153,17 +171,15 @@ Blockly.Msg.BLOCKS_LOOKS_HIDE = '隠す';
 Blockly.Msg.BLOCKS_LOOKS_VANISH = '消滅する';
 
 // blocks/hardware.js.coffee.erb
-Blockly.Msg.BLOCKS_HARDWARE_LED_ON = 'LED%1をオンにする';
-Blockly.Msg.BLOCKS_HARDWARE_LED_OFF = 'LED%1をオフにする';
+Blockly.Msg.BLOCKS_HARDWARE_LED_TURN_ON = 'LED%1をオンにする';
+Blockly.Msg.BLOCKS_HARDWARE_LED_TURN_OFF = 'LED%1をオフにする';
 Blockly.Msg.BLOCKS_HARDWARE_ANODE = 'アノード';
 Blockly.Msg.BLOCKS_HARDWARE_CATHODE = 'カソード';
 Blockly.Msg.BLOCKS_HARDWARE_LEFT = ' 左';
 Blockly.Msg.BLOCKS_HARDWARE_RIGHT = '右';
 Blockly.Msg.BLOCKS_HARDWARE_INIT_HARDWARE = 'ハードウェアを準備する';
-Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_ON = 'set RGB LED %1 common %2 color to %3';
-
-Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_ON = 'RGB LED%1コモン%2を%3にする';
-Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_OFF = 'RGB LED%1コモン%2をオフにする';
+Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_SET_COLOR = 'RGB LED%1コモン%2を%3にする';
+Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_TURN_OFF = 'RGB LED%1コモン%2をオフにする';
 Blockly.Msg.BLOCKS_HARDWARE_SEVEN_SEGMENT_DISPLAY_SHOW = '7セグディスプレイに%1を表示する';
 Blockly.Msg.BLOCKS_HARDWARE_SEVEN_SEGMENT_DISPLAY_OFF = '7セグディスプレイをオフにする';
 Blockly.Msg.BLOCKS_HARDWARE_LCD_PUTS = 'LCDに%1を表示する';
@@ -188,8 +204,15 @@ Blockly.Msg.BLOCKS_HARDWARE_MOTOR_DRIVER_STOP = '止める';
 Blockly.Msg.BLOCKS_HARDWARE_MOTOR_DRIVER = '(モータードライバ%1で)モーターを%2';
 Blockly.Msg.BLOCKS_HARDWARE_MOTOR_DRIVER_SET_SPEED = '(モータードライバ%1の)モーターの速度を%2にする';
 Blockly.Msg.BLOCKS_HARDWARE_MOTOR_DRIVER_SPEED = '(モータードライバ%1の)モーターの速度(%)';
-Blockly.Msg.BLOCKS_HARDWARE_BUTTON_DOWN_OR_UP = 'ボタン%1が%2';
-Blockly.Msg.BLOCKS_HARDWARE_SENSOR_VALUE = 'センサー%1';
+Blockly.Msg.BLOCKS_HARDWARE_BUTTON_PRESSED_OR_RELEASED = 'ボタン %1 が %2 ？';
+Blockly.Msg.BLOCKS_HARDWARE_SENSOR_VALUE = 'センサー %1';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_LED_TURN_ON_OR_OFF = 'スモウルボットV3の %1 LEDを %2';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_MOTOR_SPEED = 'スモウルボットV3の %1 モーターの速度(%)';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_MOTOR_SET_SPEED = 'スモウルボットV3の %1 モーターの速度を %2 (%) にする';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_ACTION = 'スモウルボットV3を %1';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_ACTION_WITH_SEC = 'スモウルボットV3を %2 秒 %1';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_TOUCH_SENSOR_PRESSED_OR_RELEASED = 'スモウルボットV3の %1 のタッチセンサーが %2 ？';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_LIGHT_SENSOR_VALUE = 'スモウルボットV3の光センサー';
 
 
 // blocks/operators.js.coffee.erb

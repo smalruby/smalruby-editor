@@ -33,6 +33,10 @@ $(document).ready ->
       [<%= bm('.down') %>, 'down'],
       [<%= bm('.up') %>, 'up'],
     ]
+    PressedOrReleasedDropdown: [
+      [<%= bm('.pressed') %>, 'pressed'],
+      [<%= bm('.released') %>, 'released'],
+    ]
 
 # 条件:端に触れた
 <% n = "#{category}_reach_wall" %>

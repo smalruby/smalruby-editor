@@ -8,6 +8,21 @@ goog.require('Blockly.Msg');
  * to message files.
  */
 
+// common
+Blockly.Msg.COMMON_TURN_ON = 'turn on';
+Blockly.Msg.COMMON_TURN_OFF = 'turn off';
+Blockly.Msg.COMMON_FORWARD = 'forward';
+Blockly.Msg.COMMON_BACKWARD = 'backward';
+Blockly.Msg.COMMON_TURN_LEFT = 'turn left';
+Blockly.Msg.COMMON_TURN_RIGHT = 'turn right';
+Blockly.Msg.COMMON_STOP = 'stop';
+
+
+// colour name
+Blockly.Msg.COLOUR_RED = 'red';
+Blockly.Msg.COLOUR_GREEN = 'green';
+
+
 // views/main_menu_view.js.coffee
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LINES = ' Lines';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LETTERS = ' Letters';
@@ -75,13 +90,16 @@ Blockly.Msg.BLOCKS_SENSING_K_DOWN = 'down arrow';
 Blockly.Msg.BLOCKS_SENSING_K_LEFT = 'left arrow';
 Blockly.Msg.BLOCKS_SENSING_K_RIGHT = 'right arrow';
 Blockly.Msg.BLOCKS_SENSING_K_SPACE = 'space';
-Blockly.Msg.BLOCKS_SENSING_PUSH = 'pressed?';
-Blockly.Msg.BLOCKS_SENSING_HOLD_DOWN = 'hold pressed?';
-Blockly.Msg.BLOCKS_SENSING_DOWN = Blockly.Msg.BLOCKS_SENSING_PUSH;
+Blockly.Msg.BLOCKS_SENSING_PRESSED = 'pressed';
+Blockly.Msg.BLOCKS_SENSING_PUSH = Blockly.Msg.BLOCKS_SENSING_PRESSED;
+Blockly.Msg.BLOCKS_SENSING_DOWN = Blockly.Msg.BLOCKS_SENSING_PRESSED;
+Blockly.Msg.BLOCKS_SENSING_HOLD_PRESSED = 'hold pressed';
+Blockly.Msg.BLOCKS_SENSING_HOLD_DOWN = Blockly.Msg.BLOCKS_SENSING_HOLD_PRESSED;
 Blockly.Msg.BLOCKS_SENSING_M_LBUTTON = 'left-button';
 Blockly.Msg.BLOCKS_SENSING_M_MBUTTON = 'middle-button';
 Blockly.Msg.BLOCKS_SENSING_M_RBUTTON = 'right-button';
-Blockly.Msg.BLOCKS_SENSING_UP = 'released?';
+Blockly.Msg.BLOCKS_SENSING_RELEASED = 'released';
+Blockly.Msg.BLOCKS_SENSING_UP = Blockly.Msg.BLOCKS_SENSING_RELEASED;
 Blockly.Msg.BLOCKS_SENSING_REACH_WALL = 'reach wall?';
 Blockly.Msg.BLOCKS_SENSING_INPUT_KEY_PUSH_OR_DOWN_PREFIX = 'key ';
 Blockly.Msg.BLOCKS_SENSING_INPUT_KEY_PUSH_OR_DOWN_MIDDLE = ' ';
@@ -154,15 +172,15 @@ Blockly.Msg.BLOCKS_LOOKS_HIDE = 'hide';
 Blockly.Msg.BLOCKS_LOOKS_VANISH = 'vanish';
 
 // blocks/hardware.js.coffee.erb
-Blockly.Msg.BLOCKS_HARDWARE_LED_ON = 'turn on LED %1';
-Blockly.Msg.BLOCKS_HARDWARE_LED_OFF = 'turn off LED %1';
+Blockly.Msg.BLOCKS_HARDWARE_LED_TURN_ON = 'turn on LED %1';
+Blockly.Msg.BLOCKS_HARDWARE_LED_TURN_OFF = 'turn off LED %1';
 Blockly.Msg.BLOCKS_HARDWARE_ANODE = 'anode';
 Blockly.Msg.BLOCKS_HARDWARE_CATHODE = 'cathode';
 Blockly.Msg.BLOCKS_HARDWARE_LEFT = 'left';
 Blockly.Msg.BLOCKS_HARDWARE_RIGHT = 'right';
 Blockly.Msg.BLOCKS_HARDWARE_INIT_HARDWARE = 'setup hardware';
-Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_ON = 'set RGB LED %1 common %2 color to %3';
-Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_OFF = 'turn off RGB LED %1 common %2';
+Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_SET_COLOR = 'set RGB LED %1 common %2 color to %3';
+Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_TURN_OFF = 'turn off RGB LED %1 common %2';
 Blockly.Msg.BLOCKS_HARDWARE_SEVEN_SEGMENT_DISPLAY_SHOW = 'show 7 segment display %1';
 Blockly.Msg.BLOCKS_HARDWARE_SEVEN_SEGMENT_DISPLAY_OFF = 'turn off 7 segment display';
 Blockly.Msg.BLOCKS_HARDWARE_LCD_PUTS = 'display %1 on the LCD';
@@ -187,8 +205,15 @@ Blockly.Msg.BLOCKS_HARDWARE_MOTOR_DRIVER_STOP = 'stop';
 Blockly.Msg.BLOCKS_HARDWARE_MOTOR_DRIVER = "%2 (motor driver %1's) motor";
 Blockly.Msg.BLOCKS_HARDWARE_MOTOR_DRIVER_SET_SPEED = "set (motor driver %1's) motor speed to %2 %";
 Blockly.Msg.BLOCKS_HARDWARE_MOTOR_DRIVER_SPEED = "(motor driver %1's) motor speed (%)";
-Blockly.Msg.BLOCKS_HARDWARE_BUTTON_DOWN_OR_UP = 'button %1 %2';
+Blockly.Msg.BLOCKS_HARDWARE_BUTTON_PRESSED_OR_RELEASED = 'button %1 %2 ?';
 Blockly.Msg.BLOCKS_HARDWARE_SENSOR_VALUE = 'sensor %1 value';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_LED_TURN_ON_OR_OFF = '%2 Smalrubot v3 %1 LED';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_MOTOR_SPEED = 'Smalrubot v3 %1 motor speed';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_MOTOR_SET_SPEED = 'set Smalrubot v3 %1 motor speed to %2 %';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_ACTION = '%1 Smalrubot v3';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_ACTION_WITH_SEC = '%1 Smalrubot v3 for %2 secs';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_TOUCH_SENSOR_PRESSED_OR_RELEASED = 'Smalrubot v3 %1 touch sensor %2 ?';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_LIGHT_SENSOR_VALUE = 'Smalrubot v3 light sensor value';
 
 
 // blocks/operators.js.coffee.erb

@@ -423,13 +423,13 @@ frog1 = Character.new(costume: "frog1.png", x: 261, y: 191, angle: 0)
 
 frog1.on(:click) do
   say(message: "ライトをぴかっとさせるでよ♪")
-  rgb_led_anode("D3").on(color: [51, 51, 255])
+  rgb_led_anode("D3").color = [51, 51, 255]
   sleep(1)
-  rgb_led_anode("D3").on(color: [255, 255, 153])
+  rgb_led_anode("D3").color = [255, 255, 153]
   sleep(1)
-  rgb_led_anode("D3").on(color: [255, 0, 0])
+  rgb_led_anode("D3").color = [255, 0, 0]
   sleep(1)
-  rgb_led_anode("D3").off
+  rgb_led_anode("D3").turn_off
   say(message: "")
 end
     EOS
@@ -453,7 +453,7 @@ end
               </block>
             </value>
             <next>
-              <block type="hardware_rgb_led_on">
+              <block type="hardware_rgb_led_set_color">
                 <field name="AC">anode</field>
                 <field name="PIN">D3</field>
                 <field name="COLOUR">#3333ff</field>
@@ -465,7 +465,7 @@ end
                       </block>
                     </value>
                     <next>
-                      <block type="hardware_rgb_led_on">
+                      <block type="hardware_rgb_led_set_color">
                         <field name="AC">anode</field>
                         <field name="PIN">D3</field>
                         <field name="COLOUR">#ffff99</field>
@@ -477,7 +477,7 @@ end
                               </block>
                             </value>
                             <next>
-                              <block type="hardware_rgb_led_on">
+                              <block type="hardware_rgb_led_set_color">
                                 <field name="AC">anode</field>
                                 <field name="PIN">D3</field>
                                 <field name="COLOUR">#ff0000</field>
@@ -489,7 +489,7 @@ end
                                       </block>
                                     </value>
                                     <next>
-                                      <block type="hardware_rgb_led_off">
+                                      <block type="hardware_rgb_led_turn_off">
                                         <field name="AC">anode</field>
                                         <field name="PIN">D3</field>
                                         <next>
