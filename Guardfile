@@ -7,13 +7,19 @@
 ## Uncomment to clear the screen before every task
 # clearing :on
 
+TEMPFILE_BY_EMACS = %r{/\.?\#[^\/]+$}
+
 group :red_green_refactor, halt_on_fail: true do
   guard :rubocop, all_on_start: false do
+    ignore(TEMPFILE_BY_EMACS)
+
     watch(%r{.+\.rb$})
     watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
   end
 
   guard :rspec, cmd: 'bundle exec bin/rspec' do
+    ignore(TEMPFILE_BY_EMACS)
+
     watch(%r{^spec/.+_spec\.rb$})
     watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
     watch('spec/spec_helper.rb')  { "spec" }
@@ -36,10 +42,13 @@ group :red_green_refactor, halt_on_fail: true do
 end
 
 guard 'livereload' do
+  ignore(TEMPFILE_BY_EMACS)
+
   watch(%r{app/views/.+\.(erb|haml|slim)$})
   watch(%r{app/helpers/.+\.rb})
   watch(%r{public/.+\.(css|js|html)})
   watch(%r{config/locales/.+\.yml})
+
   # Rails Assets Pipeline
   watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html|png|jpg))).*}) { |m| "/assets/#{m[3]}" }
 end
