@@ -1,5 +1,6 @@
 ja:
   common:
+    smalruby_editor: "スモウルビー v%{version}"
     "ok": "決めた！"
     cancel: "やめる"
 

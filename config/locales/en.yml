@@ -1,5 +1,6 @@
 en:
   common:
+    smalruby_editor: "Smalruby v%{version}"
     "ok": "OK"
     cancel: "Cancel"
 
