@@ -26,20 +26,30 @@ describe SmalrubyEditor do
         end
 
         describe 'configディレクトリ' do
-          let(:path) { @home_dir.join('config', 'database.yml') }
+          describe 'database.yml' do
+            let(:path) { @home_dir.join('config', 'database.yml') }
 
-          it 'database.ymlを作成する' do
-            expect(path).to be_exist
+            it 'database.ymlを作成する' do
+              expect(path).to be_exist
+            end
+
+            it 'database.ymlの内容が正しい' do
+              expect(path.read).to eq(<<-EOS.strip_heredoc)
+                standalone:
+                  adapter: sqlite3
+                  database: #{@home_dir.join('db', 'standalone.sqlite3')}
+                  pool: 5
+                  timeout: 5000
+              EOS
+            end
           end
 
-          it 'database.ymlの内容が正しい' do
-            expect(path.read).to eq(<<-EOS.strip_heredoc)
-            standalone:
-              adapter: sqlite3
-              database: #{@home_dir.join('db', 'standalone.sqlite3')}
-              pool: 5
-              timeout: 5000
-          EOS
+          describe 'config.yml' do
+            let(:path) { @home_dir.join('config', 'config.yml') }
+
+            it 'config.ymlを作成する' do
+              expect(path).to be_exist
+            end
           end
         end
       end

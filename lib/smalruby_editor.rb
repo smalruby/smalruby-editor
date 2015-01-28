@@ -56,6 +56,7 @@ module SmalrubyEditor
     end
     create_under_home_directories(home_dir)
     create_database_yml(home_dir)
+    create_config_yml(home_dir)
     home_dir
   end
   module_function :create_home_directory
@@ -122,6 +123,24 @@ standalone:
       db_path = home_dir.join('db', 'standalone.sqlite3')
       File.open(database_yml_path, 'w') do |f|
         f.write(DATABASE_YML_TEMPLATE.gsub(/%db_path%/, db_path.to_s))
+      end
+    end
+
+    CONFIG_YML_TEMPLATE = <<-EOS
+#toolbox_name: default
+#toolbox_css_name: default
+features:
+  #- add_character_from_beginning
+  #- disabled_new_character
+  #- auto_init_hardware
+    EOS
+
+    def create_config_yml(home_dir)
+      config_yml_path = home_dir.join('config', 'config.yml')
+      unless config_yml_path.exist?
+        File.open(config_yml_path, 'w') do |f|
+          f.write(CONFIG_YML_TEMPLATE)
+        end
       end
     end
   end
