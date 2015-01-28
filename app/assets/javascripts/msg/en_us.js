@@ -21,6 +21,8 @@ Blockly.Msg.COMMON_STOP = 'stop';
 // colour name
 Blockly.Msg.COLOUR_RED = 'red';
 Blockly.Msg.COLOUR_GREEN = 'green';
+Blockly.Msg.COLOUR_BLUE = 'blue';
+Blockly.Msg.COLOUR_WHITE = 'white';
 
 
 // views/main_menu_view.js.coffee
@@ -214,6 +216,10 @@ Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_ACTION = '%1 Smalrubot v3';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_ACTION_WITH_SEC = '%1 Smalrubot v3 for %2 secs';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_TOUCH_SENSOR_PRESSED_OR_RELEASED = 'Smalrubot v3 %1 touch sensor %2 ?';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_LIGHT_SENSOR_VALUE = 'Smalrubot v3 light sensor value';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_LED_TURN_ON_OR_OFF = '%2 Smalrubot s1 %1 LED';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_ACTION = '%1 Smalrubot s1';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_ACTION_WITH_SEC = '%1 Smalrubot s1 for %2 secs';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_IR_PHOTOREFLECTOR_VALUE = 'Smalrubot s1 %1 IR Photoreflector';
 
 
 // blocks/operators.js.coffee.erb

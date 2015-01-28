@@ -21,6 +21,8 @@ Blockly.Msg.COMMON_STOP = '止める';
 // colour name
 Blockly.Msg.COLOUR_RED = '赤色';
 Blockly.Msg.COLOUR_GREEN = '緑色';
+Blockly.Msg.COLOUR_BLUE = '青色';
+Blockly.Msg.COLOUR_WHITE = '白色';
 
 
 // views/main_menu_view.js.coffee
@@ -213,6 +215,10 @@ Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_ACTION = 'スモウルボットV3を %1
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_ACTION_WITH_SEC = 'スモウルボットV3を %2 秒 %1';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_TOUCH_SENSOR_PRESSED_OR_RELEASED = 'スモウルボットV3の %1 のタッチセンサーが %2 ？';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_LIGHT_SENSOR_VALUE = 'スモウルボットV3の光センサー';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_LED_TURN_ON_OR_OFF = 'スモウルボットS1の %1 LEDを %2';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_ACTION = 'スモウルボットS1を %1';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_ACTION_WITH_SEC = 'スモウルボットS1を %2 秒 %1';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_IR_PHOTOREFLECTOR_VALUE = 'スモウルボットS1の %1 のセンサー';
 
 
 // blocks/operators.js.coffee.erb

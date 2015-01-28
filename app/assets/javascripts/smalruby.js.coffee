@@ -192,6 +192,8 @@ window.Smalruby =
       c = new Smalruby.Character
         name: @Collections.CharacterSet.uniqueName(constume)
         costumes: [constume]
+        x: 200
+        y: 200
       @Collections.CharacterSet.add(c)
       @Views.CharacterSelectorView.prevBlock = null
       @Views.CharacterSelectorView.addBlock_(c)
