@@ -26,6 +26,14 @@ describe SmalrubyEditor do
         end
 
         describe 'configディレクトリ' do
+          describe 'config.yml' do
+            let(:path) { @home_dir.join('config', 'config.yml') }
+
+            it 'config.ymlを作成する' do
+              expect(path).to be_exist
+            end
+          end
+
           describe 'database.yml' do
             let(:path) { @home_dir.join('config', 'database.yml') }
 
@@ -41,14 +49,6 @@ describe SmalrubyEditor do
                   pool: 5
                   timeout: 5000
               EOS
-            end
-          end
-
-          describe 'config.yml' do
-            let(:path) { @home_dir.join('config', 'config.yml') }
-
-            it 'config.ymlを作成する' do
-              expect(path).to be_exist
             end
           end
         end
