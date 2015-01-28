@@ -1,58 +1,11 @@
-<%
-  # hsv_to_rgb メソッドは http://c4se.hatenablog.com/entry/2013/08/04/190937 をほぼコピーした
-  def hsv_to_rgb(h, s, v)
-    s /= 100.0
-    v /= 100.0
-    c = v * s
-    x = c * (1 - ((h / 60.0) % 2 - 1).abs)
-    m = v - c
-    r, g, b = *(
-      case
-      when h < 60  then [c, x, 0]
-      when h < 120 then [x, c, 0]
-      when h < 180 then [0, c, x]
-      when h < 240 then [0, x, c]
-      when h < 300 then [x, 0, c]
-      else              [c, 0, x]
-      end
-    )
-    [r, g, b].map { |channel|
-      ((channel + m) * 255).ceil
-    }.map { |c|
-      '%02x' % c
-    }.join
-  end
+div.blocklyTreeRoot {
+    padding: 0;
 
-  require 'smalruby_editor'
-  colors = SmalrubyEditor::COLORS
-
-  hues = [
-    colors[:motion],
-    colors[:looks],
-    colors[:sound],
-    colors[:pen],
-    colors[:data],
-    colors[:events],
-    colors[:control],
-    colors[:sensing],
-    colors[:operators],
-    colors[:etc],
-  ]
-
-  colors = hues.map { |h|
-    [hsv_to_rgb(h, 100, 80), hsv_to_rgb(h, 100, 100)]
-  }
-
-  colors.each.with_index(1) do |(color, active_color), index|
-%>
-
-div[aria-level="1"][aria-posinset="<%= index %>"] {
     .blocklyTreeRow {
         margin-bottom: 1px;
         padding-top: 1px;
         padding-bottom: 1px;
         color: white;
-        background-color: #<%= color %> !important;
 
         span.blocklyTreeIcon, span.blocklyTreeLabel {
           font-size: 14px;
@@ -61,12 +14,5 @@ div[aria-level="1"][aria-posinset="<%= index %>"] {
 
     .blocklyTreeRow.blocklyTreeSelected {
         font-weight: bold;
-        background-color: #<%= active_color %> !important;
     }
-}
-
-<% end %>
-
-div.blocklyTreeRoot {
-    padding: 0;
 }

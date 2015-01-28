@@ -18,6 +18,29 @@ module SmalrubyEditor
     sound: 300,
   }
 
+  # http://c4se.hatenablog.com/entry/2013/08/04/190937 をほぼコピーした
+  def hsv_to_rgb(h, s, v)
+    s /= 100.0
+    v /= 100.0
+    c = v * s
+    x = c * (1 - ((h / 60.0) % 2 - 1).abs)
+    m = v - c
+    r, g, b = *(
+      case
+      when h < 60  then [c, x, 0]
+      when h < 120 then [x, c, 0]
+      when h < 180 then [0, c, x]
+      when h < 240 then [0, x, c]
+      when h < 300 then [x, 0, c]
+      else              [c, 0, x]
+      end
+    )
+    [r, g, b].map { |channel|
+      sprintf('%02x', ((channel + m) * 255).ceil)
+    }.join
+  end
+  module_function :hsv_to_rgb
+
   def create_home_directory(home_dir = nil)
     if home_dir.blank?
       path = ENV['SMALRUBY_EDITOR_HOME'] || '~/.smalruby-editor'

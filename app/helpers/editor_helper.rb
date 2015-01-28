@@ -17,6 +17,20 @@ module EditorHelper
     %(<field name="#{h name}">#{h value}</field>).html_safe
   end
 
+  # push or down field for Toolbox
+  #
+  # @param [String] name field name
+  # @param [String] value :push or :down
+  # @return [String] XML
+  def toolbox_pod_field(name = 'POD', value = :down)
+    if value == :down
+      pod = 'down'
+    else
+      pod = 'push'
+    end
+    %(<field name="#{h name}">#{pod}</field>).html_safe
+  end
+
   # ツールボックスのブロックに対して、PINの入力フィールドの値を設定する
   #
   # @param [String] value ピン
@@ -56,4 +70,15 @@ module EditorHelper
       </value>
     XML
   end
+
+  # I18n.t wrapper for Toolbox that's defualt scope is
+  # 'editor.toolbox'.
+  def toolbox_t(*args)
+    if args.length == 1 && args.first[0] == '.'
+      t(args.first[1..-1], scope: 'editor.toolbox')
+    else
+      t(*args)
+    end
+  end
+  alias_method :tt, :toolbox_t
 end

@@ -10,7 +10,9 @@
  *
  *= require flatstrap-custom
  *= require_self
- *= require_tree .
+ *= require editor
+ *= require load-modal
+ *= require toolbox
  */
 
 html, body {

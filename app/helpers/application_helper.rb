@@ -14,4 +14,14 @@ module ApplicationHelper
       I18n.locale
     end
   end
+
+  # name of Toolbox
+  def toolbox_name
+    'default'
+  end
+
+  # css name of Toolbox
+  def toolbox_css_name
+    'default'
+  end
 end

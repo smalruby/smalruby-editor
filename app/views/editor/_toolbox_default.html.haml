@@ -1,7 +1,7 @@
 %xml{:id => 'toolbox', :style => 'display: none'}
   - category = 'motion'
-  %category{:name => t('.motion')}
-    %category{:name => t('.motion_move')}
+  %category{:name => tt('.motion')}
+    %category{:name => tt('.motion_move')}
       -# (　)歩動かす
       %block{:type => "#{category}_move"}
         = toolbox_number_value('STEP', 10)
@@ -47,7 +47,7 @@
       - if !raspberrypi?
         %block{:type => "#{category}_self_y"}
 
-    %category{:name => t('.motion_rotate')}
+    %category{:name => tt('.motion_rotate')}
       -# もし端に着いたら、跳ね返る
       %block{:type => "#{category}_turn_if_reach_wall"}
 
@@ -84,7 +84,7 @@
 
     - if !raspberrypi?
       - category = 'hardware'
-      %category{:name => t('.motion_actuator')}
+      %category{:name => tt('.motion_actuator')}
         - subcategory = 'servo'
         -# サーボ[▼PIN]を(　)度(5～180)にする
         %block{:type => "#{category}_#{subcategory}_set_position"}
@@ -154,7 +154,7 @@
           = toolbox_number_value('SPEED', 100)
 
   - category = 'looks'
-  %category{:name => t('.looks')}
+  %category{:name => tt('.looks')}
     -# [　]と(　)秒言う
     -#%block{:type => "#{category}_say_second"}
     -#  = toolbox_text_value('TEXT', 'こんにちは！')
@@ -162,7 +162,7 @@
 
     -# [　]と言う
     %block{:type => "#{category}_say"}
-      = toolbox_text_value('TEXT', t('.hello'))
+      = toolbox_text_value('TEXT', tt('.hello'))
 
     -# [　]と(　)秒考える
     -#%block{:type => "#{category}_think_second"}
@@ -235,7 +235,7 @@
           turn_on
 
   - category = 'sound'
-  %category{:name => t('.sound')}
+  %category{:name => tt('.sound')}
     -# [▼プリセット音声]の音を鳴らす
     %block{:type => "#{category}_play"}
       %value{:name => 'NAME'}
@@ -248,7 +248,7 @@
     -#%block{:type => "#{category}_volume"}
 
   - category = 'pen'
-  %category{:name => t('.pen')}
+  %category{:name => tt('.pen')}
     - if !raspberrypi?
       -# ペンを下ろす
       %block{:type => "#{category}_down_pen"}
@@ -259,17 +259,18 @@
       -# ペンの色を[カラー]にする
       %block{:type => "#{category}_set_pen_color"}
 
-  %category{:name => t('.data')}
-    %category{:name => t('.data_variables'), :custom => 'VARIABLE'}
+  %category{:name => tt('.data')}
+    %category{:name => tt('.data_variables'), :custom => 'VARIABLE'}
 
   - category = 'events'
-  %category{:name => t('.events')}
+  %category{:name => tt('.events')}
     -# まずは
     %block{:type => "#{category}_on_start"}
 
     -# キーボードの[▼キー]が[▼押された/押され続けている]とき
     %block{:type => "#{category}_on_key_push_or_down"}
       = toolbox_key_field
+      = toolbox_pod_field
 
     -# キャラクターがクリックされたとき
     %block{:type => "#{category}_on_click"}
@@ -278,8 +279,8 @@
     %block{:type => "#{category}_on_hit"}
 
   - category = 'control'
-  %category{:name => t('.control')}
-    %category{:name => t('.control_loop')}
+  %category{:name => tt('.control')}
+    %category{:name => tt('.control_loop')}
       -# ずっと
       %block{:type => "#{category}_loop"}
 
@@ -300,7 +301,7 @@
         -# 現在の繰り返しをやり直す
         %block{:type => "#{category}_redo"}
 
-    %category{:name => t('.control_wait')}
+    %category{:name => tt('.control_wait')}
       -# (　)秒待つ
       %block{:type => "#{category}_sleep"}
         = toolbox_number_value('SEC', 1)
@@ -311,7 +312,7 @@
       -# ほんの少し待つ
       %block{:type => "#{category}_await"}
 
-    %category{:name => t('.control_if')}
+    %category{:name => tt('.control_if')}
       -# もし<　>なら
       %block{:type => "#{category}_if"}
 
@@ -319,17 +320,19 @@
       %block{:type => "#{category}_if_else"}
 
   - category = 'sensing'
-  %category{:name => t('.sensing')}
-    %category{:name => t('.sensing_general')}
+  %category{:name => tt('.sensing')}
+    %category{:name => tt('.sensing_general')}
       -# 条件:端に触れた
       %block{:type => "#{category}_reach_wall"}
 
       -# 条件:キーボードの[▼キー]が[▼押された]
       %block{:type => "#{category}_input_key_push_or_down"}
         = toolbox_key_field
+        = toolbox_pod_field
 
       -# 条件:マウスの[▼左ボタン]が[▼押された]
       %block{:type => "#{category}_input_mouse_push_or_down"}
+        = toolbox_pod_field
 
       -# 変数:マウスのx座標
       %block{:type => "#{category}_input_mouse_pos_x"}
@@ -365,7 +368,7 @@
 
     - if !raspberrypi?
       - category = 'hardware'
-      %category{:name => t('.sensing_hardware')}
+      %category{:name => tt('.sensing_hardware')}
         -# センサー[▼PIN]
         %block{:type => "#{category}_sensor_value"}
           = toolbox_pin_field('A0')
@@ -388,8 +391,8 @@
         %block{type: "#{category}_#{subcategory}_motor_speed"}
 
   - category = 'operators'
-  %category{:name => t('.operators')}
-    %category{:name => t('.operators_calculate')}
+  %category{:name => tt('.operators')}
+    %category{:name => tt('.operators_calculate')}
       -# 変数:(　) + (　)
       %block{:type => "#{category}_add"}
 
@@ -428,22 +431,22 @@
         %field{:name => 'NUM'}<
           0
 
-    %category{:name => t('.operators_string')}
+    %category{:name => tt('.operators_string')}
       -# 変数:(　)の(　)番目
       %block{:type => "#{category}_index_of"}
-        = toolbox_text_value('A', t('.world'))
+        = toolbox_text_value('A', tt('.world'))
         = toolbox_number_value('INDEX', 1)
 
       -# 変数:(　)の長さ
       %block{:type => "#{category}_length"}
-        = toolbox_text_value('A', t('.world'))
+        = toolbox_text_value('A', tt('.world'))
 
       -# テキスト
       %block{:type => 'text'}
         %field{:name => 'TEXT'}<
-          = t('.text')
+          = tt('.text')
 
-    %category{:name => t('.operators_condition')}
+    %category{:name => tt('.operators_condition')}
       -# 条件:(　) < (　)
       %block{:type => "#{category}_compare_gt"}
 
@@ -474,10 +477,10 @@
       -# 条件:偽
       %block{:type => "#{category}_false"}
 
-  %category{:name => t('.etc')}
+  %category{:name => tt('.etc')}
     - if !raspberrypi?
       - category = 'ruby'
-      %category{:name => t('.etc_ruby')}
+      %category{:name => tt('.etc_ruby')}
         -# 文
         %block{:type => "#{category}_statement"}
 
@@ -491,6 +494,6 @@
         %block{:type => "#{category}_p"}
 
       - category = 'hardware'
-      %category{:name => t('.etc_hardware')}
+      %category{:name => tt('.etc_hardware')}
         -# ハードウェアを準備する
         %block{:type => "#{category}_init_hardware"}

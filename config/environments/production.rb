@@ -67,6 +67,7 @@ SmalrubyEditor::Application.configure do
   config.assets.precompile += %w(
     blockly/msg/js/*.js
     msg/*.js
+    toolbox_*.css
   )
 
   # Ignore bad email addresses and do not raise email delivery errors.

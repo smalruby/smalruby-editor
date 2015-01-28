@@ -1,0 +1,32 @@
+<%
+  require 'smalruby_editor'
+  colors = SmalrubyEditor::COLORS
+
+  hues = [
+    colors[:motion],
+    colors[:looks],
+    colors[:data],
+    colors[:events],
+    colors[:control],
+    colors[:sensing],
+    colors[:operators],
+    colors[:etc],
+  ]
+
+  colors = hues.map { |h|
+    [SmalrubyEditor.hsv_to_rgb(h, 100, 80),
+     SmalrubyEditor.hsv_to_rgb(h, 100, 100)]
+  }
+
+  colors.each.with_index(1) do |(color, active_color), index|
+%>
+div[aria-level="1"][aria-posinset="<%= index %>"] {
+    .blocklyTreeRow {
+        background-color: #<%= color %> !important;
+    }
+
+    .blocklyTreeRow.blocklyTreeSelected {
+        background-color: #<%= active_color %> !important;
+    }
+}
+<% end %>
