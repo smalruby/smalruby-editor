@@ -30,6 +30,7 @@ window.Smalruby =
   Collections: {}
   Views: {}
   Routers: {}
+  Features: []
   initialize: ->
     $.ajaxSetup
       headers:
@@ -120,6 +121,8 @@ window.Smalruby =
     session.setTabSize(2)
     session.setUseSoftTabs(true)
 
+    @add_character_from_beginning()
+
   loadXml: (data, workspace = Blockly.mainWorkspace) ->
     xml = Blockly.Xml.textToDom(data)
     workspace.clear()
@@ -172,6 +175,7 @@ window.Smalruby =
     $('#filename').val('')
     window.textEditor.getSession().getDocument().setValue('')
     window.textEditor.moveCursorTo(0, 0)
+    @add_character_from_beginning()
     window.changed = false
 
   # 国際化したメッセージを取得する
@@ -181,6 +185,17 @@ window.Smalruby =
       msg
     else
       name
+
+  add_character_from_beginning: ->
+    if @Features.indexOf('add_character_from_beginning') != -1
+      constume = 'cat1.png'
+      c = new Smalruby.Character
+        name: @Collections.CharacterSet.uniqueName(constume)
+        costumes: [constume]
+      @Collections.CharacterSet.add(c)
+      @Views.CharacterSelectorView.prevBlock = null
+      @Views.CharacterSelectorView.addBlock_(c)
+      window.changed = false
 
 $(document).ready ->
   Smalruby.initialize()

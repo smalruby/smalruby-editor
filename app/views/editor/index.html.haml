@@ -126,5 +126,11 @@
 = render 'reset_modal'
 
 - if raspberrypi?
-  %script{type: "text/javascript"}
-    $(function() { $('div[aria-level="1"][aria-posinset="4"],div[aria-level="1"][aria-posinset="10"]').hide(); });
+  :javascript
+    $(function() {
+      $('div[aria-level="1"][aria-posinset="4"],div[aria-level="1"][aria-posinset="10"]').hide();
+    });
+
+- if SmalrubyEditor::Config.features.is_a?(Array)
+  :javascript
+    window.Smalruby.Features = #{SmalrubyEditor::Config.features.to_json};

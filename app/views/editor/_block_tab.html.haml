@@ -16,11 +16,12 @@
     #selectors-tab-content{:class => 'tab-content'}
       #character-selector-tab{:class => 'tab-pane active selector-tab'}
         #character-selector-character-set
-        .item
-          %a#add-character-button{:class => 'character'}
-            %i.icon-plus-sign-alt
-            %br
-            = t('.new_character')
+        - if !SmalrubyEditor::Config.features.is_a?(Array) || !SmalrubyEditor::Config.features.include?('disabled_new_character')
+          .item
+            %a#add-character-button{:class => 'character'}
+              %i.icon-plus-sign-alt
+              %br
+              = t('.new_character')
 
       #scene-selector-tab{:class => 'tab-pane selector-tab'}
         .item
