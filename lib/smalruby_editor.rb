@@ -41,6 +41,14 @@ module SmalrubyEditor
   end
   module_function :hsv_to_rgb
 
+  # return smalruby's home directory
+  # (default is '~/.smalruby-editor').
+  def home_directory
+    path = ENV['SMALRUBY_EDITOR_HOME'] || '~/.smalruby-editor'
+    Pathname(path).expand_path
+  end
+  module_function :home_directory
+
   def create_home_directory(home_dir = nil)
     if home_dir.blank?
       path = ENV['SMALRUBY_EDITOR_HOME'] || '~/.smalruby-editor'
@@ -118,3 +126,5 @@ standalone:
     end
   end
 end
+
+require 'smalruby_editor/config'

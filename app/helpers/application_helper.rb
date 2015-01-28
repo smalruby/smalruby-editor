@@ -17,11 +17,13 @@ module ApplicationHelper
 
   # name of Toolbox
   def toolbox_name
-    'default'
+    SmalrubyEditor::Config.toolbox_name || 'default'
   end
 
   # css name of Toolbox
   def toolbox_css_name
-    'default'
+    SmalrubyEditor::Config.toolbox_css_name ||
+      SmalrubyEditor::Config.toolbox_name ||
+      'default'
   end
 end

@@ -250,6 +250,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0.4)
+    settingslogic (2.0.9)
     shared-mime-info (0.2.5)
     shoulda-matchers (2.5.0)
       activesupport (>= 3.0.0)
@@ -352,6 +353,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.0)
   sdoc
   selenium-webdriver
+  settingslogic
   shared-mime-info
   shoulda-matchers
   smalruby (~> 0.1.2)
