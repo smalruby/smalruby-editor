@@ -134,6 +134,7 @@ features:
   #- disabled_new_character
   #- auto_init_hardware
   #- readonly_ruby_mode
+  #- must_signin
     EOS
 
     def create_config_yml(home_dir)

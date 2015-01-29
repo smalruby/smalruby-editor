@@ -14,9 +14,10 @@
           %input#signin-modal-username.input-large{name: "username", type: "text", placeholder: "名前、生徒番号、ニックネームなど"}
 
   .modal-footer
-    %button#signin-modal-cancel-button.cancel-button{class: "btn", :"data-dismiss" => "modal", :"aria-hidden" => "true"}<
-      %i.icon-remove
-      やめる
+    - if !SmalrubyEditor::Config.enabled?('must_signin')
+      %button#signin-modal-cancel-button.cancel-button{class: "btn", :"data-dismiss" => "modal", :"aria-hidden" => "true"}<
+        %i.icon-remove
+        やめる
     %button#signin-modal-ok-button.ok-button{class: "btn btn-primary"}<
       %i.icon-circle-blank
       ログイン

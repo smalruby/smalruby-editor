@@ -31,6 +31,9 @@ window.Smalruby =
   Views: {}
   Routers: {}
   Features: []
+
+  username: null
+
   initialize: ->
     $.ajaxSetup
       headers:
@@ -205,3 +208,6 @@ window.Smalruby =
 
 $(document).ready ->
   Smalruby.initialize()
+
+  if Smalruby.username == null && Smalruby.isEnabled('must_signin')
+    Smalruby.Views.SigninModalView.render()

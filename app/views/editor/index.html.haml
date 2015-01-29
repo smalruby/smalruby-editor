@@ -131,6 +131,10 @@
       $('div[aria-level="1"][aria-posinset="4"],div[aria-level="1"][aria-posinset="10"]').hide();
     });
 
+- if session[:username]
+  :javascript
+    window.Smalruby.username = '#{h session[:username]}';
+
 - if SmalrubyEditor::Config.features.is_a?(Array)
   :javascript
     window.Smalruby.Features = #{SmalrubyEditor::Config.features.to_json};

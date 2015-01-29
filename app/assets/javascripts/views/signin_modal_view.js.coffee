@@ -12,22 +12,27 @@ Smalruby.SigninModalView = Backbone.View.extend
   render: ->
     @$el.find('#signin-modal-username')
       .val($('#username-label').text())
+    @$el.modal
+      backdrop: 'static'
     @$el.modal('show')
 
   onOk: (e) ->
     username = @$el.find('input[name=username]').val()
-    $.post('/sessions/', { username: username })
-      .then(
-        (data) ->
-          $('#signin-button').hide()
-          $('#signout-button').show()
-          $('#username-label').text(data)
-          $('#username-button').show()
-          successMessage('ログインしました')
-          new $.Deferred().resolve().promise()
-        ->
-          errorMessage('ログインに失敗しました')
-          new $.Deferred().resolve().promise()
-      )
-      .done =>
-        @$el.modal('hide')
+    if $.trim(username).length > 0
+      $.post('/sessions/', { username: username })
+        .then(
+          (data) ->
+            Smalruby.username = data
+            $('#signin-button').hide()
+            $('#signout-button').show()
+            $('#username-label').text(data)
+            $('#username-button').show()
+            successMessage('ログインしました')
+            new $.Deferred().resolve().promise()
+          ->
+            errorMessage('ログインに失敗しました')
+            new $.Deferred().resolve().promise()
+        )
+        .done =>
+          if Smalruby.username != null || !Smalruby.isEnabled('must_signin')
+            @$el.modal('hide')
