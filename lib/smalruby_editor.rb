@@ -133,6 +133,7 @@ features:
   #- add_character_from_beginning
   #- disabled_new_character
   #- auto_init_hardware
+  #- readonly_ruby_mode
     EOS
 
     def create_config_yml(home_dir)

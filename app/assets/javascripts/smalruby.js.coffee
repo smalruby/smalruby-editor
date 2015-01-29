@@ -111,6 +111,7 @@ window.Smalruby =
     textEditor.setTheme('ace/theme/clouds')
     textEditor.setShowInvisibles(true)
     textEditor.gotoLine(0, 0)
+    textEditor.setReadOnly(@isEnabled('readonly_ruby_mode'))
     textEditor.on 'change', (e) =>
       unless @translating
         window.changed = true
@@ -121,7 +122,7 @@ window.Smalruby =
     session.setTabSize(2)
     session.setUseSoftTabs(true)
 
-    @add_character_from_beginning()
+    @addCharacterFromBeginning()
 
   loadXml: (data, workspace = Blockly.mainWorkspace) ->
     xml = Blockly.Xml.textToDom(data)
@@ -175,7 +176,7 @@ window.Smalruby =
     $('#filename').val('')
     window.textEditor.getSession().getDocument().setValue('')
     window.textEditor.moveCursorTo(0, 0)
-    @add_character_from_beginning()
+    @addCharacterFromBeginning()
     window.changed = false
 
   # 国際化したメッセージを取得する
@@ -186,8 +187,8 @@ window.Smalruby =
     else
       name
 
-  add_character_from_beginning: ->
-    if @Features.indexOf('add_character_from_beginning') != -1
+  addCharacterFromBeginning: ->
+    if @isEnabled('add_character_from_beginning')
       constume = 'cat1.png'
       c = new Smalruby.Character
         name: @Collections.CharacterSet.uniqueName(constume)
@@ -198,6 +199,9 @@ window.Smalruby =
       @Views.CharacterSelectorView.prevBlock = null
       @Views.CharacterSelectorView.addBlock_(c)
       window.changed = false
+
+  isEnabled: (feature) ->
+    @Features.indexOf(feature) != -1
 
 $(document).ready ->
   Smalruby.initialize()
