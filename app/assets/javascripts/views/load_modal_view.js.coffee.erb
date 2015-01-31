@@ -1,4 +1,9 @@
-# ロードダイアログを表現するビュー
+<%
+  require 'smalruby_editor'
+  require 'smalruby_editor/blockly_message_helper'
+%>
+
+# load dialog view
 Smalruby.LoadModalView = Backbone.View.extend
   events:
     'click #load-modal-ok-button': 'onOk'
@@ -26,6 +31,7 @@ Smalruby.LoadModalView = Backbone.View.extend
 
     unblock = =>
       @$el.find('.modal-body').unblock()
+      null # HACK: if return unblock(), does not call fail().
 
     @$el.modal('show')
 
@@ -51,7 +57,7 @@ Smalruby.LoadModalView = Backbone.View.extend
       .then(unblock, unblock)
       .fail =>
         @$el.modal('hide')
-        errorMessage('ロードに失敗しました')
+        errorMessage(<%= bm('.error') %>)
 
   onOk: ->
     switch @type

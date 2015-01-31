@@ -45,6 +45,10 @@ Blockly.Msg.VIEWS_MAIN_MENU_VIEW_DOWNLOAD_BLOCKUI_TITLE = 'Downloading';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_DOWNLOAD_BLOCKUI_MESSAGE = "Downloading your program.";
 
 
+// views/load_modal_view.js.coffee
+Blockly.Msg.VIEWS_LOAD_MODAL_VIEW_ERROR = "Can't load the program.";
+
+
 // blocks/motion.js.coffee.erb
 Blockly.Msg.BLOCKS_MOTION_MOVE = 'move %1 steps';
 Blockly.Msg.BLOCKS_MOTION_TURN_RIGHT_DEGREES = 'turn right %1 degrees';
