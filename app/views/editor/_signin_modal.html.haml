@@ -3,21 +3,19 @@
   .modal-body
     %h4
       %i.icon-info-sign
-      あなたの名前をいれて、
-      %br
-      ほかの人のプログラムとまざらないようにしよう♪
+      = raw(t('.message'))
     %form#signin-modal-form.form-horizontal
       .control-group{for: "username"}
         %label.control-label{for: "signin-modal-username"}<
-          名前
+          = t('common.name')
         .controls
-          %input#signin-modal-username.input-large{name: "username", type: "text", placeholder: "名前、生徒番号、ニックネームなど"}
+          %input#signin-modal-username.input-large{name: "username", type: "text", placeholder: t('.username_placeholder')}
 
   .modal-footer
     - if !SmalrubyEditor::Config.enabled?('must_signin')
       %button#signin-modal-cancel-button.cancel-button{class: "btn", :"data-dismiss" => "modal", :"aria-hidden" => "true"}<
         %i.icon-remove
-        やめる
+        = t('common.cancel')
     %button#signin-modal-ok-button.ok-button{class: "btn btn-primary"}<
       %i.icon-circle-blank
-      ログイン
+      = t('common.login')

@@ -3,6 +3,9 @@ ja:
     smalruby_editor: "スモウルビー v%{version}"
     "ok": "決めた！"
     cancel: "やめる"
+    reset: &reset "リセット"
+    login: &login "ログイン"
+    name: "名前"
 
   editor:
     index:
@@ -13,9 +16,9 @@ ja:
       load: "ロード"
       save: "セーブ"
       check: "チェック"
-      reset: "リセット"
+      reset: *reset
       logout: "ログアウト"
-      login: "ログイン"
+      login: *login
 
     block_tab:
       character: "キャラクター"
@@ -51,3 +54,11 @@ ja:
       find_program: "プログラムをさがす"
       computer: "このコンピュータ"
       remix: "リミックス"
+
+    reset_modal:
+      title: "本当にリセットしますか？"
+      message: "作成中のプログラムが消えてしまうよ！"
+
+    signin_modal:
+      message: "あなたの名前をいれて、<br />ほかの人のプログラムとまざらないようにしよう♪"
+      username_placeholder: "名前、生徒番号、ニックネームなど"

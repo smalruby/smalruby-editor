@@ -3,6 +3,9 @@ en:
     smalruby_editor: "Smalruby v%{version}"
     "ok": "OK"
     cancel: "Cancel"
+    reset: &reset "Reset"
+    login: &login "Login"
+    name: "Name"
 
   editor:
     index:
@@ -13,9 +16,9 @@ en:
       load: "Load"
       save: "Save"
       check: "Check"
-      reset: "Reset"
+      reset: *reset
       logout: "Logout"
-      login: "Login"
+      login: *login
 
     block_tab:
       character: "Character"
@@ -64,3 +67,11 @@ en:
       find_program: "Find program"
       computer: "From this computer..."
       remix: "Remix"
+
+    reset_modal:
+      title: "Are you sure you want to reset ?"
+      message: "Your program will disappear!"
+
+    signin_modal:
+      message: "Input your name<br>not to mix with other people's program."
+      username_placeholder: "username, ID, nickname, etc..."
