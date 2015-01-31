@@ -63,9 +63,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @interpolateMsg('p %1',
-                     ['ARG', null, Blockly.ALIGN_RIGHT],
-                     Blockly.ALIGN_RIGHT)
+    @interpolateMsg(<%= bm('.p') %>,
+                    ['ARG', null, Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
     @setNextStatement(true)

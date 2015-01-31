@@ -1,108 +1,103 @@
 %xml{:id => 'toolbox', :style => 'display: none'}
   - category = 'motion'
   %category{:name => tt('.motion')}
-    %category{:name => tt('.motion_move')}
-      -# (　)歩動かす
-      %block{:type => "#{category}_move"}
-        = toolbox_number_value('STEP', 10)
+    -# (　)歩動かす
+    %block{:type => "#{category}_move"}
+      = toolbox_number_value('STEP', 10)
 
-      -# x座標を(　)、y座標を(　)にする
-      %block{:type => "#{category}_set_x_y"}
-        = toolbox_number_value('X')
-        = toolbox_number_value('Y')
+    -# 時計回りに(　)度回す
+    %block{:type => "#{category}_rotate_right"}
+      = toolbox_number_value('ANGLE', 15)
 
-      -# マウスポインターへ行く
-      %block{:type => "#{category}_go_to_mouse"}
+    -# 反時計回りに(　)度回す
+    %block{:type => "#{category}_rotate_left"}
+      = toolbox_number_value('ANGLE', 15)
 
-      -# [▼]へ行く
-      %block{:type => "#{category}_go_to_character"}
+    -# (　)度に向ける
+    %block{:type => "#{category}_set_angle"}
+      = toolbox_number_value('ANGLE', 90)
 
-      -# (　)秒でx座標を(　)、y座標を(　)に変える
-      -#%block{:type => "#{category}_glide_to_x_y"}
-      -#  = toolbox_number_value('SEC', 1)
-      -#  = toolbox_number_value('X')
-      -#  = toolbox_number_value('Y')
+    -# [▼]へ向ける
+    %block{:type => "#{category}_point_towards_character"}
 
-      -# x座標を(　)ずつ変える
-      %block{:type => "#{category}_change_x_by"}
-        = toolbox_number_value('X', 10)
+    -# マウスポインターへ向ける
+    %block{:type => "#{category}_point_towards_mouse"}
 
-      -# x座標を(　)にする
-      %block{:type => "#{category}_set_x"}
-        = toolbox_number_value('X', 0)
+    -# x座標を(　)、y座標を(　)にする
+    %block{:type => "#{category}_set_x_y"}
+      = toolbox_number_value('X')
+      = toolbox_number_value('Y')
 
-      -# y座標を(　)ずつ変える
-      %block{:type => "#{category}_change_y_by"}
-        = toolbox_number_value('Y', 10)
+    -# マウスポインターへ行く
+    %block{:type => "#{category}_go_to_mouse"}
 
-      -# y座標を(　)にする
-      %block{:type => "#{category}_set_y"}
-        = toolbox_number_value('Y', 0)
+    -# [▼]へ行く
+    %block{:type => "#{category}_go_to_character"}
 
-      -# 変数:x座標
-      - if !raspberrypi?
-        %block{:type => "#{category}_self_x"}
+    -# (　)秒でx座標を(　)、y座標を(　)に変える
+    -#%block{:type => "#{category}_glide_to_x_y"}
+    -#  = toolbox_number_value('SEC', 1)
+    -#  = toolbox_number_value('X')
+    -#  = toolbox_number_value('Y')
 
-      -# 変数:y座標
-      - if !raspberrypi?
-        %block{:type => "#{category}_self_y"}
+    -# x座標を(　)ずつ変える
+    %block{:type => "#{category}_change_x_by"}
+      = toolbox_number_value('X', 10)
 
-    %category{:name => tt('.motion_rotate')}
-      -# もし端に着いたら、跳ね返る
-      %block{:type => "#{category}_turn_if_reach_wall"}
+    -# x座標を(　)にする
+    %block{:type => "#{category}_set_x"}
+      = toolbox_number_value('X', 0)
 
-      -# 跳ね返る
-      %block{:type => "#{category}_turn"}
+    -# y座標を(　)ずつ変える
+    %block{:type => "#{category}_change_y_by"}
+      = toolbox_number_value('Y', 10)
 
-      -# [▼水平(X)]方向に跳ね返る
-      %block{:type => "#{category}_turn_xy"}
+    -# y座標を(　)にする
+    %block{:type => "#{category}_set_y"}
+      = toolbox_number_value('Y', 0)
 
-      -# 時計回りに(　)度回す
-      %block{:type => "#{category}_rotate_right"}
-        = toolbox_number_value('ANGLE', 15)
+    -# もし端に着いたら、跳ね返る
+    %block{:type => "#{category}_turn_if_reach_wall"}
 
-      -# 反時計回りに(　)度回す
-      %block{:type => "#{category}_rotate_left"}
-        = toolbox_number_value('ANGLE', 15)
+    -# 跳ね返る
+    %block{:type => "#{category}_turn"}
 
-      -# (　)度に向ける
-      %block{:type => "#{category}_set_angle"}
-        = toolbox_number_value('ANGLE', 90)
+    -# [▼水平(X)]方向に跳ね返る
+    %block{:type => "#{category}_turn_xy"}
 
-      -# マウスポインターへ向ける
-      %block{:type => "#{category}_point_towards_mouse"}
+    -# 回転方法を[▼]にする
+    %block{:type => "#{category}_set_rotation_style"}
 
-      -# [▼]へ向ける
-      %block{:type => "#{category}_point_towards_character"}
+    -# 変数:x座標
+    %block{:type => "#{category}_self_x"}
 
-      -# 回転方法を[▼]にする
-      %block{:type => "#{category}_set_rotation_style"}
+    -# 変数:y座標
+    %block{:type => "#{category}_self_y"}
 
-      -# 変数:向き
-      - if !raspberrypi?
-        %block{:type => "#{category}_self_angle"}
+    -# 変数:向き
+    %block{:type => "#{category}_self_angle"}
 
-    - if !raspberrypi?
+    - if SmalrubyEditor::Config.enabled?('enabled_hardware_blocks_on_default')
       - category = 'hardware'
-      %category{:name => tt('.motion_actuator')}
-        - subcategory = 'servo'
-        -# サーボ[▼PIN]を(　)度(5～180)にする
-        %block{:type => "#{category}_#{subcategory}_set_position"}
-          = toolbox_number_value('POS', 90)
+      - subcategory = 'servo'
+      -# サーボ[▼PIN]を(　)度(5～180)にする
+      %block{:type => "#{category}_#{subcategory}_set_position"}
+        = toolbox_number_value('POS', 90)
 
-        - subcategory = 'two_wheel_drive_car'
-        -# 2WD車[▼PIN]を（　）秒[▼コマンド]
-        %block{:type => "#{category}_#{subcategory}_run"}
-          = toolbox_pin_field('D5')
-          = toolbox_number_value('SEC', 1)
-          %value{:name => 'COMMAND'}
-            %block{:type => "#{category}_#{subcategory}_commands"}
+      - subcategory = 'two_wheel_drive_car'
+      -# 2WD車[▼PIN]を（　）秒[▼コマンド]
+      %block{:type => "#{category}_#{subcategory}_run"}
+        = toolbox_pin_field('D5')
+        = toolbox_number_value('SEC', 1)
+        %value{:name => 'COMMAND'}
+          %block{:type => "#{category}_#{subcategory}_commands"}
 
-        -# [▼コマンド]
-        %block{:type => "#{category}_#{subcategory}_commands"}
-          %field{:name => 'COMMAND'}<
-            forward
+      -# [▼コマンド]
+      %block{:type => "#{category}_#{subcategory}_commands"}
+        %field{:name => 'COMMAND'}<
+          forward
 
+      - if SmalrubyEditor::Config.enabled?('enabled_2wd_car_blocks_on_default')
         -# 2WD車[▼PIN]を進める
         %block{:type => "#{category}_#{subcategory}_forward"}
           = toolbox_pin_field('D5')
@@ -128,18 +123,19 @@
           = toolbox_pin_field('D5')
           = toolbox_number_value('SPEED', 100)
 
-        - subcategory = 'motor_driver'
-        -# (モータードライバ[▼PIN]で)モーターを[▼正転させる]
-        %block{:type => "#{category}_#{subcategory}"}
-          = toolbox_pin_field('D6')
-          %field{:name => 'METHOD'}<
-            forward
+      - subcategory = 'motor_driver'
+      -# (モータードライバ[▼PIN]で)モーターを[▼正転させる]
+      %block{:type => "#{category}_#{subcategory}"}
+        = toolbox_pin_field('D6')
+        %field{:name => 'METHOD'}<
+          forward
 
-        -# (モータードライバ[▼PIN]の)モーターの速度を<SPEED>%にする
-        %block{:type => "#{category}_#{subcategory}_set_speed"}
-          = toolbox_pin_field('D6')
-          = toolbox_number_value('SPEED', 100)
+      -# (モータードライバ[▼PIN]の)モーターの速度を<SPEED>%にする
+      %block{:type => "#{category}_#{subcategory}_set_speed"}
+        = toolbox_pin_field('D6')
+        = toolbox_number_value('SPEED', 100)
 
+      - if SmalrubyEditor::Config.enabled?('enabled_smalrubot_v3_blocks_on_default')
         - subcategory = 'smalrubot_v3'
         %block{type: "#{category}_#{subcategory}_action"}
           %field{name: 'ACTION'}<
@@ -152,6 +148,17 @@
 
         %block{type: "#{category}_#{subcategory}_motor_set_speed"}
           = toolbox_number_value('SPEED', 100)
+
+      - if SmalrubyEditor::Config.enabled?('enabled_smalrubot_s1_blocks_on_default')
+        - subcategory = 'smalrubot_s1'
+        %block{type: "#{category}_#{subcategory}_action"}
+          %field{name: 'ACTION'}<
+            forward
+
+        %block{type: "#{category}_#{subcategory}_action_with_sec"}
+          %field{name: 'ACTION'}<
+            forward
+          = toolbox_number_value('SEC', 0.5)
 
   - category = 'looks'
   %category{:name => tt('.looks')}
@@ -196,7 +203,7 @@
     -# [▼プリセット画像]
     -#%block{:type => "#{category}_preset_images"}
 
-    - if !raspberrypi?
+    - if SmalrubyEditor::Config.enabled?('enabled_hardware_blocks_on_default')
       - category = 'hardware'
       - subcategory = 'led'
       -# LED[▼PIN]をオンにする
@@ -227,12 +234,19 @@
       -# LCDをクリアする
       %block{:type => "#{category}_#{subcategory}_clear"}
 
-      - subcategory = 'smalrubot_v3'
-      %block{type: "#{category}_#{subcategory}_led_turn_on_or_off"}
-        %field{name: 'COLOUR'}<
-          red
-        %field{name: 'OOO'}<
-          turn_on
+      - if SmalrubyEditor::Config.enabled?('enabled_smalrubot_v3_blocks_on_default')
+        - subcategory = 'smalrubot_v3'
+        %block{type: "#{category}_#{subcategory}_led_turn_on_or_off"}
+          %field{name: 'COLOUR'}<
+            red
+          %field{name: 'OOO'}<
+            turn_on
+
+      - if SmalrubyEditor::Config.enabled?('enabled_smalrubot_s1_blocks_on_default')
+        - subcategory = 'smalrubot_s1'
+        %block{type: "#{category}_#{subcategory}_led_turn_on_or_off"}
+          %field{name: 'OOO'}<
+            turn_on
 
   - category = 'sound'
   %category{:name => tt('.sound')}
@@ -249,15 +263,14 @@
 
   - category = 'pen'
   %category{:name => tt('.pen')}
-    - if !raspberrypi?
-      -# ペンを下ろす
-      %block{:type => "#{category}_down_pen"}
+    -# ペンを下ろす
+    %block{:type => "#{category}_down_pen"}
 
-      -# ペンを上げる
-      %block{:type => "#{category}_up_pen"}
+    -# ペンを上げる
+    %block{:type => "#{category}_up_pen"}
 
-      -# ペンの色を[カラー]にする
-      %block{:type => "#{category}_set_pen_color"}
+    -# ペンの色を[カラー]にする
+    %block{:type => "#{category}_set_pen_color"}
 
   %category{:name => tt('.data')}
     %category{:name => tt('.data_variables'), :custom => 'VARIABLE'}
@@ -280,220 +293,213 @@
 
   - category = 'control'
   %category{:name => tt('.control')}
-    %category{:name => tt('.control_loop')}
-      -# ずっと
-      %block{:type => "#{category}_loop"}
+    -# (　)秒待つ
+    %block{:type => "#{category}_sleep"}
+      = toolbox_number_value('SEC', 1)
 
-      -# (　)回繰り返す
-      %block{:type => "#{category}_times"}
-        = toolbox_number_value('COUNT', 10)
+    -# ほんの少し待つ
+    %block{:type => "#{category}_await"}
 
-      -# <　>まで繰り返す
-      %block{:type => "#{category}_until"}
+    -# (　)回繰り返す
+    %block{:type => "#{category}_times"}
+      = toolbox_number_value('COUNT', 10)
 
-      -# 繰り返しから脱出する
-      %block{:type => "#{category}_break"}
+    -# ずっと
+    %block{:type => "#{category}_loop"}
 
-      - if !raspberrypi?
-        -# 次の繰り返しにジャンプする
-        %block{:type => "#{category}_next"}
+    -# もし<　>なら
+    %block{:type => "#{category}_if"}
 
-        -# 現在の繰り返しをやり直す
-        %block{:type => "#{category}_redo"}
+    -# もし<　>なら～でなければ
+    %block{:type => "#{category}_if_else"}
 
-    %category{:name => tt('.control_wait')}
-      -# (　)秒待つ
-      %block{:type => "#{category}_sleep"}
-        = toolbox_number_value('SEC', 1)
+    -# <　>まで待つ
+    %block{:type => "#{category}_await_until"}
 
-      -# <　>まで待つ
-      %block{:type => "#{category}_await_until"}
+    -# <　>まで繰り返す
+    %block{:type => "#{category}_until"}
 
-      -# ほんの少し待つ
-      %block{:type => "#{category}_await"}
+    -# 繰り返しから脱出する
+    %block{:type => "#{category}_break"}
 
-    %category{:name => tt('.control_if')}
-      -# もし<　>なら
-      %block{:type => "#{category}_if"}
+    -# 次の繰り返しにジャンプする
+    %block{:type => "#{category}_next"}
 
-      -# もし<　>なら～でなければ
-      %block{:type => "#{category}_if_else"}
+    -# 現在の繰り返しをやり直す
+    %block{:type => "#{category}_redo"}
 
   - category = 'sensing'
   %category{:name => tt('.sensing')}
-    %category{:name => tt('.sensing_general')}
-      -# 条件:端に触れた
-      %block{:type => "#{category}_reach_wall"}
+    -# 条件:[▼キャラクター]に触れた
+    %block{:type => "#{category}_hit"}
 
-      -# 条件:キーボードの[▼キー]が[▼押された]
-      %block{:type => "#{category}_input_key_push_or_down"}
-        = toolbox_key_field
-        = toolbox_pod_field
+    -# 条件:端に触れた
+    %block{:type => "#{category}_reach_wall"}
 
-      -# 条件:マウスの[▼左ボタン]が[▼押された]
-      %block{:type => "#{category}_input_mouse_push_or_down"}
-        = toolbox_pod_field
+    -# [　]と聞いて待つ
+    -#%block{:type => "#{category}_ask"}
+    -#  = toolbox_text_value('TEXT', 'あなたのお名前は？')
 
-      -# 変数:マウスのx座標
-      %block{:type => "#{category}_input_mouse_pos_x"}
+    -# 変数:答え
+    -#%block{:type => "#{category}_answer"}
 
-      -# 変数:マウスのy座標
-      %block{:type => "#{category}_input_mouse_pos_y"}
+    -# 条件:キーボードの[▼キー]が[▼押された]
+    %block{:type => "#{category}_input_key_push_or_down"}
+      = toolbox_key_field
+      = toolbox_pod_field
 
-      -# 条件:[▼キャラクター]に触れた
-      %block{:type => "#{category}_hit"}
+    -# 条件:マウスの[▼左ボタン]が[▼押された]
+    %block{:type => "#{category}_input_mouse_push_or_down"}
+      = toolbox_pod_field
 
-      -# [　]と聞いて待つ
-      -#%block{:type => "#{category}_ask"}
-      -#  = toolbox_text_value('TEXT', 'あなたのお名前は？')
+    -# 変数:マウスのx座標
+    %block{:type => "#{category}_input_mouse_pos_x"}
 
-      -# 変数:答え
-      -#%block{:type => "#{category}_answer"}
+    -# 変数:マウスのy座標
+    %block{:type => "#{category}_input_mouse_pos_y"}
 
-      -# 変数:タイマー
-      -#%block{:type => "#{category}_timer_count"}
+    -# 変数:タイマー
+    -#%block{:type => "#{category}_timer_count"}
 
-      -# タイマーをリセット
-      -#%block{:type => "#{category}_timer_reset"}
+    -# タイマーをリセット
+    -#%block{:type => "#{category}_timer_reset"}
 
-      -# 変数:[▼キャラクター]の[▼プロパティ]
-      %block{:type => "#{category}_character_property"}
+    -# 変数:[▼キャラクター]の[▼プロパティ]
+    %block{:type => "#{category}_character_property"}
 
-      - if !raspberrypi?
-        -# 変数:現在の[▼時]
-        %block{:type => "#{category}_time_now"}
+    -# 変数:現在の[▼時]
+    %block{:type => "#{category}_time_now"}
 
-        -# 変数:2000年からの日数
-        %block{:type => "#{category}_days_since_2000"}
+    -# 変数:2000年からの日数
+    %block{:type => "#{category}_days_since_2000"}
 
-    - if !raspberrypi?
+    - if SmalrubyEditor::Config.enabled?('enabled_hardware_blocks_on_default')
       - category = 'hardware'
-      %category{:name => tt('.sensing_hardware')}
-        -# センサー[▼PIN]
-        %block{:type => "#{category}_sensor_value"}
-          = toolbox_pin_field('A0')
+      -# センサー[▼PIN]
+      %block{:type => "#{category}_sensor_value"}
+        = toolbox_pin_field('A0')
 
-        -# 条件:ボタン[▼PIN]が[▼押された]
-        %block{:type => "#{category}_button_pressed_or_released"}
-          = toolbox_pin_field('D3')
+      -# 条件:ボタン[▼PIN]が[▼押された]
+      %block{:type => "#{category}_button_pressed_or_released"}
+        = toolbox_pin_field('D3')
 
-        -# 2WD車[▼PIN]の[▼LOR]の速度%
-        %block{:type => "#{category}_two_wheel_drive_car_speed"}
-          = toolbox_pin_field('D5')
+      -# 2WD車[▼PIN]の[▼LOR]の速度%
+      %block{:type => "#{category}_two_wheel_drive_car_speed"}
+        = toolbox_pin_field('D5')
 
-        -# (モータードライバ[▼PIN]の)モーターの速度(%)
-        %block{:type => "#{category}_motor_driver_speed"}
-          = toolbox_pin_field('D6')
+      -# (モータードライバ[▼PIN]の)モーターの速度(%)
+      %block{:type => "#{category}_motor_driver_speed"}
+        = toolbox_pin_field('D6')
 
+      - if SmalrubyEditor::Config.enabled?('enabled_smalrubot_v3_blocks_on_default')
         - subcategory = 'smalrubot_v3'
         %block{type: "#{category}_#{subcategory}_touch_sensor_pressed_or_released"}
         %block{type: "#{category}_#{subcategory}_light_sensor_value"}
         %block{type: "#{category}_#{subcategory}_motor_speed"}
 
+      - if SmalrubyEditor::Config.enabled?('enabled_smalrubot_s1_blocks_on_default')
+        - category = 'hardware'
+        - subcategory = 'smalrubot_s1'
+        %block{type: "#{category}_#{subcategory}_ir_photoreflector_value"}
+
   - category = 'operators'
   %category{:name => tt('.operators')}
-    %category{:name => tt('.operators_calculate')}
-      -# 変数:(　) + (　)
-      %block{:type => "#{category}_add"}
+    -# 数値
+    %block{:type => 'math_number'}
+      %field{:name => 'NUM'}<
+        0
 
-      -# 変数:(　) - (　)
-      %block{:type => "#{category}_minus"}
+    -# テキスト
+    %block{:type => 'text'}
+      %field{:name => 'TEXT'}<
+        = tt('.text')
 
-      -# 変数:(　) * (　)
-      %block{:type => "#{category}_multiply"}
+    -# 変数:(　) + (　)
+    %block{:type => "#{category}_add"}
 
-      -# 変数:(　) / (　)
-      %block{:type => "#{category}_divide"}
+    -# 変数:(　) - (　)
+    %block{:type => "#{category}_minus"}
 
-      -# 変数:(　)から(　)までの乱数
-      %block{:type => "#{category}_rand"}
-        = toolbox_number_value('A', 1)
-        = toolbox_number_value('B', 10)
+    -# 変数:(　) * (　)
+    %block{:type => "#{category}_multiply"}
 
-      -# 変数:(　)を(　)で割った余り
-      - if !raspberrypi?
-        %block{:type => "#{category}_modulo"}
-          = toolbox_number_value('A', 5)
-          = toolbox_number_value('B', 2)
+    -# 変数:(　) / (　)
+    %block{:type => "#{category}_divide"}
 
-        -# 変数:(　)を丸める
-        %block{:type => "#{category}_round"}
-          = toolbox_number_value('A', 0.5)
+    -# 変数:(　)から(　)までの乱数
+    %block{:type => "#{category}_rand"}
+      = toolbox_number_value('A', 1)
+      = toolbox_number_value('B', 10)
 
-        -# 変数:(　)の[▼数学関数]
-        %block{:type => "#{category}_math_method"}
-          = toolbox_number_value('NUM', 9)
-          %field{:name => 'METHOD'}<
-            Math.sqrt(%num%)
+    -# 条件:(　) < (　)
+    %block{:type => "#{category}_compare_lt"}
 
-      -# 数値
-      %block{:type => 'math_number'}
-        %field{:name => 'NUM'}<
-          0
+    -# 条件:(　) <= (　)
+    %block{:type => "#{category}_compare_lte"}
 
-    %category{:name => tt('.operators_string')}
-      -# 変数:(　)の(　)番目
-      %block{:type => "#{category}_index_of"}
-        = toolbox_text_value('A', tt('.world'))
-        = toolbox_number_value('INDEX', 1)
+    -# 条件:(　) = (　)
+    %block{:type => "#{category}_compare_eq"}
 
-      -# 変数:(　)の長さ
-      %block{:type => "#{category}_length"}
-        = toolbox_text_value('A', tt('.world'))
+    -# 条件:(　) >= (　)
+    %block{:type => "#{category}_compare_gte"}
 
-      -# テキスト
-      %block{:type => 'text'}
-        %field{:name => 'TEXT'}<
-          = tt('.text')
+    -# 条件:(　) > (　)
+    %block{:type => "#{category}_compare_gt"}
 
-    %category{:name => tt('.operators_condition')}
-      -# 条件:(　) < (　)
-      %block{:type => "#{category}_compare_gt"}
+    -# 条件:<　> かつ <　>
+    %block{:type => "#{category}_and"}
 
-      -# 条件:(　) <= (　)
-      %block{:type => "#{category}_compare_gte"}
+    -# 条件:<　> または <　>
+    %block{:type => "#{category}_or"}
 
-      -# 条件:(　) = (　)
-      %block{:type => "#{category}_compare_eq"}
+    -# 条件:<　> ではない
+    %block{:type => "#{category}_negate"}
 
-      -# 条件:(　) >= (　)
-      %block{:type => "#{category}_compare_lte"}
+    -# 変数:(　)の(　)番目
+    %block{:type => "#{category}_index_of"}
+      = toolbox_text_value('A', tt('.world'))
+      = toolbox_number_value('INDEX', 1)
 
-      -# 条件:(　) > (　)
-      %block{:type => "#{category}_compare_lt"}
+    -# 変数:(　)の長さ
+    %block{:type => "#{category}_length"}
+      = toolbox_text_value('A', tt('.world'))
 
-      -# 条件:<　> かつ <　>
-      %block{:type => "#{category}_and"}
+    -# 変数:(　)を(　)で割った余り
+    %block{:type => "#{category}_modulo"}
+      = toolbox_number_value('A', 5)
+      = toolbox_number_value('B', 2)
 
-      -# 条件:<　> または <　>
-      %block{:type => "#{category}_or"}
+    -# 変数:(　)を四捨五入
+    %block{:type => "#{category}_round"}
+      = toolbox_number_value('A', 0.5)
 
-      -# 条件:<　> ではない
-      %block{:type => "#{category}_negate"}
+    -# 変数:(　)の[▼数学関数]
+    %block{:type => "#{category}_math_method"}
+      = toolbox_number_value('NUM', 9)
+      %field{:name => 'METHOD'}<
+        Math.sqrt(%num%)
 
-      -# 条件:真
-      %block{:type => "#{category}_true"}
+    -# 条件:真
+    %block{:type => "#{category}_true"}
 
-      -# 条件:偽
-      %block{:type => "#{category}_false"}
+    -# 条件:偽
+    %block{:type => "#{category}_false"}
 
   %category{:name => tt('.etc')}
-    - if !raspberrypi?
-      - category = 'ruby'
-      %category{:name => tt('.etc_ruby')}
-        -# 文
-        %block{:type => "#{category}_statement"}
+    - category = 'ruby'
+    -# 文
+    %block{:type => "#{category}_statement"}
 
-        -# 式
-        %block{:type => "#{category}_expression"}
+    -# 式
+    %block{:type => "#{category}_expression"}
 
-        -# コメント
-        %block{:type => "#{category}_comment"}
+    -# コメント
+    %block{:type => "#{category}_comment"}
 
-        -# p
-        %block{:type => "#{category}_p"}
+    -# p
+    %block{:type => "#{category}_p"}
 
+    - if SmalrubyEditor::Config.enabled?('enabled_hardware_blocks_on_default')
       - category = 'hardware'
-      %category{:name => tt('.etc_hardware')}
-        -# ハードウェアを準備する
-        %block{:type => "#{category}_init_hardware"}
+      -# ハードウェアを準備する
+      %block{:type => "#{category}_init_hardware"}

@@ -32,12 +32,10 @@ Blockly.Blocks['<%= n %>'] =
 
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput()
-      .appendField(<%= bm('.on_key_push_or_down_prefix') %>)
-      .appendField(new Blockly.FieldDropdown(keyDropdown), 'KEY')
-      .appendField(<%= bm('.on_key_push_or_down_middle') %>)
-      .appendField(new Blockly.FieldDropdown(podDropdown), 'POD')
-      .appendField(<%= bm('.on_key_push_or_down_suffix') %>)
+    @interpolateMsg(<%= bm('.on_key_push_or_down') %>,
+                    ['KEY', ['Dropdown', keyDropdown], Blockly.ALIGN_RIGHT],
+                    ['POD', ['Dropdown', podDropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @appendStatementInput('DO')
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -70,10 +68,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput()
-      .appendField(<%= bm('.on_hit_prefix') %>)
-      .appendField(new Smalruby.FieldCharacter(), 'CHAR')
-      .appendField(<%= bm('.on_hit_suffix') %>)
+    @interpolateMsg(<%= bm('.on_hit') %>,
+                    ['CHAR', ['Character'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @appendStatementInput('DO')
     @setPreviousStatement(true)
     @setNextStatement(true)

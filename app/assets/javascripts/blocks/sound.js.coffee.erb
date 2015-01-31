@@ -23,7 +23,9 @@ Blockly.Blocks['<%= n %>'] =
     ]
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput().appendField(new Blockly.FieldDropdown(sounds), 'NAME')
+    @interpolateMsg(<%= bm('.preset_sounds') %>,
+                    ['NAME', ['Dropdown', sounds], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setOutput(true, 'String')
     @setTooltip('')
 

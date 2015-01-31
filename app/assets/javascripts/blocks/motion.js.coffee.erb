@@ -91,9 +91,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput()
-      .appendField(new Smalruby.FieldCharacter(), 'CHAR')
-      .appendField(<%= bm('.point_towards_character') %>)
+    @interpolateMsg(<%= bm('.point_towards_character') %>,
+                    ['CHAR', ['Character'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -108,11 +108,10 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput().appendField(<%= bm('.set_x_y_x') %>)
-    @appendValueInput('X').setCheck('Number')
-    @appendDummyInput().appendField(<%= bm('.set_x_y_y') %>)
-    @appendValueInput('Y').setCheck('Number')
-    @appendDummyInput().appendField(<%= bm('.set_x_y_suffix') %>)
+    @interpolateMsg(<%= bm('.set_x_y') %>,
+                    ['X', ['Number'], Blockly.ALIGN_RIGHT],
+                    ['Y', ['Number'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -144,10 +143,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput()
-      .appendField(<%= bm('.go_to_character_prefix') %>)
-      .appendField(new Smalruby.FieldCharacter(), 'CHAR')
-      .appendField(<%= bm('.go_to_character_suffix') %>)
+    @interpolateMsg(<%= bm('.go_to_character') %>,
+                    ['CHAR', ['Character'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -248,10 +246,9 @@ Blockly.Blocks['<%= n %>'] =
 
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput()
-      .appendField(<%= bm('.turn_xy_prefix') %>)
-      .appendField(new Blockly.FieldDropdown(dropdown), 'XY')
-      .appendField(<%= bm('.turn_xy_suffix') %>)
+    @interpolateMsg(<%= bm('.turn_xy') %>,
+                    ['XY', ['Dropdown', dropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')
@@ -272,10 +269,9 @@ Blockly.Blocks['<%= n %>'] =
 
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput()
-      .appendField(<%= bm('.set_rotation_style_prefix') %>)
-      .appendField(new Blockly.FieldDropdown(dropdown), 'STYLE')
-      .appendField(<%= bm('.set_rotation_style_suffix') %>)
+    @interpolateMsg(<%= bm('.set_rotation_style') %>,
+                    ['STYLE', ['Dropdown', dropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)
     @setTooltip('')

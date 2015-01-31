@@ -70,6 +70,12 @@ Blockly.loadAudio_ = function(filenames, name) {
 };
 
 // blockly/core/block.js
+Blockly.Block.prototype._appendDummyInputWhenCurrentIsNot = function(current) {
+  if (current == null || current.type != Blockly.DUMMY_INPUT) {
+    return this.appendDummyInput();
+  }
+  return current;
+};
 Blockly.Block.prototype.interpolateMsg = function(msg, var_args) {
   // Validate the msg at the start and the dummy alignment at the end,
   // and remove the latter.
@@ -83,6 +89,7 @@ Blockly.Block.prototype.interpolateMsg = function(msg, var_args) {
   arguments.length = arguments.length - 1;
 
   var tokens = msg.split(/(%\d)/);
+  var input = null;
   for (var i = 0; i < tokens.length; i += 2) {
     var text = goog.string.trim(tokens[i]);
     var symbol = tokens[i + 1];
@@ -93,26 +100,32 @@ Blockly.Block.prototype.interpolateMsg = function(msg, var_args) {
       goog.asserts.assertArray(tuple,
           'Message symbol "%s" is out of range.', symbol);
       if (goog.typeOf(tuple[1]) == 'array' && tuple[1][0] == 'Dropdown') {
-        this.appendDummyInput()
+        input = this._appendDummyInputWhenCurrentIsNot(input)
             .appendField(text)
             .setAlign(tuple[2])
             .appendField(new Blockly.FieldDropdown(tuple[1][1]), tuple[0]);
       }
       else if (goog.typeOf(tuple[1]) == 'array' && tuple[1][0] == 'Colour') {
-        this.appendDummyInput()
+        input = this._appendDummyInputWhenCurrentIsNot(input)
             .appendField(text)
             .setAlign(tuple[2])
             .appendField(new Blockly.FieldColour(tuple[1][1]), tuple[0]);
       }
-      else {
-        this.appendValueInput(tuple[0])
-            .setCheck(tuple[1])
+      else if (goog.typeOf(tuple[1]) == 'array' && tuple[1][0] == 'Character') {
+        input = this._appendDummyInputWhenCurrentIsNot(input)
+            .appendField(text)
             .setAlign(tuple[2])
-            .appendField(text);
+            .appendField(new Smalruby.FieldCharacter(), tuple[0]);
+      }
+      else {
+        input = this.appendValueInput(tuple[0]);
+        input.setCheck(tuple[1])
+             .setAlign(tuple[2])
+             .appendField(text);
       }
       arguments[digit] = null;  // Inputs may not be reused.
     } else if (text) {
-      this.appendDummyInput()
+      input = this._appendDummyInputWhenCurrentIsNot(input)
           .setAlign(dummyAlign)
           .appendField(text);
     }

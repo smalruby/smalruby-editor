@@ -51,13 +51,10 @@ Blockly.Msg.BLOCKS_MOTION_TURN_RIGHT_DEGREES = 'turn right %1 degrees';
 Blockly.Msg.BLOCKS_MOTION_TURN_LEFT_DEGREES = 'turn left %1 degrees';
 Blockly.Msg.BLOCKS_MOTION_POINT_IN_DIRECTION = 'point in direction %1';
 Blockly.Msg.BLOCKS_MOTION_POINT_TOWARDS_MOUSE = 'point towards mouse-pointer';
-Blockly.Msg.BLOCKS_MOTION_POINT_TOWARDS_CHARACTER = 'point towards';
-Blockly.Msg.BLOCKS_MOTION_SET_X_Y_X = 'go to x:';
-Blockly.Msg.BLOCKS_MOTION_SET_X_Y_Y = 'y:';
-Blockly.Msg.BLOCKS_MOTION_SET_X_Y_SUFFIX = '';
+Blockly.Msg.BLOCKS_MOTION_POINT_TOWARDS_CHARACTER = 'point towards %1';
+Blockly.Msg.BLOCKS_MOTION_SET_X_Y = 'go to x: %1 y: %2';
 Blockly.Msg.BLOCKS_MOTION_GO_TO_MOUSE = 'go to mouse-pointer';
-Blockly.Msg.BLOCKS_MOTION_GO_TO_CHARACTER_PREFIX = 'go to ';
-Blockly.Msg.BLOCKS_MOTION_GO_TO_CHARACTER_SUFFIX = '';
+Blockly.Msg.BLOCKS_MOTION_GO_TO_CHARACTER = 'go to %1';
 Blockly.Msg.BLOCKS_MOTION_CHANGE_X_BY = 'change x by %1';
 Blockly.Msg.BLOCKS_MOTION_SET_X = 'set x to %1';
 Blockly.Msg.BLOCKS_MOTION_CHANGE_Y_BY = 'change y by %1';
@@ -66,25 +63,22 @@ Blockly.Msg.BLOCKS_MOTION_TURN_IF_REACH_WALL = 'if reach wall, turn';
 Blockly.Msg.BLOCKS_MOTION_TURN = 'turn';
 Blockly.Msg.BLOCKS_MOTION_TURN_XY_X = '(x) horizontal';
 Blockly.Msg.BLOCKS_MOTION_TURN_XY_Y = '(y) vertical';
-Blockly.Msg.BLOCKS_MOTION_TURN_XY_PREFIX = 'turn to ';
-Blockly.Msg.BLOCKS_MOTION_TURN_XY_SUFFIX = '';
+Blockly.Msg.BLOCKS_MOTION_TURN_XY = 'turn to %1';
+Blockly.Msg.BLOCKS_MOTION_SET_ROTATION_STYLE = 'set rotation style %1';
 Blockly.Msg.BLOCKS_MOTION_SET_ROTATION_STYLE_LEFT_RIGHT = 'left-right';
 Blockly.Msg.BLOCKS_MOTION_SET_ROTATION_STYLE_NONE = "don't rorate";
 Blockly.Msg.BLOCKS_MOTION_SET_ROTATION_STYLE_FREE = 'all around';
-Blockly.Msg.BLOCKS_MOTION_SET_ROTATION_STYLE_PREFIX = 'set rotation style ';
-Blockly.Msg.BLOCKS_MOTION_SET_ROTATION_STYLE_SUFFIX = '';
 Blockly.Msg.BLOCKS_MOTION_SELF_X = 'x position';
 Blockly.Msg.BLOCKS_MOTION_SELF_Y = 'y position';
 Blockly.Msg.BLOCKS_MOTION_SELF_ANGLE = 'direction';
 
+
 // blocks/events.js.coffee.erb
 Blockly.Msg.BLOCKS_EVENTS_ON_START = 'when Run clicked';
-Blockly.Msg.BLOCKS_EVENTS_ON_KEY_PUSH_OR_DOWN_PREFIX = 'when ';
-Blockly.Msg.BLOCKS_EVENTS_ON_KEY_PUSH_OR_DOWN_MIDDLE = ' key ';
-Blockly.Msg.BLOCKS_EVENTS_ON_KEY_PUSH_OR_DOWN_SUFFIX = '';
+Blockly.Msg.BLOCKS_EVENTS_ON_KEY_PUSH_OR_DOWN = 'when %1 key %2';
 Blockly.Msg.BLOCKS_EVENTS_ON_CLICK = 'when this sprite clicked';
-Blockly.Msg.BLOCKS_EVENTS_ON_HIT_PREFIX = 'when ';
-Blockly.Msg.BLOCKS_EVENTS_ON_HIT_SUFFIX = ' hit';
+Blockly.Msg.BLOCKS_EVENTS_ON_HIT = 'when %1 hit';
+
 
 // blocks/sensing.js.coffee.erb
 Blockly.Msg.BLOCKS_SENSING_K_UP = 'up arrow';
@@ -120,7 +114,7 @@ Blockly.Msg.BLOCKS_SENSING_CHARACTER_PROPERTY_COSTUME_INDEX = 'costume #';
 Blockly.Msg.BLOCKS_SENSING_CHARACTER_PROPERTY_COSTUME = 'contume name';
 Blockly.Msg.BLOCKS_SENSING_CHARACTER_PROPERTY_SCALE = 'size';
 Blockly.Msg.BLOCKS_SENSING_CHARACTER_PROPERTY_VOLUME = 'volume';
-Blockly.Msg.BLOCKS_SENSING_CHARACTER_PROPERTY_MIDDLE = ' of ';
+Blockly.Msg.BLOCKS_SENSING_CHARACTER_PROPERTY = '%2 of %1';
 Blockly.Msg.BLOCKS_SENSING_TIME_NOW_YEAR = 'year';
 Blockly.Msg.BLOCKS_SENSING_TIME_NOW_MONTH = 'month';
 Blockly.Msg.BLOCKS_SENSING_TIME_NOW_DAY = 'day';
@@ -129,6 +123,8 @@ Blockly.Msg.BLOCKS_SENSING_TIME_NOW_HOUR = 'hour';
 Blockly.Msg.BLOCKS_SENSING_TIME_NOW_MIN = 'min';
 Blockly.Msg.BLOCKS_SENSING_TIME_NOW_SEC = 'sec';
 Blockly.Msg.BLOCKS_SENSING_TIME_NOW = 'current ';
+Blockly.Msg.BLOCKS_SENSING_DAYS_SINCE_2000 = 'days since 2000';
+
 
 // blocks/control.js.coffee.erb
 Blockly.Msg.BLOCKS_CONTROL_SLEEP = 'wait %1 secs';
@@ -145,15 +141,20 @@ Blockly.Msg.BLOCKS_CONTROL_AWAIT_UNTIL = 'wait until %1';
 Blockly.Msg.BLOCKS_CONTROL_UNTIL = 'repeat until %1';
 Blockly.Msg.BLOCKS_CONTROL_AWAIT = 'just wait a little';
 
+
 // blocks/ruby.js.coffee.erb
 Blockly.Msg.BLOCKS_RUBY_STATEMENT = 'statement ';
 Blockly.Msg.BLOCKS_RUBY_EXPRESSION = 'expression ';
 Blockly.Msg.BLOCKS_RUBY_COMMENT = 'comment ';
+Blockly.Msg.BLOCKS_RUBY_P = 'p %1';
+
 
 // blocks/field_character.js.coffee.erb
 Blockly.Msg.BLOCKS_FIELD_CHARACTER_NO_CHARACTER = 'no character';
 
+
 // blocks/sound.js.coffee.erb
+Blockly.Msg.BLOCKS_SOUND_PRESET_SOUNDS = '%1';
 Blockly.Msg.BLOCKS_SOUND_PRESET_SOUNDS_PIANO_DO = 'Middle C of piano';
 Blockly.Msg.BLOCKS_SOUND_PRESET_SOUNDS_PIANO_RE = 'D of piano';
 Blockly.Msg.BLOCKS_SOUND_PRESET_SOUNDS_PIANO_MI = 'E of piano';
@@ -164,6 +165,7 @@ Blockly.Msg.BLOCKS_SOUND_PRESET_SOUNDS_PIANO_SI = 'B of piano';
 Blockly.Msg.BLOCKS_SOUND_PRESET_SOUNDS_PIANO_DO_2 = 'High C of piano';
 Blockly.Msg.BLOCKS_SOUND_PLAY = 'play sound %1';
 
+
 // blocks/looks.js.coffee.erb
 Blockly.Msg.BLOCKS_LOOKS_SAY = 'say %1';
 Blockly.Msg.BLOCKS_LOOKS_THINK = 'think %1';
@@ -172,6 +174,7 @@ Blockly.Msg.BLOCKS_LOOKS_THINK_WITH_SECOND = 'think %1 for %2 secs';
 Blockly.Msg.BLOCKS_LOOKS_SHOW = 'show';
 Blockly.Msg.BLOCKS_LOOKS_HIDE = 'hide';
 Blockly.Msg.BLOCKS_LOOKS_VANISH = 'vanish';
+
 
 // blocks/hardware.js.coffee.erb
 Blockly.Msg.BLOCKS_HARDWARE_LED_TURN_ON = 'turn on LED %1';
@@ -188,6 +191,7 @@ Blockly.Msg.BLOCKS_HARDWARE_SEVEN_SEGMENT_DISPLAY_OFF = 'turn off 7 segment disp
 Blockly.Msg.BLOCKS_HARDWARE_LCD_PUTS = 'display %1 on the LCD';
 Blockly.Msg.BLOCKS_HARDWARE_LCD_CLEAR = 'clear LCD';
 Blockly.Msg.BLOCKS_HARDWARE_SERVO_SET_POSITION = 'servo motor %1 set %2 degree (5-180)';
+Blockly.Msg.BLOCKS_HARDWARE_TWO_WHEEL_DRIVE_CAR_COMMANDS = '%1';
 Blockly.Msg.BLOCKS_HARDWARE_TWO_WHEEL_DRIVE_CAR_FORWARD = 'forward 2WD car %1';
 Blockly.Msg.BLOCKS_HARDWARE_TWO_WHEEL_DRIVE_CAR_BACKWARD = 'backward 2WD car %1';
 Blockly.Msg.BLOCKS_HARDWARE_TWO_WHEEL_DRIVE_CAR_TURN_LEFT = 'turn left 2WD car %1';
@@ -257,6 +261,7 @@ Blockly.Msg.BLOCKS_OPERATORS_MATH_METHOD_E_SQUARE = 'e ^';
 Blockly.Msg.BLOCKS_OPERATORS_MATH_METHOD_10_SQUARE = '10 ^';
 Blockly.Msg.BLOCKS_OPERATORS_TRUE = 'true';
 Blockly.Msg.BLOCKS_OPERATORS_FALSE = 'false';
+
 
 // blocks/pen.js.coffee.erb
 Blockly.Msg.BLOCKS_PEN_DOWN_PEN = 'pen down';

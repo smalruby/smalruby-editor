@@ -215,10 +215,10 @@ Blockly.Blocks['<%= n %>'] =
 
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput()
-      .appendField(new Smalruby.FieldCharacter(), 'CHAR')
-      .appendField(<%= bm('.character_property_middle') %>)
-      .appendField(new Blockly.FieldDropdown(dropdown), 'PROPERTY')
+    @interpolateMsg(<%= bm('.character_property') %>,
+                    ['CHAR', ['Character'], Blockly.ALIGN_RIGHT],
+                    ['PROPERTY', ['Dropdown', dropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setOutput(true, ['Number', 'String'])
     @setTooltip('')
 
@@ -244,9 +244,9 @@ Blockly.Blocks['<%= n %>'] =
 
     @setHelpUrl('')
     @setColour(<%= color %>)
-    @appendDummyInput()
-      .appendField(<%= bm('.time_now') %>)
-      .appendField(new Blockly.FieldDropdown(dropdown), 'METHOD')
+    @interpolateMsg(<%= bm('.time_now') %>,
+                    ['METHOD', ['Dropdown', dropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setOutput(true, 'Number')
     @setTooltip('')
 
@@ -261,7 +261,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @appendDummyInput()
-      .appendField('2000年からの日数')
+      .appendField(<%= bm('.days_since_2000') %>)
     @setOutput(true, 'Number')
     @setTooltip('')
 

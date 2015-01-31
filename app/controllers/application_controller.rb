@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   helper_method :standalone?, :raspberrypi?
 
   before_filter :set_locale
+  before_filter :reload_config if Rails.env.development?
 
   private
 
@@ -50,5 +51,9 @@ class ApplicationController < ActionController::Base
     unless standalone?
       fail "#{self.class.name}##{action_name}はstandaloneモードのみの機能です"
     end
+  end
+
+  def reload_config
+    SmalrubyEditor::Config.reload!
   end
 end

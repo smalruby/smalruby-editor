@@ -296,8 +296,9 @@ Blockly.Blocks['<%= n %>'] =
   init: ()->
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
-    @appendDummyInput()
-      .appendField(new Blockly.FieldDropdown(actionDropdown), 'COMMAND')
+    @interpolateMsg(<%= bm(".#{subcategory}_commands") %>,
+                    ['COMMAND', ['Dropdown', actionDropdown], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
     @setOutput(true, 'String')
     @setTooltip('')
 

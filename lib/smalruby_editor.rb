@@ -130,11 +130,15 @@ standalone:
 #toolbox_name: default
 #toolbox_css_name: default
 features:
-  #- add_character_from_beginning
+  - add_character_from_beginning
   #- disabled_new_character
   #- auto_init_hardware
   #- readonly_ruby_mode
   #- must_signin
+  #- enabled_hardware_blocks_on_default
+  #- enabled_2wd_car_blocks_on_default
+  #- enabled_smalrubot_v3_blocks_on_default
+  #- enabled_smalrubot_s1_blocks_on_default
     EOS
 
     def create_config_yml(home_dir)
