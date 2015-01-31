@@ -1,4 +1,9 @@
-# ログインダイアログを表現するビュー
+<%
+  require 'smalruby_editor'
+  require 'smalruby_editor/blockly_message_helper'
+%>
+
+# signin dialog view
 Smalruby.SigninModalView = Backbone.View.extend
   events:
     'click #signin-modal-ok-button': 'onOk' # FIXME: 本当は#signin-modal .ok-buttonを指定したいができなかった
@@ -27,10 +32,10 @@ Smalruby.SigninModalView = Backbone.View.extend
             $('#signout-button').show()
             $('#username-label').text(data)
             $('#username-button').show()
-            successMessage('ログインしました')
+            successMessage(<%= bm('.signed_in') %>)
             new $.Deferred().resolve().promise()
           ->
-            errorMessage('ログインに失敗しました')
+            errorMessage(<%= bm('.error') %>)
             new $.Deferred().resolve().promise()
         )
         .done =>

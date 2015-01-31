@@ -48,6 +48,11 @@ Blockly.Msg.VIEWS_MAIN_MENU_VIEW_DOWNLOAD_BLOCKUI_MESSAGE = 'プログラムを�
 Blockly.Msg.VIEWS_LOAD_MODAL_VIEW_ERROR = 'ロードに失敗しました';
 
 
+// views/signin_modal_view.js.coffee
+Blockly.Msg.VIEWS_SIGNIN_MODAL_VIEW_SIGNED_IN = 'ログインしました';
+Blockly.Msg.VIEWS_SIGNIN_MODAL_VIEW_ERROR = 'ログインに失敗しました';
+
+
 // blocks/motion.js.coffee.erb
 Blockly.Msg.BLOCKS_MOTION_MOVE = '■%1歩動かす';
 Blockly.Msg.BLOCKS_MOTION_TURN_RIGHT_DEGREES = '■時計回りに%1度回す';

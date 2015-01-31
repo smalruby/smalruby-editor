@@ -49,6 +49,11 @@ Blockly.Msg.VIEWS_MAIN_MENU_VIEW_DOWNLOAD_BLOCKUI_MESSAGE = "Downloading your pr
 Blockly.Msg.VIEWS_LOAD_MODAL_VIEW_ERROR = "Can't load the program.";
 
 
+// views/signin_modal_view.js.coffee
+Blockly.Msg.VIEWS_SIGNIN_MODAL_VIEW_SIGNED_IN = 'Signed in.';
+Blockly.Msg.VIEWS_SIGNIN_MODAL_VIEW_ERROR = "Can't sign in.";
+
+
 // blocks/motion.js.coffee.erb
 Blockly.Msg.BLOCKS_MOTION_MOVE = 'move %1 steps';
 Blockly.Msg.BLOCKS_MOTION_TURN_RIGHT_DEGREES = 'turn right %1 degrees';
