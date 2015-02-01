@@ -7,6 +7,12 @@ ja:
     login: &login "ログイン"
     name: "名前"
 
+  controllers:
+    source_codes:
+      not_ruby_program: "はRubyのプログラムではありません"
+      not_exist: "はありません"
+      exist: "すでに同じ名前のプログラムがあります"
+
   editor:
     index:
       block: "ブロック"

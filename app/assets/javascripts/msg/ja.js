@@ -16,6 +16,7 @@ Blockly.Msg.COMMON_BACKWARD = 'バックさせる';
 Blockly.Msg.COMMON_TURN_LEFT = '左に曲げる';
 Blockly.Msg.COMMON_TURN_RIGHT = '右に曲げる';
 Blockly.Msg.COMMON_STOP = '止める';
+Blockly.Msg.COMMON_ERROR = 'エラー';
 
 
 // colour name
@@ -25,10 +26,15 @@ Blockly.Msg.COLOUR_BLUE = '青色';
 Blockly.Msg.COLOUR_WHITE = '白色';
 
 
+// smalruby.js.coffee
+Blockly.Msg.SMALRUBY_WILL_DISAPPER_YOUR_PROGRAM = '作成中のプログラムが消えてしまうよ！';
+
+
 // views/main_menu_view.js.coffee
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LINES = '行';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LETTERS = '文字';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_COMMA = '、';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_CONFIRM_OVERWRITE = '前に{$filename}という名前でセーブしているけど本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！';
 
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_BLOCK_MODE_BLOCKUI_TITLE = 'プログラムの変換中';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_BLOCK_MODE_BLOCKUI_MESSAGE = 'プログラムをブロックに変換しています。';
@@ -42,6 +48,31 @@ Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_ERROR_CANCEL_TO_RUN = 'プログラムの�
 
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_DOWNLOAD_BLOCKUI_TITLE = 'プログラムのダウンロード中';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_DOWNLOAD_BLOCKUI_MESSAGE = 'プログラムをダウンロードしています。';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_DOWNLOAD_SUCCEEDED = 'ダウンロードしました。<br>ダウンロードしたプログラムは、Windowsだと「ruby {$filename}」、Macだと「rsdl {$filename}」で実行できます。';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_DOWNLOAD_ERROR = 'ダウンロードできませんでした';
+
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_LOAD_CONFIRM = 'まだセーブしていないのでロードするとプログラムが消えてしまうよ！\nそれでもロードしますか？';
+
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_SAVE_ERROR_NO_NAME = 'セーブする前にプログラムに名前をつけてね！';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_SAVE_BLOCKUI_TITLE = 'プログラムのセーブ中';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_SAVE_BLOCKUI_MESSAGE = 'プログラムをセーブしています。';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_SAVE_BLOCKUI_NOTICE = 'プログラムの名前は「{$filename}」です。<br>プログラムはホームディレクトリにセーブします。<br>';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_SAVE_ERROR_MESSAGE = 'セーブできませんでした';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_SAVE_CANCELED = 'セーブをキャンセルしました';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_SAVE_SUCCEEDED = 'セーブしました';
+
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_CHECK_BLOCKUI_TITLE = 'プログラムのチェック中';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_CHECK_BLOCKUI_MESSAGE = 'プログラムの文法をチェックしています。';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_CHECK_BLOCKUI_NOTICE = 'このチェックは簡易的なものですので、<br>プログラムを動かすとエラーが見つかるかもしれません。';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_CHECK_SUCCEEDED = 'チェックしました';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_CHECK_SUCCEEDED_NOTICE = 'ただし、プログラムを動かすとエラーが見つかるかもしれません。';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_CHECK_ERROR = 'チェックできませんでした';
+
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_SIGNOUT_SUCCEEDED = 'ログアウトしました';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_SIGNOUT_ERROR = 'ログアウトに失敗しました';
+
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_LOAD_ERROR = '{$filename}{$error}';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_LOAD_SUCCEEDED = 'ロードしました';
 
 
 // views/load_modal_view.js.coffee

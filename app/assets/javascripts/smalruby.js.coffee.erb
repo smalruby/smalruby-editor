@@ -1,3 +1,8 @@
+<%
+  require 'smalruby_editor'
+  require 'smalruby_editor/blockly_message_helper'
+%>
+
 window.SmalrubyEditor = {}
 window.changed = false
 window.textEditor = null
@@ -16,7 +21,7 @@ window.successMessage = (title, msg = '', selector = '#messages') ->
 window.errorMessage = (msg, selector = '#messages') ->
   html = $('<div class="alert alert-error" style="display: none">')
     .append('<button type="button" class="close" data-dismiss="alert">×</button>')
-    .append('<h4><i class="icon-exclamation-sign"></i>エラー</h4>')
+    .append("<h4><i class=\"icon-exclamation-sign\"></i>#{<%= bm('common_error') %>}</h4>")
     .append(msg)
   $(selector).append(html)
   html.fadeIn('slow')
@@ -39,7 +44,7 @@ window.Smalruby =
       headers:
         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
 
-    # HACK: Underscoreのテンプレートの<%, %>はHamlと組み合わせたときに
+    # HACK: Underscoreのテンプレートの\<\%, \%\>はHamlと組み合わせたときに
     #   HTML要素の属性がHamlによってエスケープされてしまうため使いにく
     #   い。そこで、それぞれ{{, }}に変更する。
     _.extend(_.templateSettings, {
@@ -76,7 +81,7 @@ window.Smalruby =
     Smalruby.downloading = false
     window.onbeforeunload = (event) ->
       if !Smalruby.downloading && window.changed
-        return '作成中のプログラムが消えてしまうよ！'
+        return <%= bm('.will_disapper_your_program') %>
       else
         Smalruby.downloading = false
         return

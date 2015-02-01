@@ -16,6 +16,7 @@ Blockly.Msg.COMMON_BACKWARD = 'backward';
 Blockly.Msg.COMMON_TURN_LEFT = 'turn left';
 Blockly.Msg.COMMON_TURN_RIGHT = 'turn right';
 Blockly.Msg.COMMON_STOP = 'stop';
+Blockly.Msg.COMMON_ERROR = 'Error';
 
 
 // colour name
@@ -25,11 +26,15 @@ Blockly.Msg.COLOUR_BLUE = 'blue';
 Blockly.Msg.COLOUR_WHITE = 'white';
 
 
+// smalruby.js.coffee
+Blockly.Msg.SMALRUBY_WILL_DISAPPER_YOUR_PROGRAM = 'Disappear your program!';
+
+
 // views/main_menu_view.js.coffee
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LINES = ' Lines';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_LETTERS = ' Letters';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_COMMA = ', ';
-
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_COMMON_CONFIRM_OVERWRITE = 'Are you sure to save?\nBecause you saved as {$filename}, so that will disappear, if you will save!';
 
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_BLOCK_MODE_BLOCKUI_TITLE = 'Converting Program';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_BLOCK_MODE_BLOCKUI_MESSAGE = 'Converting your program to instruction blocks.';
@@ -43,6 +48,31 @@ Blockly.Msg.VIEWS_MAIN_MENU_VIEW_RUN_ERROR_CANCEL_TO_RUN = "Cancel to run your p
 
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_DOWNLOAD_BLOCKUI_TITLE = 'Downloading';
 Blockly.Msg.VIEWS_MAIN_MENU_VIEW_DOWNLOAD_BLOCKUI_MESSAGE = "Downloading your program.";
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_DOWNLOAD_SUCCEEDED = 'Downloaded.<br>You can run with "ruby {$filename}" on windows or "rsdl {$filename}" on Mac OS X.';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_DOWNLOAD_ERROR = "Can't download";
+
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_LOAD_CONFIRM = "Your program will disappear, because you didn't save it! Are you sure to load?";
+
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_SAVE_ERROR_NO_NAME = 'You must set program name before you save it!';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_SAVE_BLOCKUI_TITLE = 'Saving your program';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_SAVE_BLOCKUI_MESSAGE = 'Now, saving your program.';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_SAVE_BLOCKUI_NOTICE = 'Your program name is "{$filename}".<br>It will be saved at home directory.<br>';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_SAVE_ERROR_MESSAGE = "Can't save your program.";
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_SAVE_CANCELED = 'Canceled to save.';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_SAVE_SUCCEEDED = 'Saved.';
+
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_CHECK_BLOCKUI_TITLE = 'Checking your program';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_CHECK_BLOCKUI_MESSAGE = 'Now, checking syntax of your program.';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_CHECK_BLOCKUI_NOTICE = 'This is only checking syntax, so you will find error when you run it.';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_CHECK_SUCCEEDED = 'Checked.';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_CHECK_SUCCEEDED_NOTICE = 'Your program was checked only syntax, so you will find error when you run it.';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_CHECK_ERROR = "Can't check.";
+
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_SIGNOUT_SUCCEEDED = 'Logouted.';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_SIGNOUT_ERROR = "Can't logout.";
+
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_LOAD_ERROR = '{$filename}{$error}';
+Blockly.Msg.VIEWS_MAIN_MENU_VIEW_LOAD_SUCCEEDED = 'Loaded.';
 
 
 // views/load_modal_view.js.coffee
@@ -50,8 +80,8 @@ Blockly.Msg.VIEWS_LOAD_MODAL_VIEW_ERROR = "Can't load the program.";
 
 
 // views/signin_modal_view.js.coffee
-Blockly.Msg.VIEWS_SIGNIN_MODAL_VIEW_SIGNED_IN = 'Signed in.';
-Blockly.Msg.VIEWS_SIGNIN_MODAL_VIEW_ERROR = "Can't sign in.";
+Blockly.Msg.VIEWS_SIGNIN_MODAL_VIEW_SIGNED_IN = 'Logged in.';
+Blockly.Msg.VIEWS_SIGNIN_MODAL_VIEW_ERROR = "Can't login.";
 
 
 // blocks/motion.js.coffee.erb

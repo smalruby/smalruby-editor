@@ -7,6 +7,12 @@ en:
     login: &login "Login"
     name: "Name"
 
+  controllers:
+    source_codes:
+      not_ruby_program: " isn't ruby program."
+      not_exist: " does not exist."
+      exist: " already exist."
+
   editor:
     index:
       block: "Block"

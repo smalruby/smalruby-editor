@@ -3,7 +3,7 @@
   require 'smalruby_editor/blockly_message_helper'
 %>
 
-# ナビゲーションメニューを表現するビュー
+# navigation menu view
 Smalruby.MainMenuView = Backbone.View.extend
   el: '#main-menu'
 
@@ -152,34 +152,26 @@ Smalruby.MainMenuView = Backbone.View.extend
     clearMessages()
 
     @blockUI
-      title:
-        """
-        #{<%= bm('.download_blockui_title') %>}
-        """
+      title: <%= bm('.download_blockui_title') %>
       message: <%= bm('.download_blockui_message') %>
-      notice:
-        """
-        ダウンロードしたプログラムは、<br>
-        Windowsだと「ruby #{sourceCode.get('filename')}」、<br>
-        Macだと「rsdl #{sourceCode.get('filename')}」で実行できます。
-        """
 
     sourceCode.save2()
       .then (data) ->
         window.changed = false
-        window.successMessage('ダウンロードしました')
+        window.successMessage(goog.getMsg(<%= bm('.download_succeeded') %>,
+                              { filename: sourceCode.get('filename') }))
         Smalruby.downloading = true
         $('#download-link').click()
       .then(@unblockUI, @unblockUI)
       .fail ->
-        window.errorMessage('ダウンロードできませんでした')
+        window.errorMessage(<%= bm('.download_error') %>)
 
   onLoadLocal: (e) ->
     e.preventDefault()
 
     # TODO: window.changed -> Smalruby.Models.SourceCode.changed
     if window.changed
-      return unless confirm('まだセーブしていないのでロードするとプログラムが消えてしまうよ！\nそれでもロードしますか？')
+      return unless confirm(<%= bm('.load_confirm') %>)
 
     Smalruby.Views.LoadModalView.render()
 
@@ -188,7 +180,7 @@ Smalruby.MainMenuView = Backbone.View.extend
 
     # TODO: window.changed -> Smalruby.Models.SourceCode.changed
     if window.changed
-      return unless confirm('まだセーブしていないのでロードするとプログラムが消えてしまうよ！\nそれでもロードしますか？')
+      return unless confirm(<%= bm('.load_confirm') %>)
     $('input#load-file[name="source_code[file]"]').click()
 
   onSave: (e) ->
@@ -196,7 +188,7 @@ Smalruby.MainMenuView = Backbone.View.extend
 
     filename = $.trim($('#filename').val())
     if filename.length <= 0
-      window.errorMessage('セーブする前にプログラムに名前をつけてね！')
+      window.errorMessage(<%= bm('.save_error_no_name') %>)
       $('#filename').focus()
       return
 
@@ -208,29 +200,23 @@ Smalruby.MainMenuView = Backbone.View.extend
     clearMessages()
 
     @blockUI
-      title:
-        """
-        プログラムのセーブ中
-        """
-      message: 'プログラムをセーブしています。'
-      notice:
-        """
-        プログラムの名前は「#{sourceCode.get('filename')}」です。<br>
-        プログラムはホームディレクトリにセーブします。<br>
-        """
+      title: <%= bm('.save_blockui_title') %>
+      message: <%= bm('.save_blockui_message') %>
+      notice: goog.getMsg(<%= bm('.save_blockui_notice') %>,
+                          { filename: sourceCode.get('filename') })
 
-    errorMsg = 'セーブできませんでした'
+    errorMsg = <%= bm('.save_error_message') %>
     sourceCode.save2()
       .then (data) ->
         sourceCode.write()
       .then (data) =>
         @confirmOverwrite_.call @, data, sourceCode, ->
-          errorMsg = 'セーブをキャンセルしました'
+          errorMsg = <%= bm('.save_canceled') %>
       .then(@unblockUI, @unblockUI)
       .done ->
         Smalruby.savedFilename = sourceCode.get('filename')
         window.changed = false
-        window.successMessage('セーブしました')
+        window.successMessage(<%= bm('.save_succeeded') %>)
       .fail ->
         window.errorMessage(errorMsg)
 
@@ -242,31 +228,24 @@ Smalruby.MainMenuView = Backbone.View.extend
     sourceCode = @getSourceCode()
 
     @blockUI
-      title:
-        """
-        プログラムのチェック中
-        """
-      message: 'プログラムの文法をチェックしています。'
-      notice:
-        """
-        このチェックは簡易的なものですので、<br>
-        プログラムを動かすとエラーが見つかるかもしれません。
-        """
+      title: <%= bm('.check_blockui_title') %>
+      message: <%= bm('.check_blockui_message') %>
+      notice: <%= bm('.check_blockui_notice') %>
 
     sourceCode.check()
       .then (data) ->
         if data.length == 0
-          window.successMessage('チェックしました', 'ただし、プログラムを動かすとエラーが見つかるかもしれません。')
+          window.successMessage(<%= bm('.check_succeeded') %>, <%= bm('.check_succeeded_notice') %>)
         else
           for errorInfo in data
             do (errorInfo) ->
-              msg = "#{errorInfo.row}行"
+              msg = "#{errorInfo.row}#{<%= bm('.common_lines') %>}"
               if errorInfo.column > 0
-                msg += "、#{errorInfo.column}文字"
+                msg += "#{<%= bm('.common_comma') %>}#{errorInfo.column}#{<%= bm('.common_letters') %>}"
               window.errorMessage(msg + ": #{errorInfo.message}")
       .then(@unblockUI, @unblockUI)
       .fail ->
-        errorMessage('チェックできませんでした')
+        errorMessage(<%= bm('.check_error') %>)
 
   onReset: (e) ->
     e.preventDefault()
@@ -296,12 +275,12 @@ Smalruby.MainMenuView = Backbone.View.extend
           $('#signout-button').hide()
           $('#username-label').text('')
           $('#username-button').hide()
-          successMessage('ログアウトしました')
+          successMessage(<%= bm('.signout_succeeded') %>)
 
           if Smalruby.isEnabled('must_signin')
             Smalruby.Views.SigninModalView.render()
         ->
-          errorMessage('ログアウトに失敗しました')
+          errorMessage(<%= bm('.signout_error') %>)
       )
 
   onUsername: (e) ->
@@ -362,7 +341,8 @@ Smalruby.MainMenuView = Backbone.View.extend
   confirmOverwrite_: (data, sourceCode, canceled = $.noop) ->
     if data.source_code.error
       if sourceCode.get('filename') == Smalruby.savedFilename ||
-         confirm("前に#{sourceCode.get('filename')}という名前でセーブしているけど本当にセーブしますか？\nセーブすると前に作成したプログラムは消えてしまうよ！")
+         confirm(goog.getMsg(<%= bm('.common_confirm_overwrite') %>,
+                             { filename: sourceCode.get('filename') }))
         sourceCode.write(true)
       else
         canceled.call()
@@ -370,7 +350,8 @@ Smalruby.MainMenuView = Backbone.View.extend
 
   load: (info) ->
     if info.error
-      window.errorMessage(info.filename + 'は' + info.error)
+      window.errorMessage(goog.getMsg(<%= bm('.load_error') %>,
+                          { filename: info.filename, error: info.error }))
     else
       clearMessages()
 
@@ -399,4 +380,4 @@ Smalruby.MainMenuView = Backbone.View.extend
       # TODO: window.changed -> Smalruby.Models.SourceCode.changed
       window.changed = false
       Smalruby.changedAfterTranslating = true
-      window.successMessage('ロードしました')
+      window.successMessage(<%= bm('.load_succeeded') %>)

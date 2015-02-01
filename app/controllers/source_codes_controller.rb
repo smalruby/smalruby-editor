@@ -69,7 +69,8 @@ class SourceCodesController < ApplicationController
     if /\Atext\/plain/ =~ info[:type]
       info[:data] = NKF.nkf('-w', f.read)
     else
-      info[:error] = 'Rubyのプログラムではありません'
+      info[:error] = I18n.t('.not_ruby_program',
+                            scope: 'controllers.source_codes')
     end
 
     render json: { source_code: info }, content_type: request.format
@@ -152,7 +153,9 @@ class SourceCodesController < ApplicationController
     end
     path = Pathname(s).expand_path.to_s
 
-    fail 'すでに同じ名前のプログラムがあります' if File.exist?(path) && params[:force].blank?
+    if File.exist?(path) && params[:force].blank?
+      fail I18n.t('.exist', scope: 'controllers.source_codes')
+    end
 
     FileUtils.mkdir_p(File.dirname(path))
     File.open(path, 'w') do |f|
@@ -203,7 +206,7 @@ class SourceCodesController < ApplicationController
     else
       info = {
         filename: source_code_params[:filename],
-        error: 'ありません',
+        error: I18n.t('.not_exist', scope: 'controllers.source_codes'),
       }
     end
 
