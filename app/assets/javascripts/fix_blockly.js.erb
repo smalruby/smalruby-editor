@@ -48,7 +48,7 @@ Blockly.FieldTextInput.prototype.showEditor_ = function(opt_quietInput) {
 
 Blockly.FieldTextInput.prototype.onHtmlInputChange_ = function(e) {
   var htmlInput = Blockly.FieldTextInput.htmlInput_;
-  if (e.keyCode != 13 && e.keyCode != 27) {
+  if (e.keyCode != 27) {
     // Update source block.
     var text = htmlInput.value;
     if (text !== htmlInput.oldValue_) {
