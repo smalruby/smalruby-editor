@@ -16,7 +16,7 @@
               </block>
             </value>
             <next>
-              <block type="hardware_led_on">
+              <block type="hardware_led_turn_on">
                 <field name="PIN">D2</field>
                 <next>
                   <block type="control_sleep" inline="true">
@@ -26,7 +26,7 @@
                       </block>
                     </value>
                     <next>
-                      <block type="hardware_led_off">
+                      <block type="hardware_led_turn_off">
                         <field name="PIN">D2</field>
                         <next>
                           <block type="control_sleep" inline="true">
@@ -36,7 +36,7 @@
                               </block>
                             </value>
                             <next>
-                              <block type="hardware_led_on">
+                              <block type="hardware_led_turn_on">
                                 <field name="PIN">D13</field>
                                 <next>
                                   <block type="control_sleep" inline="true">
@@ -46,7 +46,7 @@
                                       </block>
                                     </value>
                                     <next>
-                                      <block type="hardware_led_off">
+                                      <block type="hardware_led_turn_off">
                                         <field name="PIN">D13</field>
                                         <next>
                                           <block type="looks_say" inline="true">
