@@ -19,9 +19,13 @@ Blockly.Blocks['<%= n %>'] =
     nameField = new Blockly.FieldLabel('')
     # HACK: ラベルをXMLとして出力させるためにEDITABLEをtrueにしている
     nameField.EDITABLE = true
-    # HACK: 画像とラベルの縦位置を合わせる
-    nameField.textElement_.setAttribute('y', 10)
     nameField.setText = _.bind(@nameFieldSetText_, @)
+
+    # HACK: 画像とラベルの縦位置を合わせる
+    originalInit = nameField.init
+    nameField.init = ->
+      originalInit.apply(@, arguments)
+      @getSvgRoot().setAttribute('y', size / 4)
 
     @appendDummyInput()
       .appendField(imageField, 'COSTUME')
@@ -34,7 +38,7 @@ Blockly.Blocks['<%= n %>'] =
   dispose: (healStack, animate) ->
     @character.off 'change', @changeHandler
     @character.unlink?(@)
-    Blockly.Block.prototype.dispose.apply(@, arguments)
+    @constructor.prototype.dispose.apply(@, arguments)
 
   nameFieldSetText_: (name) ->
     charSet = Smalruby.Collections.CharacterSet

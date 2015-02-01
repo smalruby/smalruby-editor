@@ -33,8 +33,8 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @interpolateMsg(<%= bm('.on_key_push_or_down') %>,
-                    ['KEY', ['Dropdown', keyDropdown], Blockly.ALIGN_RIGHT],
-                    ['POD', ['Dropdown', podDropdown], Blockly.ALIGN_RIGHT],
+                    ['KEY', new Blockly.FieldDropdown(keyDropdown)],
+                    ['POD', new Blockly.FieldDropdown(podDropdown)],
                     Blockly.ALIGN_RIGHT)
     @appendStatementInput('DO')
     @setPreviousStatement(true)
@@ -69,7 +69,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @interpolateMsg(<%= bm('.on_hit') %>,
-                    ['CHAR', ['Character'], Blockly.ALIGN_RIGHT],
+                    ['CHAR', new Smalruby.FieldCharacter()],
                     Blockly.ALIGN_RIGHT)
     @appendStatementInput('DO')
     @setPreviousStatement(true)

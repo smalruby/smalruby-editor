@@ -241,7 +241,7 @@ Blockly.Blocks['<%= n %>'] =
     @setColour(<%= color %>)
     @interpolateMsg(<%= bm('.math_method') %>,
                     ['NUM', ['Number'], Blockly.ALIGN_RIGHT],
-                    ['METHOD', ['Dropdown', dropdown], Blockly.ALIGN_RIGHT],
+                    ['METHOD', new Blockly.FieldDropdown(dropdown)],
                     Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setOutput(true, 'Number')

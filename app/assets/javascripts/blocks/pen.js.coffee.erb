@@ -3,6 +3,7 @@
 <%
   category = 'pen'
   require 'smalruby_editor'
+  require 'smalruby_editor/blockly_message_helper'
   color = SmalrubyEditor::COLORS[category.to_sym]
 %>
 
@@ -34,7 +35,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @interpolateMsg(<%= bm('.set_pen_color') %>,
-                    ['COLOUR', ['Colour', '#ff0000'], Blockly.ALIGN_RIGHT],
+                    ['COLOUR', new Blockly.FieldColour('#ff0000')],
                     Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)

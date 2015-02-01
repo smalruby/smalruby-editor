@@ -29,21 +29,21 @@
       """
       <xml>
         <character x="0" y="0" name="car1" costumes="car1.png" angle="0"></character>
-        <block type="character_new" x="0" y="0">
+        <block type="character_new" id="1" x="0" y="0">
           <field name="NAME">car1</field>
           <statement name="DO">
-            <block type="events_on_start">
+            <block type="events_on_start" id="2">
               <statement name="DO">
-                <block type="control_loop">
+                <block type="control_loop" id="3">
                   <statement name="DO">
-                    <block type="motion_move" inline="true">
+                    <block type="motion_move" id="4" inline="true">
                       <value name="STEP">
-                        <block type="math_number">
+                        <block type="math_number" id="5">
                           <field name="NUM">10</field>
                         </block>
                       </value>
                       <next>
-                        <block type="motion_turn_if_reach_wall"></block>
+                        <block type="motion_turn_if_reach_wall" id="6"></block>
                       </next>
                     </block>
                   </statement>

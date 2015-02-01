@@ -216,8 +216,8 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @interpolateMsg(<%= bm('.character_property') %>,
-                    ['CHAR', ['Character'], Blockly.ALIGN_RIGHT],
-                    ['PROPERTY', ['Dropdown', dropdown], Blockly.ALIGN_RIGHT],
+                    ['CHAR', new Smalruby.FieldCharacter()],
+                    ['PROPERTY', new Blockly.FieldDropdown(dropdown)],
                     Blockly.ALIGN_RIGHT)
     @setOutput(true, ['Number', 'String'])
     @setTooltip('')
@@ -245,7 +245,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @interpolateMsg(<%= bm('.time_now') %>,
-                    ['METHOD', ['Dropdown', dropdown], Blockly.ALIGN_RIGHT],
+                    ['METHOD', new Blockly.FieldDropdown(dropdown)],
                     Blockly.ALIGN_RIGHT)
     @setOutput(true, 'Number')
     @setTooltip('')

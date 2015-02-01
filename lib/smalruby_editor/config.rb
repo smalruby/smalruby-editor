@@ -2,13 +2,17 @@
 
 module SmalrubyEditor
   class Config < Settingslogic
-    path = SmalrubyEditor.home_directory.join('config', 'config.yml')
-    if path.exist?
-      source path
-    else
+    if Rails.env.test?
       source({})
+    else
+      path = SmalrubyEditor.home_directory.join('config', 'config.yml')
+      if path.exist?
+        source(path)
+      else
+        source({})
+      end
     end
-    suppress_errors true
+    suppress_errors(true)
 
     def enabled?(feature)
       features.try(:include?, feature)

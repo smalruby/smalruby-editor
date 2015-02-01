@@ -83,7 +83,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:looks] %>)
     @interpolateMsg(<%= bm(".led_#{method}") %>,
-                    ['PIN', ['Dropdown', dioPinDropdown], Blockly.ALIGN_RIGHT],
+                    ['PIN', new Blockly.FieldDropdown(dioPinDropdown)],
                     Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -105,9 +105,9 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:looks] %>)
     @interpolateMsg(<%= bm('.rgb_led_set_color') %>,
-                    ['AC', ['Dropdown', acDropdown], Blockly.ALIGN_RIGHT],
-                    ['PIN', ['Dropdown', rgbLedPinDropdown], Blockly.ALIGN_RIGHT],
-                    ['COLOUR', ['Colour', '#ff0000'], Blockly.ALIGN_RIGHT],
+                    ['AC', new Blockly.FieldDropdown(acDropdown)],
+                    ['PIN', new Blockly.FieldDropdown(rgbLedPinDropdown)],
+                    ['COLOUR', new Blockly.FieldColour('#ff0000')],
                     Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -130,8 +130,8 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:looks] %>)
     @interpolateMsg(<%= bm('.rgb_led_turn_off') %>,
-                    ['AC', ['Dropdown', acDropdown], Blockly.ALIGN_RIGHT],
-                    ['PIN', ['Dropdown', rgbLedPinDropdown], Blockly.ALIGN_RIGHT],
+                    ['AC', new Blockly.FieldDropdown(acDropdown)],
+                    ['PIN', new Blockly.FieldDropdown(rgbLedPinDropdown)],
                     Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -153,7 +153,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:looks] %>)
     @interpolateMsg(<%= bm('.seven_segment_display_show') %>,
-                    ['NUM', ['Dropdown', dropdown], Blockly.ALIGN_RIGHT],
+                    ['NUM', new Blockly.FieldDropdown(dropdown)],
                     Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -222,7 +222,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
     @interpolateMsg(<%= bm('.servo_set_position') %>,
-                    ['PIN', ['Dropdown', pwmPinDropdown], Blockly.ALIGN_RIGHT],
+                    ['PIN', new Blockly.FieldDropdown(pwmPinDropdown)],
                     ['POS', ['Number'], Blockly.ALIGN_RIGHT],
                     Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
@@ -254,7 +254,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
     @interpolateMsg(<%= bm(".#{subcategory}_#{method}") %>,
-                    ['PIN', ['Dropdown', twoWDPinDropdown], Blockly.ALIGN_RIGHT],
+                    ['PIN', new Blockly.FieldDropdown(twoWDPinDropdown)],
                     Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
@@ -275,7 +275,7 @@ Blockly.Blocks['<%= n %>'] =
     @setColour(<%= colors[:motion] %>)
     @interpolateMsg(<%= bm(".#{subcategory}_run") %>,
                     ['COMMAND', ['String'], Blockly.ALIGN_RIGHT],
-                    ['PIN', ['Dropdown', twoWDPinDropdown], Blockly.ALIGN_RIGHT],
+                    ['PIN', new Blockly.FieldDropdown(twoWDPinDropdown)],
                     ['SEC', ['Number'], Blockly.ALIGN_RIGHT],
                     Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
@@ -297,7 +297,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
     @interpolateMsg(<%= bm(".#{subcategory}_commands") %>,
-                    ['COMMAND', ['Dropdown', actionDropdown], Blockly.ALIGN_RIGHT],
+                    ['COMMAND', new Blockly.FieldDropdown(actionDropdown)],
                     Blockly.ALIGN_RIGHT)
     @setOutput(true, 'String')
     @setTooltip('')
@@ -313,8 +313,8 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
     @interpolateMsg(<%= bm(".#{subcategory}_set_speed") %>,
-                    ['PIN', ['Dropdown', pwmPinDropdown], Blockly.ALIGN_RIGHT],
-                    ['LOR', ['Dropdown', lorDropdown], Blockly.ALIGN_RIGHT],
+                    ['PIN', new Blockly.FieldDropdown(pwmPinDropdown)],
+                    ['LOR', new Blockly.FieldDropdown(lorDropdown)],
                     ['SPEED', ['Number'], Blockly.ALIGN_RIGHT],
                     Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
@@ -335,8 +335,8 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:sensing] %>)
     @interpolateMsg(<%= bm(".#{subcategory}_speed") %>,
-                    ['PIN', ['Dropdown', pwmPinDropdown], Blockly.ALIGN_RIGHT],
-                    ['LOR', ['Dropdown', lorDropdown], Blockly.ALIGN_RIGHT],
+                    ['PIN', new Blockly.FieldDropdown(pwmPinDropdown)],
+                    ['LOR', new Blockly.FieldDropdown(lorDropdown)],
                     Blockly.ALIGN_RIGHT)
     @setOutput(true, 'Number')
     @setTooltip('')
@@ -362,8 +362,8 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
     @interpolateMsg(<%= bm(".#{subcategory}") %>,
-                    ['PIN', ['Dropdown', pwmPinDropdown], Blockly.ALIGN_RIGHT],
-                    ['METHOD', ['Dropdown', methodDropdown], Blockly.ALIGN_RIGHT],
+                    ['PIN', new Blockly.FieldDropdown(pwmPinDropdown)],
+                    ['METHOD', new Blockly.FieldDropdown(methodDropdown)],
                     Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
@@ -383,7 +383,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
     @interpolateMsg(<%= bm(".#{subcategory}_set_speed") %>,
-                    ['PIN', ['Dropdown', pwmPinDropdown], Blockly.ALIGN_RIGHT],
+                    ['PIN', new Blockly.FieldDropdown(pwmPinDropdown)],
                     ['SPEED', ['Number'], Blockly.ALIGN_RIGHT],
                     Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
@@ -403,7 +403,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:sensing] %>)
     @interpolateMsg(<%= bm(".#{subcategory}_speed") %>,
-                    ['PIN', ['Dropdown', pwmPinDropdown], Blockly.ALIGN_RIGHT],
+                    ['PIN', new Blockly.FieldDropdown(pwmPinDropdown)],
                     Blockly.ALIGN_RIGHT)
     @setOutput(true, 'Number')
     @setTooltip('')
@@ -424,8 +424,8 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:sensing] %>)
     @interpolateMsg(<%= bm(".button_pressed_or_released") %>,
-                    ['PIN', ['Dropdown', dioPinDropdown], Blockly.ALIGN_RIGHT],
-                    ['POR', ['Dropdown', porDropdown], Blockly.ALIGN_RIGHT],
+                    ['PIN', new Blockly.FieldDropdown(dioPinDropdown)],
+                    ['POR', new Blockly.FieldDropdown(porDropdown)],
                     Blockly.ALIGN_RIGHT)
     @setOutput(true, 'Boolean')
     @setTooltip('')
@@ -444,7 +444,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:sensing] %>)
     @interpolateMsg(<%= bm('.sensor_value') %>,
-                    ['PIN', ['Dropdown', aiPinDropdown], Blockly.ALIGN_RIGHT],
+                    ['PIN', new Blockly.FieldDropdown(aiPinDropdown)],
                     Blockly.ALIGN_RIGHT)
     @setOutput(true, 'Number')
     @setTooltip('')
@@ -472,8 +472,8 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:looks] %>)
     @interpolateMsg(<%= bm(".#{subcategory}_led_turn_on_or_off") %>,
-                    ['COLOUR', ['Dropdown', colourDropdown], Blockly.ALIGN_RIGHT],
-                    ['OOO', ['Dropdown', oooDropdown], Blockly.ALIGN_RIGHT],
+                    ['COLOUR', new Blockly.FieldDropdown(colourDropdown)],
+                    ['OOO', new Blockly.FieldDropdown(oooDropdown)],
                     Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
@@ -492,7 +492,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:sensing] %>)
     @interpolateMsg(<%= bm(".#{subcategory}_motor_speed") %>,
-                    ['LOR', ['Dropdown', lorDropdown], Blockly.ALIGN_RIGHT],
+                    ['LOR', new Blockly.FieldDropdown(lorDropdown)],
                     Blockly.ALIGN_RIGHT)
     @setOutput(true, 'Number')
     @setTooltip('')
@@ -508,7 +508,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
     @interpolateMsg(<%= bm(".#{subcategory}_motor_set_speed") %>,
-                    ['LOR', ['Dropdown', lorDropdown], Blockly.ALIGN_RIGHT],
+                    ['LOR', new Blockly.FieldDropdown(lorDropdown)],
                     ['SPEED', ['Number'], Blockly.ALIGN_RIGHT],
                     Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
@@ -529,7 +529,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
     @interpolateMsg(<%= bm(".#{subcategory}_action") %>,
-                    ['ACTION', ['Dropdown', actionDropdown], Blockly.ALIGN_RIGHT],
+                    ['ACTION', new Blockly.FieldDropdown(actionDropdown)],
                     Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
@@ -547,7 +547,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
     @interpolateMsg(<%= bm(".#{subcategory}_action_with_sec") %>,
-                    ['ACTION', ['Dropdown', actionDropdown], Blockly.ALIGN_RIGHT],
+                    ['ACTION', new Blockly.FieldDropdown(actionDropdown)],
                     ['SEC', ['Number'], Blockly.ALIGN_RIGHT],
                     Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
@@ -569,8 +569,8 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:sensing] %>)
     @interpolateMsg(<%= bm(".#{subcategory}_touch_sensor_pressed_or_released") %>,
-                    ['LOR', ['Dropdown', lorDropdown], Blockly.ALIGN_RIGHT],
-                    ['POR', ['Dropdown', porDropdown], Blockly.ALIGN_RIGHT],
+                    ['LOR', new Blockly.FieldDropdown(lorDropdown)],
+                    ['POR', new Blockly.FieldDropdown(porDropdown)],
                     Blockly.ALIGN_RIGHT)
     @setOutput(true, 'Boolean')
     @setTooltip('')
@@ -613,8 +613,8 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:looks] %>)
     @interpolateMsg(<%= bm(".#{subcategory}_led_turn_on_or_off") %>,
-                    ['COLOUR', ['Dropdown', colourDropdown], Blockly.ALIGN_RIGHT],
-                    ['OOO', ['Dropdown', oooDropdown], Blockly.ALIGN_RIGHT],
+                    ['COLOUR', new Blockly.FieldDropdown(colourDropdown)],
+                    ['OOO', new Blockly.FieldDropdown(oooDropdown)],
                     Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
@@ -633,7 +633,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
     @interpolateMsg(<%= bm(".#{subcategory}_action") %>,
-                    ['ACTION', ['Dropdown', actionDropdown], Blockly.ALIGN_RIGHT],
+                    ['ACTION', new Blockly.FieldDropdown(actionDropdown)],
                     Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
     @setPreviousStatement(true)
@@ -651,7 +651,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:motion] %>)
     @interpolateMsg(<%= bm(".#{subcategory}_action_with_sec") %>,
-                    ['ACTION', ['Dropdown', actionDropdown], Blockly.ALIGN_RIGHT],
+                    ['ACTION', new Blockly.FieldDropdown(actionDropdown)],
                     ['SEC', ['Number'], Blockly.ALIGN_RIGHT],
                     Blockly.ALIGN_RIGHT)
     @setInputsInline(true)
@@ -671,7 +671,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= colors[:sensing] %>)
     @interpolateMsg(<%= bm(".#{subcategory}_ir_photoreflector_value") %>,
-                    ['LOR', ['Dropdown', lorDropdown], Blockly.ALIGN_RIGHT],
+                    ['LOR', new Blockly.FieldDropdown(lorDropdown)],
                     Blockly.ALIGN_RIGHT)
     @setOutput(true, 'Boolean')
     @setTooltip('')

@@ -272,8 +272,7 @@
     -# ペンの色を[カラー]にする
     %block{:type => "#{category}_set_pen_color"}
 
-  %category{:name => tt('.data')}
-    %category{:name => tt('.data_variables'), :custom => 'VARIABLE'}
+  %category{name: tt('.data'), custom: 'VARIABLE'}
 
   - category = 'events'
   %category{:name => tt('.events')}

@@ -92,7 +92,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @interpolateMsg(<%= bm('.point_towards_character') %>,
-                    ['CHAR', ['Character'], Blockly.ALIGN_RIGHT],
+                    ['CHAR', new Smalruby.FieldCharacter()],
                     Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -144,7 +144,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @interpolateMsg(<%= bm('.go_to_character') %>,
-                    ['CHAR', ['Character'], Blockly.ALIGN_RIGHT],
+                    ['CHAR', new Smalruby.FieldCharacter()],
                     Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -247,7 +247,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @interpolateMsg(<%= bm('.turn_xy') %>,
-                    ['XY', ['Dropdown', dropdown], Blockly.ALIGN_RIGHT],
+                    ['XY', new Blockly.FieldDropdown(dropdown)],
                     Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)
@@ -270,7 +270,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @interpolateMsg(<%= bm('.set_rotation_style') %>,
-                    ['STYLE', ['Dropdown', dropdown], Blockly.ALIGN_RIGHT],
+                    ['STYLE', new Blockly.FieldDropdown(dropdown)],
                     Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)

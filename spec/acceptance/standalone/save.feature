@@ -72,12 +72,12 @@
       """
       <xml>
         <character x="300" y="200" name="car1" costumes="car4.png" angle="90"></character>
-        <block type="character_new" x="0" y="0">
+        <block type="character_new" id="1" x="0" y="0">
           <field name="NAME">car1</field>
           <statement name="DO">
-            <block type="motion_move" inline="true">
+            <block type="motion_move" id="2" inline="true">
               <value name="STEP">
-                <block type="math_number">
+                <block type="math_number" id="3">
                   <field name="NUM">10</field>
                 </block>
               </value>

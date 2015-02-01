@@ -24,7 +24,7 @@ Blockly.Blocks['<%= n %>'] =
     @setHelpUrl('')
     @setColour(<%= color %>)
     @interpolateMsg(<%= bm('.preset_sounds') %>,
-                    ['NAME', ['Dropdown', sounds], Blockly.ALIGN_RIGHT],
+                    ['NAME', new Blockly.FieldDropdown(sounds)],
                     Blockly.ALIGN_RIGHT)
     @setOutput(true, 'String')
     @setTooltip('')

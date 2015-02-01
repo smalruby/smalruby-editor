@@ -26,7 +26,7 @@
     ならば 次のXMLと同等のブロックが配置されていること:
       """
       <xml>
-        <block type="ruby_statement" x="0" y="0">
+        <block type="ruby_statement" id="1" x="0" y="0">
           <field name="STATEMENT">stage1 = Stage.new(color: "white")</field>
         </block>
       </xml>
@@ -65,7 +65,7 @@
     ならば 次のXMLと同等のブロックが配置されていること:
       """
       <xml>
-        <block type="ruby_statement" x="0" y="0">
+        <block type="ruby_statement" id="1" x="0" y="0">
           <field name="STATEMENT">stage1 = Stage.new(color: "white")</field>
         </block>
       </xml>
@@ -153,7 +153,7 @@
     ならば 次のXMLと同等のブロックが配置されていること:
       """
       <xml>
-        <block type="ruby_statement" x="0" y="0">
+        <block type="ruby_statement" id="1" x="0" y="0">
           <field name="STATEMENT">stage1 = Stage.new(color: "white")</field>
         </block>
       </xml>
