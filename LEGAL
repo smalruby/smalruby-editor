@@ -40,6 +40,7 @@ vendor/assets/javascripts/jquery.blockUI.js:
 public/favicon.ico, public/apple-touch-icon.png, public/large.png,
 public/square.png, public/tiny.png, public/wide.png:
 
-  Copyright (C) Hikari Arakawa (Smalruby Project) 2013,
-  licensed under CC BY-SA 2.1 JP:
-  http://creativecommons.org/licenses/by-sa/2.1/jp/ .
+  Copyright (C) Hikari Arakawa (Ruby Programming Shounendan and
+  Smalruby) 2013. このイメージキャラクター、もしくはその派生版は、Ｒｕ
+  ｂｙプログラミング少年団とスモウルビー：Smalrubyに関連する文脈で誰で
+  も自由に利用できるが、それらは荒川ひかりによる保証を示すものではない。
