@@ -46,7 +46,7 @@ Smalruby.CharacterSelectorView = Backbone.View.extend({
       removeButton.click (e) =>
         e.preventDefault()
         @removeCharacter_(character)
-      if character.get('using')
+      if Smalruby.isEnabled('disabled_new_character') || character.get('using')
         removeButton.hide()
 
       img = html.find('img')
@@ -105,7 +105,7 @@ Smalruby.CharacterSelectorView = Backbone.View.extend({
     @prevXY = newBlock.getRelativeToSurfaceXY()
 
   removeCharacter_: (character) ->
-    unless character.get('using')
+    if !Smalruby.isEnabled('disabled_new_character') && !character.get('using')
       Smalruby.Collections.CharacterSet.remove(character)
 
 }, {
