@@ -1,7 +1,10 @@
 AllCops:
   Excludes:
     - db/seeds.rb
+    - db/schema.rb
     - spec/fixtures/**
+    - vendor/*
+    - work/*
 
 # 日本語でのコメントを許可する
 AsciiComments:
