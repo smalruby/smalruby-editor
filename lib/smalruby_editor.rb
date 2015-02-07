@@ -130,7 +130,7 @@ standalone:
 #toolbox_name: default
 #toolbox_css_name: default
 features:
-  - add_character_from_beginning
+  #- disabled_add_character_from_beginning
   #- disabled_new_character
   #- auto_init_hardware
   #- readonly_ruby_mode
