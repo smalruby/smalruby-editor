@@ -160,6 +160,9 @@
             forward
           = toolbox_number_value('SEC', 0.5)
 
+        %block{type: "#{category}_#{subcategory}_dc_motor_set_power_ratio"}
+          = toolbox_number_value('SPEED', 100)
+
   - category = 'looks'
   %category{:name => tt('.looks')}
     -# [　]と(　)秒言う
@@ -400,6 +403,7 @@
         - category = 'hardware'
         - subcategory = 'smalrubot_s1'
         %block{type: "#{category}_#{subcategory}_ir_photoreflector_value"}
+        %block{type: "#{category}_#{subcategory}_dc_motor_power_ratio"}
 
   - category = 'operators'
   %category{:name => tt('.operators')}

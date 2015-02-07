@@ -263,6 +263,8 @@ Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_LED_TURN_ON_OR_OFF = '★スモウル�
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_ACTION = '■スモウルボットS1を %1';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_ACTION_WITH_SEC = '■スモウルボットS1を %2 秒 %1';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_IR_PHOTOREFLECTOR_VALUE = '◎スモウルボットS1の %1 のセンサー';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_DC_MOTOR_POWER_RATIO = '◎スモウルボットS1の %1 DCモーターの速度(%)';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_DC_MOTOR_SET_POWER_RATIO = '■スモウルボットS1の %1 DCモーターの速度を %2 (%) にする';
 
 
 // blocks/operators.js.coffee.erb

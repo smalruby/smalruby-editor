@@ -4,6 +4,11 @@ module ApplicationHelper
     "modal hide#{raspberrypi? ? '' : ' fade'}"
   end
 
+  # default locale name for Blockly messages
+  def blockly_message_default_locale_name
+    'en_us'
+  end
+
   # Blocklyのメッセージのlocaleの名前を返す
   #
   # Blocklyではenがen_usであるため

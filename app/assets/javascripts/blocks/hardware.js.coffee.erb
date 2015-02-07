@@ -679,3 +679,40 @@ Blockly.Blocks['<%= n %>'] =
 Blockly.Ruby['<%= n %>'] = (block) ->
   lor = @getFieldValue('LOR')
   Blockly.Ruby.characterMethodCallInput_("<%= subcategory %>.#{lor}_ir_photoreflector_value")
+
+# Smalrubot s1 left/right dc motor power ratio
+<% n = "#{category}_#{subcategory}_dc_motor_power_ratio" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @setHelpUrl('')
+    @setColour(<%= colors[:sensing] %>)
+    @interpolateMsg(<%= bm(".#{subcategory}_dc_motor_power_ratio") %>,
+                    ['LOR', new Blockly.FieldDropdown(lorDropdown)],
+                    Blockly.ALIGN_RIGHT)
+    @setOutput(true, 'Number')
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  lor = @getFieldValue('LOR')
+  Blockly.Ruby.characterMethodCallInput_("<%= subcategory %>.#{lor}_dc_motor_power_ratio")
+
+# set Smalrubot s1 left/right dc motor power ratio
+<% n = "#{category}_#{subcategory}_dc_motor_set_power_ratio" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @setHelpUrl('')
+    @setColour(<%= colors[:motion] %>)
+    @interpolateMsg(<%= bm(".#{subcategory}_dc_motor_set_power_ratio") %>,
+                    ['LOR', new Blockly.FieldDropdown(lorDropdown)],
+                    ['SPEED', ['Number'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
+    @setInputsInline(true)
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  lor = @getFieldValue('LOR')
+  speed = Blockly.Ruby.valueToCode(@, 'SPEED', Blockly.Ruby.ORDER_NONE) || '100'
+  Blockly.Ruby.characterSetVariable_("<%= subcategory %>.#{lor}_dc_motor_power_ratio",
+                                     speed)

@@ -16,6 +16,7 @@
   <%= stylesheet_link_tag    "toolbox_#{toolbox_css_name}", media: "all" %>
   <%= javascript_include_tag "application" %>
   <%= javascript_include_tag "blockly/msg/js/#{blockly_message_locale_name}" %>
+  <%= javascript_include_tag "msg/#{blockly_message_default_locale_name}" %>
   <%= javascript_include_tag "msg/#{blockly_message_locale_name}" %>
   <%= csrf_meta_tags %>
 </head>

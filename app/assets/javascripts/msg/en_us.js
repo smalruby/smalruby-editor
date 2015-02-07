@@ -263,6 +263,8 @@ Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_LED_TURN_ON_OR_OFF = '%2 Smalrubot s1 %
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_ACTION = '%1 Smalrubot s1';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_ACTION_WITH_SEC = '%1 Smalrubot s1 for %2 secs';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_IR_PHOTOREFLECTOR_VALUE = 'Smalrubot s1 %1 IR Photoreflector';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_DC_MOTOR_POWER_RATIO = 'Smalrubot s1 %1 dc motor power ratio';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_DC_MOTOR_SET_POWER_RATIO = 'set Smalrubot s1 %1 dc motor power ratio to %2 %';
 
 
 // blocks/operators.js.coffee.erb
