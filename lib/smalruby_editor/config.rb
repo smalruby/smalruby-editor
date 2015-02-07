@@ -4,6 +4,8 @@ module SmalrubyEditor
   class Config < Settingslogic
     if Rails.env.test?
       source({})
+      load!
+      self['features'] = ['disabled_add_character_from_beginning']
     else
       path = SmalrubyEditor.home_directory.join('config', 'config.yml')
       if path.exist?
