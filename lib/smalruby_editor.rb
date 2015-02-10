@@ -128,6 +128,9 @@ standalone:
 
     CONFIG_YML_TEMPLATE = <<-EOS
 #toolbox_name: default
+#toolbox_name: smalrubot_v3
+#toolbox_name: smalrubot_s1
+#toolbox_name: default
 #toolbox_css_name: default
 features:
   #- disabled_add_character_from_beginning
