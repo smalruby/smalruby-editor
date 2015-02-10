@@ -29,6 +29,12 @@ car1.on(:start) do
 
   smalrubot_s1.turn_on_white_led
   smalrubot_s1.turn_off_blue_led
+
+  p(smalrubot_s1.left_dc_motor_power_ratio)
+  p(smalrubot_s1.right_dc_motor_power_ratio)
+
+  smalrubot_s1.left_dc_motor_power_ratio = 10
+  smalrubot_s1.right_dc_motor_power_ratio = 90
 end
 car1.smalrubot_s1.forward
 car1.smalrubot_s1.backward
@@ -47,6 +53,12 @@ p(car1.smalrubot_s1.right_ir_photoreflector_value)
 
 car1.smalrubot_s1.turn_on_white_led
 car1.smalrubot_s1.turn_off_blue_led
+
+p(car1.smalrubot_s1.left_dc_motor_power_ratio)
+p(car1.smalrubot_s1.right_dc_motor_power_ratio)
+
+car1.smalrubot_s1.left_dc_motor_power_ratio = 10
+car1.smalrubot_s1.right_dc_motor_power_ratio = 90
   EOS
   describe compact_source_code(parts) do
     _parts = parts
@@ -137,6 +149,44 @@ car1.smalrubot_s1.turn_off_blue_led
                                                               <block type="hardware_smalrubot_s1_led_turn_on_or_off" inline="true">
                                                                 <field name="COLOUR">blue</field>
                                                                 <field name="OOO">turn_off</field>
+                                                                <next>
+                                                                  <block type="ruby_p" inline="true">
+                                                                    <value name="ARG">
+                                                                      <block type="hardware_smalrubot_s1_dc_motor_power_ratio">
+                                                                        <field name="LOR">left</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <next>
+                                                                      <block type="ruby_p" inline="true">
+                                                                        <value name="ARG">
+                                                                          <block type="hardware_smalrubot_s1_dc_motor_power_ratio">
+                                                                            <field name="LOR">right</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <next>
+                                                                          <block type="hardware_smalrubot_s1_dc_motor_set_power_ratio" inline="true">
+                                                                            <field name="LOR">left</field>
+                                                                            <value name="SPEED">
+                                                                              <block type="math_number">
+                                                                                <field name="NUM">10</field>
+                                                                              </block>
+                                                                            </value>
+                                                                            <next>
+                                                                              <block type="hardware_smalrubot_s1_dc_motor_set_power_ratio" inline="true">
+                                                                                <field name="LOR">right</field>
+                                                                                <value name="SPEED">
+                                                                                  <block type="math_number">
+                                                                                    <field name="NUM">90</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                              </block>
+                                                                            </next>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
                                                               </block>
                                                             </next>
                                                           </block>
@@ -242,6 +292,44 @@ car1.smalrubot_s1.turn_off_blue_led
                                                               <block type="hardware_smalrubot_s1_led_turn_on_or_off" inline="true">
                                                                 <field name="COLOUR">blue</field>
                                                                 <field name="OOO">turn_off</field>
+                                                                <next>
+                                                                  <block type="ruby_p" inline="true">
+                                                                    <value name="ARG">
+                                                                      <block type="hardware_smalrubot_s1_dc_motor_power_ratio">
+                                                                        <field name="LOR">left</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <next>
+                                                                      <block type="ruby_p" inline="true">
+                                                                        <value name="ARG">
+                                                                          <block type="hardware_smalrubot_s1_dc_motor_power_ratio">
+                                                                            <field name="LOR">right</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <next>
+                                                                          <block type="hardware_smalrubot_s1_dc_motor_set_power_ratio" inline="true">
+                                                                            <field name="LOR">left</field>
+                                                                            <value name="SPEED">
+                                                                              <block type="math_number">
+                                                                                <field name="NUM">10</field>
+                                                                              </block>
+                                                                            </value>
+                                                                            <next>
+                                                                              <block type="hardware_smalrubot_s1_dc_motor_set_power_ratio" inline="true">
+                                                                                <field name="LOR">right</field>
+                                                                                <value name="SPEED">
+                                                                                  <block type="math_number">
+                                                                                    <field name="NUM">90</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                              </block>
+                                                                            </next>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
                                                               </block>
                                                             </next>
                                                           </block>
