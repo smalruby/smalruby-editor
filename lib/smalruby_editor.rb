@@ -128,6 +128,7 @@ standalone:
 
     CONFIG_YML_TEMPLATE = <<-EOS
 #toolbox_name: default
+#toolbox_name: raspberrypi
 #toolbox_name: smalrubot_v3
 #toolbox_name: smalrubot_s1
 #toolbox_name: default

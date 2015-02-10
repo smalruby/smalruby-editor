@@ -1,0 +1,233 @@
+%xml{:id => 'toolbox', :style => 'display: none'}
+  - category = 'motion'
+  %category{:name => tt('.motion')}
+    -# (　)歩動かす
+    %block{:type => "#{category}_move"}
+      = toolbox_number_value('STEP', 10)
+
+    -# 時計回りに(　)度回す
+    %block{:type => "#{category}_rotate_right"}
+      = toolbox_number_value('ANGLE', 15)
+
+    -# 反時計回りに(　)度回す
+    %block{:type => "#{category}_rotate_left"}
+      = toolbox_number_value('ANGLE', 15)
+
+    -# (　)度に向ける
+    %block{:type => "#{category}_set_angle"}
+      = toolbox_number_value('ANGLE', 90)
+
+    -# [▼]へ向ける
+    %block{:type => "#{category}_point_towards_character"}
+
+    -# マウスポインターへ向ける
+    %block{:type => "#{category}_point_towards_mouse"}
+
+    -# [▼]へ行く
+    %block{:type => "#{category}_go_to_character"}
+
+    -# マウスポインターへ行く
+    %block{:type => "#{category}_go_to_mouse"}
+
+    -# x座標を(　)ずつ変える
+    %block{:type => "#{category}_change_x_by"}
+      = toolbox_number_value('X', 10)
+
+    -# x座標を(　)にする
+    %block{:type => "#{category}_set_x"}
+      = toolbox_number_value('X', 0)
+
+    -# y座標を(　)ずつ変える
+    %block{:type => "#{category}_change_y_by"}
+      = toolbox_number_value('Y', 10)
+
+    -# y座標を(　)にする
+    %block{:type => "#{category}_set_y"}
+      = toolbox_number_value('Y', 0)
+
+    -# もし端に着いたら、跳ね返る
+    %block{:type => "#{category}_turn_if_reach_wall"}
+
+    -# 跳ね返る
+    %block{:type => "#{category}_turn"}
+
+    -# [▼水平(X)]方向に跳ね返る
+    %block{:type => "#{category}_turn_xy"}
+
+    -# 回転方法を[▼]にする
+    %block{:type => "#{category}_set_rotation_style"}
+
+  - category = 'looks'
+  %category{:name => tt('.looks')}
+    -# [　]と言う
+    %block{:type => "#{category}_say"}
+      = toolbox_text_value('TEXT', tt('.hello'))
+
+    -# [　]と考える
+    -#%block{:type => "#{category}_think"}
+    -#  = toolbox_text_value('TEXT', 'ふーん')
+
+    -# 表示する
+    %block{:type => "#{category}_show"}
+
+    -# 隠す
+    %block{:type => "#{category}_hide"}
+
+    -# 消滅する
+    %block{:type => "#{category}_vanish"}
+
+    -# 大きさを(　)％ずつ変える
+    -#%block{:type => "#{category}_change_scale_by"}
+    -#  = toolbox_number_value('SCALE', 10)
+
+    -# 大きさを(　)％にする
+    -#%block{:type => "#{category}_set_scale"}
+    -#  = toolbox_number_value('SCALE', 100)
+
+  - category = 'sound'
+  %category{:name => tt('.sound')}
+    -# [▼プリセット音声]の音を鳴らす
+    %block{:type => "#{category}_play"}
+      %value{:name => 'NAME'}
+        %block{:type => "#{category}_preset_sounds"}
+
+    -# すべての音を止める
+    -#%block{:type => "#{category}_stop"}
+
+  %category{name: tt('.data'), custom: 'VARIABLE'}
+
+  - category = 'events'
+  %category{:name => tt('.events')}
+    -# まずは
+    %block{:type => "#{category}_on_start"}
+
+    -# キーボードの[▼キー]が[▼押された/押され続けている]とき
+    %block{:type => "#{category}_on_key_push_or_down"}
+      = toolbox_key_field
+      = toolbox_pod_field
+
+    -# キャラクターがクリックされたとき
+    %block{:type => "#{category}_on_click"}
+
+    -# [▼キャラクター]にぶつかったとき
+    %block{:type => "#{category}_on_hit"}
+
+  - category = 'control'
+  %category{:name => tt('.control')}
+    -# (　)秒待つ
+    %block{:type => "#{category}_sleep"}
+      = toolbox_number_value('SEC', 1)
+
+    -# ほんの少し待つ
+    %block{:type => "#{category}_await"}
+
+    -# (　)回繰り返す
+    %block{:type => "#{category}_times"}
+      = toolbox_number_value('COUNT', 10)
+
+    -# ずっと
+    %block{:type => "#{category}_loop"}
+
+    -# もし<　>なら
+    %block{:type => "#{category}_if"}
+
+    -# <　>まで待つ
+    %block{:type => "#{category}_await_until"}
+
+    -# 繰り返しから脱出する
+    %block{:type => "#{category}_break"}
+
+  - category = 'sensing'
+  %category{:name => tt('.sensing')}
+    -# 条件:[▼キャラクター]に触れた
+    %block{:type => "#{category}_hit"}
+
+    -# 条件:端に触れた
+    %block{:type => "#{category}_reach_wall"}
+
+    -# [　]と聞いて待つ
+    -#%block{:type => "#{category}_ask"}
+    -#  = toolbox_text_value('TEXT', 'あなたのお名前は？')
+
+    -# 変数:答え
+    -#%block{:type => "#{category}_answer"}
+
+    -# 条件:キーボードの[▼キー]が[▼押された]
+    %block{:type => "#{category}_input_key_push_or_down"}
+      = toolbox_key_field
+      = toolbox_pod_field
+
+    -# 条件:マウスの[▼左ボタン]が[▼押された]
+    %block{:type => "#{category}_input_mouse_push_or_down"}
+      = toolbox_pod_field
+
+    -# 変数:マウスのx座標
+    %block{:type => "#{category}_input_mouse_pos_x"}
+
+    -# 変数:マウスのy座標
+    %block{:type => "#{category}_input_mouse_pos_y"}
+
+    -# 変数:タイマー
+    -#%block{:type => "#{category}_timer_count"}
+
+    -# タイマーをリセット
+    -#%block{:type => "#{category}_timer_reset"}
+
+    -# 変数:[▼キャラクター]の[▼プロパティ]
+    %block{:type => "#{category}_character_property"}
+
+  - category = 'operators'
+  %category{:name => tt('.operators')}
+    -# 数値
+    %block{:type => 'math_number'}
+      %field{:name => 'NUM'}<
+        0
+
+    -# テキスト
+    %block{:type => 'text'}
+      %field{:name => 'TEXT'}<
+        = tt('.text')
+
+    -# 変数:(　) + (　)
+    %block{:type => "#{category}_add"}
+
+    -# 変数:(　) - (　)
+    %block{:type => "#{category}_minus"}
+
+    -# 変数:(　) * (　)
+    %block{:type => "#{category}_multiply"}
+
+    -# 変数:(　) / (　)
+    %block{:type => "#{category}_divide"}
+
+    -# 変数:(　)から(　)までの乱数
+    %block{:type => "#{category}_rand"}
+      = toolbox_number_value('A', 1)
+      = toolbox_number_value('B', 10)
+
+    -# 条件:(　) < (　)
+    %block{:type => "#{category}_compare_lt"}
+
+    -# 条件:(　) = (　)
+    %block{:type => "#{category}_compare_eq"}
+
+    -# 条件:(　) > (　)
+    %block{:type => "#{category}_compare_gt"}
+
+    -# 条件:<　> かつ <　>
+    %block{:type => "#{category}_and"}
+
+    -# 条件:<　> または <　>
+    %block{:type => "#{category}_or"}
+
+    -# 条件:<　> ではない
+    %block{:type => "#{category}_negate"}
+
+    -# 変数:(　)を(　)で割った余り
+    %block{:type => "#{category}_modulo"}
+      = toolbox_number_value('A', 5)
+      = toolbox_number_value('B', 2)
+
+    -# 変数:(　)を四捨五入
+    %block{:type => "#{category}_round"}
+      = toolbox_number_value('A', 0.5)

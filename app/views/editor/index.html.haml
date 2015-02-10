@@ -125,12 +125,6 @@
 = render 'load_modal'
 = render 'reset_modal'
 
-- if raspberrypi?
-  :javascript
-    $(function() {
-      $('div[aria-level="1"][aria-posinset="4"],div[aria-level="1"][aria-posinset="10"]').hide();
-    });
-
 - if session[:username]
   :javascript
     window.Smalruby.username = '#{h session[:username]}';
