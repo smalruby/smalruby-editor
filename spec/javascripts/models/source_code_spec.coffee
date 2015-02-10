@@ -38,3 +38,8 @@ describe 'Smalruby.SourceCode', ->
 
       it '01.rb.xmlを返すこと', ->
         expect(self.getRbxmlFilename()).to.equal('01.rb.xml')
+
+  describe '.defaultFilename', ->
+    it 'program_<日付>.rbを返すこと', ->
+      now = new Date(2015, 2 - 1, 10, 12, 10, 59)
+      expect(Smalruby.SourceCode.defaultFilename(now)).to.equal('program_150210_121059.rb')

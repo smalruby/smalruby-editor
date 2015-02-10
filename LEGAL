@@ -44,3 +44,9 @@ public/square.png, public/tiny.png, public/wide.png:
   Smalruby) 2013. このイメージキャラクター、もしくはその派生版は、Ｒｕ
   ｂｙプログラミング少年団とスモウルビー：Smalrubyに関連する文脈で誰で
   も自由に利用できるが、それらは荒川ひかりによる保証を示すものではない。
+
+vendor/assets/javascripts/strftime-min.js:
+
+  Copyright 2010 - 2013 Sami Samhuri sami@samhuri.net
+
+  MIT license (http://sjs.mit-license.org/)
