@@ -4,7 +4,7 @@ require_relative 'shared/block_examples'
 
 # rubocop:disable EmptyLines, LineLength
 
-describe RubyToBlock::Block, 'Smalrubot S1 blocks', to_blocks: true do
+describe RubyToBlock::Block, 'Smalrubot s1 blocks', to_blocks: true do
   parts = <<-EOS
 require "smalruby"
 
