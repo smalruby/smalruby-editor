@@ -4,6 +4,8 @@ Smalruby.ResetModalView = Backbone.View.extend
     'click #reset-modal-ok-button': 'onOk'
 
   render: ->
+    @$el.modal
+      backdrop: 'static'
     @$el.modal('show')
 
   onOk: (e) ->

@@ -33,6 +33,8 @@ Smalruby.LoadModalView = Backbone.View.extend
       @$el.find('.modal-body').unblock()
       null # HACK: if return unblock(), does not call fail().
 
+    @$el.modal
+      backdrop: 'static'
     @$el.modal('show')
 
     dfr = $.Deferred()

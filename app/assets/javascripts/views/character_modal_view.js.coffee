@@ -67,6 +67,8 @@ Smalruby.CharacterModalView = Backbone.View.extend
 
   render: ->
     @onChange(@model)
+    @$el.modal
+      backdrop: 'static'
     @$el.modal('show')
 
     # HACK: ダイアログを表示して500ms程度待たないと画像のサイズが取得できなかった
