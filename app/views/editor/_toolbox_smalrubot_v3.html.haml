@@ -14,7 +14,14 @@
     %block{type: "#{category}_#{subcategory}_motor_set_speed"}
       = toolbox_number_value('SPEED', 100)
 
+  - category = 'looks'
   %category{:name => tt('.looks')}
+    %block{:type => "#{category}_say"}
+      %value{name: 'TEXT'}
+        - category = 'hardware'
+        - subcategory = 'smalrubot_v3'
+        %block{type: "#{category}_#{subcategory}_light_sensor_value"}
+
     - category = 'hardware'
     - subcategory = 'smalrubot_v3'
     %block{type: "#{category}_#{subcategory}_led_turn_on_or_off"}
