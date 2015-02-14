@@ -80,7 +80,7 @@ step ':filename をダウンロードすること' do |filename|
   step 'ダウンロードが完了するまで待つ'
   if poltergeist?
     expect(page.response_headers['Content-Disposition'])
-      .to eq("attachment; filename=\"#{filename}\"")
+      .to match(/\Aattachment; filename="#{filename}"\z/)
     expect(page.response_headers['Content-Type'])
       .to eq('text/plain; charset=utf-8')
   elsif selenium?
