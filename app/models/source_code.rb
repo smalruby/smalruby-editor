@@ -80,7 +80,7 @@ class SourceCode < ActiveRecord::Base
     else
       res[:filename] = filename
     end
-    res[:title] = filename unless res[:title]
+    res[:title] = res[:filename] unless res[:title]
     res
   end
 

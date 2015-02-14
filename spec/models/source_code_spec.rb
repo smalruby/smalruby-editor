@@ -126,6 +126,19 @@ describe SourceCode, 'Rubyのソースコードを表現するモデル' do
           end
         end
       end
+
+      context 'no comment and filename is no_comment.rb' do
+        let(:rb_path) { 'no_comment.rb' }
+        let(:data) { '<xml></xml>' }
+
+        %i(filename title).each do |key|
+          describe key do
+            subject { super()[key] }
+
+            it { should eq(rb_path) }
+          end
+        end
+      end
     end
   end
 
