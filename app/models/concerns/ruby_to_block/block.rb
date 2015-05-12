@@ -35,10 +35,6 @@ module RubyToBlock
       type = md.names.find { |n| md[n.to_sym] } unless type
       @blocks[type].process_match_data(md, context)
     rescue
-      if Rails.env.test?
-        p(error_message: $ERROR_INFO,
-          backtrace: $ERROR_INFO.backtrace)
-      end
       false
     end
 
