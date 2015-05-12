@@ -1,13 +1,13 @@
 # encoding: utf-8
 # language: en
 @javascript
-Feature: hardware_smalrubot_s1_ir_photoreflector_value block
+Feature: hardware_smalrubot_v3_sensor_value block
   Scenario: ブロックのみ配置する
     Given "ブロック" タブを表示する
 
     When 次のブロックを配置する:
       """
-      %block{:type => "hardware_smalrubot_s1_ir_photoreflector_value", :x => "0", :y => "0"}
+      %block{:type => "hardware_smalrubot_v3_sensor_value", :x => "0", :y => "0"}
         %field{:name => "LOR"}<
           right
       """
@@ -22,7 +22,7 @@ Feature: hardware_smalrubot_s1_ir_photoreflector_value block
       """
       %block{:type => "ruby_p", :x => "0", :y => "0", :inline => "true" }
         %value{:name => "ARG"}
-          %block{:type => "hardware_smalrubot_s1_ir_photoreflector_value", :x => "0", :y => "0"}
+          %block{:type => "hardware_smalrubot_v3_sensor_value", :x => "0", :y => "0"}
             %field{:name => "LOR"}<
               right
       """
@@ -50,7 +50,7 @@ Feature: hardware_smalrubot_s1_ir_photoreflector_value block
         %statement{:name => "DO"}
           %block{:type => "ruby_p", :x => "0", :y => "0", :inline => "true" }
             %value{:name => "ARG"}
-              %block{:type => "hardware_smalrubot_s1_ir_photoreflector_value", :x => "0", :y => "0"}
+              %block{:type => "hardware_smalrubot_v3_sensor_value", :x => "0", :y => "0"}
                 %field{:name => "LOR"}<
                   right
       """
@@ -61,7 +61,7 @@ Feature: hardware_smalrubot_s1_ir_photoreflector_value block
       require "smalruby"
 
       car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
-      p(car1.smalrubot_s1.right_ir_photoreflector_value)
+      p(car1.smalrubot_v3.right_sensor_value)
 
       """
 
@@ -81,7 +81,7 @@ Feature: hardware_smalrubot_s1_ir_photoreflector_value block
             %statement{:name => "DO"}
               %block{:type => "ruby_p", :x => "0", :y => "0", :inline => "true" }
                 %value{:name => "ARG"}
-                  %block{:type => "hardware_smalrubot_s1_ir_photoreflector_value", :x => "0", :y => "0"}
+                  %block{:type => "hardware_smalrubot_v3_sensor_value", :x => "0", :y => "0"}
                     %field{:name => "LOR"}<
                       left
       """
@@ -94,7 +94,7 @@ Feature: hardware_smalrubot_s1_ir_photoreflector_value block
       car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
 
       car1.on(:start) do
-        p(smalrubot_s1.left_ir_photoreflector_value)
+        p(smalrubot_v3.left_sensor_value)
       end
 
       """

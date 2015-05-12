@@ -1,19 +1,22 @@
 # -*- coding: utf-8 -*-
 module RubyToBlock
   module Block
-    class HardwareSmalrubotS1LedTurnOnOrOff < CharacterMethodCall
+    class HardwareSmalrubotAction < CharacterMethodCall
       include HardwareOperation
 
       # rubocop:disable LineLength
-      blocknize '^\s*' + CHAR_RE +
-                'smalrubot_s1\.(turn_on|turn_off)_(blue|white)_led' +
-                '\s*$',
+      blocknize ['^\s*',
+                 CHAR_RE,
+                 SMALRUBOT_RE, '\.',
+                 ACTION_RE,
+                 '\s*$'].join(''),
                 statement: true, inline: true
       # rubocop:enable LineLength
 
       def self.process_match_data(md, context)
         md2 = regexp.match(md[type])
-        block = new(fields: { COLOUR: md2[3], OOO: md2[2] })
+        block = new(fields: { ACTION: md2[3] })
+        block.smalrubot_name = md2[2]
         add_character_method_call_block(context, md2[1], block)
         true
       end

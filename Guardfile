@@ -23,6 +23,13 @@ group :red_green_refactor, halt_on_fail: true do
     watch('spec/spec_helper.rb')  { "spec" }
 
     # Rails example
+    watch(%r{^app/models/concerns/ruby_to_block/block/hardware_(.*)\.rb$}) { |m|
+      if /smalrubot/.match(m[1])
+        "spec/models/concerns/ruby_to_block/block/hardware__smalrubot_spec.rb"
+      else
+        "spec/models/concerns/ruby_to_block/block/hardware_spec.rb"
+      end
+    }
     watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
     watch(%r{^app/(.*)(\.erb|\.haml|\.slim)$})          { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
     watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| ["spec/routing/#{m[1]}_routing_spec.rb", "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb", "spec/acceptance/#{m[1]}_spec.rb"] }

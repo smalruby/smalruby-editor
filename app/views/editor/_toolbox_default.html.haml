@@ -146,7 +146,7 @@
             forward
           = toolbox_number_value('SEC', 0.5)
 
-        %block{type: "#{category}_#{subcategory}_motor_set_speed"}
+        %block{type: "#{category}_#{subcategory}_dc_motor_set_power_ratio"}
           = toolbox_number_value('SPEED', 100)
 
       - if SmalrubyEditor::Config.enabled?('enabled_smalrubot_s1_blocks_on_default')
@@ -240,8 +240,6 @@
       - if SmalrubyEditor::Config.enabled?('enabled_smalrubot_v3_blocks_on_default')
         - subcategory = 'smalrubot_v3'
         %block{type: "#{category}_#{subcategory}_led_turn_on_or_off"}
-          %field{name: 'COLOUR'}<
-            red
           %field{name: 'OOO'}<
             turn_on
 
@@ -395,14 +393,13 @@
 
       - if SmalrubyEditor::Config.enabled?('enabled_smalrubot_v3_blocks_on_default')
         - subcategory = 'smalrubot_v3'
-        %block{type: "#{category}_#{subcategory}_touch_sensor_pressed_or_released"}
-        %block{type: "#{category}_#{subcategory}_light_sensor_value"}
-        %block{type: "#{category}_#{subcategory}_motor_speed"}
+        %block{type: "#{category}_#{subcategory}_sensor_value"}
+        %block{type: "#{category}_#{subcategory}_dc_motor_power_ratio"}
 
       - if SmalrubyEditor::Config.enabled?('enabled_smalrubot_s1_blocks_on_default')
         - category = 'hardware'
         - subcategory = 'smalrubot_s1'
-        %block{type: "#{category}_#{subcategory}_ir_photoreflector_value"}
+        %block{type: "#{category}_#{subcategory}_sensor_value"}
         %block{type: "#{category}_#{subcategory}_dc_motor_power_ratio"}
 
   - category = 'operators'

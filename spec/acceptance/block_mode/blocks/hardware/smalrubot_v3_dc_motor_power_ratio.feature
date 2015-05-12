@@ -1,7 +1,7 @@
 # encoding: utf-8
 # language: en
 @javascript
-Feature: hardware_smalrubot_v3_motor_{speed,set_speed} block
+Feature: hardware_smalrubot_v3_dc_motor_{,set_}power_ratio block
   Background:
     Given "ブロック" タブを表示する
     And キャラクターcar1を追加する
@@ -9,7 +9,7 @@ Feature: hardware_smalrubot_v3_motor_{speed,set_speed} block
   Scenario: ブロックのみ配置する
     When 次のブロックを配置する:
       """
-      %block{:type => "hardware_smalrubot_v3_motor_speed"}
+      %block{:type => "hardware_smalrubot_v3_dc_motor_power_ratio"}
         %field{:name => "LOR"}<
           right
       """
@@ -22,11 +22,11 @@ Feature: hardware_smalrubot_v3_motor_{speed,set_speed} block
       """
       %block{:type => "ruby_p", :x => "0", :y => "0", :inline => "true" }
         %value{:name => "ARG"}
-          %block{:type => "hardware_smalrubot_v3_motor_speed"}
+          %block{:type => "hardware_smalrubot_v3_dc_motor_power_ratio"}
             %field{:name => "LOR"}<
               right
         %next
-          %block{:type => "hardware_smalrubot_v3_motor_set_speed"}
+          %block{:type => "hardware_smalrubot_v3_dc_motor_set_power_ratio"}
             %field{:name => "LOR"}<
               left
             %value{:name => "SPEED"}
@@ -53,11 +53,11 @@ Feature: hardware_smalrubot_v3_motor_{speed,set_speed} block
         %statement{:name => "DO"}
           %block{:type => "ruby_p", :x => "0", :y => "0", :inline => "true" }
             %value{:name => "ARG"}
-              %block{:type => "hardware_smalrubot_v3_motor_speed"}
+              %block{:type => "hardware_smalrubot_v3_dc_motor_power_ratio"}
                 %field{:name => "LOR"}<
                   right
             %next
-              %block{:type => "hardware_smalrubot_v3_motor_set_speed"}
+              %block{:type => "hardware_smalrubot_v3_dc_motor_set_power_ratio"}
                 %field{:name => "LOR"}<
                   left
                 %value{:name => "SPEED"}
@@ -72,8 +72,8 @@ Feature: hardware_smalrubot_v3_motor_{speed,set_speed} block
       require "smalruby"
 
       car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
-      p(car1.smalrubot_v3.right_motor.speed)
-      car1.smalrubot_v3.left_motor.speed = 50
+      p(car1.smalrubot_v3.right_dc_motor_power_ratio)
+      car1.smalrubot_v3.left_dc_motor_power_ratio = 50
 
       """
 
@@ -88,11 +88,11 @@ Feature: hardware_smalrubot_v3_motor_{speed,set_speed} block
             %statement{:name => "DO"}
               %block{:type => "ruby_p", :x => "0", :y => "0", :inline => "true" }
                 %value{:name => "ARG"}
-                  %block{:type => "hardware_smalrubot_v3_motor_speed"}
+                  %block{:type => "hardware_smalrubot_v3_dc_motor_power_ratio"}
                     %field{:name => "LOR"}<
                       right
                 %next
-                  %block{:type => "hardware_smalrubot_v3_motor_set_speed"}
+                  %block{:type => "hardware_smalrubot_v3_dc_motor_set_power_ratio"}
                     %field{:name => "LOR"}<
                       left
                     %value{:name => "SPEED"}
@@ -109,8 +109,8 @@ Feature: hardware_smalrubot_v3_motor_{speed,set_speed} block
       car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
 
       car1.on(:start) do
-        p(smalrubot_v3.right_motor.speed)
-        self.smalrubot_v3.left_motor.speed = 50
+        p(smalrubot_v3.right_dc_motor_power_ratio)
+        self.smalrubot_v3.left_dc_motor_power_ratio = 50
       end
 
       """

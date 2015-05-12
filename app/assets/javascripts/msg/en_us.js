@@ -252,17 +252,17 @@ Blockly.Msg.BLOCKS_HARDWARE_MOTOR_DRIVER_SET_SPEED = "set (motor driver %1's) mo
 Blockly.Msg.BLOCKS_HARDWARE_MOTOR_DRIVER_SPEED = "(motor driver %1's) motor speed (%)";
 Blockly.Msg.BLOCKS_HARDWARE_BUTTON_PRESSED_OR_RELEASED = 'button %1 %2 ?';
 Blockly.Msg.BLOCKS_HARDWARE_SENSOR_VALUE = 'sensor %1 value';
+
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_LED_TURN_ON_OR_OFF = '%2 Smalrubot v3 %1 LED';
-Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_MOTOR_SPEED = 'Smalrubot v3 %1 motor speed';
-Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_MOTOR_SET_SPEED = 'set Smalrubot v3 %1 motor speed to %2 %';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_ACTION = '%1 Smalrubot v3';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_ACTION_WITH_SEC = '%1 Smalrubot v3 for %2 secs';
-Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_TOUCH_SENSOR_PRESSED_OR_RELEASED = 'Smalrubot v3 %1 touch sensor %2 ?';
-Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_LIGHT_SENSOR_VALUE = 'Smalrubot v3 light sensor value';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_SENSOR_VALUE = 'Smalrubot v3 %1 sensor';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_DC_MOTOR_POWER_RATIO = 'Smalrubot v3 %1 dc motor power ratio';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_DC_MOTOR_SET_POWER_RATIO = 'set Smalrubot v3 %1 dc motor power ratio to %2 %';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_LED_TURN_ON_OR_OFF = '%2 Smalrubot s1 %1 LED';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_ACTION = '%1 Smalrubot s1';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_ACTION_WITH_SEC = '%1 Smalrubot s1 for %2 secs';
-Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_IR_PHOTOREFLECTOR_VALUE = 'Smalrubot s1 %1 IR Photoreflector';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_SENSOR_VALUE = 'Smalrubot s1 %1 sensor';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_DC_MOTOR_POWER_RATIO = 'Smalrubot s1 %1 dc motor power ratio';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_DC_MOTOR_SET_POWER_RATIO = 'set Smalrubot s1 %1 dc motor power ratio to %2 %';
 

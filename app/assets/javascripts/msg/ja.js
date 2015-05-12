@@ -86,6 +86,7 @@ Blockly.Msg.VIEWS_SIGNIN_MODAL_VIEW_ERROR = 'ログインに失敗しました';
 
 // blocks/motion.js.coffee.erb
 Blockly.Msg.BLOCKS_MOTION_MOVE = '■%1歩動かす';
+Blockly.Msg.BLOCKS_MOTION_MOVE2 = '■%1歩動かす2';
 Blockly.Msg.BLOCKS_MOTION_TURN_RIGHT_DEGREES = '■時計回りに%1度回す';
 Blockly.Msg.BLOCKS_MOTION_TURN_LEFT_DEGREES = '■反時計回りに%1度回す';
 Blockly.Msg.BLOCKS_MOTION_POINT_IN_DIRECTION = '■%1 度に向ける';
@@ -253,16 +254,15 @@ Blockly.Msg.BLOCKS_HARDWARE_MOTOR_DRIVER_SPEED = '◎(モータードライバ %
 Blockly.Msg.BLOCKS_HARDWARE_BUTTON_PRESSED_OR_RELEASED = '◎ボタン %1 が %2 ？';
 Blockly.Msg.BLOCKS_HARDWARE_SENSOR_VALUE = '◎センサー %1';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_LED_TURN_ON_OR_OFF = '★スモウルボットV3の %1 LEDを %2';
-Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_MOTOR_SPEED = '◎スモウルボットV3の %1 モーターの速度(%)';
-Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_MOTOR_SET_SPEED = '■スモウルボットV3の %1 モーターの速度を %2 (%) にする';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_ACTION = '■スモウルボットV3を %1';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_ACTION_WITH_SEC = '■スモウルボットV3を %2 秒 %1';
-Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_TOUCH_SENSOR_PRESSED_OR_RELEASED = '◎スモウルボットV3の %1 のタッチセンサーが %2 ？';
-Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_LIGHT_SENSOR_VALUE = '◎スモウルボットV3の光センサー';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_SENSOR_VALUE = '◎スモウルボットV3の %1 のセンサー';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_DC_MOTOR_POWER_RATIO = '◎スモウルボットV3の %1 DCモーターの速度(%)';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_V3_DC_MOTOR_SET_POWER_RATIO = '■スモウルボットV3の %1 DCモーターの速度を %2 (%) にする';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_LED_TURN_ON_OR_OFF = '★スモウルボットS1の %1 LEDを %2';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_ACTION = '■スモウルボットS1を %1';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_ACTION_WITH_SEC = '■スモウルボットS1を %2 秒 %1';
-Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_IR_PHOTOREFLECTOR_VALUE = '◎スモウルボットS1の %1 のセンサー';
+Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_SENSOR_VALUE = '◎スモウルボットS1の %1 のセンサー';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_DC_MOTOR_POWER_RATIO = '◎スモウルボットS1の %1 DCモーターの速度(%)';
 Blockly.Msg.BLOCKS_HARDWARE_SMALRUBOT_S1_DC_MOTOR_SET_POWER_RATIO = '■スモウルボットS1の %1 DCモーターの速度を %2 (%) にする';
 
