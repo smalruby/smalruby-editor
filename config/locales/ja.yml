@@ -23,6 +23,7 @@ ja:
       save: "セーブ"
       check: "チェック"
       reset: *reset
+      preference: "設定"
       logout: "ログアウト"
       login: *login
 

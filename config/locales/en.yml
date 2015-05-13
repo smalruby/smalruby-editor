@@ -23,6 +23,7 @@ en:
       save: "Save"
       check: "Check"
       reset: *reset
+      preference: "Preference"
       logout: "Logout"
       login: *login
 

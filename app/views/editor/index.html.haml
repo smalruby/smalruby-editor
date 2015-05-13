@@ -78,8 +78,15 @@
                   %i.icon-off
                   = t('.reset')
             - if standalone?
+              %li.divider.signed-in-menu{style: "display: #{signed_in? ? '' : 'none'}"}
               %li
-                %a#signout-button{style: "display: #{signed_in? ? '' : 'none'}"}
+                %a#preference-button.signed-in-menu{style: "display: #{signed_in? ? '' : 'none'}"}
+                  %h4
+                    %i.icon-cog
+                    = t('.preference')
+              %li.divider.signed-in-menu{style: "display: #{signed_in? ? '' : 'none'}"}
+              %li
+                %a#signout-button.signed-in-menu{style: "display: #{signed_in? ? '' : 'none'}"}
                   %h4
                     %i.icon-eject
                     = t('.logout')

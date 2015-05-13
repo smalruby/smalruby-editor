@@ -272,7 +272,7 @@ Smalruby.MainMenuView = Backbone.View.extend
         (data) ->
           Smalruby.username = null
           $('#signin-button').show()
-          $('#signout-button').hide()
+          $('.signed-in-menu').hide()
           $('#username-label').text('')
           $('#username-button').hide()
           successMessage(<%= bm('.signout_succeeded') %>)

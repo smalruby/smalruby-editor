@@ -98,6 +98,7 @@ RSpec.configure do |config|
   config.include ERB::Util, type: :helper
   config.include ERB::Util, type: :feature
   config.include ActionView::Helpers::JavaScriptHelper, type: :feature
+  config.include FeatureHelper, type: :feature
 
   config.after(javascript: true) do
     page.execute_script('window.onbeforeunload = null')

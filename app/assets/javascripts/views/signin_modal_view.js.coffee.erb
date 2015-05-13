@@ -29,7 +29,7 @@ Smalruby.SigninModalView = Backbone.View.extend
           (data) ->
             Smalruby.username = data
             $('#signin-button').hide()
-            $('#signout-button').show()
+            $('.signed-in-menu').show()
             $('#username-label').text(data)
             $('#username-button').show()
             successMessage(<%= bm('.signed_in') %>)

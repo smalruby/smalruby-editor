@@ -6,7 +6,7 @@ end
 
 step ':name にアクセスする' do |name|
   page.driver.headers = { 'Accept-Language' => 'ja' }
-  visit NAME_INFO[name][:path]
+  visit name_to(name, :path)
 
   if poltergeist?
     page.execute_script('window.confirmResult = true')
@@ -27,16 +27,28 @@ step ':name 画面を表示する' do |name|
 end
 
 step ':name が表示されていること' do |name|
-  expect(page).to have_selector(NAME_INFO[name][:selector])
+  expect(page).to have_selector(name_to(name))
 end
 
 step ':name が表示されていないこと' do |name|
-  expect(page).not_to have_selector(NAME_INFO[name][:selector])
+  expect(page).not_to have_selector(name_to(name))
+end
+
+step ':parent に :name が表示されていること' do |parent, name|
+  within(name_to(parent)) do
+    expect(page.all(name_to(name), visible: true)).not_to be_empty
+  end
+end
+
+step ':parent に :name が表示されていないこと' do |parent, name|
+  within(name_to(parent)) do
+    expect(page.all(name_to(name), visible: true)).to be_empty
+  end
 end
 
 step ':name にタブを切り替える' do |name|
   page.execute_script(<<-JS)
-    $('#tabs a[href=\"#{NAME_INFO[name][:selector]}\"]').click()
+    $('#tabs a[href=\"#{name_to(name)}\"]').click()
   JS
 end
 
@@ -46,7 +58,7 @@ step ':name タブを表示する' do |name|
 end
 
 step ':name に :value を指定する' do |name, value|
-  fill_in(NAME_INFO.key?(name) ? NAME_INFO[name][:id] : name, with: value)
+  fill_in(name_to(name, :id), with: value)
 end
 
 step 'プログラムの名前に :filename を指定する' do |filename|
@@ -56,12 +68,12 @@ end
 step 'サブメニューの :name をクリックする' do |name|
   # HACK: 以下では期待通りの動作にならなかったのでjQueryで無理やり実現した
   # click_on('submenu-button')
-  # click_on(NAME_INFO[name][:id])
-  page.execute_script("$('#{NAME_INFO[name][:selector]}').click()")
+  # click_on(name_to(name, :id))
+  page.execute_script("$('#{name_to(name)}').click()")
 end
 
 step ':name をクリックする' do |name|
-  click_on(NAME_INFO[name][:id])
+  click_on(name_to(name, :id))
 end
 
 step 'ダウンロードが完了するまで待つ' do
@@ -98,7 +110,7 @@ end
 
 step ':name にフォーカスを移す' do |name|
   page.execute_script(<<-JS)
-    $('#{NAME_INFO[name][:selector]}').focus()
+    $('#{name_to(name)}').focus()
   JS
 end
 
@@ -106,7 +118,7 @@ step ':name にフォーカスがあること' do |name|
   # HACK: 現在のPhantomJSでは$(':focus')は動作しない
   # https://github.com/netzpirat/guard-jasmine/issues/48
   expect(page.evaluate_script(<<-JS)).to be_true
-    $('#{NAME_INFO[name][:selector]}').get(0) == document.activeElement
+    $('#{name_to(name)}').get(0) == document.activeElement
   JS
 end
 
@@ -145,16 +157,16 @@ end
 
 step ':name は :value であること' do |name, value|
   expect(page.evaluate_script(<<-JS)).to eq(value)
-    $('#{NAME_INFO[name][:selector]}').val()
+    $('#{name_to(name)}').val()
   JS
 end
 
 step ':name に :message を含むこと' do |name, message|
-  expect(page.find(NAME_INFO[name][:selector])).to have_content(message)
+  expect(page.find(name_to(name))).to have_content(message)
 end
 
 step ':name に :message を含まないこと' do |name, message|
-  expect(page.find(NAME_INFO[name][:selector])).not_to have_content(message)
+  expect(page.find(name_to(name))).not_to have_content(message)
 end
 
 step 'ページをリロードする' do
@@ -277,4 +289,14 @@ step ':directory ディレクトリの :filename の内容が :program である
   |directory, filename, program|
   path = Pathname("#{directory}/#{filename}").expand_path
   expect(path.read).to eq(program)
+end
+
+step 'ページを表示する' do
+  # no-op
+end
+
+steps_for :debug do
+  step 'ページを表示する' do
+    save_and_open_page
+  end
 end
