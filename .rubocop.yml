@@ -37,3 +37,7 @@ ClassLength:
 # LoadErrorなど、rescueブロックを空にすることはよくあるため。
 HandleExceptions:
   Enabled: false
+
+# when use if/unless modifier, can't check coverage
+IfUnlessModifier:
+  Enabled: false
