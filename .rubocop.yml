@@ -41,3 +41,7 @@ HandleExceptions:
 # when use if/unless modifier, can't check coverage
 IfUnlessModifier:
   Enabled: false
+
+# this is not important for me.
+StringLiterals:
+  Enabled: false
