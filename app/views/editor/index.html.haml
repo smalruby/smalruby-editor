@@ -43,14 +43,9 @@
           %i.icon-off
           = t('.reset')
         - if standalone?
-          - if session[:username]
-            %button#signout-button.btn{class: "btn-primary"}<
-              %i.icon-eject
-              = t('.logout')
-          - else
-            %button#signout-button.btn{class: "btn-primary", style: "display: none"}<
-              %i.icon-eject
-              = t('.logout')
+          %button#signout-button.btn{class: "btn-primary", style: "display: #{signed_in? ? '' : 'none'}"}<
+            %i.icon-eject
+            = t('.logout')
 
       - else
         .btn-group
@@ -84,16 +79,10 @@
                   = t('.reset')
             - if standalone?
               %li
-                - if session[:username]
-                  %a#signout-button
-                    %h4
-                      %i.icon-eject
-                      = t('.logout')
-                - else
-                  %a#signout-button{style: "display: none"}
-                    %h4
-                      %i.icon-eject
-                      = t('.logout')
+                %a#signout-button{style: "display: #{signed_in? ? '' : 'none'}"}
+                  %h4
+                    %i.icon-eject
+                    = t('.logout')
 
       - if standalone?
         - if session[:username]
