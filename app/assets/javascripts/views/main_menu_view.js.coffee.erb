@@ -35,6 +35,9 @@ Smalruby.MainMenuView = Backbone.View.extend
       done: (e, data) =>
         @load(data.result.source_code)
 
+    # HACK: if don't do below, can't open submenu on Chromium on Raspberry Pi
+    $('.dropdown-toggle').dropdown()
+
   onBlockMode: (e) ->
     e.preventDefault()
 
