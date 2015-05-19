@@ -13,6 +13,8 @@ ignore(TEMPFILE_BY_EMACS)
 
 group :red_green_refactor, halt_on_fail: true do
   guard :rubocop, all_on_start: false do
+    ignore(%r{^db/(?:schema|seeds)\.rb$})
+
     watch(%r{.+\.rb$})
     watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
   end
