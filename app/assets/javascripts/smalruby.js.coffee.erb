@@ -84,11 +84,12 @@ window.Smalruby =
       path: '/blockly/'
       toolbox: document.getElementById('toolbox')
       trashcan: true
+
     @hideEmptyCategory()
 
     @blocklyFirst = true
     @blocklyLoading = false
-    Blockly.addChangeListener =>
+    Blockly.getMainWorkspace().addChangeListener =>
       Smalruby.changedAfterTranslating = true
 
       # HACK: Blocklyを初期化後に一回だけChangeListenerが呼び出させれ
@@ -233,7 +234,7 @@ window.Smalruby =
 
   hideEmptyCategory: ->
     i = 1
-    for node in Blockly.languageTree.childNodes
+    for node in Blockly.getMainWorkspace().options.languageTree.childNodes
       do (node) =>
         if node.tagName
           if node.getElementsByTagName('block').length == 0 && node.getAttribute('custom') == null

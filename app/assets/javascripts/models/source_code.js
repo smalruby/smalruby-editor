@@ -22,7 +22,7 @@ Smalruby.SourceCode = Backbone.Model.extend({
       }
       else {
         if (window.blockMode) {
-          var data = Blockly.Ruby.workspaceToCode();
+          var data = Blockly.Ruby.workspaceToCode(Blockly.getMainWorkspace());
         }
         else {
           var data = window.textEditor.getSession().getDocument().getValue();

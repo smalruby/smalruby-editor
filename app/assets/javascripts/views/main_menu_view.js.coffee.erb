@@ -82,7 +82,7 @@ Smalruby.MainMenuView = Backbone.View.extend
 
     return unless Smalruby.changedAfterTranslating
 
-    data = Blockly.Ruby.workspaceToCode()
+    data = Blockly.Ruby.workspaceToCode(Blockly.getMainWorkspace())
     Smalruby.translating = true
     window.textEditor.getSession().getDocument().setValue(data)
     Smalruby.translating = false
@@ -374,7 +374,7 @@ Smalruby.MainMenuView = Backbone.View.extend
         filename = filename.replace(/(\.rb)?\.xml$/, '.rb')
         Smalruby.blocklyLoading = true
         Smalruby.loadXml(info.data)
-        info.data = Blockly.Ruby.workspaceToCode()
+        info.data = Blockly.Ruby.workspaceToCode(Blockly.getMainWorkspace())
       else
         Smalruby.Collections.CharacterSet.reset()
         Blockly.mainWorkspace.clear()
