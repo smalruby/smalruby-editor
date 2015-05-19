@@ -5,6 +5,7 @@ AllCops:
     - spec/fixtures/**
     - vendor/*
     - work/*
+  RunRailsCops: true
 
 # 日本語でのコメントを許可する
 AsciiComments:
