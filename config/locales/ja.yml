@@ -6,12 +6,33 @@ ja:
     reset: &reset "リセット"
     login: &login "ログイン"
     name: "名前"
+    processing: "処理中"
 
   controllers:
     source_codes:
       not_ruby_program: "はRubyのプログラムではありません"
       not_exist: "はありません"
       exist: "すでに同じ名前のプログラムがあります"
+
+  toolbox_names:
+    default: "通常"
+    smalrubot_s1: "スモウルボットS1"
+    smalrubot_v3: "スモウルボットV3"
+
+  helpers:
+    label:
+      "user[preferences]":
+        toolbox_name: "ツールボックスの種類"
+
+        toolbox__default__enabled_hardware_blocks: "ハードウェアブロックを使う"
+        toolbox__default__enabled_smalrubot_s1_blocks: "スモウルボットS1のブロックを使う"
+        toolbox__default__enabled_smalrubot_v3_blocks: "スモウルボットV3のブロックを使う"
+
+        disabled_add_character_from_beginning: "最初にキャラクターを追加しない"
+        disabled_new_character: "キャラクターの追加を禁止する"
+        enabled_auto_init_hardware: "自動でハードウェアを準備する"
+        enabled_readonly_ruby_mode: "プログラムを直接入力できないようにする"
+        enabled_must_signin: "ログインしないと使えないようにする"
 
   editor:
     index:
@@ -65,6 +86,14 @@ ja:
       title: "本当にリセットしますか？"
       message: "作成中のプログラムが消えてしまうよ！"
 
+    preference_modal:
+      title: "設定"
+
     signin_modal:
       message: "あなたの名前をいれて、<br />ほかの人のプログラムとまざらないようにしよう♪"
       username_placeholder: "名前、生徒番号、ニックネームなど"
+
+  users:
+    preferences:
+      toolbox: "ツールボックス"
+      general: "一般"

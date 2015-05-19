@@ -1,0 +1,22 @@
+#preference-modal {
+    width: 700px;
+    margin-left: -(700px / 2);
+
+    .modal-body {
+        form {
+            margin-bottom: 0;
+
+            .control-group {
+                margin-bottom: 8px;
+
+                .control-label {
+                    /*width: 100px;*/
+                }
+
+                .controls {
+                    /*margin-left: 100px;*/
+                }
+            }
+        }
+    }
+}

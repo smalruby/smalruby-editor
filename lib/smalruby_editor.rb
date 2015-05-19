@@ -126,34 +126,32 @@ standalone:
       end
     end
 
-    CONFIG_YML_TEMPLATE = <<-EOS
-#toolbox_name: default
-#toolbox_name: raspberrypi
-#toolbox_name: smalrubot_v3
-#toolbox_name: smalrubot_s1
-#toolbox_name: default
-#toolbox_css_name: default
-features:
-  #- disabled_add_character_from_beginning
-  #- disabled_new_character
-  #- auto_init_hardware
-  #- readonly_ruby_mode
-  #- must_signin
-  #- enabled_hardware_blocks_on_default
-  #- enabled_2wd_car_blocks_on_default
-  #- enabled_smalrubot_v3_blocks_on_default
-  #- enabled_smalrubot_s1_blocks_on_default
-    EOS
-
     def create_config_yml(home_dir)
-      config_yml_path = home_dir.join('config', 'config.yml')
+      config_yml_path = home_dir.join("config", "config.yml")
       unless config_yml_path.exist?
-        File.open(config_yml_path, 'w') do |f|
-          f.write(CONFIG_YML_TEMPLATE)
+        File.open(config_yml_path, "w") do |f|
+          toolbox_name__preference_names =
+            Preference.make_toolbox_name_to_preference_names_hash
+          Preference.toolbox_names.each do |toolbox_name|
+            f.puts("#toolbox_name: #{toolbox_name}")
+            toolbox_name__preference_names.delete(toolbox_name).try(:each) do
+              |preference_name|
+              f.puts("##{preference_name}: true")
+            end
+            f.puts
+          end
+          preference_names_list =
+            toolbox_name__preference_names.values +
+            [Preference.general_preference_names,
+             Preference.admin_preference_names]
+          preference_names_list.each do |preference_names|
+            preference_names.each do |preference_name|
+              f.puts("##{preference_name}: true")
+            end
+            f.puts
+          end
         end
       end
     end
   end
 end
-
-require 'smalruby_editor/config'

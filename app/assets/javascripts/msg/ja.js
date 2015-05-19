@@ -17,6 +17,7 @@ Blockly.Msg.COMMON_TURN_LEFT = '左に曲げる';
 Blockly.Msg.COMMON_TURN_RIGHT = '右に曲げる';
 Blockly.Msg.COMMON_STOP = '止める';
 Blockly.Msg.COMMON_ERROR = 'エラー';
+Blockly.Msg.COMMON_PROCESSING = '処理中...';
 
 
 // colour name

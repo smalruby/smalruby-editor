@@ -17,6 +17,7 @@ Blockly.Msg.COMMON_TURN_LEFT = 'turn left';
 Blockly.Msg.COMMON_TURN_RIGHT = 'turn right';
 Blockly.Msg.COMMON_STOP = 'stop';
 Blockly.Msg.COMMON_ERROR = 'Error';
+Blockly.Msg.COMMON_PROCESSING = 'Processing...';
 
 
 // colour name

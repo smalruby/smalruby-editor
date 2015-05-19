@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131219045113) do
+ActiveRecord::Schema.define(version: 20150513061250) do
 
   create_table "source_codes", force: true do |t|
     t.text     "data"
@@ -19,5 +19,14 @@ ActiveRecord::Schema.define(version: 20131219045113) do
     t.datetime "updated_at"
     t.string   "filename"
   end
+
+  create_table "users", force: true do |t|
+    t.string   "name"
+    t.text     "preferences"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
 
 end

@@ -77,51 +77,12 @@
     -# 変数:向き
     %block{:type => "#{category}_self_angle"}
 
-    - if SmalrubyEditor::Config.enabled?('enabled_hardware_blocks_on_default')
+    - if current_preferences["toolbox__default__enabled_hardware_blocks"]
       - category = 'hardware'
       - subcategory = 'servo'
       -# サーボ[▼PIN]を(　)度(5～180)にする
       %block{:type => "#{category}_#{subcategory}_set_position"}
         = toolbox_number_value('POS', 90)
-
-      - subcategory = 'two_wheel_drive_car'
-      -# 2WD車[▼PIN]を（　）秒[▼コマンド]
-      %block{:type => "#{category}_#{subcategory}_run"}
-        = toolbox_pin_field('D5')
-        = toolbox_number_value('SEC', 1)
-        %value{:name => 'COMMAND'}
-          %block{:type => "#{category}_#{subcategory}_commands"}
-
-      -# [▼コマンド]
-      %block{:type => "#{category}_#{subcategory}_commands"}
-        %field{:name => 'COMMAND'}<
-          forward
-
-      - if SmalrubyEditor::Config.enabled?('enabled_2wd_car_blocks_on_default')
-        -# 2WD車[▼PIN]を進める
-        %block{:type => "#{category}_#{subcategory}_forward"}
-          = toolbox_pin_field('D5')
-
-        -# 2WD車[▼PIN]をバックさせる
-        %block{:type => "#{category}_#{subcategory}_backward"}
-          = toolbox_pin_field('D5')
-
-        -# 2WD車[▼PIN]を左に曲げる
-        %block{:type => "#{category}_#{subcategory}_turn_left"}
-          = toolbox_pin_field('D5')
-
-        -# 2WD車[▼PIN]を右に曲げる
-        %block{:type => "#{category}_#{subcategory}_turn_right"}
-          = toolbox_pin_field('D5')
-
-        -# 2WD車[▼PIN]を止める
-        %block{:type => "#{category}_#{subcategory}_stop"}
-          = toolbox_pin_field('D5')
-
-        -# 2WD車[▼PIN]の[▼LOR]の速度を<SPEED>%にする
-        %block{:type => "#{category}_#{subcategory}_set_speed"}
-          = toolbox_pin_field('D5')
-          = toolbox_number_value('SPEED', 100)
 
       - subcategory = 'motor_driver'
       -# (モータードライバ[▼PIN]で)モーターを[▼正転させる]
@@ -135,33 +96,74 @@
         = toolbox_pin_field('D6')
         = toolbox_number_value('SPEED', 100)
 
-      - if SmalrubyEditor::Config.enabled?('enabled_smalrubot_v3_blocks_on_default')
-        - subcategory = 'smalrubot_v3'
-        %block{type: "#{category}_#{subcategory}_action"}
-          %field{name: 'ACTION'}<
-            forward
+    - if current_preferences["toolbox__default__enabled_2wd_car_blocks"]
+      - subcategory = 'two_wheel_drive_car'
+      -# 2WD車[▼PIN]を（　）秒[▼コマンド]
+      %block{:type => "#{category}_#{subcategory}_run"}
+        = toolbox_pin_field('D5')
+        = toolbox_number_value('SEC', 1)
+        %value{:name => 'COMMAND'}
+          %block{:type => "#{category}_#{subcategory}_commands"}
 
-        %block{type: "#{category}_#{subcategory}_action_with_sec"}
-          %field{name: 'ACTION'}<
-            forward
-          = toolbox_number_value('SEC', 0.5)
+      -# [▼コマンド]
+      %block{:type => "#{category}_#{subcategory}_commands"}
+        %field{:name => 'COMMAND'}<
+          forward
 
-        %block{type: "#{category}_#{subcategory}_dc_motor_set_power_ratio"}
-          = toolbox_number_value('SPEED', 100)
+      -# 2WD車[▼PIN]を進める
+      %block{:type => "#{category}_#{subcategory}_forward"}
+        = toolbox_pin_field('D5')
 
-      - if SmalrubyEditor::Config.enabled?('enabled_smalrubot_s1_blocks_on_default')
-        - subcategory = 'smalrubot_s1'
-        %block{type: "#{category}_#{subcategory}_action"}
-          %field{name: 'ACTION'}<
-            forward
+      -# 2WD車[▼PIN]をバックさせる
+      %block{:type => "#{category}_#{subcategory}_backward"}
+        = toolbox_pin_field('D5')
 
-        %block{type: "#{category}_#{subcategory}_action_with_sec"}
-          %field{name: 'ACTION'}<
-            forward
-          = toolbox_number_value('SEC', 0.5)
+      -# 2WD車[▼PIN]を左に曲げる
+      %block{:type => "#{category}_#{subcategory}_turn_left"}
+        = toolbox_pin_field('D5')
 
-        %block{type: "#{category}_#{subcategory}_dc_motor_set_power_ratio"}
-          = toolbox_number_value('SPEED', 100)
+      -# 2WD車[▼PIN]を右に曲げる
+      %block{:type => "#{category}_#{subcategory}_turn_right"}
+        = toolbox_pin_field('D5')
+
+      -# 2WD車[▼PIN]を止める
+      %block{:type => "#{category}_#{subcategory}_stop"}
+        = toolbox_pin_field('D5')
+
+      -# 2WD車[▼PIN]の[▼LOR]の速度を<SPEED>%にする
+      %block{:type => "#{category}_#{subcategory}_set_speed"}
+        = toolbox_pin_field('D5')
+        = toolbox_number_value('SPEED', 100)
+
+    - if current_preferences["toolbox__default__enabled_smalrubot_v3_blocks"]
+      - category = 'hardware'
+      - subcategory = 'smalrubot_v3'
+      %block{type: "#{category}_#{subcategory}_action"}
+        %field{name: 'ACTION'}<
+          forward
+
+      %block{type: "#{category}_#{subcategory}_action_with_sec"}
+        %field{name: 'ACTION'}<
+          forward
+        = toolbox_number_value('SEC', 0.5)
+
+      %block{type: "#{category}_#{subcategory}_dc_motor_set_power_ratio"}
+        = toolbox_number_value('SPEED', 100)
+
+    - if current_preferences["toolbox__default__enabled_smalrubot_s1_blocks"]
+      - category = 'hardware'
+      - subcategory = 'smalrubot_s1'
+      %block{type: "#{category}_#{subcategory}_action"}
+        %field{name: 'ACTION'}<
+          forward
+
+      %block{type: "#{category}_#{subcategory}_action_with_sec"}
+        %field{name: 'ACTION'}<
+          forward
+        = toolbox_number_value('SEC', 0.5)
+
+      %block{type: "#{category}_#{subcategory}_dc_motor_set_power_ratio"}
+        = toolbox_number_value('SPEED', 100)
 
   - category = 'looks'
   %category{:name => tt('.looks')}
@@ -206,7 +208,7 @@
     -# [▼プリセット画像]
     -#%block{:type => "#{category}_preset_images"}
 
-    - if SmalrubyEditor::Config.enabled?('enabled_hardware_blocks_on_default')
+    - if current_preferences["toolbox__default__enabled_hardware_blocks"]
       - category = 'hardware'
       - subcategory = 'led'
       -# LED[▼PIN]をオンにする
@@ -237,17 +239,19 @@
       -# LCDをクリアする
       %block{:type => "#{category}_#{subcategory}_clear"}
 
-      - if SmalrubyEditor::Config.enabled?('enabled_smalrubot_v3_blocks_on_default')
-        - subcategory = 'smalrubot_v3'
-        %block{type: "#{category}_#{subcategory}_led_turn_on_or_off"}
-          %field{name: 'OOO'}<
-            turn_on
+    - if current_preferences["toolbox__default__enabled_smalrubot_v3_blocks"]
+      - category = 'hardware'
+      - subcategory = 'smalrubot_v3'
+      %block{type: "#{category}_#{subcategory}_led_turn_on_or_off"}
+        %field{name: 'OOO'}<
+          turn_on
 
-      - if SmalrubyEditor::Config.enabled?('enabled_smalrubot_s1_blocks_on_default')
-        - subcategory = 'smalrubot_s1'
-        %block{type: "#{category}_#{subcategory}_led_turn_on_or_off"}
-          %field{name: 'OOO'}<
-            turn_on
+    - if current_preferences["toolbox__default__enabled_smalrubot_s1_blocks"]
+      - category = 'hardware'
+      - subcategory = 'smalrubot_s1'
+      %block{type: "#{category}_#{subcategory}_led_turn_on_or_off"}
+        %field{name: 'OOO'}<
+          turn_on
 
   - category = 'sound'
   %category{:name => tt('.sound')}
@@ -373,7 +377,7 @@
     -# 変数:2000年からの日数
     %block{:type => "#{category}_days_since_2000"}
 
-    - if SmalrubyEditor::Config.enabled?('enabled_hardware_blocks_on_default')
+    - if current_preferences["toolbox__default__enabled_hardware_blocks"]
       - category = 'hardware'
       -# センサー[▼PIN]
       %block{:type => "#{category}_sensor_value"}
@@ -383,24 +387,27 @@
       %block{:type => "#{category}_button_pressed_or_released"}
         = toolbox_pin_field('D3')
 
-      -# 2WD車[▼PIN]の[▼LOR]の速度%
-      %block{:type => "#{category}_two_wheel_drive_car_speed"}
-        = toolbox_pin_field('D5')
-
       -# (モータードライバ[▼PIN]の)モーターの速度(%)
       %block{:type => "#{category}_motor_driver_speed"}
         = toolbox_pin_field('D6')
 
-      - if SmalrubyEditor::Config.enabled?('enabled_smalrubot_v3_blocks_on_default')
-        - subcategory = 'smalrubot_v3'
-        %block{type: "#{category}_#{subcategory}_sensor_value"}
-        %block{type: "#{category}_#{subcategory}_dc_motor_power_ratio"}
+    - if current_preferences["toolbox__default__enabled_2wd_car_blocks"]
+      - category = 'hardware'
+      -# 2WD車[▼PIN]の[▼LOR]の速度%
+      %block{:type => "#{category}_two_wheel_drive_car_speed"}
+        = toolbox_pin_field('D5')
 
-      - if SmalrubyEditor::Config.enabled?('enabled_smalrubot_s1_blocks_on_default')
-        - category = 'hardware'
-        - subcategory = 'smalrubot_s1'
-        %block{type: "#{category}_#{subcategory}_sensor_value"}
-        %block{type: "#{category}_#{subcategory}_dc_motor_power_ratio"}
+    - if current_preferences["toolbox__default__enabled_smalrubot_v3_blocks"]
+      - category = 'hardware'
+      - subcategory = 'smalrubot_v3'
+      %block{type: "#{category}_#{subcategory}_sensor_value"}
+      %block{type: "#{category}_#{subcategory}_dc_motor_power_ratio"}
+
+    - if current_preferences["toolbox__default__enabled_smalrubot_s1_blocks"]
+      - category = 'hardware'
+      - subcategory = 'smalrubot_s1'
+      %block{type: "#{category}_#{subcategory}_sensor_value"}
+      %block{type: "#{category}_#{subcategory}_dc_motor_power_ratio"}
 
   - category = 'operators'
   %category{:name => tt('.operators')}
@@ -499,7 +506,7 @@
     -# p
     %block{:type => "#{category}_p"}
 
-    - if SmalrubyEditor::Config.enabled?('enabled_hardware_blocks_on_default')
+    - if !current_preferences["enabled_auto_init_hardware"] && (current_preferences["toolbox__default__enabled_hardware_blocks"] || current_preferences["toolbox__default__enabled_smalrubot_v3_blocks"] || current_preferences["toolbox__default__enabled_smalrubot_s1_blocks"])
       - category = 'hardware'
       -# ハードウェアを準備する
       %block{:type => "#{category}_init_hardware"}

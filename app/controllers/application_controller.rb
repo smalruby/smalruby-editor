@@ -7,10 +7,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :standalone?, :raspberrypi?
+  helper_method :standalone?, :raspberrypi?, :current_user,
+                :current_preferences
 
   before_filter :set_locale
-  before_filter :reload_config if Rails.env.development?
+  before_filter :reload_preference if Rails.env.development?
 
   private
 
@@ -53,7 +54,22 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def reload_config
-    SmalrubyEditor::Config.reload!
+  def reload_preference
+    Preference.reload!
+  end
+
+  def require_auth
+    if session[:username].blank?
+      head :unauthorized
+      return false
+    end
+  end
+
+  def current_user
+    @current_user ||= User.where(name: session[:username]).first
+  end
+
+  def current_preferences
+    current_user.try(:preferences) || Preference.to_hash
   end
 end

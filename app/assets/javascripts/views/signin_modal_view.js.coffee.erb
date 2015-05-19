@@ -27,10 +27,11 @@ Smalruby.SigninModalView = Backbone.View.extend
       $.post('/sessions/', { username: username })
         .then(
           (data) ->
-            Smalruby.username = data
+            Smalruby.setPreferences(data)
+            Smalruby.username = username
             $('#signin-button').hide()
             $('.signed-in-menu').show()
-            $('#username-label').text(data)
+            $('#username-label').text(username)
             $('#username-button').show()
             successMessage(<%= bm('.signed_in') %>)
             new $.Deferred().resolve().promise()
@@ -39,5 +40,5 @@ Smalruby.SigninModalView = Backbone.View.extend
             new $.Deferred().resolve().promise()
         )
         .done =>
-          if Smalruby.username != null || !Smalruby.isEnabled('must_signin')
+          if Smalruby.username != null || !Smalruby.isEnabled('enabled_must_signin')
             @$el.modal('hide')

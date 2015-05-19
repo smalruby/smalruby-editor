@@ -35,7 +35,7 @@ window.Smalruby =
   Collections: {}
   Views: {}
   Routers: {}
-  Features: []
+  Preferences: {}
 
   username: null
 
@@ -66,6 +66,8 @@ window.Smalruby =
       el: $('#load-modal')
     @Views.ResetModalView = new Smalruby.ResetModalView
       el: $('#reset-modal')
+    @Views.PreferenceModalView = new Smalruby.PreferenceModalView
+      el: $('#preference-modal')
 
     Smalruby.downloading = false
     window.onbeforeunload = (event) ->
@@ -82,6 +84,7 @@ window.Smalruby =
       path: '/blockly/'
       toolbox: document.getElementById('toolbox')
       trashcan: true
+    @hideEmptyCategory()
 
     @blocklyFirst = true
     @blocklyLoading = false
@@ -106,7 +109,6 @@ window.Smalruby =
     textEditor.setTheme('ace/theme/clouds')
     textEditor.setShowInvisibles(true)
     textEditor.gotoLine(0, 0)
-    textEditor.setReadOnly(@isEnabled('readonly_ruby_mode'))
     textEditor.on 'change', (e) =>
       unless @translating
         window.changed = true
@@ -195,11 +197,51 @@ window.Smalruby =
       @Views.CharacterSelectorView.addBlock_(c)
       window.changed = false
 
-  isEnabled: (feature) ->
-    @Features.indexOf(feature) != -1
+  setPreferences: (preferences) ->
+    @Preferences = preferences
+    window.textEditor.setReadOnly(@isEnabled('enabled_readonly_ruby_mode'))
+    if @isEnabled('disabled_new_character')
+      $('#add-character-item').hide()
+    else
+      $('#add-character-item').show()
+    @changedAfterTranslating = true
+    @reloadToolbox()
+
+  isEnabled: (name) ->
+    @Preferences[name] == true || @Preferences[name] == 'true' || @Preferences[name] == '1'
+
+  reloadToolbox: ->
+    $('body').block
+      message: <%= bm('common.processing') %>
+
+    unblock = =>
+      $('body').unblock()
+      null # HACK: if return unblock(), does not call fail().
+    dfr = $.Deferred()
+    $.ajax
+      url: '/toolbox'
+      type: 'GET'
+      success: (data, textStatus, jqXHR) -> dfr.resolve(data)
+      error: dfr.reject
+    dfr.promise()
+      .then (data) =>
+        Blockly.updateToolbox(data)
+        @hideEmptyCategory()
+      .then(unblock, unblock)
+      .fail =>
+        errorMessage(<%= bm('.error') %>)
+
+  hideEmptyCategory: ->
+    i = 1
+    for node in Blockly.languageTree.childNodes
+      do (node) =>
+        if node.tagName
+          if node.getElementsByTagName('block').length == 0 && node.getAttribute('custom') == null
+            $("div.blocklyTreeRoot > div:nth-child(2) > div:nth-child(#{i})[aria-level=\"1\"]").hide()
+          i++
 
 $(document).ready ->
   Smalruby.initialize()
 
-  if Smalruby.username == null && Smalruby.isEnabled('must_signin')
+  if Smalruby.username == null && Smalruby.isEnabled('enabled_must_signin')
     Smalruby.Views.SigninModalView.render()

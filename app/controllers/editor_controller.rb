@@ -6,4 +6,8 @@ class EditorController < ApplicationController
   def demo
     @filename = (File.basename(params[:filename]) || 'car_chase') + '.rb.xml'
   end
+
+  def toolbox
+    render :toolbox, layout: false
+  end
 end

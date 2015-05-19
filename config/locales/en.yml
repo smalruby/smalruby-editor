@@ -6,12 +6,33 @@ en:
     reset: &reset "Reset"
     login: &login "Login"
     name: "Name"
+    processing: "Processing..."
 
   controllers:
     source_codes:
       not_ruby_program: " isn't ruby program."
       not_exist: " does not exist."
       exist: " already exist."
+
+  toolbox_names:
+    default: "Normal"
+    smalrubot_s1: "Smalrubot S1"
+    smalrubot_v3: "Smalrubot V3"
+
+  helpers:
+    label:
+      "user[preferences]":
+        toolbox_name: "Toolbox"
+
+        toolbox__default__enabled_hardware_blocks: "Enabled hardware blocks on default"
+        toolbox__default__enabled_smalrubot_v3_blocks: "Enabled smalrubot v3 blocks on default"
+        toolbox__default__enabled_smalrubot_s1_blocks: "Enabled smalrubot s1 blocks on default"
+
+        disabled_add_character_from_beginning: "Disabled add character from beginning"
+        disabled_new_character: "Disabled new character"
+        enabled_auto_init_hardware: "Auto init hardware"
+        enabled_readonly_ruby_mode: "Readonly ruby mode"
+        enabled_must_signin: "Must signin"
 
   editor:
     index:
@@ -65,6 +86,14 @@ en:
       title: "Are you sure you want to reset ?"
       message: "Your program will disappear!"
 
+    preference_modal:
+      title: "Preference"
+
     signin_modal:
       message: "Input your name<br>not to mix with other people's program."
       username_placeholder: "username, ID, nickname, etc..."
+
+  users:
+    preferences:
+      toolbox: "Toolbox"
+      general: "General"

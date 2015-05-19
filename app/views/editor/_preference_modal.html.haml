@@ -1,0 +1,16 @@
+#preference-modal{class: "#{modal_css_class}", tabindex: "-1",
+                  role: "dialog", "aria-hidden" => "true"}
+  .modal-header
+    %h3
+      %i.icon-cog
+      = t('.title')
+
+  .modal-body#preference-modal-content
+
+  .modal-footer
+    %button.btn{:"data-dismiss" => "modal", :"aria-hidden" => "true"}<
+      %i.icon-remove
+      = t('common.cancel')
+    %button#preference-modal-ok-button{:class => "btn btn-primary"}<
+      %i.icon-circle-blank
+      = t('common.ok')

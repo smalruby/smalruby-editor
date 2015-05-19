@@ -10,7 +10,7 @@ Bundler.require(:default, Rails.env) unless Rails.env == 'standalone'
 module SmalrubyEditor
   class Application < Rails::Application
     config.time_zone = 'Tokyo'
-    I18n.enforce_available_locales = true
+    I18n.enforce_available_locales = false
     config.i18n.default_locale = :ja
     config.colorize_logging = false
     config.filter_parameters += [:data]

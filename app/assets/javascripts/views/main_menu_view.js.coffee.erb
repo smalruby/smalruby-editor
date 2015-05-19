@@ -17,6 +17,7 @@ Smalruby.MainMenuView = Backbone.View.extend
     'click #save-button': 'onSave'
     'click #check-button': 'onCheck'
     'click #reset-button': 'onReset'
+    'click #preference-button': 'onPreference'
     'click #signin-button': 'onSignin'
     'click #signout-button': 'onSignout'
     'click #username-button': 'onUsername'
@@ -259,6 +260,11 @@ Smalruby.MainMenuView = Backbone.View.extend
       Smalruby.reset()
     true
 
+  onPreference: (e) ->
+    e.preventDefault()
+
+    Smalruby.Views.PreferenceModalView.render()
+
   onSignin: (e) ->
     e.preventDefault()
 
@@ -273,6 +279,7 @@ Smalruby.MainMenuView = Backbone.View.extend
     })
       .then(
         (data) ->
+          Smalruby.setPreferences(data)
           Smalruby.username = null
           $('#signin-button').show()
           $('.signed-in-menu').hide()
@@ -280,7 +287,7 @@ Smalruby.MainMenuView = Backbone.View.extend
           $('#username-button').hide()
           successMessage(<%= bm('.signout_succeeded') %>)
 
-          if Smalruby.isEnabled('must_signin')
+          if Smalruby.isEnabled('enabled_must_signin')
             Smalruby.Views.SigninModalView.render()
         ->
           errorMessage(<%= bm('.signout_error') %>)

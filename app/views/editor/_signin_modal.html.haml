@@ -12,7 +12,7 @@
           %input#signin-modal-username.input-large{name: "username", type: "text", placeholder: t('.username_placeholder')}
 
   .modal-footer
-    - if !SmalrubyEditor::Config.enabled?('must_signin')
+    - if !current_preferences["enabled_must_signin"]
       %button#signin-modal-cancel-button.cancel-button{class: "btn", :"data-dismiss" => "modal", :"aria-hidden" => "true"}<
         %i.icon-remove
         = t('common.cancel')

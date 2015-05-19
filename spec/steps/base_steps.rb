@@ -46,6 +46,26 @@ step ':parent に :name が表示されていないこと' do |parent, name|
   end
 end
 
+step 'コンボボックス :name の :option_label を選択していること' do
+  |name, option_label|
+  expect(find(%{select[name="#{name}"] option[selected]}).text)
+    .to eq(option_label)
+end
+
+step 'コンボボックス :name の :option_label を選択していないこと' do
+  |name, option_label|
+  expect(find(%{select[name="#{name}"] option[selected]}).text)
+    .not_to eq(option_label)
+end
+
+step ':name がチェックされていること' do |name|
+  expect(find(%{input[type="checkbox"][name="#{name}"]})).to be_checked
+end
+
+step ':name がチェックされていないこと' do |name|
+  expect(find(%{input[type="checkbox"][name="#{name}"]})).not_to be_checked
+end
+
 step ':name にタブを切り替える' do |name|
   page.execute_script(<<-JS)
     $('#tabs a[href=\"#{name_to(name)}\"]').click()
@@ -61,6 +81,10 @@ step ':name に :value を指定する' do |name, value|
   fill_in(name_to(name, :id), with: value)
 end
 
+step ':name をチェックする' do |name|
+  check(name)
+end
+
 step 'プログラムの名前に :filename を指定する' do |filename|
   step %("プログラム名の入力欄" に "#{filename}" を指定する)
 end
@@ -70,6 +94,8 @@ step 'サブメニューの :name をクリックする' do |name|
   # click_on('submenu-button')
   # click_on(name_to(name, :id))
   page.execute_script("$('#{name_to(name)}').click()")
+  step %{JavaScriptによるリクエストが終わるまで待つ}
+  step %{JavaScriptによるアニメーションが終わるまで待つ}
 end
 
 step ':name をクリックする' do |name|

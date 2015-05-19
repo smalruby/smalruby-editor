@@ -6,14 +6,17 @@ class SessionsController < ApplicationController
   def create
     return head :bad_request if params[:username].blank?
 
-    session[:username] = params[:username].to_s
+    user = User.find_or_create_by(name: params[:username].to_s) { |u|
+      u.preferences = Preference.defaults
+    }
+    session[:username] = user.name
 
-    render text: session[:username]
+    render json: current_preferences
   end
 
   def destroy
-    session[:username] = nil
+    session[:username] = @current_user = nil
 
-    render nothing: true
+    render json: current_preferences
   end
 end

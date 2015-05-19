@@ -1,0 +1,71 @@
+<%
+  require 'smalruby_editor'
+  require 'smalruby_editor/blockly_message_helper'
+%>
+
+# preference dialog view
+Smalruby.PreferenceModalView = Backbone.View.extend
+  events:
+    'click #preference-modal-ok-button': 'onOk'
+    'change #user_preferences_toolbox_name': 'renderToolboxPreferences'
+
+  #initialize: ->
+  #  # no-op
+
+  render: ->
+    @$el.find('.modal-body').block
+      message: null
+
+    unblock = =>
+      @$el.find('.modal-body').unblock()
+      null # HACK: if return unblock(), does not call fail().
+
+    @$el.modal
+      backdrop: 'static'
+    @$el.modal('show')
+
+    dfr = $.Deferred()
+    $.ajax
+      url: 'preferences'
+      type: 'GET'
+      cache: false
+      success: (data, textStatus, jqXHR) -> dfr.resolve(data)
+      error: dfr.reject
+    dfr.promise()
+      .then (data) =>
+        $('#preference-modal-content').replaceWith(data)
+        @renderToolboxPreferences()
+      .then(unblock, unblock)
+      .fail =>
+        @$el.modal('hide')
+        errorMessage(<%= bm('.error') %>)
+
+  onOk: ->
+    @$el.block
+      message: <%= bm('common.processing') %>
+
+    unblock = =>
+      @$el.unblock()
+      null # HACK: if return unblock(), does not call fail().
+
+    form = @$el.find('form')
+    dfr = $.Deferred()
+    $.ajax
+      url: form.attr('action')
+      data: form.serialize()
+      type: 'POST'
+      success: (data, textStatus, jqXHR) -> dfr.resolve(data)
+      error: dfr.reject
+    dfr.promise()
+      .then (data) =>
+        Smalruby.setPreferences(data)
+      .then(unblock, unblock)
+      .done =>
+        @$el.modal('hide')
+      .fail =>
+        errorMessage(<%= bm('.error') %>)
+
+  renderToolboxPreferences: ->
+    @$el.find('.toolbox_preferences').hide()
+    toolboxName = $('#user_preferences_toolbox_name').val() || 'default'
+    @$el.find(".toolbox_preferences.#{toolboxName}").show()

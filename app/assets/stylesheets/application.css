@@ -12,6 +12,7 @@
  *= require_self
  *= require editor
  *= require load-modal
+ *= require preference-modal
  *= require toolbox
  */
 

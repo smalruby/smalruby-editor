@@ -1,0 +1,34 @@
+.modal-body#preference-modal-content
+  = form_for(current_user, html: { class: "form-horizontal", method: "PATCH" }) do |f|
+    = f.fields_for(:preferences, OpenStruct.new(f.object.preferences)) do |f2|
+      .page-header
+        %h4
+          %i.icon-th-large
+          = t('.toolbox')
+
+      .control-group
+        = f2.label(:toolbox_name, class: "control-label")
+        .controls
+          - options = Preference.toolbox_names.map { |n| [t(n, scope: "toolbox_names"), n] }
+          = f2.select(:toolbox_name, options)
+
+      - Preference.make_toolbox_name_to_preference_names_hash.each do |toolbox_name, preference_names|
+        - preference_names.each do |n|
+          .control-group{class: "toolbox_preferences #{toolbox_name}"}
+            .controls
+              = f2.label(n, class: "checkbox") do
+                = preferences_field(f2, n)
+                = t(n, scope: "helpers.label.user[preferences]")
+
+      - if Preference.general_preference_names.length > 0
+        .page-header
+          %h4
+            %i.icon-th-large
+            = t('.general')
+
+        - Preference.general_preference_names.each do |n|
+          .control-group
+            .controls
+              = f2.label(n, class: "checkbox") do
+                = preferences_field(f2, n)
+                = t(n, scope: "helpers.label.user[preferences]")
