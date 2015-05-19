@@ -21,7 +21,6 @@ class SourceCodesController < ApplicationController
         local_program_paths.map(&select_and_get_summary).compact
     end
 
-    demo_program_paths = Pathname.glob(Rails.root.join('demos/*.rb.xml'))
     res[:demoPrograms] =
       demo_program_paths.map(&select_and_get_summary).compact
 
@@ -180,7 +179,8 @@ class SourceCodesController < ApplicationController
   end
 
   def demo_program_paths
-    Pathname.glob(Rails.root.join('demos/*.rb.xml'))
+    Pathname.glob(Rails.root.join('demos/*.rb.xml')) +
+      Pathname.glob(SmalrubyEditor.home_directory.join('.demos/*.rb.xml'))
   end
 
   def rb_basename(path)
