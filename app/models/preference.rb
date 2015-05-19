@@ -4,8 +4,8 @@ class Preference < Settingslogic
   def self.toolbox_names
     %w(
       default
-      smalrubot_s1
       smalrubot_v3
+      smalrubot_s1
     )
   end
 
