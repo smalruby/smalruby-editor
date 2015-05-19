@@ -46,3 +46,7 @@ IfUnlessModifier:
 # this is not important for me.
 StringLiterals:
   Enabled: false
+
+# I think 'unless' is too bad.
+FavorUnlessOverNegatedIf:
+  Enabled: false
