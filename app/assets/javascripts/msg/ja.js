@@ -8,6 +8,9 @@ goog.require('Blockly.Msg');
  * to message files.
  */
 
+// fixed original messages
+Blockly.Msg.DUPLICATE_BLOCK = "コピー";
+
 // common
 Blockly.Msg.COMMON_TURN_ON = 'オンにする';
 Blockly.Msg.COMMON_TURN_OFF = 'オフにする';
