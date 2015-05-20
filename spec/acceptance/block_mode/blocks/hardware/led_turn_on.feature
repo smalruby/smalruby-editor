@@ -15,7 +15,13 @@
       """
     かつ ブロックからソースコードを生成する
 
-    ならば テキストエディタのプログラムは "" であること
+    ならば テキストエディタのプログラムは以下であること:
+      """
+      require "smalruby"
+
+      init_hardware
+
+      """
 
   シナリオ: キャラクターとブロックを配置する
     もし 次のブロックを配置する:
@@ -33,6 +39,8 @@
     ならば テキストエディタのプログラムは以下であること:
       """
       require "smalruby"
+
+      init_hardware
 
       car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
       car1.led("D13").turn_on
@@ -57,6 +65,8 @@
     ならば テキストエディタのプログラムは以下であること:
       """
       require "smalruby"
+
+      init_hardware
 
       car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
 

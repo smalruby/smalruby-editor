@@ -6,35 +6,43 @@
     前提 "ブロック" タブを表示する
 
     もし 次のブロックを配置する:
-    """
-    %block{:type => "hardware_sensor_value", :x => "0", :y => "0"}
-      %field{:name => "PIN"}<
-        A0
-    """
+      """
+      %block{:type => "hardware_sensor_value", :x => "0", :y => "0"}
+        %field{:name => "PIN"}<
+          A0
+      """
     かつ ブロックからソースコードを生成する
 
-    ならば テキストエディタのプログラムは "" であること
+    ならば テキストエディタのプログラムは以下であること:
+      """
+      require "smalruby"
+
+      init_hardware
+
+      """
 
   シナリオ: 文とブロックを配置する
     前提 "ブロック" タブを表示する
 
     もし 次のブロックを配置する:
-    """
-    %block{:type => "ruby_p", :x => "0", :y => "0", :inline => "true" }
-      %value{:name => "ARG"}
-        %block{:type => "hardware_sensor_value", :x => "0", :y => "0"}
-          %field{:name => "PIN"}<
-            A0
-    """
+      """
+      %block{:type => "ruby_p", :x => "0", :y => "0", :inline => "true" }
+        %value{:name => "ARG"}
+          %block{:type => "hardware_sensor_value", :x => "0", :y => "0"}
+            %field{:name => "PIN"}<
+              A0
+      """
     かつ ブロックからソースコードを生成する
 
     ならば テキストエディタのプログラムは以下であること:
-    """
-    require "smalruby"
+      """
+      require "smalruby"
 
-    p("")
+      init_hardware
 
-    """
+      p("")
+
+      """
 
   シナリオ: キャラクターとブロックを配置する
     前提 "ブロック" タブを表示する
@@ -43,27 +51,23 @@
       | car1 | car1.png | 0 | 0 |     0 |
 
     もし 次のブロックを配置する:
-    """
-    %block{:type => "character_new", :x => "21", :y => "15"}
-      %field{:name => "NAME"}<
-        car1
-      %statement{:name => "DO"}
-        %block{:type => "ruby_p", :x => "0", :y => "0", :inline => "true" }
-          %value{:name => "ARG"}
-            %block{:type => "hardware_sensor_value", :x => "0", :y => "0"}
-              %field{:name => "PIN"}<
-                A0
-    """
+      """
+      %block{:type => "character_new", :x => "21", :y => "15"}
+        %field{:name => "NAME"}<
+          car1
+        %statement{:name => "DO"}
+          %block{:type => "ruby_p", :x => "0", :y => "0", :inline => "true" }
+            %value{:name => "ARG"}
+              %block{:type => "hardware_sensor_value", :x => "0", :y => "0"}
+                %field{:name => "PIN"}<
+                  A0
+      """
     かつ ブロックからソースコードを生成する
 
-    ならば テキストエディタのプログラムは以下であること:
-    """
-    require "smalruby"
-
-    car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
-    p(car1.sensor("A0").value)
-
-    """
+    ならば テキストエディタのプログラムは以下を含むこと:
+      """
+      p(car1.sensor("A0").value)
+      """
 
   シナリオ: キャラクターとイベントとブロックを配置する
     前提 "ブロック" タブを表示する
@@ -72,29 +76,24 @@
       | car1 | car1.png | 0 | 0 |     0 |
 
     もし 次のブロックを配置する:
-    """
-    %block{:type => "character_new", :x => "21", :y => "15"}
-      %field{:name => "NAME"}<
-        car1
-      %statement{:name => "DO"}
-        %block{:type => "events_on_start"}
-          %statement{:name => "DO"}
-            %block{:type => "ruby_p", :x => "0", :y => "0", :inline => "true" }
-              %value{:name => "ARG"}
-                %block{:type => "hardware_sensor_value", :x => "0", :y => "0"}
-                  %field{:name => "PIN"}<
-                    A0
-    """
+      """
+      %block{:type => "character_new", :x => "21", :y => "15"}
+        %field{:name => "NAME"}<
+          car1
+        %statement{:name => "DO"}
+          %block{:type => "events_on_start"}
+            %statement{:name => "DO"}
+              %block{:type => "ruby_p", :x => "0", :y => "0", :inline => "true" }
+                %value{:name => "ARG"}
+                  %block{:type => "hardware_sensor_value", :x => "0", :y => "0"}
+                    %field{:name => "PIN"}<
+                      A0
+      """
     かつ ブロックからソースコードを生成する
 
-    ならば テキストエディタのプログラムは以下であること:
-    """
-    require "smalruby"
-
-    car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
-
-    car1.on(:start) do
-      p(sensor("A0").value)
-    end
-
-    """
+    ならば テキストエディタのプログラムは以下を含むこと:
+      """
+      car1.on(:start) do
+        p(sensor("A0").value)
+      end
+      """

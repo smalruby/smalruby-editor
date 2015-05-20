@@ -13,7 +13,13 @@ Feature: hardware_smalrubot_v3_sensor_value block
       """
     And ブロックからソースコードを生成する
 
-    Then テキストエディタのプログラムは "" であること
+    Then テキストエディタのプログラムは以下であること:
+      """
+      require "smalruby"
+
+      init_hardware
+
+      """
 
   Scenario: 文とブロックを配置する
     Given "ブロック" タブを表示する
@@ -31,6 +37,8 @@ Feature: hardware_smalrubot_v3_sensor_value block
     Then テキストエディタのプログラムは以下であること:
       """
       require "smalruby"
+
+      init_hardware
 
       p("")
 
@@ -56,13 +64,9 @@ Feature: hardware_smalrubot_v3_sensor_value block
       """
     And ブロックからソースコードを生成する
 
-    Then テキストエディタのプログラムは以下であること:
+    Then テキストエディタのプログラムは以下を含むこと:
       """
-      require "smalruby"
-
-      car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
       p(car1.smalrubot_v3.right_sensor_value)
-
       """
 
   Scenario: キャラクターとイベントとブロックを配置する
@@ -87,14 +91,9 @@ Feature: hardware_smalrubot_v3_sensor_value block
       """
     And ブロックからソースコードを生成する
 
-    Then テキストエディタのプログラムは以下であること:
+    Then テキストエディタのプログラムは以下を含むこと:
       """
-      require "smalruby"
-
-      car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
-
       car1.on(:start) do
         p(smalrubot_v3.left_sensor_value)
       end
-
       """

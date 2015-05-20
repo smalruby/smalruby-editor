@@ -419,6 +419,7 @@ end
 require "smalruby"
 
 init_hardware
+
 frog1 = Character.new(costume: "frog1.png", x: 261, y: 191, angle: 0)
 
 frog1.on(:click) do
@@ -440,7 +441,6 @@ end
       it '結果が正しいこと' do
         should eq_block_xml(<<-XML)
   <character name="frog1" x="261" y="191" angle="0" costumes="frog1.png" />
-  <block type="hardware_init_hardware" />
   <block type="character_new">
     <field name="NAME">frog1</field>
     <statement name="DO">

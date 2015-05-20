@@ -15,7 +15,13 @@ Feature: hardware_smalrubot_v3_dc_motor_{,set_}power_ratio block
       """
     And ブロックからソースコードを生成する
 
-    Then テキストエディタのプログラムは "" であること
+    Then テキストエディタのプログラムは以下であること:
+      """
+      require "smalruby"
+
+      init_hardware
+
+      """
 
   Scenario: 文とブロックを配置する
     When 次のブロックを配置する:
@@ -39,6 +45,8 @@ Feature: hardware_smalrubot_v3_dc_motor_{,set_}power_ratio block
     Then テキストエディタのプログラムは以下であること:
       """
       require "smalruby"
+
+      init_hardware
 
       p("")
 
@@ -67,14 +75,10 @@ Feature: hardware_smalrubot_v3_dc_motor_{,set_}power_ratio block
       """
     And ブロックからソースコードを生成する
 
-    Then テキストエディタのプログラムは以下であること:
+    Then テキストエディタのプログラムは以下を含むこと:
       """
-      require "smalruby"
-
-      car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
       p(car1.smalrubot_v3.right_dc_motor_power_ratio)
       car1.smalrubot_v3.left_dc_motor_power_ratio = 50
-
       """
 
   Scenario: キャラクターとイベントとブロックを配置する
@@ -102,15 +106,10 @@ Feature: hardware_smalrubot_v3_dc_motor_{,set_}power_ratio block
       """
     And ブロックからソースコードを生成する
 
-    Then テキストエディタのプログラムは以下であること:
+    Then テキストエディタのプログラムは以下を含むこと:
       """
-      require "smalruby"
-
-      car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
-
       car1.on(:start) do
         p(smalrubot_v3.right_dc_motor_power_ratio)
         self.smalrubot_v3.left_dc_motor_power_ratio = 50
       end
-
       """

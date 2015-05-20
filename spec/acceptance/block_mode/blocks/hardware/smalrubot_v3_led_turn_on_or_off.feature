@@ -17,7 +17,13 @@ Feature: hardware_smalrubot_v3_led_turn_on_or_off block
       """
     And ブロックからソースコードを生成する
 
-    Then テキストエディタのプログラムは "" であること
+    Then テキストエディタのプログラムは以下であること:
+      """
+      require "smalruby"
+
+      init_hardware
+
+      """
 
   Scenario: キャラクターとブロックを配置する
     When 次のブロックを配置する:
@@ -34,13 +40,9 @@ Feature: hardware_smalrubot_v3_led_turn_on_or_off block
       """
     And ブロックからソースコードを生成する
 
-    Then テキストエディタのプログラムは以下であること:
+    Then テキストエディタのプログラムは以下を含むこと:
       """
-      require "smalruby"
-
-      car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
       car1.smalrubot_v3.turn_off_left_led
-
       """
 
   Scenario: キャラクターとイベントとブロックを配置する
@@ -60,14 +62,9 @@ Feature: hardware_smalrubot_v3_led_turn_on_or_off block
       """
     And ブロックからソースコードを生成する
 
-    Then テキストエディタのプログラムは以下であること:
+    Then テキストエディタのプログラムは以下を含むこと:
       """
-      require "smalruby"
-
-      car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
-
       car1.on(:start) do
         smalrubot_v3.turn_on_right_led
       end
-
       """

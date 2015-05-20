@@ -47,7 +47,7 @@ Blockly.Ruby.init = ->
     else
       @variableDB_.reset()
 
-    @definitions_['require_smalruby'] = 'require "smalruby"'
+    @definitions_['require__smalruby'] = 'require "smalruby"'
     @definitions_['receiver_stack'] = ['main']
     @definitions_['character_stack'] = []
 
@@ -154,23 +154,31 @@ Blockly.Ruby.characterEvent_ = (block, bodyName, name, arg = null) ->
 
 Blockly.Ruby.finish = (code) ->
   requires = []
+  prepares = []
   definitions = []
   for name of Blockly.Ruby.definitions_
     do (name) ->
       def = Blockly.Ruby.definitions_[name]
       if _.isString(def)
-        if def.match(/^require\s*('\S+'|"\S+")/)
+        if name.match(/^require__/)
           requires.push(def)
+        else if name.match(/^prepare__/)
+          prepares.push(def)
         else
           definitions.push(def)
 
-  if definitions.length == 0 && code.length == 0
+  if prepares.length == 0 && definitions.length == 0 && code.length == 0
     return ''
 
   allDefs = requires.join('\n') + '\n\n'
+
+  if prepares.length > 0
+    allDefs += prepares.join('\n') + '\n\n'
+
   if definitions.length > 0
     allDefs += definitions.join('\n')
       .replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n')
+
   allDefs + code
 
 Blockly.Ruby.scrubNakedValue = (line) ->
@@ -213,3 +221,9 @@ Blockly.Ruby.scrub_ = (block, code) ->
   nextBlock = block.nextConnection && block.nextConnection.targetBlock()
   nextCode = this.blockToCode(nextBlock)
   commentCode + code + nextCode
+
+Blockly.Ruby.blockToCode_ = Blockly.Ruby.blockToCode
+Blockly.Ruby.blockToCode = (block) ->
+  if block && !block.disabled && block.type.match(/^hardware_/)
+    @definitions_['prepare__init_hardware'] = 'init_hardware'
+  @blockToCode_(block)

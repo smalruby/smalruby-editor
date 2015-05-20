@@ -30,6 +30,8 @@
       """
       require "smalruby"
 
+      init_hardware
+
       p("")
 
       """

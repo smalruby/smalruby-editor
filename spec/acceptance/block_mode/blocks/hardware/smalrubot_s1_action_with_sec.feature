@@ -19,7 +19,13 @@ Feature: hardware_smalrubot_s1_action_with_sec block
       """
     And ブロックからソースコードを生成する
 
-    Then テキストエディタのプログラムは "" であること
+    Then テキストエディタのプログラムは以下であること:
+      """
+      require "smalruby"
+
+      init_hardware
+
+      """
 
   Scenario: キャラクターとブロックを配置する
     When 次のブロックを配置する:
@@ -70,17 +76,14 @@ Feature: hardware_smalrubot_s1_action_with_sec block
       """
     And ブロックからソースコードを生成する
 
-    Then テキストエディタのプログラムは以下であること:
+    Then テキストエディタのプログラムは以下を含むこと:
       """
-      require "smalruby"
-
       car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
       car1.smalrubot_s1.forward(sec: 0.5)
       car1.smalrubot_s1.backward(sec: 0.5)
       car1.smalrubot_s1.turn_left(sec: 0.5)
       car1.smalrubot_s1.turn_right(sec: 0.5)
       car1.smalrubot_s1.stop(sec: 0.5)
-
       """
 
   Scenario: キャラクターとイベントとブロックを配置する
@@ -134,12 +137,8 @@ Feature: hardware_smalrubot_s1_action_with_sec block
       """
     And ブロックからソースコードを生成する
 
-    Then テキストエディタのプログラムは以下であること:
+    Then テキストエディタのプログラムは以下を含むこと:
       """
-      require "smalruby"
-
-      car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
-
       car1.on(:start) do
         smalrubot_s1.forward(sec: 0.5)
         smalrubot_s1.backward(sec: 0.5)
@@ -147,5 +146,4 @@ Feature: hardware_smalrubot_s1_action_with_sec block
         smalrubot_s1.turn_right(sec: 0.5)
         smalrubot_s1.stop(sec: 0.5)
       end
-
       """

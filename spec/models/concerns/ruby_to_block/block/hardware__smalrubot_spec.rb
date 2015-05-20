@@ -11,6 +11,7 @@ describe RubyToBlock::Block, 'Smalrubot blocks', to_blocks: true do
 require "smalruby"
 
 init_hardware
+
 car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
 
 car1.on(:start) do
@@ -69,7 +70,6 @@ car1.smalrubot_#{smalrubot_version}.right_dc_motor_power_ratio = 90
         it '結果が正しいこと' do
           should eq_block_xml(<<-XML)
   <character name="car1" x="0" y="0" angle="0" costumes="car1.png" />
-  <block type="hardware_init_hardware" />
   <block type="character_new">
     <field name="NAME">car1</field>
     <statement name="DO">
