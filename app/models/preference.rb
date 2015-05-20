@@ -1,3 +1,5 @@
+require "smalruby_editor"
+
 class Preference < Settingslogic
   BOOLEAN_FIELD_REGEXP = /(enabled|disabled)/
 
@@ -66,11 +68,4 @@ class Preference < Settingslogic
   end
   load!
   suppress_errors(true)
-
-  if Rails.env.test?
-    defaults.each do |key, value|
-      self[key] = value
-    end
-    self["disabled_add_character_from_beginning"] = true
-  end
 end

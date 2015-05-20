@@ -64,17 +64,17 @@ Feature: Preference - 設定
     And "#user_preferences_toolbox__default__enabled_smalrubot_s1_blocks" が表示されていること
     And "user[preferences][toolbox__default__enabled_smalrubot_s1_blocks]" がチェックされていること
 
-  Scenario: システム設定を変更する
+  Scenario: 一般設定を変更する
     When ログインする
     And サブメニューの "#preference-button" をクリックする
 
     Then "#preference-modal" が表示されていること
-    And "user[preferences][disabled_add_character_from_beginning]" がチェックされていないこと
+    And "user[preferences][disabled_add_character_from_beginning]" がチェックされていること
     And "user[preferences][disabled_new_character]" がチェックされていないこと
     And "user[preferences][enabled_auto_init_hardware]" がチェックされていないこと
     And "user[preferences][enabled_readonly_ruby_mode]" がチェックされていないこと
 
-    When "user[preferences][disabled_add_character_from_beginning]" をチェックする
+    When "user[preferences][disabled_add_character_from_beginning]" のチェックを外す
     And "user[preferences][disabled_new_character]" をチェックする
     And "user[preferences][enabled_auto_init_hardware]" をチェックする
     And "user[preferences][enabled_readonly_ruby_mode]" をチェックする
@@ -86,7 +86,7 @@ Feature: Preference - 設定
     When サブメニューの "#preference-button" をクリックする
 
     Then "#preference-modal" が表示されていること
-    And "user[preferences][disabled_add_character_from_beginning]" がチェックされていること
+    And "user[preferences][disabled_add_character_from_beginning]" がチェックされていないこと
     And "user[preferences][disabled_new_character]" がチェックされていること
     And "user[preferences][enabled_auto_init_hardware]" がチェックされていること
     And "user[preferences][enabled_readonly_ruby_mode]" がチェックされていること

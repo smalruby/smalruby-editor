@@ -58,6 +58,18 @@ step 'コンボボックス :name の :option_label を選択していないこ�
     .not_to eq(option_label)
 end
 
+step ':name に :value を指定する' do |name, value|
+  fill_in(name_to(name, :id), with: value)
+end
+
+step ':name をチェックする' do |name|
+  check(name)
+end
+
+step ':name のチェックを外す' do |name|
+  uncheck(name)
+end
+
 step ':name がチェックされていること' do |name|
   expect(find(%{input[type="checkbox"][name="#{name}"]})).to be_checked
 end
@@ -75,14 +87,6 @@ end
 step ':name タブを表示する' do |name|
   step '"エディタ" 画面を表示する'
   step %("#{name}タブ" にタブを切り替える)
-end
-
-step ':name に :value を指定する' do |name, value|
-  fill_in(name_to(name, :id), with: value)
-end
-
-step ':name をチェックする' do |name|
-  check(name)
 end
 
 step 'プログラムの名前に :filename を指定する' do |filename|
