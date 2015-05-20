@@ -99,7 +99,11 @@ class SourceCodesController < ApplicationController
       s = "~/#{source_code.filename}"
     end
     path = Pathname(s).expand_path
-    render json: source_code.run(path)
+    env = {}
+    if current_preferences["hardware_port"].present?
+      env["SMALRUBOT_DEVICE"] = current_preferences["hardware_port"]
+    end
+    render json: source_code.run(path, env)
   end
 
   def to_blocks

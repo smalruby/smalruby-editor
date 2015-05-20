@@ -15,10 +15,7 @@
       - Preference.make_toolbox_name_to_preference_names_hash.each do |toolbox_name, preference_names|
         - preference_names.each do |n|
           .control-group{class: "toolbox_preferences #{toolbox_name}"}
-            .controls
-              = f2.label(n, class: "checkbox") do
-                = preferences_field(f2, n)
-                = t(n, scope: "helpers.label.user[preferences]")
+            = preferences_field(f2, n)
 
       - if Preference.general_preference_names.length > 0
         .page-header
@@ -28,7 +25,4 @@
 
         - Preference.general_preference_names.each do |n|
           .control-group
-            .controls
-              = f2.label(n, class: "checkbox") do
-                = preferences_field(f2, n)
-                = t(n, scope: "helpers.label.user[preferences]")
+            = preferences_field(f2, n)

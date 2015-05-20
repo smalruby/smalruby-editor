@@ -32,6 +32,7 @@ ja:
         disabled_new_character: "キャラクターの追加を禁止する"
         enabled_readonly_ruby_mode: "プログラムを直接入力できないようにする"
         enabled_must_signin: "ログインしないと使えないようにする"
+        hardware_port: "ハードウェアの接続先"
 
   editor:
     index:

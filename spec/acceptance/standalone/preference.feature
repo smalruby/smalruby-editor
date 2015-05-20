@@ -72,10 +72,12 @@ Feature: Preference - 設定
     And "user[preferences][disabled_add_character_from_beginning]" がチェックされていること
     And "user[preferences][disabled_new_character]" がチェックされていないこと
     And "user[preferences][enabled_readonly_ruby_mode]" がチェックされていないこと
+    And "user[preferences][hardware_port]" フィールドの値が "" であること
 
     When "user[preferences][disabled_add_character_from_beginning]" のチェックを外す
     And "user[preferences][disabled_new_character]" をチェックする
     And "user[preferences][enabled_readonly_ruby_mode]" をチェックする
+    And "user[preferences][hardware_port]" フィールドに "COM3" を指定する
     And "preference-modal-ok-button" をクリックする
     And JavaScriptによるリクエストが終わるまで待つ
 
@@ -87,6 +89,7 @@ Feature: Preference - 設定
     And "user[preferences][disabled_add_character_from_beginning]" がチェックされていないこと
     And "user[preferences][disabled_new_character]" がチェックされていること
     And "user[preferences][enabled_readonly_ruby_mode]" がチェックされていること
+    And "user[preferences][hardware_port]" フィールドの値が "COM3" であること
 
   Scenario: 「キャラクターの追加を禁止する」を設定後、ログアウトせずにリロードしてもキャラクターの追加ボタンを表示しないこと
     When ログインする

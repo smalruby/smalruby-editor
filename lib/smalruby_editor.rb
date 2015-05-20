@@ -134,10 +134,9 @@ standalone:
             Preference.make_toolbox_name_to_preference_names_hash
           Preference.toolbox_names.each do |toolbox_name|
             f.puts("#toolbox_name: #{toolbox_name}")
-            toolbox_name__preference_names.delete(toolbox_name).try(:each) do
-              |preference_name|
-              f.puts("##{preference_name}: true")
-            end
+            preference_names =
+              toolbox_name__preference_names.delete(toolbox_name)
+            puts_preference_names(f, preference_names)
             f.puts
           end
           preference_names_list =
@@ -145,11 +144,20 @@ standalone:
             [Preference.general_preference_names,
              Preference.admin_preference_names]
           preference_names_list.each do |preference_names|
-            preference_names.each do |preference_name|
-              f.puts("##{preference_name}: true")
-            end
+            puts_preference_names(f, preference_names)
             f.puts
           end
+        end
+      end
+    end
+
+    def puts_preference_names(io, preference_names)
+      preference_names.try(:each) do |preference_name|
+        case preference_name
+        when Preference::BOOLEAN_FIELD_REGEXP
+          io.puts("##{preference_name}: true")
+        else
+          io.puts(%{##{preference_name}: ""})
         end
       end
     end

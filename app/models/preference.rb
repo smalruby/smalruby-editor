@@ -24,6 +24,7 @@ class Preference < Settingslogic
       disabled_add_character_from_beginning
       disabled_new_character
       enabled_readonly_ruby_mode
+      hardware_port
     )
   end
 
@@ -41,7 +42,12 @@ class Preference < Settingslogic
   def self.defaults
     (toolbox_preference_names +
      general_preference_names).map { |n|
-      [n, false]
+      case n
+      when BOOLEAN_FIELD_REGEXP
+        [n, false]
+      else
+        [n, ""]
+      end
     }.to_h.merge("toolbox_name" => "default")
   end
 

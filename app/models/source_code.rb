@@ -53,8 +53,8 @@ class SourceCode < ActiveRecord::Base
   end
 
   # プログラムを実行する
-  def run(path)
-    _, stderr_str, status = *open3_capture3_run_program(path)
+  def run(path, env = {})
+    _, stderr_str, status = *open3_capture3_run_program(path, env)
     return [] if status.success?
 
     parse_ruby_error_messages(stderr_str)
@@ -146,9 +146,9 @@ class SourceCode < ActiveRecord::Base
     end
   end
 
-  def open3_capture3_run_program(path)
+  def open3_capture3_run_program(path, env)
     Bundler.with_clean_env do
-      Open3.capture3("#{ruby_cmd} #{path}")
+      Open3.capture3(env, "#{ruby_cmd} #{path}")
     end
   end
 
