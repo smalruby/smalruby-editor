@@ -69,7 +69,7 @@ Gem::Specification.new do |spec|
      ['haml-rails'],
      ['nokogiri'],
      ['settingslogic'],
-     ['smalruby', '~> 0.1.7'],
+     ['smalruby', '~> 0.1.8'],
     ]
   runtime_dependencies << ['therubyracer'] unless is_windows
   runtime_dependencies.each do |args|

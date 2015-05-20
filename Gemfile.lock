@@ -272,12 +272,12 @@ GEM
     slop (3.6.0)
     smalrubot (0.0.5)
       rubyserial
-    smalruby (0.1.7)
+    smalruby (0.1.8)
       activesupport
       dxruby_sdl (~> 0.0.13)
       mime-types (~> 1.6)
       smalrubot (~> 0.0.5)
-    smalruby (0.1.7-x86-mingw32)
+    smalruby (0.1.8-x86-mingw32)
       activesupport
       dxruby (= 1.4.0)
       mime-types (~> 1.6)
@@ -366,7 +366,7 @@ DEPENDENCIES
   settingslogic
   shared-mime-info
   shoulda-matchers
-  smalruby (~> 0.1.7)
+  smalruby (~> 0.1.8)
   spring
   spring-commands-rspec
   spring-commands-teaspoon
