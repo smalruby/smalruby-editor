@@ -505,8 +505,3 @@
 
     -# p
     %block{:type => "#{category}_p"}
-
-    - if !current_preferences["enabled_auto_init_hardware"] && (current_preferences["toolbox__default__enabled_hardware_blocks"] || current_preferences["toolbox__default__enabled_smalrubot_v3_blocks"] || current_preferences["toolbox__default__enabled_smalrubot_s1_blocks"])
-      - category = 'hardware'
-      -# ハードウェアを準備する
-      %block{:type => "#{category}_init_hardware"}

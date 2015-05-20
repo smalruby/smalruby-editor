@@ -194,7 +194,3 @@
     %block{:type => "#{category}_false"}
 
   %category{:name => tt('.etc')}
-    - if !current_preferences["enabled_auto_init_hardware"]
-      - category = 'hardware'
-      -# ハードウェアを準備する
-      %block{:type => "#{category}_init_hardware"}

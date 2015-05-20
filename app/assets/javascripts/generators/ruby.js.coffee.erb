@@ -51,9 +51,6 @@ Blockly.Ruby.init = ->
     @definitions_['receiver_stack'] = ['main']
     @definitions_['character_stack'] = []
 
-    if Smalruby.isEnabled('enabled_auto_init_hardware')
-      @definitions_['init_hardware'] = 'init_hardware'
-
 Blockly.Ruby.defineCharacter = (c) ->
   name = c.get('name')
   blockName = "character_#{name}"

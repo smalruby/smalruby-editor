@@ -30,7 +30,6 @@ ja:
 
         disabled_add_character_from_beginning: "最初にキャラクターを追加しない"
         disabled_new_character: "キャラクターの追加を禁止する"
-        enabled_auto_init_hardware: "自動でハードウェアを準備する"
         enabled_readonly_ruby_mode: "プログラムを直接入力できないようにする"
         enabled_must_signin: "ログインしないと使えないようにする"
 

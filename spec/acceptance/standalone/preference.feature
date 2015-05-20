@@ -71,12 +71,10 @@ Feature: Preference - 設定
     Then "#preference-modal" が表示されていること
     And "user[preferences][disabled_add_character_from_beginning]" がチェックされていること
     And "user[preferences][disabled_new_character]" がチェックされていないこと
-    And "user[preferences][enabled_auto_init_hardware]" がチェックされていないこと
     And "user[preferences][enabled_readonly_ruby_mode]" がチェックされていないこと
 
     When "user[preferences][disabled_add_character_from_beginning]" のチェックを外す
     And "user[preferences][disabled_new_character]" をチェックする
-    And "user[preferences][enabled_auto_init_hardware]" をチェックする
     And "user[preferences][enabled_readonly_ruby_mode]" をチェックする
     And "preference-modal-ok-button" をクリックする
     And JavaScriptによるリクエストが終わるまで待つ
@@ -88,5 +86,4 @@ Feature: Preference - 設定
     Then "#preference-modal" が表示されていること
     And "user[preferences][disabled_add_character_from_beginning]" がチェックされていないこと
     And "user[preferences][disabled_new_character]" がチェックされていること
-    And "user[preferences][enabled_auto_init_hardware]" がチェックされていること
     And "user[preferences][enabled_readonly_ruby_mode]" がチェックされていること

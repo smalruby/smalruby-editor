@@ -30,7 +30,6 @@ en:
 
         disabled_add_character_from_beginning: "Disabled add character from beginning"
         disabled_new_character: "Disabled new character"
-        enabled_auto_init_hardware: "Auto init hardware"
         enabled_readonly_ruby_mode: "Readonly ruby mode"
         enabled_must_signin: "Must signin"
 

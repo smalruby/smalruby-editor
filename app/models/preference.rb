@@ -23,7 +23,6 @@ class Preference < Settingslogic
     %w(
       disabled_add_character_from_beginning
       disabled_new_character
-      enabled_auto_init_hardware
       enabled_readonly_ruby_mode
     )
   end
