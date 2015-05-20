@@ -2,6 +2,7 @@
 
 require 'tempfile'
 require 'open3'
+require 'nkf'
 require 'digest/sha2'
 require 'bundler'
 require 'smalruby_editor'
@@ -152,6 +153,9 @@ class SourceCode < ActiveRecord::Base
   end
 
   def parse_ruby_error_messages(stderr_str)
+    if SmalrubyEditor.windows?
+      stderr_str = NKF.nkf("-w", stderr_str)
+    end
     stderr_str.lines.each.with_object([]) { |line, res|
       if (md = /^\tfrom .*:(\d+):(in .*)$/.match(line))
         res << { row: md[1].to_i, column: 0, message: md[2] }
