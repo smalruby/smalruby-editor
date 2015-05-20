@@ -87,3 +87,31 @@ Feature: Preference - 設定
     And "user[preferences][disabled_add_character_from_beginning]" がチェックされていないこと
     And "user[preferences][disabled_new_character]" がチェックされていること
     And "user[preferences][enabled_readonly_ruby_mode]" がチェックされていること
+
+  Scenario: 「キャラクターの追加を禁止する」を設定後、ログアウトせずにリロードしてもキャラクターの追加ボタンを表示しないこと
+    When ログインする
+    And サブメニューの "#preference-button" をクリックする
+    And "user[preferences][disabled_new_character]" をチェックする
+    And "preference-modal-ok-button" をクリックする
+    And JavaScriptによるリクエストが終わるまで待つ
+
+    Then "#preference-modal" が表示されていないこと
+    And "#add-character-item" が表示されていないこと
+
+    When ページをリロードする
+
+    And "#add-character-item" が表示されていないこと
+
+  Scenario: 「プログラムを直接入力できないようにする」を設定後、ログアウトせずにリロードしてもRubyモードでプログラムを直接入力できないこと
+    When ログインする
+    And サブメニューの "#preference-button" をクリックする
+    And "user[preferences][enabled_readonly_ruby_mode]" をチェックする
+    And "preference-modal-ok-button" をクリックする
+    And JavaScriptによるリクエストが終わるまで待つ
+
+    Then "#preference-modal" が表示されていないこと
+    And テキストエディタが編集できない状態であること
+
+    When ページをリロードする
+
+    Then テキストエディタが編集できない状態であること

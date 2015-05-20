@@ -75,3 +75,10 @@ step 'テキストエディタのプログラムは :program であること' do
       .getValue()
   JS
 end
+
+step 'テキストエディタが編集できない状態であること' do
+  expect(page.evaluate_script(<<-JS)).to be_true
+    ace.edit('#{name_to(text_editor, :id)}')
+      .getReadOnly()
+  JS
+end

@@ -121,6 +121,8 @@ window.Smalruby =
     session.setTabSize(2)
     session.setUseSoftTabs(true)
 
+    @applyPreferences()
+
     @addCharacterFromBeginning()
 
   loadXml: (data, workspace = Blockly.mainWorkspace) ->
@@ -188,10 +190,10 @@ window.Smalruby =
 
   addCharacterFromBeginning: ->
     if !@isEnabled('disabled_add_character_from_beginning')
-      constume = 'cat1.png'
+      costume = 'cat1.png'
       c = new Smalruby.Character
-        name: @Collections.CharacterSet.uniqueName(constume)
-        costumes: [constume]
+        name: @Collections.CharacterSet.uniqueName(costume)
+        costumes: [costume]
         x: 200
         y: 200
       @Collections.CharacterSet.add(c)
@@ -199,13 +201,16 @@ window.Smalruby =
       @Views.CharacterSelectorView.addBlock_(c)
       window.changed = false
 
-  setPreferences: (preferences) ->
-    @Preferences = preferences
+  applyPreferences: ->
     window.textEditor.setReadOnly(@isEnabled('enabled_readonly_ruby_mode'))
     if @isEnabled('disabled_new_character')
       $('#add-character-item').hide()
     else
       $('#add-character-item').show()
+
+  setPreferences: (preferences) ->
+    @Preferences = preferences
+    @applyPreferences()
     @changedAfterTranslating = true
     @reloadToolbox()
 
