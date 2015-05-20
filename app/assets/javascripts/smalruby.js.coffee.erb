@@ -227,7 +227,7 @@ window.Smalruby =
       error: dfr.reject
     dfr.promise()
       .then (data) =>
-        Blockly.updateToolbox(data)
+        Blockly.getMainWorkspace().updateToolbox(data)
         @hideEmptyCategory()
       .then(unblock, unblock)
       .fail =>
