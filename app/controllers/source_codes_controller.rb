@@ -180,7 +180,7 @@ class SourceCodesController < ApplicationController
 
   def demo_program_paths
     Pathname.glob(Rails.root.join('demos/*.rb.xml')) +
-      Pathname.glob(SmalrubyEditor.home_directory.join('.demos/*.rb.xml'))
+      Pathname.glob(SmalrubyEditor.home_directory.join('demos/*.rb.xml'))
   end
 
   def rb_basename(path)
