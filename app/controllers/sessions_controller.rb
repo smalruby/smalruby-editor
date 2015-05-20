@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     return head :bad_request if params[:username].blank?
 
     user = User.find_or_create_by(name: params[:username].to_s) { |u|
-      u.preferences = Preference.defaults
+      u.set_default_preferences
     }
     session[:username] = user.name
 
