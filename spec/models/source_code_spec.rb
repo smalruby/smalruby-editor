@@ -102,16 +102,6 @@ describe SourceCode, 'Rubyのソースコードを表現するモデル' do
           filename: 'pong.rb',
           imageUrl: '/smalruby/assets/cat2.png',
         },
-        hardware_led: {
-          title: 'ライトをぴかっとさせるでよ',
-          filename: 'hardware_led.rb',
-          imageUrl: '/smalruby/assets/frog1.png',
-        },
-        adjust_2wd_car: {
-          title: '2WD車の左右のモーターを調整する',
-          filename: 'adjust_2wd_car.rb',
-          imageUrl: '/smalruby/assets/car2.png',
-        },
       }.each do |name, summary|
         _rb_path = "demos/#{name}.rb"
         context "'#{_rb_path + '.xml'}'" do
@@ -152,7 +142,7 @@ describe SourceCode, 'Rubyのソースコードを表現するモデル' do
       subject { source_code.include_block?(type) }
 
       context 'ソースコードにハードウェア関連ブロックを含む場合' do
-        let(:xml_path) { 'demos/adjust_2wd_car.rb.xml' }
+        let(:xml_path) { 'spec/fixtures/files/hardware_led.rb.xml' }
 
         context '引数にhardware_init_hardwareを指定する' do
           let(:type) { 'hardware_init_hardware' }

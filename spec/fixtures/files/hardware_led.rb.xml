@@ -1,0 +1,79 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <character x="261" y="191" name="frog1" costumes="frog1.png" angle="0"></character>
+  <block type="ruby_comment" x="42" y="-39">
+    <field name="COMMENT">ライトをぴかっとさせるでよ</field>
+  </block>
+  <block type="hardware_init_hardware" x="40" y="6"></block>
+  <block type="character_new" x="45" y="50">
+    <field name="NAME">frog1</field>
+    <statement name="DO">
+      <block type="events_on_click">
+        <statement name="DO">
+          <block type="looks_say" inline="true">
+            <value name="TEXT">
+              <block type="text">
+                <field name="TEXT">ライトをぴかっとさせるでよ♪</field>
+              </block>
+            </value>
+            <next>
+              <block type="hardware_led_turn_on">
+                <field name="PIN">D2</field>
+                <next>
+                  <block type="control_sleep" inline="true">
+                    <value name="SEC">
+                      <block type="math_number">
+                        <field name="NUM">1</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="hardware_led_turn_off">
+                        <field name="PIN">D2</field>
+                        <next>
+                          <block type="control_sleep" inline="true">
+                            <value name="SEC">
+                              <block type="math_number">
+                                <field name="NUM">1</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="hardware_led_turn_on">
+                                <field name="PIN">D13</field>
+                                <next>
+                                  <block type="control_sleep" inline="true">
+                                    <value name="SEC">
+                                      <block type="math_number">
+                                        <field name="NUM">1</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="hardware_led_turn_off">
+                                        <field name="PIN">D13</field>
+                                        <next>
+                                          <block type="looks_say" inline="true">
+                                            <value name="TEXT">
+                                              <block type="text">
+                                                <field name="TEXT"></field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>
