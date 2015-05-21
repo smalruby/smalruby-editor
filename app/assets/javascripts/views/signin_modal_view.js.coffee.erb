@@ -17,8 +17,14 @@ Smalruby.SigninModalView = Backbone.View.extend
   render: ->
     @$el.find('#signin-modal-username')
       .val($('#username-label').text())
-    @$el.modal
-      backdrop: 'static'
+    modalOptions = { backdrop: 'static' }
+    if Smalruby.isEnabled('enabled_must_signin')
+      @$el.find('#signin-modal-cancel-button').hide()
+      modalOptions['keyboard'] = false
+    else
+      @$el.find('#signin-modal-cancel-button').show()
+      modalOptions['keyboard'] = true
+    @$el.modal(modalOptions)
     @$el.modal('show')
 
   onOk: (e) ->

@@ -101,7 +101,10 @@ RSpec.configure do |config|
   config.include FeatureHelper, type: :feature
 
   config.before(:all) do
-    Preference.defaults.each do |key, value|
+    Preference.user_defaults.each do |key, value|
+      Preference[key] = value
+    end
+    Preference.admin_defaults.each do |key, value|
       Preference[key] = value
     end
     Preference["disabled_add_character_from_beginning"] = true

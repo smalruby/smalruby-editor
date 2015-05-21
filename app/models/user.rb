@@ -18,9 +18,11 @@ class User < ActiveRecord::Base
 
   # set default preferences from SMALRUBY_HOME/config/config.yml
   def set_default_preferences
-    self.preferences = Preference.defaults
-    Preference.to_h.each do |key, value|
-      preferences[key] = value
+    self.preferences = Preference.user_defaults
+    h = Preference.to_h
+    (Preference.whole_preference_names -
+     Preference.admin_preference_names).each do |name|
+      preferences[name] = h[name]
     end
   end
 end

@@ -192,6 +192,12 @@ step ':directory ディレクトリに :program という内容の :filename が
   end
 end
 
+# rubocop:disable Eval
+step '次のRubyのスクリプトを実行する:' do |script|
+  eval(script)
+end
+# rubocop:enable Eval
+
 step 'ページを表示する' do
   # no-op
 end

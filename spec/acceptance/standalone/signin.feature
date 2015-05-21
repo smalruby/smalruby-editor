@@ -94,3 +94,33 @@
     もし "サブメニューボタン" をクリックする
 
     ならば "サブメニュー" に "ログアウト" を含むこと
+
+  シナリオ: enabled_must_signinが有効な状態で、いったんログインしてからリロードするとログイン状態を維持できるのですが、その状態でログアウトしたときに表示されるログイン画面をESCキーや「やめる」ボタンでキャンセルできないこと
+    前提 次のRubyのスクリプトを実行する:
+      """
+      Preference["enabled_must_signin"] = true
+      """
+
+    もし "/" にアクセスする
+    かつ JavaScriptによる処理が終わるまで待つ
+
+    ならば "#signin-modal" が表示されていること
+    かつ "#signin-modal-cancel-button" が表示されていないこと
+
+    ならば "#signin-modal" が表示されていること
+
+    もし "signin-modal-username" に "1102" を指定する
+    かつ "signin-modal-ok-button" をクリックする
+    かつ JavaScriptによる処理が終わるまで待つ
+
+    ならば "#signin-modal" が表示されていないこと
+
+    もし ページをリロードする
+
+    ならば "#main-menu" に "ログイン" を含まないこと
+    かつ "#main-menu" に "1102" を含むこと
+
+    もし ログアウトする
+
+    ならば "#signin-modal" が表示されていること
+    かつ "#signin-modal-cancel-button" が表示されていないこと
