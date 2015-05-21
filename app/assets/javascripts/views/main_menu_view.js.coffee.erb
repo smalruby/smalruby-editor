@@ -127,7 +127,7 @@ Smalruby.MainMenuView = Backbone.View.extend
               msg = "#{errorInfo.row}#{<%= bm('.common_lines') %>}"
               if errorInfo.column > 0
                 msg += "#{<%= bm('.common_comma') %>}#{errorInfo.column}#{<%= bm('.common_letters') %>}"
-              window.errorMessage(msg + ": #{errorInfo.message}")
+              window.errorMessage(msg + ": #{_.escape(errorInfo.message)}")
           $.Deferred().reject().promise()
       .then ->
         xmlSourceCode.save2()
@@ -142,7 +142,7 @@ Smalruby.MainMenuView = Backbone.View.extend
               msg = "#{errorInfo.row}#{<%= bm('.common_lines') %>}"
               if errorInfo.column > 0
                 msg += "#{<%= bm('.common_comma') %>}#{errorInfo.column}#{<%= bm('.common_letters') %>}"
-              errorMessage(msg + ": #{errorInfo.message}")
+              errorMessage(msg + ": #{_.escape(errorInfo.message)}")
           $.Deferred().reject().promise()
       .then(@unblockUI, @unblockUI)
       .fail ->
