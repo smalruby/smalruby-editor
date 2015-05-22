@@ -59,14 +59,17 @@ class Preference < Settingslogic
     private
 
     def make_defaults(preference_names)
-      preference_names.map { |n|
+      res = {}
+      preference_names.each do |n|
         case n
         when BOOLEAN_FIELD_REGEXP
-          [n, false]
+          val = false
         else
-          [n, ""]
+          val = ""
         end
-      }.to_h
+        res[n] = val
+      end
+      res
     end
   end
 
