@@ -100,7 +100,7 @@ RSpec.configure do |config|
   config.include ActionView::Helpers::JavaScriptHelper, type: :feature
   config.include FeatureHelper, type: :feature
 
-  config.before(:all) do
+  config.before(:each) do
     Preference.user_defaults.each do |key, value|
       Preference[key] = value
     end
