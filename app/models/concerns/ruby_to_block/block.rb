@@ -70,28 +70,30 @@ module RubyToBlock
   end
 end
 
-preloads = %w(
-  base
-  value
-  character_operation
-  character_method_call
-  character_event
-).map { |s|
-  "#{s}.rb"
-}
-preloads.each do |preload|
-  path = Pathname(__FILE__).dirname.join('block', preload)
-  silence_warnings do
-    load path.expand_path
+if Rails.env.development? || Rails.env.test?
+  preloads = %w(
+    base
+    value
+    character_operation
+    character_method_call
+    character_event
+  ).map { |s|
+    "#{s}.rb"
+  }
+  preloads.each do |preload|
+    path = Pathname(__FILE__).dirname.join('block', preload)
+    silence_warnings do
+      load path.expand_path
+    end
   end
-end
 
-block_pattern = Pathname(__FILE__).dirname.join('block', '*.rb')
-block_files = Pathname.glob(block_pattern)
-block_files.each do |path|
-  next if preloads.include?(path.basename)
+  block_pattern = Pathname(__FILE__).dirname.join('block', '*.rb')
+  block_files = Pathname.glob(block_pattern)
+  block_files.each do |path|
+    next if preloads.include?(path.basename)
 
-  silence_warnings do
-    load path.expand_path
+    silence_warnings do
+      load path.expand_path
+    end
   end
 end
