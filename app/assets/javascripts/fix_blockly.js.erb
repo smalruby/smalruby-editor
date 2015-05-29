@@ -53,3 +53,16 @@ Blockly.Names.prototype.safeName_ = function(name) {
   }
   return name;
 };
+
+// blockly/core/inject.js
+Blockly._init_ = Blockly.init_;
+Blockly.init_ = function(mainWorkspace) {
+  Blockly._init_(mainWorkspace);
+
+  Blockly.bindEvent_(Blockly.WidgetDiv.DIV, 'contextmenu', null,
+      function(e) {
+        if (!Blockly.isTargetInput_(e)) {
+          e.preventDefault();
+        }
+      });
+};
