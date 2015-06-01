@@ -10,14 +10,11 @@ Smalruby.SigninModalView = Backbone.View.extend
 
   initialize: ->
     Smalruby.ignoreEnterKey(@$el)
+    Smalruby.removeBackdropOnHidden(@$el)
+
     @$el.on 'shown', =>
       @$el.find('#signin-modal-username')
         .focus()
-    @$el.on 'hidden', =>
-      # HACK: IE11において、ログイン後に操作できなくなる問題が発生した。
-      # 原因はダイアログの背景(.modal-backdrop)が消えないことである。
-      # 以下はそれを回避するための処理である。
-      $('.modal-backdrop').remove();
 
   render: ->
     @$el.find('#signin-modal-username')

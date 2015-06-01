@@ -10,6 +10,8 @@ Smalruby.LoadModalView = Backbone.View.extend
     'click #load-modal-remix-button': 'onRemix'
 
   initialize: ->
+    Smalruby.removeBackdropOnHidden(@$el)
+
     @$el.find('#load-modal-find-from-computer').click (e) =>
       e.preventDefault()
       @onFindFromComputerClick.call(@, e)

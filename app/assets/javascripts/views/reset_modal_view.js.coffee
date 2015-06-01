@@ -3,6 +3,9 @@ Smalruby.ResetModalView = Backbone.View.extend
   events:
     'click #reset-modal-ok-button': 'onOk'
 
+  initialize: ->
+    Smalruby.removeBackdropOnHidden(@$el)
+
   render: ->
     @$el.modal
       backdrop: 'static'

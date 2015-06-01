@@ -12,6 +12,8 @@ Smalruby.CharacterModalView = Backbone.View.extend
   previewZoomLevel: 0.5
 
   initialize: ->
+    Smalruby.removeBackdropOnHidden(@$el)
+
     @target = null
 
     $('#character-modal-costume-selector img').on 'dragstart', (e) ->

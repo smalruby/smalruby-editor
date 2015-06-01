@@ -9,8 +9,8 @@ Smalruby.PreferenceModalView = Backbone.View.extend
     'click #preference-modal-ok-button': 'onOk'
     'change #user_preferences_toolbox_name': 'renderToolboxPreferences'
 
-  #initialize: ->
-  #  # no-op
+  initialize: ->
+    Smalruby.removeBackdropOnHidden(@$el)
 
   render: ->
     @$el.find('.modal-body').block
