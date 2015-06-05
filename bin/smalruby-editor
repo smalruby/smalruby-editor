@@ -21,6 +21,32 @@ require 'rails/commands/server'
 module Rails
   class Server < ::Rack::Server
     def start
+      if (pid_path = Pathname(options[:pid])).exist?
+        pid = pid_path.read.to_i
+        if SmalrubyEditor.windows?
+          require 'csv'
+          s = `tasklist /FI "IMAGENAME eq ruby.exe" /FO csv`
+          s.force_encoding('CP932')
+          csv = CSV.parse(s)
+          csv.shift # ヘッダを除去
+          pids = csv.map { |row| row[1].to_i }
+          if pids.include?(pid)
+            Process.kill('KILL', pid)
+          end
+          pid_path.unlink
+        else
+          Timeout.timeout(5) do
+            begin
+              while Process.kill(0, pid) > 0
+                Process.kill('TERM', pid)
+                sleep(1)
+              end
+            rescue Errno::ESRCH
+            end
+          end
+        end
+      end
+
       url = "#{options[:SSLEnable] ? 'https' : 'http'}://#{options[:Host]}:#{options[:Port]}"
       puts "=> Booting #{ActiveSupport::Inflector.demodulize(server)}"
       puts "=> smalruby-editor #{SmalrubyEditor::VERSION} starting in #{Rails.env} on #{url} (#{pid_path})"
@@ -36,17 +62,7 @@ module Rails
         console.level = Rails.logger.level
 
         Rails.logger.extend(ActiveSupport::Logger.broadcast(console))
-
-        if ActiveRecord::Migrator.needs_migration?
-          ActiveRecord::Migration.verbose = true
-          begin
-            ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths)
-          ensure
-            ActiveRecord::Migration.verbose = false
-          end
-        end
       end
-
       super
     ensure
       # The '-h' option calls exit before @options is set.
@@ -79,27 +95,29 @@ module Rails
       options
     end
     alias_method_chain :parse_options, :start_callback
+
+    def wrapped_app_with_migration
+      if !@wrapped_app
+        wrapped_app_without_migration
+
+        if ActiveRecord::Migrator.needs_migration?
+          ActiveRecord::Migration.verbose = true
+          begin
+            ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths)
+          ensure
+            ActiveRecord::Migration.verbose = false
+          end
+        end
+      end
+      @wrapped_app
+    end
+    alias_method_chain :wrapped_app, :migration
   end
 end
 
 Rails::Server.new.tap do |server|
   require APP_PATH
   Dir.chdir(Rails.application.root)
-  if (pid_path = Pathname(server.default_options[:pid])).exist?
-    if SmalrubyEditor.windows?
-      pid = pid_path.read.to_i
-      require 'csv'
-      s = `tasklist /FI "IMAGENAME eq ruby.exe" /FO csv`
-      s.force_encoding('CP932')
-      csv = CSV.parse(s)
-      csv.shift # ヘッダを除去
-      pids = csv.map { |row| row[1].to_i }
-      if pids.include?(pid)
-        Process.kill('KILL', pid)
-      end
-      pid_path.unlink
-    end
-  end
   server.start
 end
 # rubocop:enable all
