@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 require 'pathname'
+require 'socket'
 
 ENV['RAILS_ENV'] = 'standalone'
 ENV['SMALRUBY_EDITOR_HOME'] ||= Pathname('~/.smalruby-editor').expand_path.to_s
@@ -22,7 +23,7 @@ module Rails
     def start
       url = "#{options[:SSLEnable] ? 'https' : 'http'}://#{options[:Host]}:#{options[:Port]}"
       puts "=> Booting #{ActiveSupport::Inflector.demodulize(server)}"
-      puts "=> smalruby-editor #{SmalrubyEditor::VERSION} starting in #{Rails.env} on #{url}"
+      puts "=> smalruby-editor #{SmalrubyEditor::VERSION} starting in #{Rails.env} on #{url} (#{pid_path})"
       puts "=> Run `smalruby-editor -h` for more startup options"
       trap(:INT) { exit }
       puts "=> Ctrl-C to shutdown server" unless options[:daemonize]
@@ -60,7 +61,7 @@ module Rails
         environment:  (ENV['RAILS_ENV'] || ENV['RACK_ENV'] || "development").dup,
         daemonize:    false,
         debugger:     false,
-        pid:          Pathname(ENV['SMALRUBY_EDITOR_HOME']).join("tmp/pids/server.pid").to_s,
+        pid:          Pathname(ENV['SMALRUBY_EDITOR_HOME']).join("tmp/pids/server_#{Socket.gethostname}.pid").to_s,
         config:       File.expand_path("config.ru")
       })
     end
