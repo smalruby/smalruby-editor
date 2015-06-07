@@ -46,6 +46,15 @@ Smalruby.CharacterModalView = Backbone.View.extend
       else
         true
 
+    @templateText = $('#character-modal-costume-template').text()
+
+    $('#character-modal-add-costume-button').click (e) =>
+      e.preventDefault()
+
+      costumes = @model.get('costumes').slice(0)
+      costumes.push(@model.costume())
+      @model.set({ costumes: costumes, costumeIndex: costumes.length - 1})
+
     self = @
     changeNameFunc = (e) ->
       self.model.set({ name: $(@).val() })
@@ -67,6 +76,7 @@ Smalruby.CharacterModalView = Backbone.View.extend
     @listenTo(@model, 'change:y', @onChangeY)
     @listenTo(@model, 'change:angle', @onChangeAngle)
     @listenTo(@model, 'change:costumes', @onChangeCostumes)
+    @listenTo(@model, 'change:costumeIndex', @onChangeCostumeIndex)
     @listenTo(@model, 'change:rotationStyle', @onChangeRotationStyle)
     @listenTo(@model, 'change', @onChange)
 
@@ -97,7 +107,8 @@ Smalruby.CharacterModalView = Backbone.View.extend
       .then (data) =>
         $('#character-modal-costume-selector').replaceWith(data)
 
-        @setAtiveCostume_()
+        @setActiveCostume_()
+        @renderCostumeSet_()
 
         # HACK: ダイアログを表示して50ms程度待たないと画像のサイズが取得できなかった
         f = ->
@@ -118,7 +129,7 @@ Smalruby.CharacterModalView = Backbone.View.extend
         @$el.modal('hide')
         errorMessage(<%= bm('.error') %>)
 
-  setAtiveCostume_: ->
+  setActiveCostume_: ->
     @$el.find('#character-modal-costume-selector a.thumbnail').removeClass('active')
     thumb = @$el.find("#character-modal-costume-selector img[alt=\"#{@model.costume()}\"]")
     thumb.parent().addClass('active')
@@ -129,12 +140,55 @@ Smalruby.CharacterModalView = Backbone.View.extend
     else
       @readImageSizeflag = true
 
+  renderCostumeSet_: ->
+    costumesEl = @$el.find('#character-modal-costume-set')
+    costumesEl.children().remove()
+
+    costumes = @model.get('costumes')
+    $.each costumes, (i, name) =>
+      costume =
+        basename: name
+        path: @model.costumeUrl(i)
+        index: i + 1
+
+      html = $(_.template(@templateText, costume))
+      costumesEl.append(html)
+
+      html.find('a.costume').click (e) =>
+        e.preventDefault()
+        @model.set({ costumeIndex: i })
+
+      removeButton = html.find('a.remove-button')
+      if costumes.length <= 1
+        removeButton.hide()
+      else
+        removeButton.click (e) =>
+          e.preventDefault()
+          @removeCostume_(i)
+
+    @renderActiveCostume_()
+
+  removeCostume_: (i) ->
+    costumes = @model.get('costumes').slice(0)
+    costumes.splice(i, 1)
+    costumeIndex = @model.get('costumeIndex')
+    if costumeIndex >= costumes.length
+      costumeIndex = costumes.length - 1
+    @model.set({ costumes: costumes, costumeIndex: costumeIndex })
+
+  renderActiveCostume_: ->
+    costumesEl = @$el.find('#character-modal-costume-set')
+    costumesEl.find('.item').removeClass('active')
+    costumeIndex = @model.get('costumeIndex')
+    costumesEl.find(".item:nth-child(#{costumeIndex + 1})").addClass('active')
+
   callAllOnChangeAttributes_: ->
     @onChangeName(@model, @model.get('name'))
     @onChangeX(@model, @model.get('x'))
     @onChangeY(@model, @model.get('y'))
     @onChangeAngle(@model, @model.get('angle'))
     @onChangeCostumes(@model, @model.get('costumes'))
+    @onChangeCostumeIndex(@model, @model.get('costumeIndex'))
     @onChangeRotationStyle(@model, @model.get('rotationStyle'))
 
   onChangeName: (model, value, options) ->
@@ -162,11 +216,17 @@ Smalruby.CharacterModalView = Backbone.View.extend
     @model.rotateImage('#character-modal-character')
 
   onChangeCostumes: (model, value, options) ->
+    @renderCostumeSet_()
+    @onChangeCostumeIndex(model, model.get('costumeIndex'))
+
+  onChangeCostumeIndex: (model, value, options) ->
     img = $('<img>').attr
       src: model.costumeUrl()
       alt: model.costume()
     $('#character-modal-character img').replaceWith(img)
-    @setAtiveCostume_()
+
+    @setActiveCostume_()
+    @renderActiveCostume_()
 
   onChangeRotationStyle: (model, value, options) ->
     $('#character_rotation_style button.btn').removeClass('btn-primary')
@@ -192,10 +252,13 @@ Smalruby.CharacterModalView = Backbone.View.extend
   onSelectCostume: (e) ->
     e.preventDefault()
 
-    costume = $(e.target).attr('alt') || $(e.target).find('img').attr('alt')
+    attrs = {}
 
-    attrs =
-      costumes: [costume]
+    costume = $(e.target).attr('alt') || $(e.target).find('img').attr('alt')
+    if @model.costume() != costume
+      costumes = @model.get('costumes').slice(0)
+      costumes[@model.get('costumeIndex')] = costume
+      attrs['costumes'] = costumes
 
     unless @nameChanged
       prefix = Smalruby.Character.costumeToNamePrefix(costume)

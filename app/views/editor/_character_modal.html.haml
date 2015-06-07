@@ -2,7 +2,20 @@
                  :role => 'dialog', :'aria-hidden' => 'true'}
   .modal-body
     #character-modal-right-pane{:class => 'right-pane'}
-      #character-modal-costume-selector
+      #character-modal-right-pane-inner
+        #character-modal-right-pane-inner-right-pane{:class => 'right-pane'}
+          #character-modal-costume-selector
+
+        #character-modal-right-pane-inner-left-pane{:class => 'left-pane'}
+          #character-modal-costume-set-header
+            = t('.costumes')
+          #character-modal-costume-set-container
+            #character-modal-costume-set
+            #character-modal-add-costume.item
+              %a#character-modal-add-costume-button.costume
+                %i.icon-plus-sign-alt
+                %br
+                = t('.new_costume')
 
     #character-modal-left-pane{:class => 'left-pane'}
       #character-modal-preview
@@ -54,3 +67,17 @@
     %button#character-modal-ok-button{:class => 'btn btn-primary'}<
       %i.icon-circle-blank
       = t('common.ok')
+
+%script#character-modal-costume-template{:type => 'text/template'}
+  .item
+    .item-info
+      .name
+        {{- name }}
+      .attributes
+        {{- index }}
+
+      %a.remove-button
+        %i.icon-remove
+
+    %a.costume
+      %img{src: '{{- path }}', alt: '{{- basename }}'}

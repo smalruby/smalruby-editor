@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 
   has_many :costumes do
     def with_preset
-      condition = where(merge(Costume.presets).where_values.reduce(:or))
+      condition = where(costumes: { preset: true }).where_values.reduce(:or)
       except(:where).where(condition)
     end
   end
