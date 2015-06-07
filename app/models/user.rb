@@ -1,6 +1,13 @@
 class User < ActiveRecord::Base
   serialize :preferences
 
+  has_many :costumes do
+    def with_preset
+      condition = where(merge(Costume.presets).where_values.reduce(:or))
+      except(:where).where(condition)
+    end
+  end
+
   before_save do
     preferences.each do |key, value|
       case key

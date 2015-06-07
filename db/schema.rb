@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150513061250) do
+ActiveRecord::Schema.define(version: 20150607012913) do
+
+  create_table "costumes", force: true do |t|
+    t.string   "name",                       null: false
+    t.boolean  "preset",     default: false, null: false
+    t.integer  "position",                   null: false
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "costumes", ["name"], name: "index_costumes_on_name"
+  add_index "costumes", ["position"], name: "index_costumes_on_position"
+  add_index "costumes", ["user_id"], name: "index_costumes_on_user_id"
 
   create_table "source_codes", force: true do |t|
     t.text     "data"
@@ -27,6 +40,6 @@ ActiveRecord::Schema.define(version: 20150513061250) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
+  add_index "users", ["name"], name: "index_users_on_name", unique: true
 
 end

@@ -6,12 +6,12 @@ SmalrubyEditor::Application.routes.draw do
 
   match '/demo(/:filename)' => 'editor#demo',
         defaults: { filename: 'car_chase' }, via: :get
-  get "editor/costumes"
 
   resources :sessions, only: [:create, :destroy]
   match '/signout', to: 'sessions#destroy', via: 'delete'
 
   resources :users, only: [:update]
+  resources :costumes, only: [:index]
 
   resources :source_codes, only: [:create, :index]
   post 'source_codes/check'

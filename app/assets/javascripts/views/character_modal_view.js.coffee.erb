@@ -88,7 +88,7 @@ Smalruby.CharacterModalView = Backbone.View.extend
 
     dfr = $.Deferred()
     $.ajax
-      url: '/editor/costumes'
+      url: '/costumes/'
       type: 'GET'
       cache: false
       success: (data, textStatus, jqXHR) -> dfr.resolve(data)

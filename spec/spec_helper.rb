@@ -136,6 +136,10 @@ RSpec.configure do |config|
     DatabaseRewinder.clean_all
   end
 
+  config.before :each do
+    load(Rails.root.join("db/seeds.rb"))
+  end
+
   config.after :each do
     DatabaseRewinder.clean
   end

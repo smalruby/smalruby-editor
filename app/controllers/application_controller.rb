@@ -7,8 +7,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :standalone?, :raspberrypi?, :current_user,
-                :current_preferences
+  helper_method :standalone?, :raspberrypi?,
+                :signed_in?,
+                :current_user, :current_preferences
 
   before_filter :set_locale
   before_filter :reload_preference if Rails.env.development?
@@ -64,6 +65,11 @@ class ApplicationController < ActionController::Base
       head :unauthorized
       return false
     end
+  end
+
+  # whether signed in or not.
+  def signed_in?
+    session[:username]
   end
 
   def current_user
