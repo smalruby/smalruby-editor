@@ -7,6 +7,10 @@ class EditorController < ApplicationController
     @filename = (File.basename(params[:filename]) || 'car_chase') + '.rb.xml'
   end
 
+  def costumes
+    render layout: false
+  end
+
   def toolbox
     render :toolbox, layout: false
   end

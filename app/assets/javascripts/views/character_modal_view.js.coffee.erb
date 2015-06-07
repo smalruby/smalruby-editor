@@ -1,3 +1,8 @@
+<%
+  require 'smalruby_editor'
+  require 'smalruby_editor/blockly_message_helper'
+%>
+
 # キャラクター設定ダイアログを表現するビュー
 Smalruby.CharacterModalView = Backbone.View.extend
   model: new Smalruby.Character()
@@ -69,23 +74,60 @@ Smalruby.CharacterModalView = Backbone.View.extend
 
   render: ->
     @onChange(@model)
+
+    @$el.find('.modal-body').block
+      message: null
+
+    unblock = =>
+      @$el.find('.modal-body').unblock()
+      null # HACK: if return unblock(), does not call fail().
+
     @$el.modal
       backdrop: 'static'
     @$el.modal('show')
 
-    # HACK: ダイアログを表示して500ms程度待たないと画像のサイズが取得できなかった
-    f = ->
-      if @readImageSizeflag
-        img = $('#character-modal-costume-selector .active img')
-        if img.width() > 0
-          $('#character-modal-character').css
-            width: "#{img.width() / 2}px"
-            height: "#{img.height() / 2}px"
-          @readImageSizeflag = false
-        else
-          setTimeout(_.bind(f, @), 50)
-    if @readImageSizeflag
-      setTimeout(_.bind(f, @), 1)
+    dfr = $.Deferred()
+    $.ajax
+      url: '/editor/costumes'
+      type: 'GET'
+      cache: false
+      success: (data, textStatus, jqXHR) -> dfr.resolve(data)
+      error: dfr.reject
+    dfr.promise()
+      .then (data) =>
+        $('#character-modal-costume-selector').replaceWith(data)
+
+        @setAtiveCostume_()
+
+        # HACK: ダイアログを表示して50ms程度待たないと画像のサイズが取得できなかった
+        f = ->
+          if @readImageSizeflag
+            img = $('#character-modal-costume-selector .active img')
+            if img.width() > 0
+              $('#character-modal-character').css
+                width: "#{img.width() / 2}px"
+                height: "#{img.height() / 2}px"
+              @readImageSizeflag = false
+            else
+              setTimeout(_.bind(f, @), 50)
+        if @readImageSizeflag
+          setTimeout(_.bind(f, @), 1)
+
+      .then(unblock, unblock)
+      .fail =>
+        @$el.modal('hide')
+        errorMessage(<%= bm('.error') %>)
+
+  setAtiveCostume_: ->
+    @$el.find('#character-modal-costume-selector a.thumbnail').removeClass('active')
+    thumb = @$el.find("#character-modal-costume-selector img[alt=\"#{@model.costume()}\"]")
+    thumb.parent().addClass('active')
+    if thumb.width() > 0
+      $('#character-modal-character').css
+        width: "#{thumb.width() / 2}px"
+        height: "#{thumb.height() / 2}px"
+    else
+      @readImageSizeflag = true
 
   callAllOnChangeAttributes_: ->
     @onChangeName(@model, @model.get('name'))
@@ -124,15 +166,7 @@ Smalruby.CharacterModalView = Backbone.View.extend
       src: model.costumeUrl()
       alt: model.costume()
     $('#character-modal-character img').replaceWith(img)
-    @$el.find('#character-modal-costume-selector a.thumbnail').removeClass('active')
-    thumb = @$el.find("#character-modal-costume-selector img[alt=\"#{model.costume()}\"]")
-    thumb.parent().addClass('active')
-    if thumb.width() > 0
-      $('#character-modal-character').css
-        width: "#{thumb.width() / 2}px"
-        height: "#{thumb.height() / 2}px"
-    else
-      @readImageSizeflag = true
+    @setAtiveCostume_()
 
   onChangeRotationStyle: (model, value, options) ->
     $('#character_rotation_style button.btn').removeClass('btn-primary')

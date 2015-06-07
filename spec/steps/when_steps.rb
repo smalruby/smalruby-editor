@@ -67,7 +67,7 @@ step 'サブメニューの :name をクリックする' do |name|
 end
 
 step ':name をクリックする' do |name|
-  click_on(name_to(name, :id))
+  page.execute_script("$('#{name_to(name)}').click()")
 end
 
 step 'ダウンロードが完了するまで待つ' do
