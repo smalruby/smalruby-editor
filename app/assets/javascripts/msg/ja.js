@@ -228,6 +228,7 @@ Blockly.Msg.BLOCKS_HARDWARE_CATHODE = 'カソード';
 Blockly.Msg.BLOCKS_HARDWARE_LEFT = ' 左';
 Blockly.Msg.BLOCKS_HARDWARE_RIGHT = '右';
 Blockly.Msg.BLOCKS_HARDWARE_INIT_HARDWARE = '♠ハードウェアを準備する';
+Blockly.Msg.BLOCKS_HARDWARE_NEO_PIXEL_SET_RGB = '★マイコン内蔵RGB LED %1 を赤 %2 緑 %3 青 %4 にする';
 Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_SET_COLOR = '★RGB LED %1 コモン %2 を %3 にする';
 Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_TURN_OFF = '★RGB LED %1 コモン %2 をオフにする';
 Blockly.Msg.BLOCKS_HARDWARE_SEVEN_SEGMENT_DISPLAY_SHOW = '★7セグディスプレイに %1 を表示する';

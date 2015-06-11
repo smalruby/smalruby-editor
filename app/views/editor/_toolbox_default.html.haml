@@ -217,6 +217,12 @@
       -# LED[▼PIN]をオフにする
       %block{:type => "#{category}_#{subcategory}_turn_off"}
 
+      - subcategory = 'neo_pixel'
+      %block{:type => "#{category}_#{subcategory}_set_rgb"}
+        = toolbox_number_value('RED', 0)
+        = toolbox_number_value('GREEN', 0)
+        = toolbox_number_value('BLUE', 0)
+
       - subcategory = 'rgb_led'
       -# RGB LED[▼アノード]コモン[▼PIN]を[カラー]にする
       %block{:type => "#{category}_#{subcategory}_set_color"}

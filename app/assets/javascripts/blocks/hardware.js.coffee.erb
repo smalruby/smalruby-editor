@@ -96,6 +96,32 @@ Blockly.Ruby['<%= n %>'] = (block) ->
   Blockly.Ruby.characterMethodCall_("led(#{Blockly.Ruby.quote_(pin)}).<%= method %>")
 <% end %>
 
+# Adafruit Pixel
+<% subcategory = 'neo_pixel' %>
+
+<% n = "#{category}_#{subcategory}_set_rgb" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @setHelpUrl('')
+    @setColour(<%= colors[:looks] %>)
+    @interpolateMsg(<%= bm(".#{subcategory}_set_rgb") %>,
+                    ['PIN', new Blockly.FieldDropdown(pwmPinDropdown)],
+                    ['RED', ['Number'], Blockly.ALIGN_RIGHT],
+                    ['GREEN', ['Number'], Blockly.ALIGN_RIGHT],
+                    ['BLUE', ['Number'], Blockly.ALIGN_RIGHT],
+                    Blockly.ALIGN_RIGHT)
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  pin = @getFieldValue('PIN')
+  red = Blockly.Ruby.valueToCode(@, 'RED', Blockly.Ruby.ORDER_NONE) || '0'
+  green = Blockly.Ruby.valueToCode(@, 'GREEN', Blockly.Ruby.ORDER_NONE) || '0'
+  blue = Blockly.Ruby.valueToCode(@, 'BLUE', Blockly.Ruby.ORDER_NONE) || '0'
+  Blockly.Ruby.characterMethodCall_("<%= subcategory %>(#{Blockly.Ruby.quote_(pin)}).set(color: [#{red}, #{green}, #{blue}])")
+
+
 # 「RGB LED」サブジャンル
 
 # RGB LED[▼アノード]コモン[▼PIN]を[カラー]にする
