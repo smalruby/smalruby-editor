@@ -100,16 +100,6 @@ RSpec.configure do |config|
   config.include ActionView::Helpers::JavaScriptHelper, type: :feature
   config.include FeatureHelper, type: :feature
 
-  config.before(:each) do
-    Preference.user_defaults.each do |key, value|
-      Preference[key] = value
-    end
-    Preference.admin_defaults.each do |key, value|
-      Preference[key] = value
-    end
-    Preference["disabled_add_character_from_beginning"] = true
-  end
-
   config.after(javascript: true) do
     page.execute_script('window.onbeforeunload = null')
     FileUtils.rm_rf(downloads_dir) if selenium?
@@ -136,7 +126,15 @@ RSpec.configure do |config|
     DatabaseRewinder.clean_all
   end
 
-  config.before :each do
+  config.before(:each) do
+    Preference.user_defaults.each do |key, value|
+      Preference[key] = value
+    end
+    Preference.admin_defaults.each do |key, value|
+      Preference[key] = value
+    end
+    Preference["disabled_add_character_from_beginning"] = true
+
     load(Rails.root.join("db/seeds.rb"))
   end
 
