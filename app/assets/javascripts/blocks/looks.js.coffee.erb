@@ -89,6 +89,20 @@ Blockly.Blocks['<%= n %>'] =
 Blockly.Ruby['<%= n %>'] = (block) ->
   Blockly.Ruby.characterMethodCall_('vanish')
 
+
+<% n = "#{category}_next_costume" %>
+Blockly.Blocks['<%= n %>'] =
+  init: ()->
+    @setHelpUrl('')
+    @setColour(<%= color %>)
+    @appendDummyInput().appendField(<%= bm('.next_costume') %>)
+    @setPreviousStatement(true)
+    @setNextStatement(true)
+    @setTooltip('')
+
+Blockly.Ruby['<%= n %>'] = (block) ->
+  Blockly.Ruby.characterMethodCall_('next_costume')
+
 # 大きさを(　)％ずつ変える
 # 大きさを(　)％にする
 <%

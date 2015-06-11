@@ -214,6 +214,7 @@ Blockly.Msg.BLOCKS_LOOKS_THINK_WITH_SECOND = 'think %1 for %2 secs';
 Blockly.Msg.BLOCKS_LOOKS_SHOW = 'show';
 Blockly.Msg.BLOCKS_LOOKS_HIDE = 'hide';
 Blockly.Msg.BLOCKS_LOOKS_VANISH = 'vanish';
+Blockly.Msg.BLOCKS_LOOKS_NEXT_COSTUME = 'next costume';
 
 
 // blocks/hardware.js.coffee.erb

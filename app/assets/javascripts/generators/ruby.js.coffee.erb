@@ -62,8 +62,17 @@ Blockly.Ruby.defineCharacter = (c) ->
         rotationStyle = ', rotation_style: :none'
       else
         rotationStyle = ''
+    costumeParam = ['costume: ']
+    costumes = (Blockly.Ruby.quote_(costume) for costume in c.get('costumes'))
+    if costumes.length > 1
+      costumeParam.push("[#{costumes.join(', ')}]")
+    else
+      costumeParam.push(costumes[0])
+    costumeIndex = c.get('costumeIndex')
+    if costumeIndex > 0
+      costumeParam.push(", costume_index: #{costumeIndex}")
     Blockly.Ruby.definitions_[blockName] =
-      "#{name} = Character.new(costume: #{Blockly.Ruby.quote_(c.costume())}, x: #{c.get('x')}, y: #{c.get('y')}, angle: #{c.get('angle')}#{rotationStyle})"
+      "#{name} = Character.new(#{costumeParam.join('')}, x: #{c.get('x')}, y: #{c.get('y')}, angle: #{c.get('angle')}#{rotationStyle})"
 
 Blockly.Ruby.characterStack = ->
   @definitions_['character_stack']

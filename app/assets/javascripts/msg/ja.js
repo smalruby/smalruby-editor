@@ -218,6 +218,7 @@ Blockly.Msg.BLOCKS_LOOKS_THINK_WITH_SECOND = '★%1 と %2 秒と考える';
 Blockly.Msg.BLOCKS_LOOKS_SHOW = '★表示する';
 Blockly.Msg.BLOCKS_LOOKS_HIDE = '★隠す';
 Blockly.Msg.BLOCKS_LOOKS_VANISH = '★消滅する';
+Blockly.Msg.BLOCKS_LOOKS_NEXT_COSTUME = '★次のコスチュームにする';
 
 
 // blocks/hardware.js.coffee.erb
