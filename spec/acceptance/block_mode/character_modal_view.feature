@@ -1,7 +1,6 @@
 # encoding: utf-8
 # language: ja
 @javascript
-@debug
 機能: Character Dialog - キャラクターダイアログ
   背景:
     前提 'ブロック' タブを表示する
