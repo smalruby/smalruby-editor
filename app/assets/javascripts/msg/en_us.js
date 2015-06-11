@@ -224,6 +224,7 @@ Blockly.Msg.BLOCKS_HARDWARE_CATHODE = 'cathode';
 Blockly.Msg.BLOCKS_HARDWARE_LEFT = 'left';
 Blockly.Msg.BLOCKS_HARDWARE_RIGHT = 'right';
 Blockly.Msg.BLOCKS_HARDWARE_INIT_HARDWARE = 'setup hardware';
+Blockly.Msg.BLOCKS_HARDWARE_NEO_PIXEL_SET_RGB = 'Adfruit NeoPixel RGB LED %1 set color to red %2 green %3 blue %4';
 Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_SET_COLOR = 'set RGB LED %1 common %2 color to %3';
 Blockly.Msg.BLOCKS_HARDWARE_RGB_LED_TURN_OFF = 'turn off RGB LED %1 common %2';
 Blockly.Msg.BLOCKS_HARDWARE_SEVEN_SEGMENT_DISPLAY_SHOW = 'show 7 segment display %1';
