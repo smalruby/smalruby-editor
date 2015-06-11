@@ -57,17 +57,17 @@ step 'プログラムの名前に :filename を指定する' do |filename|
   step %("プログラム名の入力欄" に "#{filename}" を指定する)
 end
 
-step 'サブメニューの :name をクリックする' do |name|
+step ':selector をクリックする' do |selector|
   # HACK: 以下では期待通りの動作にならなかったのでjQueryで無理やり実現した
   # click_on('submenu-button')
   # click_on(name_to(name, :id))
-  page.execute_script("$('#{name_to(name)}').click()")
-  step %{JavaScriptによるリクエストが終わるまで待つ}
-  step %{JavaScriptによるアニメーションが終わるまで待つ}
+  page.execute_script("$('#{name_to(selector)}').click()")
 end
 
-step ':name をクリックする' do |name|
-  page.execute_script("$('##{name_to(name, :id)}').click()")
+step 'サブメニューの :selector をクリックする' do |selector|
+  step %{"#{selector}" をクリックする}
+  step %{JavaScriptによるリクエストが終わるまで待つ}
+  step %{JavaScriptによるアニメーションが終わるまで待つ}
 end
 
 step 'ダウンロードが完了するまで待つ' do
