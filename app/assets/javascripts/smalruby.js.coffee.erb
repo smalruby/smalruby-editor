@@ -153,7 +153,7 @@ window.Smalruby =
       e.setAttribute('x', c.get('x'))
       e.setAttribute('y', c.get('y'))
       e.setAttribute('name', c.get('name'))
-      e.setAttribute('costumes', c.get('costumes').join(','))
+      e.setAttribute('costumes', c.costumesWithName().join(','))
       costumeIndex = c.get('costumeIndex')
       if costumeIndex != 0
         e.setAttribute('costume_index', costumeIndex)

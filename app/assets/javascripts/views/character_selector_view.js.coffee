@@ -17,6 +17,8 @@ Smalruby.CharacterSelectorView = Backbone.View.extend({
         if (last = _.last(charSet.models))
           name: charSet.uniqueName(last.costume())
           costumes: _.clone(last.get('costumes'))
+          costumeNames: _.clone(last.get('costumeNames'))
+          costumeIndex: _.clone(last.get('costumeIndex'))
         else
           name: charSet.uniqueName()
       c = new Smalruby.Character(attrs)

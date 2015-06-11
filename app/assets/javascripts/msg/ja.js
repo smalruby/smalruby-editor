@@ -219,6 +219,7 @@ Blockly.Msg.BLOCKS_LOOKS_SHOW = '★表示する';
 Blockly.Msg.BLOCKS_LOOKS_HIDE = '★隠す';
 Blockly.Msg.BLOCKS_LOOKS_VANISH = '★消滅する';
 Blockly.Msg.BLOCKS_LOOKS_NEXT_COSTUME = '★次のコスチュームにする';
+Blockly.Msg.BLOCKS_LOOKS_SWITCH_COSTUME = '★コスチュームを %1 にする';
 
 
 // blocks/hardware.js.coffee.erb

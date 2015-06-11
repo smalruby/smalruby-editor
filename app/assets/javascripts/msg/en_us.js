@@ -215,6 +215,7 @@ Blockly.Msg.BLOCKS_LOOKS_SHOW = 'show';
 Blockly.Msg.BLOCKS_LOOKS_HIDE = 'hide';
 Blockly.Msg.BLOCKS_LOOKS_VANISH = 'vanish';
 Blockly.Msg.BLOCKS_LOOKS_NEXT_COSTUME = 'next costume';
+Blockly.Msg.BLOCKS_LOOKS_SWITCH_COSTUME = 'switch costume to %1';
 
 
 // blocks/hardware.js.coffee.erb

@@ -350,7 +350,7 @@ html {
 
                     #character-modal-costume-set-container {
                         overflow-y: scroll;
-                        height: 100%;
+                        height: 504px - 20px;
 
                         .item {
                             position: relative;
@@ -406,9 +406,15 @@ html {
                             }
                         }
 
-                        .item.active {
+                        .item.active, .item.active.error {
                             a.costume {
                                 border: $border-size solid $border-color;
+                            }
+                        }
+
+                        .item.error {
+                            a.costume {
+                                border: $border-size solid #b94a48;
                             }
                         }
 
@@ -464,10 +470,14 @@ html {
                     right: 0;
                     bottom: 0;
                     width: $character-size * 3;
+                    height: 100%;
 
-                    overflow: auto;
+                    overflow: hidden;
 
                     #character-modal-costume-selector {
+                        overflow-y: scroll;
+                        height: 504px - 30px;
+
                         ul.thumbnails {
                             margin: 0 0 $modal-body-margin 0;
 

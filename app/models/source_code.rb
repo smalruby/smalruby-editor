@@ -73,7 +73,9 @@ class SourceCode < ActiveRecord::Base
 
       doc = Nokogiri::HTML.parse(data)
       if (attr = doc.xpath('//character[1]/@costumes').first)
-        costumes = attr.value.split(",")
+        costumes = attr.value.split(",").map { |s|
+          s.sub(/^[^:]*:/, "")
+        }
         if (attr = doc.xpath('//character[1]/@costume_index').first)
           costume_index = attr.value.to_i
         else

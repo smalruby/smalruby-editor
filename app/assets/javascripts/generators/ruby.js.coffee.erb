@@ -63,7 +63,7 @@ Blockly.Ruby.defineCharacter = (c) ->
       else
         rotationStyle = ''
     costumeParam = ['costume: ']
-    costumes = (Blockly.Ruby.quote_(costume) for costume in c.get('costumes'))
+    costumes = (Blockly.Ruby.quote_(costume) for costume in c.costumesWithName())
     if costumes.length > 1
       costumeParam.push("[#{costumes.join(', ')}]")
     else

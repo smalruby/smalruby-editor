@@ -76,6 +76,8 @@ en:
       direction: "Dir"
       costumes: "Costumes:"
       new_costume: "New costume"
+      costume_name: "Costume name"
+      msg_input_costume_name: "costume1 etc..."
 
     load_modal:
       preset_programs: "Preset programs"

@@ -4,6 +4,13 @@
     #character-modal-right-pane{:class => 'right-pane'}
       #character-modal-right-pane-inner
         #character-modal-right-pane-inner-right-pane{:class => 'right-pane'}
+          %form#character-modal-costume-form{:class => 'form-horizontal'}
+            .control-group{for: "costume[name]"}
+              %label.control-label{for: "costume_name"}<
+                = t('.costume_name')
+              .controls
+                %input#costume_name.input-large{name: "costume[name]", type: "text", placeholder: t('.msg_input_costume_name')}
+
           #character-modal-costume-selector
 
         #character-modal-right-pane-inner-left-pane{:class => 'left-pane'}

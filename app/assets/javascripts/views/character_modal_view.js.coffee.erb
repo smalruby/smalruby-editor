@@ -53,7 +53,12 @@ Smalruby.CharacterModalView = Backbone.View.extend
 
       costumes = @model.get('costumes').slice(0)
       costumes.push(@model.costume())
-      @model.set({ costumes: costumes, costumeIndex: costumes.length - 1})
+      costumeNames = @model.get('costumeNames').slice(0)
+      costumeNames.push("costume#{costumes.length}")
+      @model.set
+        costumes: costumes
+        costumeNames: costumeNames
+        costumeIndex: costumes.length - 1
 
     self = @
     changeNameFunc = (e) ->
@@ -71,11 +76,20 @@ Smalruby.CharacterModalView = Backbone.View.extend
     @$el.find('input[name="character[angle]"]').change (e) ->
       self.model.set({ angle: $(@).val() })
 
+    changeCostumeNameFunc = (e) ->
+      val = $(@).val()
+      costumeNames = _.clone(self.model.get('costumeNames'))
+      costumeNames[self.model.get('costumeIndex')] = val
+      self.model.set({ costumeNames: costumeNames })
+    @$el.find('input[name="costume[name]"]').change(changeCostumeNameFunc)
+    @$el.find('input[name="costume[name]"]').keyup(changeCostumeNameFunc)
+
     @listenTo(@model, 'change:name', @onChangeName)
     @listenTo(@model, 'change:x', @onChangeX)
     @listenTo(@model, 'change:y', @onChangeY)
     @listenTo(@model, 'change:angle', @onChangeAngle)
     @listenTo(@model, 'change:costumes', @onChangeCostumes)
+    @listenTo(@model, 'change:costumeNames', @onChangeCostumeNames)
     @listenTo(@model, 'change:costumeIndex', @onChangeCostumeIndex)
     @listenTo(@model, 'change:rotationStyle', @onChangeRotationStyle)
     @listenTo(@model, 'change', @onChange)
@@ -147,6 +161,7 @@ Smalruby.CharacterModalView = Backbone.View.extend
     costumes = @model.get('costumes')
     $.each costumes, (i, name) =>
       costume =
+        name: @model.costumeName(i)
         basename: name
         path: @model.costumeUrl(i)
         index: i + 1
@@ -171,10 +186,15 @@ Smalruby.CharacterModalView = Backbone.View.extend
   removeCostume_: (i) ->
     costumes = @model.get('costumes').slice(0)
     costumes.splice(i, 1)
+    costumeNames = @model.get('costumeNames').slice(0)
+    costumeNames.splice(i, 1)
     costumeIndex = @model.get('costumeIndex')
     if costumeIndex >= costumes.length
       costumeIndex = costumes.length - 1
-    @model.set({ costumes: costumes, costumeIndex: costumeIndex })
+    @model.set
+      costumes: costumes
+      costumeNames: costumeNames
+      costumeIndex: costumeIndex
 
   renderActiveCostume_: ->
     costumesEl = @$el.find('#character-modal-costume-set')
@@ -188,7 +208,6 @@ Smalruby.CharacterModalView = Backbone.View.extend
     @onChangeY(@model, @model.get('y'))
     @onChangeAngle(@model, @model.get('angle'))
     @onChangeCostumes(@model, @model.get('costumes'))
-    @onChangeCostumeIndex(@model, @model.get('costumeIndex'))
     @onChangeRotationStyle(@model, @model.get('rotationStyle'))
 
   onChangeName: (model, value, options) ->
@@ -219,11 +238,16 @@ Smalruby.CharacterModalView = Backbone.View.extend
     @renderCostumeSet_()
     @onChangeCostumeIndex(model, model.get('costumeIndex'))
 
+  onChangeCostumeNames: (model, value, options) ->
+    $.each value, (i, costumeName) =>
+      @$el.find("#character-modal-costume-set .item:nth-child(#{i + 1}) .name").text(costumeName)
+
   onChangeCostumeIndex: (model, value, options) ->
     img = $('<img>').attr
       src: model.costumeUrl()
       alt: model.costume()
     $('#character-modal-character img').replaceWith(img)
+    $('#character-modal input[name="costume[name]"]').val(model.costumeName())
 
     @setActiveCostume_()
     @renderActiveCostume_()
@@ -234,20 +258,33 @@ Smalruby.CharacterModalView = Backbone.View.extend
     @onChangeAngle(@model, @model.get('angle'))
 
   onChange: (model, options) ->
+    @validate_()
+
+  validate_: ->
     return unless @target
 
-    @$el.find('.control-group[for="character[name]"]').removeClass('error')
-    @$el.find('#character-modal-ok-button').removeClass('disabled').removeAttr('disabled')
+    valid = true
+
+    @$el.find('.control-group').removeClass('error')
+    @$el.find('#character-modal-costume-set .item').removeClass('error')
 
     unless @model.isValid()
-      @$el.find('.control-group[for="character[name]"]').addClass('error')
-      @$el.find('#character-modal-ok-button').addClass('disabled').attr({ disabled: 'disabled' })
+      valid = false
+      $.each @model.validationError, (i, error) =>
+        if error.attr == 'name'
+          @$el.find('.control-group[for="character[name]"]').addClass('error')
+        if error.attr == 'costumeNames'
+          if error.index == @model.get('costumeIndex')
+            @$el.find('.control-group[for="costume[name]"]').addClass('error')
+          @$el.find("#character-modal-costume-set .item:nth-child(#{error.index + 1})").addClass('error')
 
     name = @model.get('name')
     if @target.get('name') != name &&
        Smalruby.Collections.CharacterSet.findWhere({ name: name })
+      valid = false
       @$el.find('.control-group[for="character[name]"]').addClass('error')
-      @$el.find('#character-modal-ok-button').addClass('disabled').attr({ disabled: 'disabled' })
+
+    valid
 
   onSelectCostume: (e) ->
     e.preventDefault()
@@ -280,9 +317,10 @@ Smalruby.CharacterModalView = Backbone.View.extend
     @model.set({ rotationStyle: 'none' })
 
   onOk: ->
-    @$el.modal('hide')
-    if @target
-      @target.set(_.clone(@model.attributes))
+    if @validate_()
+      @$el.modal('hide')
+      if @target
+        @target.set(_.clone(@model.attributes))
 
   setCharacter: (character)->
     @target = character

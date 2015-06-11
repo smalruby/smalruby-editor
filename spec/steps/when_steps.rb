@@ -199,11 +199,5 @@ end
 # rubocop:enable Eval
 
 step 'ページを表示する' do
-  # no-op
-end
-
-steps_for :debug do
-  step 'ページを表示する' do
-    save_and_open_page
-  end
+  save_and_open_page
 end
