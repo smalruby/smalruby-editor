@@ -1,6 +1,6 @@
 class AddIndexNameOnUsers < ActiveRecord::Migration
   def up
-    add_index :users, :name, :unique
+    add_index :users, :name, unique: true
   end
 
   def down
