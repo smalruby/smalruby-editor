@@ -94,6 +94,8 @@ RSpec.configure do |config|
     }
   end
 
+  Capybara.asset_host = "http://localhost:3000"
+
   config.include JsonSpec::Helpers
   config.include ERB::Util, type: :helper
   config.include ERB::Util, type: :feature
@@ -140,5 +142,12 @@ RSpec.configure do |config|
 
   config.after :each do
     DatabaseRewinder.clean
+  end
+
+  # for debug
+  config.after(:each, javascript: true, open_on_error: true) do
+    if example.exception.present?
+      save_and_open_page
+    end
   end
 end
