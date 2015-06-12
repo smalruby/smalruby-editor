@@ -7,6 +7,7 @@ $character-size: 32px * 5;
 $left-pane-width: $character-size + $margin * 2;
 $border-size: 5px;
 $border-color: #0088cc;
+$scrollbar-width: 20px;
 
 html {
     -ms-touch-action: manipulation;
@@ -248,7 +249,7 @@ html {
     $attributes-height: 260px;
 
     $left-pane-width: $preview-width + 2px;
-    $right-pane-width: $character-size * 4 + $modal-body-margin;
+    $right-pane-width: $character-size * 4 + $scrollbar-width * 2 + $modal-body-margin;
 
     $modal-width: $left-pane-width + $right-pane-width + $modal-margin * 2;
     $modal-height: $preview-height + 2px + $attributes-height + $modal-margin * 2;
@@ -328,6 +329,8 @@ html {
             overflow: hidden;
 
             #character-modal-right-pane-inner {
+                $inner-left-pane-width: $character-size + $scrollbar-width;
+
                 margin-left: $left-pane-width + $modal-body-margin;
                 position: absolute;
                 left: 0;
@@ -338,7 +341,7 @@ html {
                 height: $modal-height - $modal-body-margin * 2;
 
                 #character-modal-right-pane-inner-left-pane {
-                    width: $character-size;
+                    width: $inner-left-pane-width;
                     height: $modal-height - $modal-body-margin * 2;
 
                     margin-left: 0;
@@ -346,10 +349,12 @@ html {
                     overflow: hidden;
 
                     #character-modal-costume-set-header {
+                        width: $inner-left-pane-width;
                     }
 
                     #character-modal-costume-set-container {
                         overflow-y: scroll;
+                        width: $inner-left-pane-width;
                         height: 504px - 20px;
 
                         .item {
@@ -463,20 +468,20 @@ html {
                 }
 
                 #character-modal-right-pane-inner-right-pane {
-                    margin-left: $character-size;
+                    margin-left: $inner-left-pane-width;
                     position: absolute;
                     left: 0;
                     top: 0;
                     right: 0;
                     bottom: 0;
-                    width: $character-size * 3;
+                    width: $character-size * 3 + $scrollbar-width;
                     height: 100%;
 
                     overflow: hidden;
 
                     #character-modal-costume-selector {
                         overflow-y: scroll;
-                        height: 504px - 30px;
+                        height: 504px - 30px - $scrollbar-width;
 
                         ul.thumbnails {
                             margin: 0 0 $modal-body-margin 0;
