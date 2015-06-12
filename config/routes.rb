@@ -11,7 +11,8 @@ SmalrubyEditor::Application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: 'delete'
 
   resources :users, only: [:update]
-  resources :costumes, only: [:index]
+  resources :costumes, only: [:index, :create]
+  get "/smalruby/assets/:basename", to: "costumes#show"
 
   resources :source_codes, only: [:create, :index]
   post 'source_codes/check'

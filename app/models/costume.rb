@@ -22,7 +22,7 @@ class Costume < ActiveRecord::Base
     { name: "taichi2", tag_list: %w(Preset Animal Ninja) },
   ]
 
-  has_one :user
+  belongs_to :user
 
   scope :presets, -> { where(preset: true) }
   scope :default_order, -> { order(preset: :asc, position: :asc) }
@@ -44,8 +44,21 @@ class Costume < ActiveRecord::Base
     end
   end
 
-  def path
+  def url
     "/smalruby/assets/#{basename}"
+  end
+
+  def path
+    if preset?
+      Rails.root.join("public/smalruby/assets/#{basename}")
+    else
+      s = "~/#{user.name}/__assets__/#{basename}"
+      Pathname(s).expand_path
+    end
+  end
+
+  def basename=(val)
+    self.name = val.sub(/\.png$/, "")
   end
 
   def basename

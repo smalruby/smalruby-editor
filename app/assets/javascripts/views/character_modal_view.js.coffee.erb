@@ -8,7 +8,8 @@ Smalruby.CharacterModalView = Backbone.View.extend
   model: new Smalruby.Character()
 
   events:
-    'click #character-modal-costume-selector a': 'onSelectCostume'
+    'click #character-modal-costume-selector a.thumbnail': 'onSelectCostume'
+    'click #character-modal-costume-selector a#character-modal-upload-costume': 'onUploadCostume'
     'click #character_rotation_style_free': 'onRotationStyleFree'
     'click #character_rotation_style_left_right': 'onRotationStyleLeftRight'
     'click #character_rotation_style_none': 'onRotationStyleNone'
@@ -114,29 +115,36 @@ Smalruby.CharacterModalView = Backbone.View.extend
       error: dfr.reject
     dfr.promise()
       .then (data) =>
-        $('#character-modal-costume-selector').replaceWith(data)
-
-        @setActiveCostume_()
-        @renderCostumeSet_()
-
-        # HACK: ダイアログを表示して50ms程度待たないと画像のサイズが取得できなかった
-        f = ->
-          if @readImageSizeflag
-            img = $('#character-modal-costume-selector .active img')
-            if img.width() > 0
-              $('#character-modal-character').css
-                width: "#{img.width() / 2}px"
-                height: "#{img.height() / 2}px"
-              @readImageSizeflag = false
-            else
-              setTimeout(_.bind(f, @), 50)
-        if @readImageSizeflag
-          setTimeout(_.bind(f, @), 1)
-
+        @replaceCostumeSelectorHtml_(data)
       .then(unblock, unblock)
       .fail =>
         @$el.modal('hide')
         errorMessage(<%= bm('.error') %>)
+
+  replaceCostumeSelectorHtml_: (html) ->
+    @$el.find('#character-modal-costume-selector').replaceWith(html)
+
+    @$el.find('#character-modal-upload-costume-form').fileupload
+      dataType: 'json'
+      done: (e, data) =>
+        @replaceCostumeSelectorHtml_(data)
+
+    @setActiveCostume_()
+    @renderCostumeSet_()
+
+    # HACK: ダイアログを表示して50ms程度待たないと画像のサイズが取得できなかった
+    f = ->
+      if @readImageSizeflag
+        img = $('#character-modal-costume-selector .active img')
+        if img.width() > 0
+          $('#character-modal-character').css
+            width: "#{img.width() / 2}px"
+            height: "#{img.height() / 2}px"
+          @readImageSizeflag = false
+        else
+          setTimeout(_.bind(f, @), 50)
+    if @readImageSizeflag
+      setTimeout(_.bind(f, @), 1)
 
   setActiveCostume_: ->
     @$el.find('#character-modal-costume-selector a.thumbnail').removeClass('active')
@@ -301,6 +309,11 @@ Smalruby.CharacterModalView = Backbone.View.extend
           attrs['name'] = Smalruby.Collections.CharacterSet.uniqueName(costume)
 
     @model.set(attrs)
+
+  onUploadCostume: (e) ->
+    e.preventDefault()
+
+    @$el.find('input[name="costume[file]"]').click()
 
   onRotationStyleFree: ->
     @model.set({ rotationStyle: 'free' })

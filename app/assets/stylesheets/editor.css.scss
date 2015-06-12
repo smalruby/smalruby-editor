@@ -489,6 +489,29 @@ html {
                             li {
                                 margin-left: $modal-body-margin;
                                 margin-bottom: $modal-body-margin;
+                                cursor: pointer;
+
+                                a#character-modal-upload-costume {
+                                    width: $character-size;
+                                    height: $character-size;
+
+                                    text-decoration: none;
+                                    cursor: pointer;
+                                    vertical-align: middle;
+                                    display: table-cell;
+                                    text-align: center;
+                                    font-size: 1em;
+
+                                    border: $border-size dashed lightgray;
+
+                                    i {
+                                        font-size: 2em;
+                                    }
+                                }
+
+                                a#character-modal-upload-costume:hover {
+                                    border: $border-size dashed $border-color;
+                                }
 
                                 a.active {
                                     background-color: #0088cc;

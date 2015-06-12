@@ -97,6 +97,10 @@ en:
       message: "Input your name<br>not to mix with other people's program."
       username_placeholder: "username, ID, nickname, etc..."
 
+  costumes:
+    index:
+      upload_costume: "Upload costume..."
+
   users:
     preferences:
       toolbox: "Toolbox"

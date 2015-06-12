@@ -98,6 +98,10 @@ ja:
       message: "あなたの名前をいれて、<br />ほかの人のプログラムとまざらないようにしよう♪"
       username_placeholder: "名前、生徒番号、ニックネームなど"
 
+  costumes:
+    index:
+      upload_costume: "新しい画像"
+
   users:
     preferences:
       toolbox: "ツールボックス"

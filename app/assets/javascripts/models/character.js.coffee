@@ -97,10 +97,7 @@ Smalruby.Character = Backbone.Model.extend({
 
   costumeUrl: (index = @get('costumeIndex')) ->
     basename = @get('costumes')[index]
-    if _.indexOf(Smalruby.Character.PRESET_COSTUMES, basename) == -1
-      basename
-    else
-      "/smalruby/assets/#{basename}"
+    "/smalruby/assets/#{basename}"
 
   nextCostume: ->
     i = @get('costumeIndex') + 1

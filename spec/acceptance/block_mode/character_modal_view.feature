@@ -131,3 +131,9 @@
     かつ '#character-modal-costume-set .item:nth-child(1) a.remove-button' が表示されていないこと
     かつ 'costume[name]' フィールドの値が "costume2" であること
     かつ '.thumbnails a.active img[alt="ryu1.png"]' が表示されていること
+
+  @target
+  シナリオ: キャラクターのコスチュームをアップロードする
+    前提 '#character-modal a#character-modal-upload-costume' が表示されていること
+
+    もし 'a#character-modal-upload-costume' をクリックする
