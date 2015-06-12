@@ -3,6 +3,7 @@
 
 require 'pathname'
 require 'socket'
+require 'timeout'
 
 ENV['RAILS_ENV'] = 'standalone'
 ENV['SMALRUBY_EDITOR_HOME'] ||= Pathname('~/.smalruby-editor').expand_path.to_s
