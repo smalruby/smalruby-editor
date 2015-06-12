@@ -9,7 +9,7 @@ shared_context ':character_new_data', character_new_data: true do
     <<-EOS.strip_heredoc
 require "smalruby"
 
-car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
+car1 = Character.new(costume: "costume1:car1.png", x: 0, y: 0, angle: 0)
 #{parts}
     EOS
   }
@@ -20,7 +20,7 @@ shared_context ':on_start_data', on_start_data: true do
     <<-EOS.strip_heredoc
 require "smalruby"
 
-car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
+car1 = Character.new(costume: "costume1:car1.png", x: 0, y: 0, angle: 0)
 
 car1.on(:start) do
   #{parts.lines.join('  ')}

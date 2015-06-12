@@ -4,6 +4,8 @@ module RubyToBlock
   module Block
     # すべてのブロックのベースクラス
     class Base
+      STRING_RE = '\s*("[^"]*"|\'[^\']*\')\s*'
+
       attr_accessor :parent
       attr_accessor :prev_sibling
       attr_accessor :sibling
