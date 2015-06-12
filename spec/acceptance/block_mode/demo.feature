@@ -11,8 +11,8 @@
     """
     require "smalruby"
 
-    car1 = Character.new(costume: "car2.png", x: 0, y: 0, angle: 0)
-    car2 = Character.new(costume: "car4.png", x: 0, y: 415, angle: 0)
+    car1 = Character.new(costume: "costume1:car2.png", x: 0, y: 0, angle: 0)
+    car2 = Character.new(costume: "costume1:car4.png", x: 0, y: 415, angle: 0)
     # 車のおいかけっこ
 
     # 逃げる車
