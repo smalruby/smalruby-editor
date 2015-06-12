@@ -38,6 +38,7 @@ ja:
     index:
       block: "ブロック"
       msg_input_program_name: "プログラムの名前を入れてね（例：01.rb）"
+      menu: "メニュー"
       run: "実行"
       download: "ダウンロード"
       load: "ロード"

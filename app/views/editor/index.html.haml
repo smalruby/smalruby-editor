@@ -51,6 +51,7 @@
         .btn-group
           %a#submenu-button{:class => "dropdown-toggle btn btn-primary", :"data-toggle" => "dropdown", :href => "#"}
             %i.icon-reorder
+            = t('.menu')
           %ul#submenu.dropdown-menu{:class => "pull-right"}
             %li
               - if standalone?
