@@ -42,7 +42,7 @@ Feature: hardware_smalrubot_s1_led_turn_on_or_off block
 
     Then テキストエディタのプログラムは以下を含むこと:
       """
-      car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
+      car1 = Character.new(costume: "costume1:car1.png", x: 0, y: 0, angle: 0)
       car1.smalrubot_s1.turn_off_right_led
 
       """

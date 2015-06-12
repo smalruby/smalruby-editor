@@ -42,7 +42,7 @@
 
       init_hardware
 
-      car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
+      car1 = Character.new(costume: "costume1:car1.png", x: 0, y: 0, angle: 0)
       car1.led("D13").turn_on
 
       """
@@ -68,7 +68,7 @@
 
       init_hardware
 
-      car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
+      car1 = Character.new(costume: "costume1:car1.png", x: 0, y: 0, angle: 0)
 
       car1.on(:start) do
         led("D13").turn_on
