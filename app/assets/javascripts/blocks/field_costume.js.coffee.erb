@@ -64,7 +64,7 @@ Smalruby.FieldCostume.prototype.getCharacterFromParentBlocks_ = ->
   while block
     if block.getCharacter
       return block.getCharacter()
-    block = block.getParent()
+    block = block.getSurroundParent()
 
   Smalruby.FieldCharacter.NullCharacter
 
