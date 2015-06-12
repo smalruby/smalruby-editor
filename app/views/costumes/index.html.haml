@@ -1,0 +1,7 @@
+#character-modal-costume-selector
+  .row-fluid
+    %ul.thumbnails
+      - @costumes.each do |costume|
+        %li
+          %a.thumbnail
+            %img{:src => "#{costume.path}", :alt => "#{costume.basename}"}

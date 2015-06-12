@@ -68,6 +68,9 @@ Blockly.Blocks['<%= n %>'] =
 
     @
 
+  getCharacter: ->
+    @character
+
 Blockly.Ruby['<%= n %>'] = (block) ->
   c = block.character
   Blockly.Ruby.defineCharacter(c)

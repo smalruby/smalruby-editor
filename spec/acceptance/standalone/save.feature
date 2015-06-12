@@ -71,7 +71,7 @@
     かつ ホームディレクトリの "<保存したファイルの名前>" が次の内容であること:
       """
       <xml>
-        <character x="300" y="200" name="car1" costumes="car4.png" angle="90"></character>
+        <character x="300" y="200" name="car1" costumes="costume1:car4.png" angle="90"></character>
         <block type="character_new" id="1" x="0" y="0">
           <field name="NAME">car1</field>
           <statement name="DO">

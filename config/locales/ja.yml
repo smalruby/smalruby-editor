@@ -75,6 +75,10 @@ ja:
       y_position: "Y座標"
       msg_input_name: "car1やball1など"
       direction: "向き"
+      costumes: "コスチューム:"
+      new_costume: "新しいコスチューム"
+      costume_name: "コスチュームの名前"
+      msg_input_costume_name: "costume1など"
 
     load_modal:
       preset_programs: "いろいろなプログラム"

@@ -106,7 +106,19 @@ Smalruby.FieldCharacter.dropdownChange = (value) ->
 
 Smalruby.FieldCharacter.NullCharacter =
   get: (name) ->
-    <%= bm('.no_character') %>
+    switch name
+      when 'name'
+        <%= bm('.no_character') %>
+      when 'costumes'
+        ['']
+      when 'costumeNames'
+        [<%= bm('.first_costume') %>]
+      when 'costumeIndex'
+        0
+      else
+        null
+  costumeName: (index) ->
+    ''
   on: -> $.noop
   off: -> $.noop
   link: -> $.noop

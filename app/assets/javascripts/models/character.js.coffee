@@ -2,6 +2,7 @@ Smalruby.Character = Backbone.Model.extend({
   defaults:
     name: null
     costumes: [],
+    costumeNames: [],
     costumeIndex: 0
     x: 0
     y: 0
@@ -14,6 +15,23 @@ Smalruby.Character = Backbone.Model.extend({
     @objects = []
     if @get('costumes').length == 0
       @set({ costumes: [Smalruby.Character.PRESET_COSTUMES[0]] })
+    else
+      costumes = []
+      costumeNames = []
+      index = 1
+      for costume in (costume.split(':') for costume in @get('costumes'))
+        do (costume) ->
+          if costume.length == 1
+            costumeNames.push("costume#{index}")
+            costumes.push(costume[0])
+          else
+            costumeNames.push(costume[0])
+            costumes.push(costume[1])
+          index++
+      @set({ costumes: costumes, costumeNames: costumeNames })
+
+    if @get('costumeNames').length == 0
+      @set({ costumeNames: ['costume1'] })
 
   validate: (attrs, options) ->
     errors = []
@@ -30,6 +48,23 @@ Smalruby.Character = Backbone.Model.extend({
       errors.push
         attr: 'name'
         message: 'Name is invalid'
+
+    i = 0
+    costumeNames = attrs.costumeNames
+    for name in costumeNames
+      do (name) ->
+        if _.isUndefined(name) || _.isNull(name) ||
+           (_.isString(name) && name.length == 0)
+          errors.push
+            attr: 'costumeNames'
+            index: i
+            message: 'costumeNames is required'
+        else if _.indexOf(costumeNames, name) != _.lastIndexOf(costumeNames, name)
+          errors.push
+            attr: 'costumeNames'
+            index: i
+            message: 'costumeNames is duplicated'
+        i++
 
     if errors.length > 0
       return errors
@@ -50,8 +85,15 @@ Smalruby.Character = Backbone.Model.extend({
   namePrefix: ->
     Smalruby.Character.costumeToNamePrefix(@get('name'))
 
-  costume: ->
-    @get('costumes')[@get('costumeIndex')]
+  costume: (index = @get('costumeIndex')) ->
+    @get('costumes')[index]
+
+  costumeName: (index = @get('costumeIndex')) ->
+    @get('costumeNames')[index]
+
+  costumesWithName: ->
+    costumeNames = @get('costumeNames')
+    ("#{costumeNames[i]}:#{costume}" for costume, i in @get('costumes'))
 
   costumeUrl: (index = @get('costumeIndex')) ->
     basename = @get('costumes')[index]

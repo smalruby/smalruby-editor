@@ -5,6 +5,7 @@ AllCops:
     - spec/fixtures/**
     - vendor/*
     - work/*
+    - bin/spring
   RunRailsCops: true
 
 # 日本語でのコメントを許可する

@@ -41,7 +41,7 @@
     """
     require "smalruby"
 
-    car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
+    car1 = Character.new(costume: "costume1:car1.png", x: 0, y: 0, angle: 0)
 
     car1.on(:key_push, K_SPACE) do
 
@@ -75,7 +75,7 @@
     """
     require "smalruby"
 
-    car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
+    car1 = Character.new(costume: "costume1:car1.png", x: 0, y: 0, angle: 0)
 
     car1.on(:start) do
 
@@ -125,7 +125,7 @@
     """
     require "smalruby"
 
-    car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
+    car1 = Character.new(costume: "costume1:car1.png", x: 0, y: 0, angle: 0)
 
     car1.on(:key_down, K_SPACE) do
 
@@ -159,7 +159,7 @@
     """
     require "smalruby"
 
-    car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
+    car1 = Character.new(costume: "costume1:car1.png", x: 0, y: 0, angle: 0)
 
     car1.on(:start) do
 

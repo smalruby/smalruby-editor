@@ -49,7 +49,7 @@ en:
 
     block_tab:
       character: "Character"
-      new_character: "New Character"
+      new_character: "New character"
       direction_parameter: "Dir:"
       stage: "Stage"
 
@@ -74,6 +74,10 @@ en:
       y_position: "Y"
       msg_input_name: "car1 and ball1 etc..."
       direction: "Dir"
+      costumes: "Costumes:"
+      new_costume: "New costume"
+      costume_name: "Costume name"
+      msg_input_costume_name: "costume1 etc..."
 
     load_modal:
       preset_programs: "Preset programs"

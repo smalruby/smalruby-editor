@@ -1,0 +1,84 @@
+<%
+  require 'smalruby_editor'
+  require 'smalruby_editor/blockly_message_helper'
+%>
+
+'use strict'
+
+goog.provide('Smalruby.FieldCostume')
+
+goog.require('Blockly.FieldDropdown')
+goog.provide('Smalruby.FieldCharacter')
+
+
+Smalruby.FieldCostume = (opt_character, opt_changeHandler) ->
+  @character = Smalruby.FieldCharacter.NullCharacter
+  @costumeIndex = 0
+  if opt_character
+    @setCharacter(opt_character)
+
+  if opt_changeHandler
+    changeHandler = (value) =>
+      retVal = Smalruby.FieldCostume.dropdownChange.call(@, value)
+      if retVal
+        newVal = retVal
+      else
+        retVal = @getValue()
+      opt_changeHandler.call(@, newVal)
+      retVal
+  else
+    changeHandler = Smalruby.FieldCostume.dropdownChange
+
+  Smalruby.FieldCostume.superClass_.constructor
+    .call(@, Smalruby.FieldCostume.dropdownCreate, changeHandler)
+
+goog.inherits(Smalruby.FieldCostume, Blockly.FieldDropdown)
+
+Smalruby.FieldCostume.prototype.setCharacter = (character) ->
+  return if character == @character
+
+  @character.off('change:costumeNames', @onCharacterChangeCostumeNames_, @)
+  @character = if character then character else Smalruby.FieldCharacter.NullCharacter
+  @character.on('change:costumeNames', @onCharacterChangeCostumeNames_, @)
+
+  @costumeIndex = 0
+  @setValue(@character.costumeName(@costumeIndex))
+
+Smalruby.FieldCostume.prototype.onCharacterChangeCostumeNames_ = (model, costumeNames, options) ->
+  if @costumeIndex < costumeNames.length
+    @setValue(costumeNames[@costumeIndex])
+  else
+    @setValue(costumeNames[0])
+    @costumeIndex = 0
+
+Smalruby.FieldCostume.prototype.clone = ->
+  new Smalruby.FieldCostume(null, @changeHandler_)
+
+Smalruby.FieldCostume.prototype.dispose = ->
+  @setCharacter(Smalruby.FieldCharacter.NullCharacter)
+
+  Blockly.FieldDropdown.prototype.dispose.call(@)
+
+Smalruby.FieldCostume.prototype.getCharacterFromParentBlocks_ = ->
+  block = @sourceBlock_
+  while block
+    if block.getCharacter
+      return block.getCharacter()
+    block = block.getSurroundParent()
+
+  Smalruby.FieldCharacter.NullCharacter
+
+Smalruby.FieldCostume.dropdownCreate = ->
+  @setCharacter(@getCharacterFromParentBlocks_())
+  ([costume, costume] for costume in @character.get('costumeNames'))
+
+Smalruby.FieldCostume.dropdownChange = (value) ->
+  costumeIndex = -1
+  if (costumeNames = @character.get('costumeNames'))
+    costumeIndex = _.indexOf(costumeNames, value)
+  if costumeIndex == -1
+    @costumeIndex = 0
+    null
+  else
+    @costumeIndex = costumeIndex
+    value

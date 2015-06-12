@@ -195,6 +195,7 @@ Blockly.Msg.BLOCKS_RUBY_P = '♠p %1';
 
 // blocks/field_character.js.coffee.erb
 Blockly.Msg.BLOCKS_FIELD_CHARACTER_NO_CHARACTER = 'キャラクターなし';
+Blockly.Msg.BLOCKS_FIELD_CHARACTER_FIRST_COSTUME = '最初のコスチューム';
 
 
 // blocks/sound.js.coffee.erb
@@ -218,6 +219,8 @@ Blockly.Msg.BLOCKS_LOOKS_THINK_WITH_SECOND = '★%1 と %2 秒と考える';
 Blockly.Msg.BLOCKS_LOOKS_SHOW = '★表示する';
 Blockly.Msg.BLOCKS_LOOKS_HIDE = '★隠す';
 Blockly.Msg.BLOCKS_LOOKS_VANISH = '★消滅する';
+Blockly.Msg.BLOCKS_LOOKS_NEXT_COSTUME = '★次のコスチュームにする';
+Blockly.Msg.BLOCKS_LOOKS_SWITCH_COSTUME = '★コスチュームを %1 にする';
 
 
 // blocks/hardware.js.coffee.erb

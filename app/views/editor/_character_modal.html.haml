@@ -2,13 +2,27 @@
                  :role => 'dialog', :'aria-hidden' => 'true'}
   .modal-body
     #character-modal-right-pane{:class => 'right-pane'}
-      #character-modal-costume-selector
-        .row-fluid
-          %ul.thumbnails
-            - %w(car1 car2 car3 car4 cat1 cat2 cat3 frog1 ball1 ball2 ball3 ball4 ball5 ball6 ryu1 ryu2 taichi1 taichi2).each do |name|
-              %li
-                %a.thumbnail
-                  %img{:src => "/smalruby/assets/#{name}.png", :alt => "#{name}.png"}
+      #character-modal-right-pane-inner
+        #character-modal-right-pane-inner-right-pane{:class => 'right-pane'}
+          %form#character-modal-costume-form{:class => 'form-horizontal'}
+            .control-group{for: "costume[name]"}
+              %label.control-label{for: "costume_name"}<
+                = t('.costume_name')
+              .controls
+                %input#costume_name.input-large{name: "costume[name]", type: "text", placeholder: t('.msg_input_costume_name')}
+
+          #character-modal-costume-selector
+
+        #character-modal-right-pane-inner-left-pane{:class => 'left-pane'}
+          #character-modal-costume-set-header
+            = t('.costumes')
+          #character-modal-costume-set-container
+            #character-modal-costume-set
+            #character-modal-add-costume.item
+              %a#character-modal-add-costume-button.costume
+                %i.icon-plus-sign-alt
+                %br
+                = t('.new_costume')
 
     #character-modal-left-pane{:class => 'left-pane'}
       #character-modal-preview
@@ -60,3 +74,17 @@
     %button#character-modal-ok-button{:class => 'btn btn-primary'}<
       %i.icon-circle-blank
       = t('common.ok')
+
+%script#character-modal-costume-template{:type => 'text/template'}
+  .item
+    .item-info
+      .name
+        {{- name }}
+      .attributes
+        {{- index }}
+
+      %a.remove-button
+        %i.icon-remove
+
+    %a.costume
+      %img{src: '{{- path }}', alt: '{{- basename }}'}

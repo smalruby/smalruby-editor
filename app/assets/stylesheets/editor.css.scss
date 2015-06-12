@@ -5,6 +5,9 @@
 $margin: 20px;
 $character-size: 32px * 5;
 $left-pane-width: $character-size + $margin * 2;
+$border-size: 5px;
+$border-color: #0088cc;
+$scrollbar-width: 20px;
 
 html {
     -ms-touch-action: manipulation;
@@ -84,9 +87,6 @@ html {
                 }
 
                 #selectors-tab-content {
-                    $border-size: 5px;
-                    $border-color: #0088cc;
-
                     position: absolute;
                     width: $character-size + $margin * 3;
                     top: 32px;
@@ -246,10 +246,10 @@ html {
     $preview-width: 320px;
     $preview-height: 240px;
 
-    $attributes-height: 160px;
+    $attributes-height: 260px;
 
     $left-pane-width: $preview-width + 2px;
-    $right-pane-width: $character-size * 3 + $modal-body-margin;
+    $right-pane-width: $character-size * 4 + $scrollbar-width * 2 + $modal-body-margin;
 
     $modal-width: $left-pane-width + $right-pane-width + $modal-margin * 2;
     $modal-height: $preview-height + 2px + $attributes-height + $modal-margin * 2;
@@ -328,25 +328,172 @@ html {
 
             overflow: hidden;
 
-            #character-modal-costume-selector {
-                margin-left: $left-pane-width;
+            #character-modal-right-pane-inner {
+                $inner-left-pane-width: $character-size + $scrollbar-width;
+
+                margin-left: $left-pane-width + $modal-body-margin;
                 position: absolute;
                 left: 0;
                 top: 0;
                 right: 0;
                 bottom: 0;
-                width: $right-pane-width + $modal-body-margin * 2;
-                overflow-y: scroll;
+                width: $right-pane-width;
+                height: $modal-height - $modal-body-margin * 2;
 
-                ul.thumbnails {
-                    margin: 0 0 10px 0;
+                #character-modal-right-pane-inner-left-pane {
+                    width: $inner-left-pane-width;
+                    height: $modal-height - $modal-body-margin * 2;
 
-                    li {
-                        margin-left: $modal-body-margin;
-                        margin-bottom: $modal-body-margin;
+                    margin-left: 0;
 
-                        a.active {
-                            background-color: #0088cc;
+                    overflow: hidden;
+
+                    #character-modal-costume-set-header {
+                        width: $inner-left-pane-width;
+                    }
+
+                    #character-modal-costume-set-container {
+                        overflow-y: scroll;
+                        width: $inner-left-pane-width;
+                        height: 504px - 20px;
+
+                        .item {
+                            position: relative;
+                            width: $character-size;
+                            height: $character-size;
+
+                            a {
+                                text-decoration: none;
+                                cursor: pointer;
+                                font-size: 1.5em;
+                                vertical-align: middle;
+                                display: table-cell;
+                            }
+
+                            .item-info {
+                                position: absolute;
+                                left: 0;
+                                top: 0;
+                                right: 0;
+                                bottom: 0;
+                                width: $character-size;
+                                height: $character-size;
+
+                                color: gray;
+
+                                .name {
+                                    position: absolute;
+                                    left: $border-size * 2;
+                                    top: $border-size * 2;
+
+                                    font-size: 1.5em;
+                                }
+
+                                .attributes {
+                                    position: absolute;
+                                    left: $border-size * 2;
+                                    bottom: $border-size * 2;
+
+                                    font-size: 0.8em;
+                                    line-height: 1.1em;
+                                    text-align: left;
+                                }
+
+                                a.remove-button {
+                                    position: absolute;
+                                    right: $border-size * 2;
+                                    top: $border-size * 2;
+                                    padding-left: 0.5em;
+                                    padding-bottom: 0.5em;
+
+                                    z-index: 1;
+                                }
+                            }
+                        }
+
+                        .item.active, .item.active.error {
+                            a.costume {
+                                border: $border-size solid $border-color;
+                            }
+                        }
+
+                        .item.error {
+                            a.costume {
+                                border: $border-size solid #b94a48;
+                            }
+                        }
+
+                        a.costume {
+                            position: relative;
+                            overflow: hidden;
+                            display: table-cell;
+                            text-align: center;
+                            vertical-align: middle;
+
+                            width: $character-size - $border-size * 2;
+                            height: $character-size - $border-size * 2;
+
+                            border: $border-size solid white;
+
+                            img, div {
+                                margin: -$border-size;
+                            }
+
+                            img {
+                                max-width: $character-size;
+                                max-height: $character-size;
+                            }
+                        }
+
+                        a.costume:hover {
+                            border: $border-size solid $border-color;
+                        }
+
+                        a#character-modal-add-costume-button {
+                            text-align: center;
+                            vertical-align: middle;
+                            font-size: 1em;
+
+                            border: $border-size dashed lightgray;
+
+                            i {
+                                font-size: 2em;
+                            }
+                        }
+
+                        a#character-modal-add-costume-button:hover {
+                            border: $border-size dashed $border-color;
+                        }
+                    }
+                }
+
+                #character-modal-right-pane-inner-right-pane {
+                    margin-left: $inner-left-pane-width;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    width: $character-size * 3 + $scrollbar-width;
+                    height: 100%;
+
+                    overflow: hidden;
+
+                    #character-modal-costume-selector {
+                        overflow-y: scroll;
+                        height: 504px - 30px - $scrollbar-width;
+
+                        ul.thumbnails {
+                            margin: 0 0 $modal-body-margin 0;
+
+                            li {
+                                margin-left: $modal-body-margin;
+                                margin-bottom: $modal-body-margin;
+
+                                a.active {
+                                    background-color: #0088cc;
+                                }
+                            }
                         }
                     }
                 }

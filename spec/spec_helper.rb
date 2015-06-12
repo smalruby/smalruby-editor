@@ -94,21 +94,13 @@ RSpec.configure do |config|
     }
   end
 
+  Capybara.asset_host = "http://localhost:3000"
+
   config.include JsonSpec::Helpers
   config.include ERB::Util, type: :helper
   config.include ERB::Util, type: :feature
   config.include ActionView::Helpers::JavaScriptHelper, type: :feature
   config.include FeatureHelper, type: :feature
-
-  config.before(:each) do
-    Preference.user_defaults.each do |key, value|
-      Preference[key] = value
-    end
-    Preference.admin_defaults.each do |key, value|
-      Preference[key] = value
-    end
-    Preference["disabled_add_character_from_beginning"] = true
-  end
 
   config.after(javascript: true) do
     page.execute_script('window.onbeforeunload = null')
@@ -136,7 +128,26 @@ RSpec.configure do |config|
     DatabaseRewinder.clean_all
   end
 
+  config.before(:each) do
+    Preference.user_defaults.each do |key, value|
+      Preference[key] = value
+    end
+    Preference.admin_defaults.each do |key, value|
+      Preference[key] = value
+    end
+    Preference["disabled_add_character_from_beginning"] = true
+
+    load(Rails.root.join("db/seeds.rb"))
+  end
+
   config.after :each do
     DatabaseRewinder.clean
+  end
+
+  # for debug
+  config.after(:each, javascript: true, open_on_error: true) do
+    if example.exception.present?
+      save_and_open_page
+    end
   end
 end

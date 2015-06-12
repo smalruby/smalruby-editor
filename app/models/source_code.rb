@@ -73,7 +73,15 @@ class SourceCode < ActiveRecord::Base
 
       doc = Nokogiri::HTML.parse(data)
       if (attr = doc.xpath('//character[1]/@costumes').first)
-        res[:imageUrl] = "/smalruby/assets/#{attr.value}"
+        costumes = attr.value.split(",").map { |s|
+          s.sub(/^[^:]*:/, "")
+        }
+        if (attr = doc.xpath('//character[1]/@costume_index').first)
+          costume_index = attr.value.to_i
+        else
+          costume_index = 0
+        end
+        res[:imageUrl] = "/smalruby/assets/#{costumes[costume_index]}"
       end
       text = doc.xpath('//block[@type="ruby_comment"][1]' +
                        '/field[@name="COMMENT"]/text()').first

@@ -93,7 +93,7 @@
     ならば "#signin-modal" が表示されていること
 
     もし "signin-modal-username" に "1102" を指定する
-    かつ "signin-modal-ok-button" をクリックする
+    かつ "#signin-modal-ok-button" をクリックする
     かつ JavaScriptによる処理が終わるまで待つ
 
     ならば "#signin-modal" が表示されていないこと

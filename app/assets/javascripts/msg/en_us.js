@@ -191,6 +191,7 @@ Blockly.Msg.BLOCKS_RUBY_P = 'p %1';
 
 // blocks/field_character.js.coffee.erb
 Blockly.Msg.BLOCKS_FIELD_CHARACTER_NO_CHARACTER = 'no character';
+Blockly.Msg.BLOCKS_FIELD_CHARACTER_FIRST_COSTUME = 'first costume';
 
 
 // blocks/sound.js.coffee.erb
@@ -214,6 +215,8 @@ Blockly.Msg.BLOCKS_LOOKS_THINK_WITH_SECOND = 'think %1 for %2 secs';
 Blockly.Msg.BLOCKS_LOOKS_SHOW = 'show';
 Blockly.Msg.BLOCKS_LOOKS_HIDE = 'hide';
 Blockly.Msg.BLOCKS_LOOKS_VANISH = 'vanish';
+Blockly.Msg.BLOCKS_LOOKS_NEXT_COSTUME = 'next costume';
+Blockly.Msg.BLOCKS_LOOKS_SWITCH_COSTUME = 'switch costume to %1';
 
 
 // blocks/hardware.js.coffee.erb

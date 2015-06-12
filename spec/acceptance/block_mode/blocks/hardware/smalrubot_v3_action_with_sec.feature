@@ -78,7 +78,7 @@ Feature: hardware_smalrubot_v3_action_with_sec block
 
     Then テキストエディタのプログラムは以下を含むこと:
       """
-      car1 = Character.new(costume: "car1.png", x: 0, y: 0, angle: 0)
+      car1 = Character.new(costume: "costume1:car1.png", x: 0, y: 0, angle: 0)
       car1.smalrubot_v3.forward(sec: 0.5)
       car1.smalrubot_v3.backward(sec: 0.5)
       car1.smalrubot_v3.turn_left(sec: 0.5)

@@ -11,11 +11,13 @@ car1.on(:start) do
   self.visible = true
   self.visible = false
   vanish
+  next_costume
 end
 car1.say(message: "こんにちは！")
 car1.visible = true
 car1.visible = false
 car1.vanish
+car1.next_costume
   EOS
   describe compact_source_code(parts), character_new_data: true do
     _parts = parts
@@ -38,7 +40,11 @@ car1.vanish
                 <next>
                   <block type="looks_hide">
                     <next>
-                      <block type="looks_vanish" />
+                      <block type="looks_vanish">
+                        <next>
+                          <block type="looks_next_costume" />
+                        </next>
+                      </block>
                     </next>
                   </block>
                 </next>
@@ -58,7 +64,11 @@ car1.vanish
                 <next>
                   <block type="looks_hide">
                     <next>
-                      <block type="looks_vanish" />
+                      <block type="looks_vanish">
+                        <next>
+                          <block type="looks_next_costume" />
+                        </next>
+                      </block>
                     </next>
                   </block>
                 </next>

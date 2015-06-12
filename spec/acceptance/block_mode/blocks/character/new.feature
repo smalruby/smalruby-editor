@@ -20,7 +20,7 @@
     """
     require "smalruby"
 
-    car1 = Character.new(costume: "car4.png", x: 300, y: 200, angle: 90)
+    car1 = Character.new(costume: "costume1:car4.png", x: 300, y: 200, angle: 90)
 
     """
 
@@ -48,7 +48,7 @@
     """
     require "smalruby"
 
-    car1 = Character.new(costume: "car4.png", x: 300, y: 200, angle: 90)
+    car1 = Character.new(costume: "costume1:car4.png", x: 300, y: 200, angle: 90)
     car1.move(10)
 
     """
@@ -86,7 +86,7 @@
     """
     require "smalruby"
 
-    car1 = Character.new(costume: "car4.png", x: 300, y: 200, angle: 90)
+    car1 = Character.new(costume: "costume1:car4.png", x: 300, y: 200, angle: 90)
     car1.move(10)
 
     car1.move(5)
@@ -127,8 +127,8 @@
     """
     require "smalruby"
 
-    car1 = Character.new(costume: "car4.png", x: 300, y: 200, angle: 90)
-    cat1 = Character.new(costume: "cat2.png", x: 100, y: 400, angle: 180)
+    car1 = Character.new(costume: "costume1:car4.png", x: 300, y: 200, angle: 90)
+    cat1 = Character.new(costume: "costume1:cat2.png", x: 100, y: 400, angle: 180)
     car1.move(10)
 
     cat1.move(5)

@@ -20,6 +20,34 @@ step ':parent に :name が表示されていないこと' do |parent, name|
   end
 end
 
+step ':parent に次の要素が表示されていること:' do |parent, table|
+  within(name_to(parent)) do
+    table.hashes.each do |h|
+      expect(page.all(name_to(h["selecter"]), visible: true)).not_to be_empty
+    end
+  end
+end
+
+step ':parent に次の要素が表示されていないこと:' do |parent, table|
+  within(name_to(parent)) do
+    table.hashes.each do |h|
+      expect(page.all(name_to(h["selecter"]), visible: true)).to be_empty
+    end
+  end
+end
+
+step ':parent に文字 :text が表示されていること' do |parent, text|
+  within(name_to(parent)) do
+    expect(page).to have_content(text)
+  end
+end
+
+step ':parent に文字 :text が表示されていないこと' do |parent, text|
+  within(name_to(parent)) do
+    expect(page).not_to have_content(text)
+  end
+end
+
 step 'コンボボックス :name の :option_label を選択していること' do
   |name, option_label|
   expect(find(%{select[name="#{name}"] option[selected]}).text)

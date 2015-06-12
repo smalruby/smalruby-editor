@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+require "ostruct"
+
 class EditorController < ApplicationController
   def index
   end
