@@ -124,10 +124,30 @@ Smalruby.CharacterModalView = Backbone.View.extend
   replaceCostumeSelectorHtml_: (html) ->
     @$el.find('#character-modal-costume-selector').replaceWith(html)
 
+    self = @
+    @$el.find('#character-modal-costume-selector a.remove-button').click (e) ->
+      e.preventDefault()
+
+      link = $(@)
+      if confirm(link.attr("data-message"))
+        dfr = $.Deferred()
+        $.ajax
+          url: link.attr("data-url")
+          type: "DELETE"
+          cache: false
+          data: { "_method": "DELETE" },
+          success: (data, textStatus, jqXHR) -> dfr.resolve(data)
+          error: dfr.reject
+        dfr.promise()
+          .then (data) ->
+            self.replaceCostumeSelectorHtml_(data)
+          .fail ->
+            errorMessage(<%= bm('.error_remove_costume') %>)
+
     @$el.find('#character-modal-upload-costume-form').fileupload
-      dataType: 'json'
+      dataType: "html"
       done: (e, data) =>
-        @replaceCostumeSelectorHtml_(data)
+        @replaceCostumeSelectorHtml_(data.result)
 
     @setActiveCostume_()
     @renderCostumeSet_()

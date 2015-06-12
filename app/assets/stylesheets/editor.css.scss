@@ -489,14 +489,17 @@ html {
                             li {
                                 margin-left: $modal-body-margin;
                                 margin-bottom: $modal-body-margin;
-                                cursor: pointer;
+                                position: relative;
+
+                                a {
+                                    text-decoration: none;
+                                    cursor: pointer;
+                                }
 
                                 a#character-modal-upload-costume {
                                     width: $character-size;
                                     height: $character-size;
 
-                                    text-decoration: none;
-                                    cursor: pointer;
                                     vertical-align: middle;
                                     display: table-cell;
                                     text-align: center;
@@ -515,6 +518,18 @@ html {
 
                                 a.active {
                                     background-color: #0088cc;
+                                }
+
+                                a.remove-button {
+                                    font-size: 1.5em;
+                                    position: absolute;
+                                    right: 0;
+                                    top: 0;
+                                    padding-left: 0.5em;
+                                    padding-bottom: 0.5em;
+                                    color: #b94a48;
+
+                                    z-index: 1;
                                 }
                             }
                         }

@@ -1,7 +1,7 @@
 class CostumesController < ApplicationController
   layout false
 
-  before_filter :check_whether_standalone, only: [:create]
+  before_filter :check_whether_standalone, only: [:show, :create, :destroy]
 
   def index
     if signed_in?
@@ -33,6 +33,16 @@ class CostumesController < ApplicationController
     File.open(path, "wb") do |f|
       f.write(costume_params[:file].read)
     end
+
+    index
+
+    render action: "index"
+  end
+
+  def destroy
+    costume = current_user.costumes.where(id: params[:id]).first
+    FileUtils.rm_f(costume.path)
+    costume.destroy
 
     index
 

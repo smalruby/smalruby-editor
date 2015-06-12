@@ -5,10 +5,15 @@
         %li
           %a.thumbnail
             %img{src: "#{costume.url}", alt: "#{costume.basename}"}
-      %li
-        %a#character-modal-upload-costume
-          %i.icon-plus-sign-alt
-          %br
-          = t('.upload_costume')
-        = form_tag(costumes_path, id: "character-modal-upload-costume-form", method: "post", multipart: true) do
-          %input#character-modal-upload-costume-file{type: "file", name: "costume[file]", style: "display: none"}
+            - if !costume.preset?
+              %a.remove-button{"data-url" => "#{costume_path(costume)}", "data-message" => "#{t(".confirm_to_delete_costume")}"}
+                %i.icon-remove
+
+      - if signed_in?
+        %li
+          %a#character-modal-upload-costume
+            %i.icon-plus-sign-alt
+            %br
+            = t('.upload_costume')
+          = form_tag(costumes_path, id: "character-modal-upload-costume-form", method: "post", multipart: true) do
+            %input#character-modal-upload-costume-file{type: "file", name: "costume[file]", style: "display: none"}

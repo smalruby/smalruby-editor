@@ -101,6 +101,7 @@ ja:
   costumes:
     index:
       upload_costume: "新しい画像"
+      confirm_to_delete_costume: "登録した画像を削除します。本当にいいですか？"
 
   users:
     preferences:
