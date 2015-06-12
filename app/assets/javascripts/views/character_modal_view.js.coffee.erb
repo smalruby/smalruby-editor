@@ -39,12 +39,7 @@ Smalruby.CharacterModalView = Backbone.View.extend
       drop: (event, ui) ->
         setPosition(ui.draggable.position())
 
-    @$el.find('input[name="character[name]"]').keypress (e) ->
-      e = window.event if !e
-      if e.keyCode == 13
-        false
-      else
-        true
+    Smalruby.ignoreEnterKey(@$el)
 
     @templateText = $('#character-modal-costume-template').text()
 
