@@ -195,6 +195,7 @@ Blockly.Msg.BLOCKS_RUBY_P = '♠p %1';
 
 // blocks/field_character.js.coffee.erb
 Blockly.Msg.BLOCKS_FIELD_CHARACTER_NO_CHARACTER = 'キャラクターなし';
+Blockly.Msg.BLOCKS_FIELD_CHARACTER_FIRST_COSTUME = '最初のコスチューム';
 
 
 // blocks/sound.js.coffee.erb

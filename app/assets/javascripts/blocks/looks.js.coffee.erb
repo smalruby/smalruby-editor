@@ -107,10 +107,12 @@ Blockly.Ruby['<%= n %>'] = (block) ->
 <% n = "#{category}_switch_costume" %>
 Blockly.Blocks['<%= n %>'] =
   init: ()->
+    @costumeField = new Smalruby.FieldCostume()
+
     @setHelpUrl('')
     @setColour(<%= color %>)
     @interpolateMsg(<%= bm('.switch_costume') %>,
-                    ['COSTUME', new Blockly.FieldTextInput('')],
+                    ['COSTUME', @costumeField],
                     Blockly.ALIGN_RIGHT)
     @setPreviousStatement(true)
     @setNextStatement(true)
