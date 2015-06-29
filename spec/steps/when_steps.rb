@@ -88,16 +88,19 @@ step ':name にフォーカスを移す' do |name|
   JS
 end
 
-step ':filename をロードする' do |filename|
-  step '"ロードボタン" にフォーカスを移す'
-
+step ':field フィールドにファイル :filename を設定する' do |field, filename|
   # HACK: input#load-file[type="file"]は非表示要素であるため、.show()し
   #   ないと見つけられずattach_fileが失敗する
-  page.execute_script("$('#load-file').show()")
+  page.execute_script("$('##{field}').show()")
 
   path = Pathname(fixture_path).join(filename).to_s
   path.gsub!(File::SEPARATOR, File::ALT_SEPARATOR) if windows?
-  attach_file('load-file', path)
+  attach_file(field, path)
+end
+
+step ':filename をロードする' do |filename|
+  step '"ロードボタン" にフォーカスを移す'
+  step %{'load-file' フィールドにファイル '#{filename}' を設定する}
 end
 
 step 'ページをリロードする' do

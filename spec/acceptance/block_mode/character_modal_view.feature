@@ -1,10 +1,12 @@
 # encoding: utf-8
 # language: ja
 @javascript
+@standalone
 @open_on_error
 機能: Character Dialog - キャラクターダイアログ
   背景:
-    前提 'ブロック' タブを表示する
+    前提 '/' にアクセスする
+    かつ ログインする
     かつ '#add-character-button' をクリックする
     かつ JavaScriptによる処理が終わるまで待つ
 
@@ -136,4 +138,27 @@
   シナリオ: キャラクターのコスチュームをアップロードする
     前提 '#character-modal a#character-modal-upload-costume' が表示されていること
 
-    もし 'a#character-modal-upload-costume' をクリックする
+    もし 'character-modal-upload-costume-file' フィールドにファイル 'files/extra_car.png' を設定する
+    かつ JavaScriptによる処理が終わるまで待つ
+
+    ならば ホームディレクトリに '1102/__assets__/extra_car.png' が存在すること
+    かつ '#character-modal-costume-selector .thumbnails li:nth-child(1) img[alt="extra_car.png"][src="/smalruby/assets/extra_car.png"]' が表示されていること
+    かつ '#character-modal-costume-selector .thumbnails li:nth-child(1) a.remove-button' が表示されていること
+
+    もし '#character-modal-costume-selector img[alt="extra_car.png"]' をクリックする
+
+    ならば '#character-modal-character img[alt="extra_car.png"][src="/smalruby/assets/extra_car.png"]' が表示されていること
+    かつ '#character-modal-costume-set > .item:nth-child(1) img[alt="extra_car.png"][src="/smalruby/assets/extra_car.png"]' が表示されていること
+
+    もし '#character-modal-ok-button' をクリックする
+    かつ JavaScriptによる処理が終わるまで待つ
+
+    ならば '#character-selector-character-set > .item:nth-child(1) img[src="/smalruby/assets/extra_car.png"]' が表示されていること
+
+    もし '#character-selector-character-set > .item:nth-child(1) img[src="/smalruby/assets/extra_car.png"]' をクリックする
+    かつ JavaScriptによる処理が終わるまで待つ
+
+    ならば '#character-modal-costume-selector .thumbnails li:nth-child(1) img[alt="extra_car.png"][src="/smalruby/assets/extra_car.png"]' が表示されていること
+    かつ '#character-modal-costume-selector .thumbnails li:nth-child(1) a.remove-button' が表示されていること
+    かつ '#character-modal-character img[alt="extra_car.png"][src="/smalruby/assets/extra_car.png"]' が表示されていること
+    かつ '#character-modal-costume-set > .item:nth-child(1) img[alt="extra_car.png"][src="/smalruby/assets/extra_car.png"]' が表示されていること
