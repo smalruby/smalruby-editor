@@ -91,20 +91,8 @@ describe 'Smalruby.Character', ->
       expect(self.costume()).to.equal('car1.png')
 
   describe '#costumeUrl', ->
-    describe 'プリセットの場合', ->
-      it 'プレフィックスが/smalruby/assets/であること', ->
-        expect(self.costumeUrl()).to.equal('/smalruby/assets/car1.png')
-
-    describe 'プリセットではない場合', ->
-      beforeEach ->
-        self = new klass
-          costumes: [
-            'http://example.com/car1.png'
-            'http://example.com/car2.png'
-          ]
-
-      it 'costumeの値であること', ->
-        expect(self.costumeUrl()).to.equal(self.costume())
+    it 'プレフィックスが/smalruby/assets/であること', ->
+      expect(self.costumeUrl()).to.equal('/smalruby/assets/car1.png')
 
   describe '#nextCostume', ->
     it 'costumeIndexをインクリメントすること', ->
