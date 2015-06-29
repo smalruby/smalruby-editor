@@ -15,7 +15,8 @@ class CostumesController < ApplicationController
   def show
     name = params[:basename].sub(/\.png$/, "")
     costume = current_user.costumes.where(name: name).first
-    send_file costume.path, type: "image/png", disposition: "inline", x_send_file: true
+    send_file costume.path,
+              type: "image/png", disposition: "inline", x_send_file: true
   end
 
   def create
@@ -53,10 +54,5 @@ class CostumesController < ApplicationController
 
   def costume_params
     params.require(:costume).permit(:file)
-  end
-
-  def asset_path(basename)
-    s = "~/#{current_user.name}/__assets__/#{basename}"
-    path = Pathname(s).expand_path
   end
 end
