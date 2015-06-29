@@ -272,7 +272,7 @@ GEM
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
     slop (3.6.0)
-    smalrubot (0.0.7)
+    smalrubot (0.0.6)
       rubyserial
     smalruby (0.1.10)
       activesupport
