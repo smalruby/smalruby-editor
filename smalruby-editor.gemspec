@@ -70,7 +70,7 @@ Gem::Specification.new do |spec|
      ['nokogiri'],
      ['settingslogic'],
      ['acts-as-taggable-on', '~> 3.4'],
-     ['smalruby', '~> 0.1.8'],
+     ['smalruby', '~> 0.1.10'],
     ]
   runtime_dependencies << ['therubyracer'] unless is_windows
   runtime_dependencies.each do |args|

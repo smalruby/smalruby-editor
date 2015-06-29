@@ -82,7 +82,7 @@ GEM
     diff-lcs (1.2.5)
     docile (1.1.5)
     dxruby (1.4.0)
-    dxruby_sdl (0.0.13)
+    dxruby_sdl (0.0.14)
       rsdl
       rubysdl (~> 2.1.3)
     eco (1.0.0)
@@ -272,18 +272,18 @@ GEM
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
     slop (3.6.0)
-    smalrubot (0.0.5)
+    smalrubot (0.0.7)
       rubyserial
-    smalruby (0.1.8)
+    smalruby (0.1.10)
       activesupport
-      dxruby_sdl (~> 0.0.13)
+      dxruby_sdl (~> 0.0.14)
       mime-types (~> 1.6)
-      smalrubot (~> 0.0.5)
-    smalruby (0.1.8-x86-mingw32)
+      smalrubot (~> 0.0.6)
+    smalruby (0.1.10-x86-mingw32)
       activesupport
       dxruby (= 1.4.0)
       mime-types (~> 1.6)
-      smalrubot (~> 0.0.5)
+      smalrubot (~> 0.0.6)
     spring (1.2.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -369,7 +369,7 @@ DEPENDENCIES
   settingslogic
   shared-mime-info
   shoulda-matchers
-  smalruby (~> 0.1.8)
+  smalruby (~> 0.1.10)
   spring
   spring-commands-rspec
   spring-commands-teaspoon
