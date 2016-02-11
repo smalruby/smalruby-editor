@@ -119,7 +119,7 @@ Blockly.Msg.BLOCKS_MOTION_SELF_ANGLE = '■向き';
 
 // blocks/events.js.coffee.erb
 Blockly.Msg.BLOCKS_EVENTS_ON_START = '♣実行ボタンがクリックされたとき';
-Blockly.Msg.BLOCKS_EVENTS_ON_KEY_PUSH_OR_DOWN = '♣キーボードの %1 が %2 のとき';
+Blockly.Msg.BLOCKS_EVENTS_ON_KEY_PUSH_OR_DOWN = '♣キーボードの %1 が %2 とき';
 Blockly.Msg.BLOCKS_EVENTS_ON_CLICK = '♣キャラクターがクリックされたとき';
 Blockly.Msg.BLOCKS_EVENTS_ON_HIT = '♣%1 にぶつかったとき';
 
