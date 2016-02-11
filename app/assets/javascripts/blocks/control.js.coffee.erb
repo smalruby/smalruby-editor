@@ -123,7 +123,7 @@ Blockly.Blocks['<%= n %>'] =
     @setTooltip('')
 
 Blockly.Ruby['<%= n %>'] = (block) ->
-  count = Blockly.Ruby.valueToCode(@, 'COUNT', Blockly.Ruby.ORDER_NONE) || 0
+  count = Blockly.Ruby.valueToCode(@, 'COUNT', Blockly.Ruby.ORDER_STRING_CONVERSION) || 0
   branch = Blockly.Ruby.statementToCode(block, 'DO') || '\n'
   "#{count}.times do\n" + branch + 'end\n'
 
