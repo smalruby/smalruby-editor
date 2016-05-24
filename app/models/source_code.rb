@@ -150,13 +150,13 @@ class SourceCode < ActiveRecord::Base
     tempfile.close
 
     Bundler.with_clean_env do
-      Open3.capture3("#{ruby_cmd} -c #{path}")
+      Open3.capture3(*[ruby_cmd, '-c', path].map(&:to_s))
     end
   end
 
   def open3_capture3_run_program(path, env)
     Bundler.with_clean_env do
-      Open3.capture3(env, "#{ruby_cmd} #{path}")
+      Open3.capture3(env, *[ruby_cmd, path].map(&:to_s))
     end
   end
 
