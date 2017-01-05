@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.5'
+ruby '2.3.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
@@ -90,6 +90,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'test-unit'
   gem 'shoulda-matchers'
   gem 'capybara'
   gem 'selenium-webdriver'

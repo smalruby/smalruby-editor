@@ -3,7 +3,7 @@ language: ruby
 cache: bundler
 
 rvm:
-  - 2.1.5
+  - 2.3.3
 
 env:
   AUDIODEV=null
