@@ -10,11 +10,15 @@ env:
   COVERALLS='1'
 
 before_install:
- - sudo apt-get update -qq
- - sudo apt-get install -qq libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev timidity libsdl-ttf2.0-dev libsdl-sge-dev fonts-horai-umefont fonts-ipafont
- - gem update bundler
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev timidity libsdl-ttf2.0-dev libsdl-sge-dev fonts-horai-umefont fonts-ipafont
+  - gem update bundler
 
 before_script:
+  - mkdir travis-phantomjs
+  - wget https://assets.membergetmember.co/software/phantomjs-2.1.1-linux-x86_64.tar.bz2 -O $PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2
+  - tar -xvf $PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2 -C $PWD/travis-phantomjs
+  - export PATH=$PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64/bin:$PATH
   - cp config/database.yml.travis config/database.yml
   - mysql -e 'create database myapp_test;'
 
