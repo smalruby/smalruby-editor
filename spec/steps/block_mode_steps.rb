@@ -63,5 +63,6 @@ step '次のXMLと同等のブロックが配置されていること:' do |xml|
 end
 
 step 'ブロックが配置されていないこと' do
-  send '次のXMLと同等のブロックが配置されていること:', '<xml></xml>'
+  send('次のXMLと同等のブロックが配置されていること:',
+       '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>')
 end

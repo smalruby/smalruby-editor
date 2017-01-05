@@ -25,7 +25,7 @@
 
     ならば 次のXMLと同等のブロックが配置されていること:
       """
-      <xml>
+      <xml xmlns="http://www.w3.org/1999/xhtml">
         <block type="ruby_statement" id="1" x="0" y="0">
           <field name="STATEMENT">stage1 = Stage.new(color: "white")</field>
         </block>
@@ -42,10 +42,7 @@
     かつ JavaScriptによるリクエストが終わるまで待つ
     かつ ページをリロードする
 
-    ならば 次のXMLと同等のブロックが配置されていること:
-       """
-       <xml></xml>
-       """
+    ならば ブロックが配置されていないこと
     かつ "プログラム名の入力欄" は "" であること
 
   シナリオ: プログラムを変更した状態でブロックモードからRubyモードに切り替えてページを遷移する
@@ -64,7 +61,7 @@
 
     ならば 次のXMLと同等のブロックが配置されていること:
       """
-      <xml>
+      <xml xmlns="http://www.w3.org/1999/xhtml">
         <block type="ruby_statement" id="1" x="0" y="0">
           <field name="STATEMENT">stage1 = Stage.new(color: "white")</field>
         </block>
@@ -152,7 +149,7 @@
 
     ならば 次のXMLと同等のブロックが配置されていること:
       """
-      <xml>
+      <xml xmlns="http://www.w3.org/1999/xhtml">
         <block type="ruby_statement" id="1" x="0" y="0">
           <field name="STATEMENT">stage1 = Stage.new(color: "white")</field>
         </block>

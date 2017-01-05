@@ -70,7 +70,7 @@
     かつ ホームディレクトリに "<保存したファイルの名前>" が存在すること
     かつ ホームディレクトリの "<保存したファイルの名前>" が次の内容であること:
       """
-      <xml>
+      <xml xmlns="http://www.w3.org/1999/xhtml">
         <character x="300" y="200" name="car1" costumes="costume1:car4.png" angle="90"></character>
         <block type="character_new" id="1" x="0" y="0">
           <field name="NAME">car1</field>

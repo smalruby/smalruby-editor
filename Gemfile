@@ -93,7 +93,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
   gem 'selenium-webdriver'
-  gem 'poltergeist'
+  gem 'poltergeist', '1.6.0'
   gem 'turnip'
   gem 'coveralls', require: false
   gem 'json_spec'

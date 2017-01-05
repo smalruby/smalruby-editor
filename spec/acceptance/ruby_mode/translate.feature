@@ -27,7 +27,7 @@
 
     ならば 次のXMLと同等のブロックが配置されていること:
       """
-      <xml>
+      <xml xmlns="http://www.w3.org/1999/xhtml">
         <character x="0" y="0" name="car1" costumes="costume1:car1.png" angle="0"></character>
         <block type="character_new" id="1" x="0" y="0">
           <field name="NAME">car1</field>
