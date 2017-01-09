@@ -74,6 +74,7 @@ module Rails
     def default_options
       super.merge({
         Port:         8087,
+        Host:         '127.0.0.1',
         DoNotReverseLookup:  true,
         environment:  (ENV['RAILS_ENV'] || ENV['RACK_ENV'] || "development").dup,
         daemonize:    false,
