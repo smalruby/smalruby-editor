@@ -64,7 +64,7 @@ end
 
 group :production do
   # Use mysql as the database for Active Record
-  gem 'mysql2'
+  gem 'mysql2', '~> 0.3.21'
 
   gem 'rails_12factor'
   gem 'unicorn', platforms: :ruby
